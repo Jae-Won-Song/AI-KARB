@@ -1,0 +1,49 @@
+@mixin text-style($size, $color: false, $weight: false) {
+  @if ($size == 14) {
+    font-size: $font-size-14;
+  }
+
+  @if ($size == 16) {
+    font-size: $font-size-16;
+  }
+
+  @if ($size == 18) {
+    font-size: $font-size-18;
+  }
+
+  @if ($size == 20) {
+    font-size: $font-size-20;
+  }
+
+  @if ($size == 24) {
+    font-size: $font-size-24;
+  }
+
+  @if ($size == 28) {
+    font-size: $font-size-28;
+  }
+
+  @if ($size == 36) {
+    font-size: $font-size-36;
+  }
+
+  @if ($size == 42) {
+    font-size: $font-size-42;
+  }
+
+  @if ($size == 60) {
+    font-size: $font-size-60;
+  }
+
+  @if ($size == 88) {
+    font-size: $font-size-88;
+  }
+
+  @if (type-of($color) == 'color') {
+    color: $color;
+  }
+
+  @if (type-of($weight) == 'number') {
+    font-weight: $weight;
+  }
+}
