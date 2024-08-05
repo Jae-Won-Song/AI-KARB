@@ -1,3 +1,5 @@
+import React from 'react';
+
 type SidebarSectionProps = {
   icon: string;
   iconSelected: string;
