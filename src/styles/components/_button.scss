@@ -1,0 +1,36 @@
+.button__wrapper {
+  @include flex(flex center);
+  width: 100%;
+  justify-content: space-between;
+}
+
+.Button {
+  @include flex(flex, center);
+  @include text-style(17, $white, 400);
+  padding: 0 1rem;
+  line-height: 1.5;
+  border-radius: 8px;
+  background-color: $primary-50;
+  gap: 4px;
+
+  // figma 이펙트 추가시 수정 예정
+  // &:active {
+  //   background-color: $primary-5;
+  //   transition: 0.5s;
+  // }
+
+  &.small {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  &.medium {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  &.large {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+}
