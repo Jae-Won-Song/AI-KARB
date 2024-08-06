@@ -1,0 +1,18 @@
+.pagination__container {
+  @include flex(start, center);
+  align-items: center;
+  margin: 20px 0;
+  &__button {
+    font-weight: 400;
+    color: $grayscale-70;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .active {
+    font-weight: 700;
+    color: $information-70;
+    border-radius: 6px;
+  }
+}
