@@ -1,104 +1,83 @@
-.sidebar-container {
-  width: 280px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  border: 1px solid lightblue; // 지울거임
-  @include column-flex(center, start);
-
-  &__logo-box {
-    padding: 58px 54.4px 88px 48px;
-    cursor: pointer;
-  }
-
-  &__content {
-    flex: 1;
-    overflow-y: hidden;
-    padding-bottom: 370px;
-  }
-
-  &__menu-title-box {
-    @include flex(start);
-    position: relative;
-    padding-left: 12px;
-    &__slide-bar {
-      width: 5px;
-      height: 48px;
-      margin-right: 10px;
-      background: $primary-50;
-      border-radius: 0 4px 4px 0;
-      position: absolute;
-      left: 0;
-      display: none;
-    }
-
-    &__title {
-      @include flex(start, center);
-      width: 222px;
-      height: 48px;
-      padding-left: 12px;
-      border-radius: 8px;
+.sidebar {
+  &__container {
+    width: 280px;
+    height: 100vh;
+    border: 1px solid royalblue; //지울거임
+    background: #f0f4f8;
+    &__logo-box {
+      @include flex;
+      height: 121px;
       cursor: pointer;
-
-      &__content {
-        padding-left: 12px;
-      }
-
-      &__icon {
-        fill: none;
-        stroke: currentColor;
-      }
     }
-
-    &.selected &__title {
-      background: #029eeb;
-      color: white;
+    &__logo-border {
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(224, 225, 226, 0) 0%, #006597 50%, rgba(224, 225, 226, 0.15625) 100%);
+      margin-bottom: 45px;
     }
-  }
+    &__nav-box {
+      height: 676px;
+      &__user {
+        height: 240px;
+        &-nav {
+          @include flex(start, center);
+          height: 48px;
+          cursor: pointer;
+          &:hover {
+            margin-left: 15px;
+            width: 235px;
+            border-radius: 8px;
+            background: #e3eaf1;
+          }
 
-  &__menu-title-box.active .sidebar-container__menu-title-box__slide-bar {
-    display: block;
-  }
-
-  &__item {
-    @include flex(start, center);
-    width: 250px;
-    height: 40px;
-    padding: 10px 0 10px 30px;
-    cursor: pointer;
-
-    &.selected {
-      color: $primary-50;
-    }
-
-    &__content {
-      padding-left: 12px;
-    }
-  }
-  &__footer-container {
-    width: 100%;
-    height: 370px;
-    &__box {
-      height: 280px;
-    }
-    &__avatar-area {
-      border-top: 1px solid lightblue;
-      &__content {
-        @include flex;
-        padding: 20px 30px;
-        &-avatar {
-          @include flex;
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background: #d4e1ff;
-          margin-right: 12px;
+          &-bar {
+            width: 5px;
+            height: 48px;
+            border-radius: 0 4px 4px 0;
+            background: #e3eaf1;
+            margin-right: 10px;
+          }
+          &-icon {
+            margin-left: 13px;
+          }
+          &-title {
+            color: #717171;
+            margin-left: 12px;
+          }
         }
-        &-nameClass {
-          @include column-flex(center, start);
-          width: 122px;
-          margin-right: 12px;
+      }
+      &__manager {
+        margin-top: 146px;
+        height: 248px;
+        &-nav {
+          @include flex(start, center);
+          cursor: pointer;
+          height: 48px;
+          &-bar {
+            width: 5px;
+            height: 48px;
+            border-radius: 0 4px 4px 0;
+            background: #e3eaf1;
+            margin-right: 10px;
+          }
+          &-icon {
+            margin-left: 13px;
+          }
+          &-title {
+            width: 137px;
+            color: #717171;
+            margin: 0 12px;
+          }
+          &-arrow {
+          }
+        }
+      }
+      &__list {
+        margin-top: 16px;
+        &-item {
+          height: 20px;
+          margin: 10px 0 10px 30px;
+          color: #717171;
         }
       }
     }
