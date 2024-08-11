@@ -2,82 +2,116 @@
   &__container {
     width: 280px;
     height: 100vh;
-    border: 1px solid royalblue; //지울거임
-    background: #f0f4f8;
+    background: #006597;
+
     &__logo-box {
       @include flex;
-      height: 121px;
-      cursor: pointer;
+      padding: 49px 60px 45px 55px;
+
+      &__logo {
+        @include flex;
+        @include text-style(19, white, 400);
+        font-style: normal;
+      }
     }
-    &__logo-border {
-      border: none;
-      height: 2px;
-      background: linear-gradient(90deg, rgba(224, 225, 226, 0) 0%, #006597 50%, rgba(224, 225, 226, 0.15625) 100%);
-      margin-bottom: 45px;
+
+    &__border {
+      width: 233.25px;
+      height: 1px;
+      background: linear-gradient(to right, rgba(224, 225, 226, 0) 0%, white 50%, rgba(224, 225, 226, 0.15625) 100%);
+      margin: 0 23.75px 0 23px;
+      margin-bottom: 46px;
     }
+
     &__nav-box {
-      height: 676px;
-      &__user {
-        height: 240px;
-        &-nav {
-          @include flex(start, center);
+      height: 240px;
+      margin-bottom: 146px;
+
+      &__item {
+        @include flex(start, center);
+        cursor: pointer;
+        height: 48px;
+
+        &-bar {
+          width: 5px;
           height: 48px;
-          cursor: pointer;
-          &:hover {
-            margin-left: 15px;
-            width: 235px;
-            border-radius: 8px;
-            background: #e3eaf1;
+          margin-right: 10px;
+          border-radius: 0 4px 4px 0;
+          background: white;
+        }
+
+        &-area {
+          @include flex(start, center);
+          @include text-style(15, white, 400);
+          width: 222px;
+          height: 100%;
+          padding-left: 13px;
+          border-radius: 8px;
+
+          &:active {
+            background: white;
+            color: #006597;
           }
 
-          &-bar {
-            width: 5px;
-            height: 48px;
-            border-radius: 0 4px 4px 0;
-            background: #e3eaf1;
-            margin-right: 10px;
-          }
-          &-icon {
-            margin-left: 13px;
-          }
-          &-title {
-            color: #717171;
-            margin-left: 12px;
+          &__icon {
+            margin-right: 12px;
           }
         }
       }
-      &__manager {
-        margin-top: 146px;
-        height: 248px;
-        &-nav {
-          @include flex(start, center);
-          cursor: pointer;
+    }
+
+    &__admin-nav {
+      height: 248px;
+
+      &__item {
+        @include flex(start, center);
+        cursor: pointer;
+        height: 48px;
+
+        &-bar {
+          width: 5px;
           height: 48px;
-          &-bar {
-            width: 5px;
-            height: 48px;
-            border-radius: 0 4px 4px 0;
-            background: #e3eaf1;
-            margin-right: 10px;
+          margin-right: 10px;
+          border-radius: 0 4px 4px 0;
+          background: white;
+        }
+
+        &-area {
+          @include flex(start, center);
+          @include text-style(15, white, 400);
+          width: 222px;
+          height: 100%;
+          padding-left: 13px;
+          border-radius: 8px;
+
+          &:hover {
+            background: white;
+            color: #006597;
           }
-          &-icon {
-            margin-left: 13px;
-          }
-          &-title {
-            width: 137px;
-            color: #717171;
-            margin: 0 12px;
-          }
-          &-arrow {
+
+          &__icon {
+            margin-right: 12px;
           }
         }
       }
-      &__list {
-        margin-top: 16px;
-        &-item {
-          height: 20px;
-          margin: 10px 0 10px 30px;
-          color: #717171;
+
+      &__items {
+        @include flex(start, center);
+        cursor: pointer;
+        height: 20px;
+        padding: 20px 0 20px 30px;
+        @include text-style(15, white, 400);
+
+        &::before {
+          content: '·';
+          color: white;
+          font-size: 1.5rem;
+          margin-right: 10px;
+        }
+        &__title {
+          &:active {
+            text-decoration: underline;
+          }
         }
       }
     }
