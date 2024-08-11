@@ -3,9 +3,11 @@ import Header from './Header/Header';
 
 const Layout = () => {
   return (
-    <div>
+    <div className="container">
       <SideBar />
-      <Header />
+      <div className="container__column">
+        <Header />
+      </div>
     </div>
   );
 };

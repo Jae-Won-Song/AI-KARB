@@ -1,9 +1,6 @@
 .header {
   &__container {
     @include flex(between, center);
-    position: fixed;
-    top: 0;
-    left: 280px;
     width: 1640px;
     height: 120px;
     padding-left: 30px;

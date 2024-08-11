@@ -1,0 +1,6 @@
+.container {
+  @include flex(start, start);
+  &__column {
+    @include column-flex(start, center);
+  }
+}

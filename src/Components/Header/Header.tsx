@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header__container">
-        <div className="header__container__title">대시보드</div>
+        <div className="header__container__title">마이페이지</div>
         <div className="header__container__admin-box">
           <div className="header__container__admin-box-picture">K</div>
           <div className="header__container__admin-box__content-box">
