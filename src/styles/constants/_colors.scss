@@ -1,26 +1,19 @@
 // primary
-$primary-5: #eff5ff;
-$primary-10: #d3e1fb;
-$primary-20: #a7c4f7;
-$primary-30: #7ca6f3;
-$primary-40: #5089ef;
-$primary-50: #246beb;
-$primary-60: #1d56bc;
-$primary-70: #16408d;
-$primary-80: #0e2b5e;
-$primary-90: #07152f;
+$primary-50: #029eeb;
+$primary-60: #006597;
+$primary-70: #003c5a;
 
 // secondary
-$secondary-5: #edf1f5;
-$secondary-10: #cdd7e4;
-$secondary-20: #b4c4d6;
+$secondary-1: #f7f9fb;
+$secondary-5: #f0f4f8;
 $secondary-30: #99b0cb;
-$secondary-40: #2a5c96;
-$secondary-50: #003675;
-$secondary-60: #002b5e;
-$secondary-70: #002046;
-$secondary-80: #00162f;
-$secondary-90: #000b17;
+$secondary-50: #505e70;
+$secondary-60: #293647;
+$secondary-70: #1c2127;
+
+// tertiary
+$tertiary-5: #c1cfe4;
+$tertiary-50: #006597;
 
 // grayscale
 $grayscale-5: #f8f8f8;
@@ -35,53 +28,29 @@ $grayscale-80: #2d2d2d;
 $grayscale-90: #1d1d1d;
 
 // Point color
-// danger
-$danger-5: #feecf0;
-$danger-10: #fcd4de;
-$danger-20: #f799b1;
-$danger-30: #f36689;
-$danger-40: #ef3e5e;
-$danger-50: #eb003b;
-$danger-60: #d50136;
-$danger-70: #8d0023;
-$danger-80: #5e0018;
-$danger-90: #2f000c;
+// Information
+$information-5: #d4e1ff;
+$information-10: #2768ff;
+$information-50: #1f53cc;
+$information-60: #1f53cc;
 
-// warning
+// Warning
 $warning-5: #fff8e9;
 $warning-10: #ffeac1;
-$warning-20: #ffe2a7;
-$warning-30: #ffd47c;
-$warning-40: #ffc550;
 $warning-50: #ffb724;
 $warning-60: #98690a;
-$warning-70: #66490e;
-$warning-80: #4d370b;
-$warning-90: #332507;
 
-// success
+// Danger
+$danger-5: #fddfe6;
+$danger-10: #fcd4de;
+$danger-50: #eb003b;
+$danger-60: #d50136;
+
+// Success
 $success-5: #eef7f0;
 $success-10: #cee9d4;
-$success-20: #b2dcbb;
-$success-30: #8cca99;
-$success-40: #33a14b;
 $success-50: #008a1e;
 $success-60: #006e18;
-$success-70: #005312;
-$success-80: #00370c;
-$success-90: #002207;
-
-// information
-$information-5: #e9f0ff;
-$information-10: #d4e1ff;
-$information-20: #a9c3ff;
-$information-30: #7da4ff;
-$information-40: #5286ff;
-$information-50: #2768ff;
-$information-60: #1f53cc;
-$information-70: #173e99;
-$information-80: #0c1f4d;
-$information-90: #040a1a;
 
 // others
 $white: #fff;
