@@ -1,0 +1,27 @@
+.Input {
+  width: 100%;
+  height: 4.815vh;
+  padding: 0 0.833vw;
+  border: 1px solid $grayscale-20;
+  border-radius: 8px;
+
+  background-color: $grayscale-5;
+
+  outline: none;
+
+  &:focus {
+    border: 1px solid $primary-50;
+    box-sizing: border-box;
+
+    background-color: #f0f4f8;
+  }
+
+  &:focus:not(:placeholder-shown) {
+    border: 1px solid $primary-50;
+    background-color: #f0f4f8; // 색 constants 정해지면 수정
+  }
+
+  &:not(:placeholder-shown) {
+    border: 1px solid $grayscale-50;
+  }
+}
