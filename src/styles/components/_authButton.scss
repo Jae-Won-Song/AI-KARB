@@ -1,0 +1,17 @@
+.authButton {
+  width: 20.833vw;
+  height: 5.926vh;
+  padding: 0 1.25vw;
+  background-color: $primary-50;
+  border: none;
+  border-radius: 8px;
+
+  font-size: 19px;
+
+  color: white;
+
+  &:disabled {
+    background-color: $grayscale-30;
+    color: $grayscale-60;
+  }
+}
