@@ -1,5 +1,5 @@
 .Input {
-  width: 100%;
+  width: 20.833vw;
   height: 4.815vh;
   padding: 0 0.833vw;
   border: 1px solid $grayscale-20;
@@ -23,5 +23,9 @@
 
   &:not(:placeholder-shown) {
     border: 1px solid $grayscale-50;
+  }
+
+  &.small {
+    width: 14.792vw;
   }
 }
