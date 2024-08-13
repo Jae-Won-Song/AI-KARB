@@ -1,0 +1,119 @@
+.sidebar {
+  &__container {
+    width: 280px;
+    height: 100vh;
+    background: #006597;
+
+    &__logo-box {
+      @include flex;
+      padding: 49px 60px 45px 55px;
+
+      &__logo {
+        @include flex;
+        @include text-style(19, white, 400);
+        font-style: normal;
+      }
+    }
+
+    &__border {
+      width: 233.25px;
+      height: 1px;
+      background: linear-gradient(to right, rgba(224, 225, 226, 0) 0%, white 50%, rgba(224, 225, 226, 0.15625) 100%);
+      margin: 0 23.75px 0 23px;
+      margin-bottom: 46px;
+    }
+
+    &__nav-box {
+      height: 240px;
+      margin-bottom: 146px;
+
+      &__item {
+        @include flex(start, center);
+        cursor: pointer;
+        height: 48px;
+
+        &-bar {
+          width: 5px;
+          height: 48px;
+          margin-right: 10px;
+          border-radius: 0 4px 4px 0;
+          background: white;
+        }
+
+        &-area {
+          @include flex(start, center);
+          @include text-style(15, white, 400);
+          width: 222px;
+          height: 100%;
+          padding-left: 13px;
+          border-radius: 8px;
+
+          &:active {
+            background: white;
+            color: #006597;
+          }
+
+          &__icon {
+            margin-right: 12px;
+          }
+        }
+      }
+    }
+
+    &__admin-nav {
+      height: 248px;
+
+      &__item {
+        @include flex(start, center);
+        cursor: pointer;
+        height: 48px;
+
+        &-bar {
+          width: 5px;
+          height: 48px;
+          margin-right: 10px;
+          border-radius: 0 4px 4px 0;
+          background: white;
+        }
+
+        &-area {
+          @include flex(start, center);
+          @include text-style(15, white, 400);
+          width: 222px;
+          height: 100%;
+          padding-left: 13px;
+          border-radius: 8px;
+
+          &:hover {
+            background: white;
+            color: #006597;
+          }
+
+          &__icon {
+            margin-right: 12px;
+          }
+        }
+      }
+
+      &__items {
+        @include flex(start, center);
+        cursor: pointer;
+        height: 20px;
+        padding: 20px 0 20px 30px;
+        @include text-style(15, white, 400);
+
+        &::before {
+          content: '·';
+          color: white;
+          font-size: 1.5rem;
+          margin-right: 10px;
+        }
+        &__title {
+          &:active {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
