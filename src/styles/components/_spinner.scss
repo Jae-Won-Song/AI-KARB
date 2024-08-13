@@ -1,0 +1,23 @@
+.spinner {
+  @include flex(center center);
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  &__main {
+    background: conic-gradient(from 90deg, #029eeb, white 75%);
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    position: relative;
+  }
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  0% {
+    transform: rotate(360deg);
+  }
+}
