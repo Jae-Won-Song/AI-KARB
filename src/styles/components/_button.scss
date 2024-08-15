@@ -1,36 +1,53 @@
 .button__wrapper {
-  @include flex(flex center);
+  @include flex(between, center);
   width: 100%;
-  justify-content: space-between;
 }
 
 .Button {
-  @include flex(flex, center);
-  @include text-style(17, $white, 400);
-  padding: 0 1rem;
-  line-height: 1.5;
-  border-radius: 8px;
-  background-color: $primary-50;
-  gap: 4px;
+  display: flex;
+  width: 6.5rem;
+  height: 3.25rem;
+  padding: 0rem var(--16, 1rem);
+  justify-content: center;
+  align-items: center;
+  gap: var(--4, 0.25rem);
+  flex-shrink: 0;
+  border-radius: var(--8, 0.5rem);
 
-  // figma 이펙트 추가시 수정 예정
-  // &:active {
-  //   background-color: $primary-5;
-  //   transition: 0.5s;
-  // }
-
-  &.small {
-    padding: 4px 8px;
-    font-size: 12px;
+  &__default {
+    background-color: $primary-50;
+    color: white;
+    &:active {
+      background-color: $primary-70;
+    }
   }
 
-  &.medium {
-    padding: 8px 16px;
-    font-size: 14px;
+  &__disabled {
+    background-color: $grayscale-30;
+    color: $grayscale-60;
+    cursor: not-allowed;
   }
 
-  &.large {
-    padding: 12px 24px;
-    font-size: 16px;
+  &__defaultWhite {
+    border: solid 1px $primary-50;
+    color: $primary-50;
+    background-color: white;
+    &:active {
+      background-color: $primary-70;
+      color: white;
+      border: none;
+    }
+  }
+
+  &__defaultGray {
+    background-color: white;
+    color: $grayscale-70;
+    border: solid 1px $grayscale-40;
+
+    &:active {
+      background-color: $primary-70;
+      color: white;
+      border: none;
+    }
   }
 }

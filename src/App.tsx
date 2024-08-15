@@ -5,14 +5,17 @@ import Button from './components/Button';
 const App = () => {
   return (
     <div className="button__wrapper">
-      <Button type="button" size="medium" color="">
-        midium
+      <Button state="default" type="button">
+        Button
       </Button>
-      <Button type="button" size="large" color="">
-        large
+      <Button state="disabled" type="button">
+        Button
       </Button>
-      <Button type="button" size="small" color="">
-        small
+      <Button state="default_white" type="button">
+        Button
+      </Button>
+      <Button state="default_gray" type="button">
+        Button
       </Button>
     </div>
   );
