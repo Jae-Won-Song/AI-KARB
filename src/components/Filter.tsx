@@ -14,12 +14,19 @@ const Filter = () => {
   };
 
   return (
-    <button className={`filterBtn ${isActive ? 'filterBtn--active' : ''}`} onClick={toggleActive} onBlur={handleBlur}>
-      <span className="filterBtn__span">필터</span>
-      <div className="filterBtn__icon">
-        <img src={isActive ? FilterIconActive : FilterIcon} alt="필터 이미지" />
-      </div>
-    </button>
+    <div className="filter">
+      <button
+        className={`filter__filterBtn ${isActive ? 'filter__filterBtn--active' : ''}`}
+        onClick={toggleActive}
+        onBlur={handleBlur}
+      >
+        <span className="filter__filterBtn__span">필터</span>
+        <div className="filter__filterBtn__icon">
+          <img src={isActive ? FilterIconActive : FilterIcon} alt="필터 이미지" />
+        </div>
+      </button>
+      {isActive && <div className="filter__dropdown">드롭다운</div>}
+    </div>
   );
 };
 
