@@ -25,6 +25,7 @@ const SortFilter = () => {
           <img src={isActive ? SortIconActive : SortIcon} alt="정렬 이미지" />
         </div>
       </button>
+      {isActive && <div className="sort__dropdown">드롭다운</div>}
     </div>
   );
 };
