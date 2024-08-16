@@ -28,7 +28,7 @@
 
           background-color: $white;
 
-          &:focus {
+          &.focused {
             font-weight: 700;
             color: $primary-50;
 
