@@ -1,11 +1,19 @@
+import { useState } from 'react';
 import FilterIcon from '../assets/icon-filter.svg';
+import FilterIconActive from '../assets/icon-filter-a.svg';
 
 const Filter = () => {
+  const [isActive, setIsActive] = useState(false);
+
+  const toggleActive = () => {
+    setIsActive(!isActive);
+  };
+
   return (
-    <button className="filterBtn">
+    <button className={`filterBtn ${isActive ? 'filterBtn--active' : ''}`} onClick={toggleActive}>
       <span className="filterBtn__span">필터</span>
       <div className="filterBtn__icon">
-        <img src={FilterIcon} alt="필터 이미지" />
+        <img src={isActive ? FilterIconActive : FilterIcon} alt="필터 이미지" />
       </div>
     </button>
   );

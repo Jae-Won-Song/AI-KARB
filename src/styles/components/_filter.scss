@@ -20,4 +20,12 @@
     width: 0.833vw;
     height: 1.574vh;
   }
+
+  &--active {
+    border: 1px solid $primary-50;
+
+    .filterBtn__span {
+      color: $primary-50;
+    }
+  }
 }
