@@ -13,8 +13,6 @@
       @include column-flex(between, center);
 
       width: 20.833vw;
-      height: 29.259vh;
-
       margin-left: 14.063vw;
 
       &_title {
@@ -41,8 +39,9 @@
 
       &_input {
         @include column-flex(between, between);
+        gap: 12px;
 
-        height: 10.741vh;
+        margin: 3.704vh;
 
         &_inner {
           @include flex;
@@ -52,7 +51,7 @@
 
           button {
             width: 5.417vw;
-            height: 100%;
+            height: 4.815vh;
             box-sizing: border-box;
             border: none;
             background-color: $grayscale-30;
