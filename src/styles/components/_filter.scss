@@ -1,0 +1,23 @@
+.filterBtn {
+  @include inline-flex;
+  flex-shrink: 0;
+
+  height: 3.704vh;
+  padding: 0 0.833vw;
+  border: 1px solid $grayscale-30;
+  border-radius: 8px;
+
+  background-color: $white;
+
+  gap: 0.625vw;
+
+  &__span {
+    font-size: 17px;
+    color: $grayscale-70;
+  }
+
+  &__icon {
+    width: 0.833vw;
+    height: 1.574vh;
+  }
+}
