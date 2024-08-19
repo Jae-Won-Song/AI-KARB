@@ -12,13 +12,15 @@ const SubMenu = ({ text, isActive, onClick }: SubMenuProps) => {
       style={{
         color: 'white',
         textDecoration: 'none',
-      }}>
+      }}
+    >
       <span className="dot">·</span>
       <span
         className="sidebar__container__admin-nav__items__title"
         style={{
           textDecoration: isActive ? 'underline' : 'none',
-        }}>
+        }}
+      >
         {text}
       </span>
     </div>
