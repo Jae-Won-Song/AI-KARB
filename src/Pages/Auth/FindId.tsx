@@ -29,7 +29,7 @@ const FindId = () => {
                 <div className="findId__wrapper__box_input_inner">
                   <Input placeholder="연락처('-'을 제외한 숫자만 입력)" size="small" />
                   <Button type="button" state="disabled">
-                    인증요청
+                    인증요쳥
                   </Button>
                 </div>
               </>
@@ -41,7 +41,7 @@ const FindId = () => {
                 <div className="findId__wrapper__box_input_inner">
                   <Input placeholder="연락처('-'을 제외한 숫자만 입력)" size="small" />
                   <Button type="button" state="disabled">
-                    인증요청
+                    인증요쳥
                   </Button>
                 </div>
               </>
