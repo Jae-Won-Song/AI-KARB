@@ -1,104 +1,112 @@
-.sidebar-container {
-  width: 280px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  border: 1px solid lightblue; // 지울거임
-  @include column-flex(center, start);
+.sidebar {
+  &__container {
+    width: 280px;
+    height: 100vh;
+    background: #006597;
 
-  &__logo-box {
-    padding: 58px 54.4px 88px 48px;
-    cursor: pointer;
-  }
+    &__logo-box {
+      display: flex;
+      padding: 49px 60px 45px 55px;
 
-  &__content {
-    flex: 1;
-    overflow-y: hidden;
-    padding-bottom: 370px;
-  }
-
-  &__menu-title-box {
-    @include flex(start);
-    position: relative;
-    padding-left: 12px;
-    &__slide-bar {
-      width: 5px;
-      height: 48px;
-      margin-right: 10px;
-      background: $primary-50;
-      border-radius: 0 4px 4px 0;
-      position: absolute;
-      left: 0;
-      display: none;
-    }
-
-    &__title {
-      @include flex(start, center);
-      width: 222px;
-      height: 48px;
-      padding-left: 12px;
-      border-radius: 8px;
-      cursor: pointer;
-
-      &__content {
-        padding-left: 12px;
-      }
-
-      &__icon {
-        fill: none;
-        stroke: currentColor;
+      &__logo {
+        display: flex;
       }
     }
 
-    &.selected &__title {
-      background: #029eeb;
-      color: white;
-    }
-  }
-
-  &__menu-title-box.active .sidebar-container__menu-title-box__slide-bar {
-    display: block;
-  }
-
-  &__item {
-    @include flex(start, center);
-    width: 250px;
-    height: 40px;
-    padding: 10px 0 10px 30px;
-    cursor: pointer;
-
-    &.selected {
-      color: $primary-50;
+    &__border {
+      width: 233.25px;
+      height: 1px;
+      background: linear-gradient(to right, rgba(224, 225, 226, 0) 0%, white 50%, rgba(224, 225, 226, 0.15625) 100%);
+      margin: 0 23.75px 0 23px;
+      margin-bottom: 46px;
     }
 
-    &__content {
-      padding-left: 12px;
-    }
-  }
-  &__footer-container {
-    width: 100%;
-    height: 370px;
-    &__box {
-      height: 280px;
-    }
-    &__avatar-area {
-      border-top: 1px solid lightblue;
-      &__content {
-        @include flex;
-        padding: 20px 30px;
-        &-avatar {
-          @include flex;
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background: #d4e1ff;
-          margin-right: 12px;
+    &__nav-box {
+      &__item {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        height: 48px;
+
+        &-bar {
+          width: 5px;
+          height: 48px;
+          margin-right: 10px;
+          border-radius: 0 4px 4px 0;
+          background: white;
+          visibility: hidden;
         }
-        &-nameClass {
-          @include column-flex(center, start);
-          width: 122px;
-          margin-right: 12px;
+
+        &-area {
+          display: flex;
+          align-items: center;
+          width: 222px;
+          height: 100%;
+          padding-left: 13px;
+          border-radius: 8px;
+
+          &__icon {
+            margin-right: 12px;
+          }
+        }
+      }
+    }
+
+    &__admin-nav {
+      height: 248px;
+
+      &__item {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        height: 48px;
+
+        &-bar {
+          width: 5px;
+          height: 48px;
+          margin-right: 10px;
+          border-radius: 0 4px 4px 0;
+          background: white;
+          visibility: hidden;
+        }
+
+        &-area {
+          display: flex;
+          align-items: center;
+          width: 222px;
+          height: 100%;
+          padding-left: 13px;
+          border-radius: 8px;
+
+          &__icon {
+            margin-right: 12px;
+          }
+        }
+      }
+
+      &__items {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        height: 20px;
+        padding: 20px 0 20px 30px;
+        color: white;
+        text-decoration: none;
+
+        .dot {
+          margin-right: 10px;
+          text-decoration: none;
+          color: white;
+          font-size: 1.5rem;
+        }
+
+        &__title {
+          text-decoration: none;
+
+          &:hover,
+          &.selected {
+            text-decoration: underline;
+          }
         }
       }
     }
