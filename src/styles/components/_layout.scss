@@ -1,6 +1,8 @@
 .container {
   @include flex(start, start);
   &__column {
-    @include column-flex(start, center);
+    @include column-flex(start, start);
+    flex-grow: 1;
+    height: 100vh;
   }
 }

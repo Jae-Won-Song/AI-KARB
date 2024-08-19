@@ -1,10 +1,12 @@
 import './styles/main.scss';
-import Layout from './Components/Layout';
+import Layout from './components/Layout';
 
 const App = () => {
   return (
     <div>
-      <Layout />
+      <Layout>
+        <div>여따 나중에 라우터 넣으면됨</div>
+      </Layout>
     </div>
   );
 };
