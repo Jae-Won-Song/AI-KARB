@@ -18,8 +18,7 @@ const Filter = () => {
       <button
         className={`filter__filterBtn ${isActive ? 'filter__filterBtn--active' : ''}`}
         onClick={toggleActive}
-        onBlur={handleBlur}
-      >
+        onBlur={handleBlur}>
         <span className="filter__filterBtn__span">필터</span>
         <div className="filter__filterBtn__icon">
           <img src={isActive ? FilterIconActive : FilterIcon} alt="필터 이미지" />

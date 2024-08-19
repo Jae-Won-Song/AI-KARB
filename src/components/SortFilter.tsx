@@ -18,8 +18,7 @@ const SortFilter = () => {
       <button
         className={`sort__sortBtn ${isActive ? 'sort__sortBtn--active' : ''}`}
         onClick={toggleActive}
-        onBlur={handleBlur}
-      >
+        onBlur={handleBlur}>
         <span className="sort__sortBtn__span">정렬</span>
         <div className="sort__sortBtn__icon">
           <img src={isActive ? SortIconActive : SortIcon} alt="정렬 이미지" />
