@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import AuthButton from '../../components/AuthButton';
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 const FindId = () => {
   const [focusedBtn, setFocusedBtn] = useState('findId');
@@ -27,7 +28,9 @@ const FindId = () => {
                 <Input placeholder="이름" />
                 <div className="findId__wrapper__box_input_inner">
                   <Input placeholder="연락처('-'을 제외한 숫자만 입력)" size="small" />
-                  <button>인증요청</button>
+                  <Button type="button" state="disabled">
+                    인증요쳥
+                  </Button>
                 </div>
               </>
             )}
@@ -37,7 +40,9 @@ const FindId = () => {
                 <Input placeholder="이름" />
                 <div className="findId__wrapper__box_input_inner">
                   <Input placeholder="연락처('-'을 제외한 숫자만 입력)" size="small" />
-                  <button>인증요청</button>
+                  <Button type="button" state="disabled">
+                    인증요쳥
+                  </Button>
                 </div>
               </>
             )}
