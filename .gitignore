@@ -22,7 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-src/Pages/Auth/FindId.tsx
-src/Pages/Auth/SignIn.tsx
-src/Pages/Auth/SignUp.tsx
