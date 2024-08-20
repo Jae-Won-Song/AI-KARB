@@ -1,6 +1,6 @@
 import AuthButton from '../../components/AuthButton';
 import Input from '../../components/Input';
-// test
+
 const SignIn = () => {
   return (
     <div className="signIn">
