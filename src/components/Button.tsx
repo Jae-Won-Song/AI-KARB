@@ -5,15 +5,15 @@ type ButtonState = 'default' | 'disabled' | 'default_white' | 'default_gray';
 type ButtonProps = {
   type: 'button';
   children: React.ReactNode;
-  // size?: 'small' | 'medium' | 'large';
   state?: ButtonState;
   onClick?: () => void;
+  width?: string | number;
+  height?: string | number;
 };
 
-const Button = ({ type = 'button', children, state = 'default', onClick }: ButtonProps) => {
+const Button = ({ type = 'button', children, state = 'default', onClick, width, height }: ButtonProps) => {
   const className = [
     'Button',
-    // size,
     state === 'default'
       ? 'Button__default'
       : state === 'disabled'
@@ -25,8 +25,13 @@ const Button = ({ type = 'button', children, state = 'default', onClick }: Butto
             : '',
   ].join(' ');
 
+  const style = {
+    width,
+    height,
+  };
+
   return (
-    <button type={type} className={className} onClick={onClick}>
+    <button type={type} className={className} onClick={onClick} style={style}>
       {children}
     </button>
   );
