@@ -2,7 +2,7 @@ import { useState } from 'react';
 import AuthButton from '../../components/AuthButton';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-// test
+//test
 
 const FindId = () => {
   const [focusedBtn, setFocusedBtn] = useState('findId');

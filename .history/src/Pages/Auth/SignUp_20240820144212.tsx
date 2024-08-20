@@ -1,8 +1,7 @@
 import AuthButton from '../../components/AuthButton';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-// test
-
+//test
 const SignUp = () => {
   return (
     <div className="signUp">
