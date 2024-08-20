@@ -3,12 +3,20 @@
     font-size: $font-size-14;
   }
 
+  @if ($size == 15) {
+    font-size: $font-size-15;
+  }
+
   @if ($size == 16) {
     font-size: $font-size-16;
   }
 
   @if ($size == 18) {
     font-size: $font-size-18;
+  }
+
+  @if ($size == 19) {
+    font-size: $font-size-19;
   }
 
   @if ($size == 20) {
@@ -23,12 +31,20 @@
     font-size: $font-size-28;
   }
 
+  @if ($size == 32) {
+    font-size: $font-size-32;
+  }
+
   @if ($size == 36) {
     font-size: $font-size-36;
   }
 
   @if ($size == 42) {
     font-size: $font-size-42;
+  }
+
+  @if ($size == 53) {
+    font-size: $font-size-53;
   }
 
   @if ($size == 60) {
