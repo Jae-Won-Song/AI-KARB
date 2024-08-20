@@ -1,0 +1,52 @@
+.table {
+  @include flex(center center);
+  &__head {
+    padding: 0.875rem var(--16, 1rem);
+    gap: 0.625rem;
+    align-self: stretch;
+    &__num {
+      width: 7.5rem;
+    }
+    &__empNum {
+      width: 12.5rem;
+    }
+    &__empName {
+      width: 12.5rem;
+    }
+    &__allTask {
+      width: 15rem;
+    }
+    &__notDone {
+      width: 15rem;
+    }
+    &__done {
+      width: 15rem;
+    }
+    &__doneTaskRate {
+      width: 21.25rem;
+    }
+  }
+  &__data {
+    &__num {
+      width: 7.5rem;
+    }
+    &__empNum {
+      width: 12.5rem;
+    }
+    &__empName {
+      width: 12.5rem;
+    }
+    &__allTask {
+      width: 15rem;
+    }
+    &__notDone {
+      width: 15rem;
+    }
+    &__done {
+      width: 15rem;
+    }
+    &__doneTaskRate {
+      width: 21.25rem;
+    }
+  }
+}
