@@ -1,7 +1,6 @@
 import AuthButton from '../../components/AuthButton';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-// asdasdsd
 
 const SignUp = () => {
   return (
