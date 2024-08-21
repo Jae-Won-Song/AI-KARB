@@ -1,0 +1,118 @@
+.mypage {
+  &__container {
+    width: 1580px;
+    margin: 10.39px 30px 0 30px;
+    position: relative;
+    &__bg {
+      width: 1580px;
+      height: 282px;
+      background-image: url('src/assets/bg-mypage.jpg');
+      background-position: center;
+    }
+    &__nav {
+      @include flex(start, center);
+      margin-left: 267px;
+      width: 1313px;
+      margin-top: 29px;
+      &__profile-image {
+        @include flex;
+        @include text-style(53, white, 400);
+        position: absolute;
+        top: 262px;
+        left: 0;
+        margin-left: 114px;
+        bottom: 581px;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: #d4e1ff;
+        color: white;
+      }
+      &__name {
+        @include text-style(32, black, 700);
+        margin-right: 10px;
+      }
+
+      &__class {
+        @include text-style(19, black, 400);
+        margin-right: 124px;
+      }
+
+      &__nav-area {
+        @include flex;
+        &_item {
+          @include flex;
+          cursor: pointer;
+          width: 141px;
+          height: 56px;
+          padding: 0 24px;
+          margin-right: 4px;
+          &:active {
+            color: #029eeb;
+          }
+        }
+      }
+      &__save-btn {
+        @include text-style(17, white, 400);
+        @include flex;
+        width: 91px;
+        height: 40px;
+        cursor: pointer;
+        padding: 0 16px;
+        margin-left: 650px;
+        background: #029eeb;
+        border-radius: 8px;
+      }
+    }
+    &__form-area {
+      @include column-flex(start, start);
+      margin-top: 52px;
+      margin-left: 267px;
+      width: 518px;
+      height: 308px;
+      &-box {
+        @include flex;
+        height: 52px;
+        margin-bottom: 12px;
+        &__title {
+          width: 106px;
+          margin-right: 12px;
+        }
+        &__content {
+          padding: 0 16px;
+        }
+        &__form-phone {
+          @include text-style(15, #8e8e8e, 400);
+          width: 284px;
+          padding: 0 16px;
+          margin-right: 12px;
+          height: 52px;
+          border: 1px solid #e4e4e4;
+          background: #f8f8f8;
+          border-radius: 8px;
+          outline: none;
+        }
+        &__confirm-btn {
+          @include text-style(15, #717171, 400);
+          cursor: pointer;
+          width: 104px;
+          height: 52px;
+          padding: 0 16px;
+          border-radius: 8px;
+          border: none;
+          background: #d8d8d8;
+        }
+        &__form-email {
+          @include text-style(15, #8e8e8e, 400);
+          width: 400px;
+          height: 52px;
+          padding: 0 16px;
+          border: 1px solid #e4e4e4;
+          background: #f8f8f8;
+          border-radius: 8px;
+          outline: none;
+        }
+      }
+    }
+  }
+}
