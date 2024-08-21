@@ -1,0 +1,26 @@
+.TagFilter {
+  display: inline-block;
+
+  height: 2.963vh;
+  padding: 0.37vh 0.208vw;
+
+  border: 1px solid $grayscale-30;
+  border-radius: 8px;
+
+  &__span {
+    padding: 0 0.521vw;
+
+    font-size: 17px; // 추후 $font-size-17로 변경
+
+    cursor: pointer;
+
+    &:nth-child(2) {
+      border-left: 1px solid $grayscale-30;
+      border-right: 1px solid $grayscale-30;
+    }
+
+    &.active {
+      color: $primary-50;
+    }
+  }
+}
