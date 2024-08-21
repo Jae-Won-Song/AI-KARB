@@ -1,41 +1,71 @@
-import React from 'react';
+interface Column {
+  name: string;
+  width?: string | number;
+  height?: string | number;
+}
+
+interface EmpData {
+  번호?: number;
+  사원번호?: number | string;
+  고유번호?: number | string;
+  매체명?: string;
+  업종구분?: string;
+  상품명?: string;
+  광고주?: string;
+  작업자?: string;
+  담당자?: string;
+  전체작업?: number | string;
+  미완료건?: number | string;
+  완료건?: number | string;
+  작업진척도?: string;
+  이름?: string;
+  총배분작업?: string | number;
+  연락처?: string | number;
+  이메일?: string;
+  회원가입일?: string | number;
+  최종로그인일?: string | number;
+  가입요청일?: string | number;
+  권한?: string;
+  검수결과?: string;
+  지적비지적?: string;
+  진행상황?: string;
+}
 
 interface EmpInfo {
-  num: number;
-  empNum: number;
-  empName: string;
-  allTask: string | number;
-  notDone: string | number;
-  done: string;
-  doneTaskRate: number;
+  columns: Column[];
+  data: EmpData[];
 }
 
 const Table = (props: EmpInfo) => {
-  const { num, empNum, empName, allTask, notDone, done, doneTaskRate } = props;
+  const { columns, data } = props;
 
   return (
     <table>
       <thead className="table">
         <tr className="table__head">
-          <th className="table__head__num">번호</th>
-          <th className="table__head__empNum">사원번호</th>
-          <th className="table__head__empName">작업자</th>
-          <th className="table__head__allTask">전체작업</th>
-          <th className="table__head__notDone">미완료건</th>
-          <th className="table__head__done">완료건</th>
-          <th className="table__head__doneTaskRate">작업진척도</th>
+          {columns.map((column, index) => (
+            <th
+              key={index}
+              className={`table__head__${column.name}`}
+              style={{ width: column.width, height: column.height }}>
+              {column.name}
+            </th>
+          ))}
         </tr>
       </thead>
-      <tbody className="table">
-        <tr className="teble__data">
-          <td className="table__data__num">{num}</td>
-          <td className="table__data__empNum">{empNum}</td>
-          <td className="table__data__empName">{empName}</td>
-          <td className="table__data__allTask">{allTask}</td>
-          <td className="table__data__notDone">{notDone}</td>
-          <td className="table__data__done">{done}</td>
-          <td className="table__data__doneTaskRate">{doneTaskRate}%</td>
-        </tr>
+      <tbody className="info">
+        {data.map((row, rowIndex) => (
+          <tr key={rowIndex} className="info__data">
+            {columns.map((column, colIndex) => (
+              <td
+                key={colIndex}
+                className={`table__data__${column.name}`}
+                style={{ width: column.width, height: column.height }}>
+                {row[column.name as keyof EmpData]}
+              </td>
+            ))}
+          </tr>
+        ))}
       </tbody>
     </table>
   );
