@@ -3,23 +3,32 @@ import calendarIcon from '../assets/icon-calendar.svg';
 import arrowDown from '../assets/arrow-down.svg';
 
 const Calendar = () => {
-  const [isActive, setIsActive] = useState(false);
+  const [isActiveMain, setIsActiveMain] = useState(false);
+  const [isActiveYear, setIsActiveYear] = useState(false);
 
-  const toggleActive = () => {
-    setIsActive(!isActive);
+  const toggleActiveMain = () => {
+    setIsActiveMain(!isActiveMain);
+  };
+
+  const toggleActiveYear = () => {
+    setIsActiveYear(!isActiveYear);
   };
 
   return (
     <div className="Calendar">
-      <div className={`Calendar__wrapper ${isActive ? 'Calendar__wrapper--active' : ''}`} onClick={toggleActive}>
+      <div
+        className={`Calendar__wrapper ${isActiveMain ? 'Calendar__wrapper--active' : ''}`}
+        onClick={toggleActiveMain}>
         <div className="Calendar__wrapper__date">2024년 8월 1차</div>
         <img src={calendarIcon} alt="달력 아이콘" className="Calendar__wrapper__img" />
       </div>
 
-      {isActive && (
+      {isActiveMain && (
         <div className="Calendar__dropdown">
           <div className="Calendar__dropdown__wrapper">
-            <div className="Calendar__dropdown__wrapper_year">
+            <div
+              className={`Calendar__dropdown__wrapper_year ${isActiveYear ? 'Calendar__dropdown__wrapper_year--active' : ''}`}
+              onClick={toggleActiveYear}>
               <div className="Calendar__dropdown__wrapper_year_span">2024</div>
               <img src={arrowDown} alt="아래 화살표" className="Calendar__dropdown__wrapper_year_img" />
             </div>
@@ -36,13 +45,15 @@ const Calendar = () => {
             차
           </div>
 
-          <div className="Calendar__dropdown__wrapper_select-year">
-            <div className="Calendar__dropdown__wrapper_select">2024</div>
-            <div className="Calendar__dropdown__wrapper_select">2023</div>
-            <div className="Calendar__dropdown__wrapper_select">2022</div>
-            <div className="Calendar__dropdown__wrapper_select">2021</div>
-            <div className="Calendar__dropdown__wrapper_select">2020</div>
-          </div>
+          {isActiveYear && (
+            <div className="Calendar__dropdown__wrapper_select-year">
+              <div className="Calendar__dropdown__wrapper_select">2024</div>
+              <div className="Calendar__dropdown__wrapper_select">2023</div>
+              <div className="Calendar__dropdown__wrapper_select">2022</div>
+              <div className="Calendar__dropdown__wrapper_select">2021</div>
+              <div className="Calendar__dropdown__wrapper_select">2020</div>
+            </div>
+          )}
 
           <div className="Calendar__dropdown_reset-wrapper">
             <span className="Calendar__dropdown_reset-span">초기화</span>
