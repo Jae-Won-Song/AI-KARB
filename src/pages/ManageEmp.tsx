@@ -1,13 +1,12 @@
 import React from 'react';
 import Table from '../components/Table';
 import Contents from '../components/Contents';
-import SortFilter from '../components/SortFilter';
-import ProgressBar from '../components/ProgressBar';
+import SearchBar from '../components/SearchBar';
 
 const ManageEmp = () => {
   return (
     <Contents>
-      <SortFilter />
+      <SearchBar />
       <Table
         columns={[
           { name: '번호', width: '6.25vw' },
@@ -82,9 +81,63 @@ const ManageEmp = () => {
             완료건: '8건',
             작업진척도: '80%',
           },
+          {
+            번호: 1,
+            사원번호: 'A13425',
+            작업자: '홍길동',
+            전체작업: '10건',
+            미완료건: '2건',
+            완료건: '8건',
+            작업진척도: '80%',
+          },
+          {
+            번호: 1,
+            사원번호: 'A13425',
+            작업자: '홍길동',
+            전체작업: '10건',
+            미완료건: '2건',
+            완료건: '8건',
+            작업진척도: '80%',
+          },
+          {
+            번호: 1,
+            사원번호: 'A13425',
+            작업자: '홍길동',
+            전체작업: '10건',
+            미완료건: '2건',
+            완료건: '8건',
+            작업진척도: '80%',
+          },
+          {
+            번호: 1,
+            사원번호: 'A13425',
+            작업자: '홍길동',
+            전체작업: '10건',
+            미완료건: '2건',
+            완료건: '8건',
+            작업진척도: '80%',
+          },
+          {
+            번호: 1,
+            사원번호: 'A13425',
+            작업자: '홍길동',
+            전체작업: '10건',
+            미완료건: '2건',
+            완료건: '8건',
+            작업진척도: '80%',
+          },
+          {
+            번호: 1,
+            사원번호: 'A13425',
+            작업자: '홍길동',
+            전체작업: '10건',
+            미완료건: '2건',
+            완료건: '8건',
+            작업진척도: '80%',
+          },
+          // 추가 데이터 생략
         ]}
       />
-      <ProgressBar />
     </Contents>
   );
 };

@@ -1,7 +1,6 @@
 .progressBar-container {
   @include flex(center center);
-  justify-content: center;
-  padding: var(--16, 1rem);
+  height: 4rem;
   gap: 1.25rem;
 }
 
