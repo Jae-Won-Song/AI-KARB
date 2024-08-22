@@ -2,6 +2,7 @@ import React from 'react';
 import Table from '../components/Table';
 import Contents from '../components/Contents';
 import SortFilter from '../components/SortFilter';
+import ProgressBar from '../components/ProgressBar';
 
 const ManageEmp = () => {
   return (
@@ -83,6 +84,7 @@ const ManageEmp = () => {
           },
         ]}
       />
+      <ProgressBar />
     </Contents>
   );
 };
