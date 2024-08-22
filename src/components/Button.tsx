@@ -1,6 +1,6 @@
 import React from 'react';
 
-type ButtonState = 'default' | 'disabled' | 'default_white' | 'default_gray';
+type ButtonState = 'default' | 'disabled' | 'default_white' | 'default_gray' | 'danger';
 
 type ButtonProps = {
   type: 'button';
@@ -22,7 +22,9 @@ const Button = ({ type = 'button', children, state = 'default', onClick, width, 
           ? 'Button__defaultWhite'
           : state === 'default_gray'
             ? 'Button__defaultGray'
-            : '',
+            : state === 'danger'
+              ? 'Button__danger'
+              : '',
   ].join(' ');
 
   const style = {

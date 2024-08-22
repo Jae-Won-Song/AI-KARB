@@ -50,4 +50,8 @@
       border: none;
     }
   }
+  &__danger {
+    background-color: $danger-50;
+    color: white;
+  }
 }
