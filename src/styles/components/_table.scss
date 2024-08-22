@@ -1,0 +1,34 @@
+.table {
+  @include flex(center center);
+  margin: 0 15px 0 15px;
+  gap: 0.625rem;
+  &__head {
+    border-top: 2px solid $primary-60;
+    border-bottom: 1px solid $primary-60;
+    padding: 0.875rem var(--16, 1rem);
+    font-size: 1.0625rem;
+    color: $primary-60;
+    text-align: left;
+    line-height: 150%;
+    :first-child {
+      text-align: center;
+    }
+  }
+}
+
+.info {
+  @include flex(center center);
+  flex-direction: column;
+  margin: 0 15px 0 15px;
+  gap: 0.625rem;
+  &__data {
+    padding: var(--16, 1rem);
+    text-align: left;
+    @include flex(center center);
+    border-bottom: 1px solid $grayscale-30;
+    padding: var(--16, 1rem);
+    :first-child {
+      text-align: center;
+    }
+  }
+}

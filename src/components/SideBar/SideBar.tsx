@@ -23,8 +23,7 @@ type SubMenuItem =
   | '가입 요청 관리'
   | '회원 정보 관리'
   | '작업자 관리'
-  | '업무배정 관리'
-  | '작업물 등록';
+  | '작업배분 관리';
 
 const SideBar = () => {
   const [selectedItem, setSelectedItem] = useState<MenuItem>('대시보드');
@@ -81,7 +80,7 @@ const SideBar = () => {
           <SubMenu
             text="홈 대시보드"
             isActive={selectedSubItem === '홈 대시보드'}
-            onClick={() => handleSubItemClick('대시보드', '홈 대시보드', '/dashboard/home')}
+            onClick={() => handleSubItemClick('대시보드', '홈 대시보드', '/dashboard')}
           />
           <SubMenu
             text="관리자 대시보드"
@@ -113,27 +112,22 @@ const SideBar = () => {
           <SubMenu
             text="가입 요청 관리"
             isActive={selectedSubItem === '가입 요청 관리'}
-            onClick={() => handleSubItemClick('관리자메뉴', '가입 요청 관리', '/admin/request')}
+            onClick={() => handleSubItemClick('관리자메뉴', '가입 요청 관리', '/admin/approve-user')}
           />
           <SubMenu
             text="회원 정보 관리"
             isActive={selectedSubItem === '회원 정보 관리'}
-            onClick={() => handleSubItemClick('관리자메뉴', '회원 정보 관리', '/admin/info')}
+            onClick={() => handleSubItemClick('관리자메뉴', '회원 정보 관리', '/admin/manage-user')}
           />
           <SubMenu
             text="작업자 관리"
             isActive={selectedSubItem === '작업자 관리'}
-            onClick={() => handleSubItemClick('관리자메뉴', '작업자 관리', '/admin/worker')}
+            onClick={() => handleSubItemClick('관리자메뉴', '작업자 관리', '/admin/manage-emp')}
           />
           <SubMenu
-            text="업무배정 관리"
-            isActive={selectedSubItem === '업무배정 관리'}
-            onClick={() => handleSubItemClick('관리자메뉴', '업무배정 관리', '/admin/task')}
-          />
-          <SubMenu
-            text="작업물 등록"
-            isActive={selectedSubItem === '작업물 등록'}
-            onClick={() => handleSubItemClick('관리자메뉴', '작업물 등록', '/admin/upload')}
+            text="작업배분 관리"
+            isActive={selectedSubItem === '작업배분 관리'}
+            onClick={() => handleSubItemClick('관리자메뉴', '작업배분 관리', '/admin/manage-task')}
           />
         </div>
       </div>

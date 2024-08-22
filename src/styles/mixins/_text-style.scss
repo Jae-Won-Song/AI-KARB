@@ -11,6 +11,10 @@
     font-size: $font-size-16;
   }
 
+  @if ($size == 17) {
+    font-size: $font-size-17;
+  }
+
   @if ($size == 18) {
     font-size: $font-size-18;
   }
