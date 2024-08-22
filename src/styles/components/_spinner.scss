@@ -1,0 +1,39 @@
+body {
+  // background-color: #00000080;
+}
+
+h3 {
+  font-size: 1.1875rem;
+  // color: white;
+  text-align: center;
+}
+
+.spinner {
+  @include column-flex(center center);
+  display: inline-flex;
+  position: absolute;
+  align-items: center;
+  padding: 3.125rem;
+  gap: var(--24, 1.5rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  &__main {
+    background: conic-gradient(from -68.903deg, transparent, $primary-50);
+    mask: radial-gradient(circle, transparent 50%, black 55%);
+    border-radius: 50%;
+    width: var(--80, 5rem);
+    height: var(--80, 5rem);
+    position: relative;
+    animation: spinner 1s linear infinite;
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
