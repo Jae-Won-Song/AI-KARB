@@ -28,6 +28,7 @@ const Header = () => {
     <div className="header">
       <div className="header__container">
         <div className="header__container__title">{headerTitle(location.pathname)}</div>
+
         <div className="header__container__admin-box">
           <div className="header__container__admin-box-picture">K</div>
           <div className="header__container__admin-box__content-box">

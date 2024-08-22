@@ -1,8 +1,6 @@
 .filter {
   position: relative;
 
-  width: 5.104vw;
-
   &__filterBtn {
     @include inline-flex;
     flex-shrink: 0;
