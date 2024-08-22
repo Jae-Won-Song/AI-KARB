@@ -88,9 +88,9 @@ const SideBar = () => {
             onClick={() => handleSubItemClick('대시보드', '관리자 대시보드', '/dashboard/admin')}
           />
           {[
-            { name: '동일광고', icon: same, path: '/same' },
-            { name: '지적광고', icon: alert, path: '/alert' },
-            { name: '나의 작업', icon: mytask, path: '/mytasks' },
+            { name: '동일광고', icon: same, path: '/same-ad' },
+            { name: '지적광고', icon: alert, path: '/issue-ad' },
+            { name: '나의 작업', icon: mytask, path: '/my-task' },
             { name: '마이페이지', icon: mypage, path: '/mypage' },
           ].map((item) => (
             <IconWithText
@@ -107,7 +107,7 @@ const SideBar = () => {
             icon={getIcon('관리자메뉴')}
             text="관리자전용"
             isActive={selectedItem === '관리자메뉴'}
-            onClick={() => handleItemClick('관리자메뉴', '/admin')}
+            onClick={() => handleItemClick('관리자메뉴', '/admin/approve-user')}
           />
           <SubMenu
             text="가입 요청 관리"
