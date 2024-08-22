@@ -7,19 +7,25 @@
 @import './mixins/flex';
 @import './mixins/text-style';
 
-@import './components/tagFilter';
 @import './modules/input';
 
-@import './components/signin';
-@import './components/signup';
-@import './components/findId';
-@import './components/authButton';
-@import './components/sidebar';
+// 레이아웃
 @import './components/header';
-@import './components/mypage';
 @import './components/layout';
+@import './components/sidebar';
 @import './components/contents';
+
+// 컴포넌트
+@import './components/searchBar';
+@import './components/tagFilter';
+@import './components/authButton';
 @import './components/filter';
 @import './components/sortFilter';
 @import './components/button';
 @import './components/searchInput';
+
+// 페이지
+@import './components/signin';
+@import './components/signup';
+@import './components/findId';
+@import './components/mypage';
