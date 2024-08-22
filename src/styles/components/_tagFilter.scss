@@ -1,7 +1,7 @@
 .TagFilter {
-  display: inline-block;
+  @include inline-flex;
 
-  height: 2.963vh;
+  height: 3.704vh;
   padding: 0.37vh 0.208vw;
 
   border: 1px solid $grayscale-30;
