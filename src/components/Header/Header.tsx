@@ -12,6 +12,12 @@ const Header = () => {
         return '대시보드';
       case '/dashboard/admin':
         return '대시보드';
+      case '/same-ad':
+        return '동일광고 목록';
+      case '/issue-ad':
+        return '지적광고 목록';
+      case '/my-task':
+        return '내 작업 관리';
       case '/admin/approve-user':
         return '가입 요청 관리';
       case '/admin/manage-user':
