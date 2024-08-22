@@ -1,0 +1,125 @@
+.Calendar {
+  position: relative;
+
+  width: 9.74vw;
+  height: 3.704vh;
+
+  margin-left: 300px; // 나중에 지움
+
+  &__wrapper {
+    @include flex(between, center);
+
+    width: 100%;
+    height: 100%;
+    padding: 0 0.833vw;
+    border: 1px solid $grayscale-30;
+    border-radius: 8px;
+
+    background-color: white;
+
+    cursor: pointer;
+
+    &__date {
+      font-size: $font-size-17;
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    right: 0;
+
+    width: 15.677vw;
+    height: 11.019vh;
+    margin-top: 0.926vh;
+    padding: 1.852vh 1.042vw 1.111vh;
+    border: 1px solid $grayscale-40;
+    border-radius: 8px;
+
+    box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.5);
+
+    &__wrapper {
+      @include flex;
+      position: relative;
+      gap: 0.417vw;
+
+      width: 100%;
+      height: 5vh;
+
+      &_year {
+        @include flex(between, center);
+
+        width: 4.167vw;
+        height: 2.778vh;
+        padding: 0 0.313vw;
+        border: 1px solid $grayscale-40;
+        border-radius: 4px;
+
+        cursor: pointer;
+      }
+
+      &_month {
+        @include flex(between, center);
+
+        width: 3.125vw;
+        height: 2.778vh;
+        padding: 0 0.313vw;
+        border: 1px solid $grayscale-40;
+        border-radius: 4px;
+
+        cursor: pointer;
+      }
+
+      &_week {
+        @include flex(between, center);
+
+        width: 2.5vw;
+        height: 2.778vh;
+        padding: 0 0.313vw;
+        border: 1px solid $grayscale-40;
+        border-radius: 4px;
+
+        cursor: pointer;
+      }
+
+      &_select {
+        @include flex;
+
+        height: 2.87vh;
+        padding: 0.37vh 0;
+        border-bottom: 1px solid $grayscale-40;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+
+      &_select-year {
+        @include column-flex;
+        position: absolute;
+
+        width: 4.167vw;
+        max-height: 29.259vh;
+        padding: 0.556vh 0.313vw 0;
+        border: 1px solid $grayscale-40;
+        border-radius: 8px;
+
+        background-color: white;
+
+        overflow-y: auto;
+      }
+    }
+
+    &_reset-wrapper {
+      @include flex(end, end);
+
+      height: 2.13vh;
+
+      font-size: $font-size-15;
+      color: $primary-50;
+    }
+
+    &_reset-span {
+      cursor: pointer;
+    }
+  }
+}
