@@ -1,23 +1,21 @@
 .Calendar {
   position: relative;
 
-  width: 9.74vw;
-  height: 3.704vh;
+  width: 187px;
+  height: 40px;
 
-  margin-left: 300px; // 나중에 지움
+  margin-left: 300px;
 
   &__wrapper {
-    @include flex(between, center);
+    @include flex;
+    gap: 20px;
 
-    width: 100%;
-    height: 100%;
-    padding: 0 0.833vw;
+    width: 187px;
+    height: 40px;
     border: 1px solid $grayscale-30;
     border-radius: 8px;
 
     background-color: white;
-
-    cursor: pointer;
 
     &__date {
       font-size: $font-size-17;
@@ -28,10 +26,11 @@
     position: absolute;
     right: 0;
 
-    width: 15.677vw;
-    height: 11.019vh;
-    margin-top: 0.926vh;
-    padding: 1.852vh 1.042vw 1.111vh;
+    width: 301px;
+    height: 119px;
+    margin-top: 10px;
+    padding: 20px 20px 12px 20px;
+
     border: 1px solid $grayscale-40;
     border-radius: 8px;
 
@@ -40,56 +39,108 @@
     &__wrapper {
       @include flex;
       position: relative;
-      gap: 0.417vw;
 
-      width: 100%;
-      height: 5vh;
+      width: 261px;
+      height: 54px;
+      padding: 12px 0;
 
       &_year {
-        @include flex(between, center);
+        @include flex;
+        gap: 4px;
 
-        width: 4.167vw;
-        height: 2.778vh;
-        padding: 0 0.313vw;
+        width: 80px;
+        height: 100%;
+        padding: 0 6px;
+
         border: 1px solid $grayscale-40;
         border-radius: 4px;
 
         cursor: pointer;
+
+        &_span {
+          @include flex;
+
+          width: 48px;
+        }
       }
 
       &_month {
-        @include flex(between, center);
+        @include flex;
+        gap: 4px;
 
-        width: 3.125vw;
-        height: 2.778vh;
-        padding: 0 0.313vw;
+        width: 60px;
+        height: 100%;
+        padding: 0 6px;
+
         border: 1px solid $grayscale-40;
         border-radius: 4px;
 
         cursor: pointer;
+
+        &_span {
+          @include flex;
+
+          width: 28px;
+        }
       }
 
       &_week {
-        @include flex(between, center);
+        @include flex;
+        gap: 4px;
 
-        width: 2.5vw;
-        height: 2.778vh;
-        padding: 0 0.313vw;
+        width: 48px;
+        height: 100%;
+        padding: 0 6px;
+
         border: 1px solid $grayscale-40;
         border-radius: 4px;
 
         cursor: pointer;
+
+        &_span {
+          @include flex;
+
+          width: 16px;
+          height: 23px;
+        }
+      }
+
+      &_span {
+        margin-left: 6px;
+        margin-right: 8px;
+
+        &:last-child {
+          margin-right: 0;
+        }
       }
 
       &_select {
         @include flex;
 
-        height: 2.87vh;
-        padding: 0.37vh 0;
+        width: 100%;
+        height: 31px;
+
         border-bottom: 1px solid $grayscale-40;
+
+        font-size: $font-size-15;
+        color: $grayscale-50;
+
+        cursor: pointer;
 
         &:last-child {
           border-bottom: none;
+        }
+
+        &.previous-selected {
+          border-bottom: none;
+        }
+
+        &.selected {
+          border-bottom: none;
+          border-radius: 8px;
+
+          color: $primary-70;
+          background-color: $secondary-1;
         }
       }
 
@@ -97,9 +148,10 @@
         @include column-flex;
         position: absolute;
 
-        width: 4.167vw;
-        max-height: 29.259vh;
-        padding: 0.556vh 0.313vw 0;
+        width: 80px;
+        max-height: 316px;
+        padding: 6px 6px 0 6px;
+
         border: 1px solid $grayscale-40;
         border-radius: 8px;
 
@@ -107,12 +159,41 @@
 
         overflow-y: auto;
       }
+
+      &_select-month {
+        @include column-flex;
+        position: absolute;
+        left: 127px;
+
+        width: 60px;
+        padding: 6px 6px 0 6px;
+
+        border: 1px solid $grayscale-40;
+        border-radius: 8px;
+
+        background-color: white;
+      }
+
+      &_select-week {
+        @include column-flex;
+        position: absolute;
+        right: 36px;
+
+        width: 48px;
+        padding: 6px 6px 0 6px;
+
+        border: 1px solid $grayscale-40;
+        border-radius: 8px;
+
+        background-color: white;
+      }
     }
 
     &_reset-wrapper {
       @include flex(end, end);
 
-      height: 2.13vh;
+      height: 33px;
+      padding: 10px 10px 0;
 
       font-size: $font-size-15;
       color: $primary-50;
