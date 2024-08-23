@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import calendarIcon from '../assets/icon-calendar.svg';
 import arrowDown from '../assets/arrow-down.svg';
 
@@ -24,10 +24,29 @@ const Calendar = () => {
     setIsActiveWeek(!isActiveWeek);
   };
 
-  const handleBlur = () => {
-    setIsActiveMain(false);
-    setIsActiveYear(false);
+  // 컴포넌트 밖을 클릭하면 blur 처리
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+
+    if (target && !target.closest('.Calendar')) {
+      setIsActiveMain(false);
+      setIsActiveYear(false);
+      setIsActiveMonth(false);
+      setIsActiveWeek(false);
+    }
   };
+
+  useEffect(() => {
+    if (isActiveMain) {
+      document.addEventListener('click', handleClickOutside);
+    } else {
+      document.removeEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isActiveMain]);
 
   // 포커즈 된 날짜 상태 감지
   const years = ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015'];
@@ -61,7 +80,6 @@ const Calendar = () => {
       <button
         className={`Calendar__wrapper ${isActiveMain ? 'Calendar__wrapper--active' : ''}`}
         onClick={toggleActiveMain}>
-        {/* onBlur={handleBlur} */}
         <div className="Calendar__wrapper__date">2024년 8월 1차</div>
         <img src={calendarIcon} alt="달력 아이콘" className="Calendar__wrapper__img" />
       </button>
