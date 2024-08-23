@@ -14,8 +14,13 @@ const Calendar = () => {
     setIsActiveYear(!isActiveYear);
   };
 
+  const handleBlur = () => {
+    setIsActiveMain(false);
+    setIsActiveYear(false);
+  };
+
   return (
-    <div className="Calendar">
+    <button className="Calendar" onBlur={handleBlur}>
       <div
         className={`Calendar__wrapper ${isActiveMain ? 'Calendar__wrapper--active' : ''}`}
         onClick={toggleActiveMain}>
@@ -60,7 +65,7 @@ const Calendar = () => {
           </div>
         </div>
       )}
-    </div>
+    </button>
   );
 };
 
