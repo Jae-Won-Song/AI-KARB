@@ -53,7 +53,7 @@ const Calendar = () => {
   const months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
   const weeks = ['1', '2', '3', '4', '5'];
 
-  const [selectedIndex, setSelectedIndex] = useState({ year: 0, month: 0, week: 0 });
+  const [selectedIndex, setSelectedIndex] = useState({ year: 0, month: 0, week: 0 }); // 추후 날짜 맞춰서 수정
 
   const handleSelected = (type: 'year' | 'month' | 'week', index: number) => {
     setSelectedIndex((prevState) => ({
@@ -75,12 +75,18 @@ const Calendar = () => {
     ));
   };
 
+  const selectedYear = years[selectedIndex.year];
+  const selectedMonth = months[selectedIndex.month];
+  const selectedWeek = weeks[selectedIndex.week];
+
   return (
     <div className="Calendar">
       <button
         className={`Calendar__wrapper ${isActiveMain ? 'Calendar__wrapper--active' : ''}`}
         onClick={toggleActiveMain}>
-        <div className="Calendar__wrapper__date">2024년 8월 1차</div>
+        <div className="Calendar__wrapper__date">
+          {selectedYear}년 {selectedMonth}월 {selectedWeek}차
+        </div>
         <img src={calendarIcon} alt="달력 아이콘" className="Calendar__wrapper__img" />
       </button>
 
