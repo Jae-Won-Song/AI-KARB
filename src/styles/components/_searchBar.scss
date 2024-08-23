@@ -1,4 +1,6 @@
 .searchBar {
+  width: 100%;
+
   &__topBar {
     @include flex(between, center);
 
