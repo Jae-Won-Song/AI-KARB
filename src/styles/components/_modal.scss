@@ -1,0 +1,24 @@
+.modal {
+  &__container {
+    width: 420px;
+    height: 216px;
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid #c6c6c6;
+    &__contentBox {
+      @include column-flex;
+      &-title {
+        @include text-style(17, black, 700);
+        margin-bottom: 32px;
+      }
+      &-content {
+        @include text-style(17, black, 400);
+        margin-bottom: 32px;
+      }
+      &-btn-area {
+        @include flex;
+        width: 322px;
+      }
+    }
+  }
+}
