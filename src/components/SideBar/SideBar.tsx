@@ -75,7 +75,10 @@ const SideBar = () => {
             icon={getIcon('대시보드')}
             text="대시보드"
             isActive={selectedItem === '대시보드'}
-            onClick={() => handleItemClick('대시보드', '/dashboard')}
+            onClick={() => {
+              handleItemClick('대시보드', '/dashboard');
+              handleSubItemClick('대시보드', '홈 대시보드', '/dashboard');
+            }}
           />
           <SubMenu
             text="홈 대시보드"
@@ -107,7 +110,10 @@ const SideBar = () => {
             icon={getIcon('관리자메뉴')}
             text="관리자전용"
             isActive={selectedItem === '관리자메뉴'}
-            onClick={() => handleItemClick('관리자메뉴', '/admin/approve-user')}
+            onClick={() => {
+              handleItemClick('관리자메뉴', '/admin/approve-user');
+              handleSubItemClick('관리자메뉴', '가입 요청 관리', '/admin/approve-user');
+            }}
           />
           <SubMenu
             text="가입 요청 관리"
