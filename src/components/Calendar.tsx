@@ -5,6 +5,8 @@ import arrowDown from '../assets/arrow-down.svg';
 const Calendar = () => {
   const [isActiveMain, setIsActiveMain] = useState(false);
   const [isActiveYear, setIsActiveYear] = useState(false);
+  const [isActiveMonth, setIsActiveMonth] = useState(false);
+  const [isActiveWeek, setIsActiveWeek] = useState(false);
 
   const toggleActiveMain = () => {
     setIsActiveMain(!isActiveMain);
@@ -14,19 +16,55 @@ const Calendar = () => {
     setIsActiveYear(!isActiveYear);
   };
 
+  const toggleActiveMonth = () => {
+    setIsActiveMonth(!isActiveMonth);
+  };
+
+  const toggleActiveWeek = () => {
+    setIsActiveWeek(!isActiveWeek);
+  };
+
   const handleBlur = () => {
     setIsActiveMain(false);
     setIsActiveYear(false);
   };
 
-  return (
-    <button className="Calendar" onBlur={handleBlur}>
+  // 포커즈 된 날짜 상태 감지
+  const years = ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015'];
+  const months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+  const weeks = ['1', '2', '3', '4', '5'];
+
+  const [selectedIndex, setSelectedIndex] = useState({ year: 0, month: 0, week: 0 });
+
+  const handleSelected = (type: 'year' | 'month' | 'week', index: number) => {
+    setSelectedIndex((prevState) => ({
+      ...prevState,
+      [type]: index,
+    }));
+  };
+
+  const renderDropdownList = (items: string[], type: 'year' | 'month' | 'week') => {
+    return items.map((item, index) => (
       <div
+        key={index}
+        className={`Calendar__dropdown__wrapper_select ${
+          selectedIndex[type] === index ? 'selected' : ''
+        } ${selectedIndex[type] === index + 1 ? 'previous-selected' : ''}`}
+        onClick={() => handleSelected(type, index)}>
+        {item}
+      </div>
+    ));
+  };
+
+  return (
+    <div className="Calendar">
+      <button
         className={`Calendar__wrapper ${isActiveMain ? 'Calendar__wrapper--active' : ''}`}
         onClick={toggleActiveMain}>
+        {/* onBlur={handleBlur} */}
         <div className="Calendar__wrapper__date">2024년 8월 1차</div>
         <img src={calendarIcon} alt="달력 아이콘" className="Calendar__wrapper__img" />
-      </div>
+      </button>
 
       {isActiveMain && (
         <div className="Calendar__dropdown">
@@ -37,27 +75,33 @@ const Calendar = () => {
               <div className="Calendar__dropdown__wrapper_year_span">2024</div>
               <img src={arrowDown} alt="아래 화살표" className="Calendar__dropdown__wrapper_year_img" />
             </div>
-            년
-            <div className="Calendar__dropdown__wrapper_month">
+            <span className="Calendar__dropdown__wrapper_span">년</span>
+            <div
+              className={`Calendar__dropdown__wrapper_month ${isActiveYear ? 'Calendar__dropdown__wrapper_month--active' : ''}`}
+              onClick={toggleActiveMonth}>
               <div className="Calendar__dropdown__wrapper_month_span">8</div>
               <img src={arrowDown} alt="아래 화살표" className="Calendar__dropdown__wrapper_month_img" />
             </div>
-            월
-            <div className="Calendar__dropdown__wrapper_week">
+            <span className="Calendar__dropdown__wrapper_span">월</span>
+            <div
+              className={`Calendar__dropdown__wrapper_week ${isActiveWeek ? 'Calendar__dropdown__wrapper_week--active' : ''}`}
+              onClick={toggleActiveWeek}>
               <div className="Calendar__dropdown__wrapper_week_span">1</div>
               <img src={arrowDown} alt="아래 화살표" className="Calendar__dropdown__wrapper_week_img" />
             </div>
-            차
+            <span className="Calendar__dropdown__wrapper_span">차</span>
           </div>
 
           {isActiveYear && (
-            <div className="Calendar__dropdown__wrapper_select-year">
-              <div className="Calendar__dropdown__wrapper_select">2024</div>
-              <div className="Calendar__dropdown__wrapper_select">2023</div>
-              <div className="Calendar__dropdown__wrapper_select">2022</div>
-              <div className="Calendar__dropdown__wrapper_select">2021</div>
-              <div className="Calendar__dropdown__wrapper_select">2020</div>
-            </div>
+            <div className="Calendar__dropdown__wrapper_select-year">{renderDropdownList(years, 'year')}</div>
+          )}
+
+          {isActiveMonth && (
+            <div className="Calendar__dropdown__wrapper_select-month">{renderDropdownList(months, 'month')}</div>
+          )}
+
+          {isActiveWeek && (
+            <div className="Calendar__dropdown__wrapper_select-week">{renderDropdownList(weeks, 'week')}</div>
           )}
 
           <div className="Calendar__dropdown_reset-wrapper">
@@ -65,7 +109,7 @@ const Calendar = () => {
           </div>
         </div>
       )}
-    </button>
+    </div>
   );
 };
 
