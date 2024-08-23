@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 const SearchBar = ({ children }: { children: ReactNode }) => {
   return (
-    <main className="searchBar">
+    <div className="searchBar">
       <section className="searchBar__topBar">
         <div className="searchBar__topBar_counter">
           <div className="searchBar__topBar_counter_total">총</div>
@@ -10,7 +10,7 @@ const SearchBar = ({ children }: { children: ReactNode }) => {
         </div>
         <div className="searchBar__topBar_wrapper">{children}</div>
       </section>
-    </main>
+    </div>
   );
 };
 
