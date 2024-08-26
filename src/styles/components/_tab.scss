@@ -1,0 +1,23 @@
+.tab {
+  &__container {
+    @include inline-flex;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 8px;
+    border: 1px solid #c6c6c6;
+
+    &__default {
+      @include text-style(15, #8e8e8e, 400);
+    }
+
+    &__hover {
+      @include text-style(15, #029eeb, 400);
+      border-color: #029eeb;
+    }
+
+    &__active {
+      @include text-style(15, white, 400);
+      background: #029eeb;
+    }
+  }
+}
