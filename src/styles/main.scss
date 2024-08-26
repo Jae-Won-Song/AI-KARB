@@ -37,9 +37,11 @@
 @import './components/dailyTaskChart';
 @import './components/recentTask';
 @import './components/taskRate';
-@import './components/progressBar';
+@import './components/dailyRateChart';
 
 // 페이지
+@import './components/progressBar';
+@import './components/table';
 @import './components/signin';
 @import './components/signup';
 @import './components/findId';

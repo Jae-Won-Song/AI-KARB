@@ -4,8 +4,10 @@
 // import WorkStatus from '../components/DashBoard/WorkStatus';
 // import DailyTaskChart from '../components/DashBoard/DailyTaskChart';
 // import data from '../../data.json';
+// import dailychart from '../../dailychart.json';
 // import RecentTask from '../components/DashBoard/RecentTask';
 // import TaskRate from '../components/DashBoard/TaskRate';
+// import DailyRateChart from '../components/DashBoard/DailyRateChart';
 
 // const AdminDashBoard = () => {
 //   return (
@@ -19,6 +21,7 @@
 //       <section style={{ display: 'flex', justifyContent: 'space-between' }}>
 //         <WorkStatus />
 //         <TaskRate />
+//         <DailyRateChart />
 //       </section>
 //       <section style={{ display: 'flex', justifyContent: 'space-between' }}>
 //         <DailyTaskChart data={data} />
@@ -28,4 +31,4 @@
 //   );
 // };
 
-// export default AdminDashBoard;
+// // export default AdminDashBoard;
