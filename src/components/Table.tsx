@@ -4,6 +4,7 @@ interface Column {
   name: string;
   width?: string | number;
   height?: string | number;
+  img?: JSX.Element;
 }
 
 interface EmpData {
@@ -31,6 +32,7 @@ interface EmpData {
   검수결과?: string;
   지적비지적?: string;
   진행상황?: string;
+  img?: JSX.Element;
 }
 
 interface EmpInfo {
