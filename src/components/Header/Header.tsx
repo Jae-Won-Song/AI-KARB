@@ -36,7 +36,7 @@ const Header = () => {
         <div className="header__container__title">{headerTitle(location.pathname)}</div>
 
         <div className="header__container__admin-box">
-          <div className="header__container__admin-box-picture">K</div>
+          <div className="header__container__admin-box-picture" />
           <div className="header__container__admin-box__content-box">
             <div className="header__container__admin-box__content-box-name">김여진</div>
             <div className="header__container__admin-box__content-box-class">건달</div>
