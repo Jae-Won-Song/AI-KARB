@@ -11,6 +11,10 @@
     font-size: $font-size-16;
   }
 
+  @if ($size == 17) {
+    font-size: $font-size-17;
+  }
+
   @if ($size == 18) {
     font-size: $font-size-18;
   }
@@ -23,20 +27,88 @@
     font-size: $font-size-20;
   }
 
+  @if ($size == 21) {
+    font-size: $font-size-21;
+  }
+
+  @if ($size == 22) {
+    font-size: $font-size-22;
+  }
+
+  @if ($size == 23) {
+    font-size: $font-size-23;
+  }
+
   @if ($size == 24) {
     font-size: $font-size-24;
+  }
+
+  @if ($size == 25) {
+    font-size: $font-size-25;
+  }
+
+  @if ($size == 26) {
+    font-size: $font-size-26;
+  }
+
+  @if ($size == 27) {
+    font-size: $font-size-27;
   }
 
   @if ($size == 28) {
     font-size: $font-size-28;
   }
 
+  @if ($size == 29) {
+    font-size: $font-size-29;
+  }
+
+  @if ($size == 30) {
+    font-size: $font-size-30;
+  }
+
+  @if ($size == 31) {
+    font-size: $font-size-31;
+  }
+
   @if ($size == 32) {
     font-size: $font-size-32;
   }
 
+  @if ($size == 33) {
+    font-size: $font-size-33;
+  }
+
+  @if ($size == 34) {
+    font-size: $font-size-34;
+  }
+
+  @if ($size == 35) {
+    font-size: $font-size-35;
+  }
+
   @if ($size == 36) {
     font-size: $font-size-36;
+  }
+
+  @if ($size == 37) {
+    font-size: $font-size-37;
+  }
+
+  @if ($size == 38) {
+    font-size: $font-size-38;
+  }
+
+  @if ($size == 39) {
+    font-size: $font-size-39;
+  }
+
+  @if ($size == 40) {
+    font-size: $font-size-40;
+  }
+
+  @if ($size == 41) {
+    font-size: $font-size-41;
   }
 
   @if ($size == 42) {

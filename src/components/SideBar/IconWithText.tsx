@@ -19,8 +19,7 @@ const IconWithText = ({ icon, text, isActive, onClick }: IconWithTextProps) => {
         style={{
           background: isActive ? 'white' : 'transparent',
           color: isActive ? '#006597' : 'white',
-        }}
-      >
+        }}>
         <img className="sidebar__container__nav-box__item-area__icon" src={icon} alt={text} />
         <span className="text-content">{text}</span>
       </div>
