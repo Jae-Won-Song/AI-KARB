@@ -1,20 +1,18 @@
 .searchBar {
+  width: 100%;
+
   &__topBar {
     @include flex(between, center);
 
     padding: 5.556vh 1.563vw 1.852vh;
 
-    background-color: pink;
-
     &_counter {
       @include flex(start, center);
       gap: 0.208vw;
 
-      width: 41.667vw;
+      width: auto;
 
       font-size: $font-size-15;
-
-      background-color: aqua;
 
       &_total {
         font-weight: 700;
@@ -31,8 +29,6 @@
       gap: 0.625vw;
 
       height: 3.704vh;
-
-      background-color: beige;
 
       &_searchBar {
         position: relative;
