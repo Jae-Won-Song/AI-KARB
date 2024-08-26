@@ -31,8 +31,8 @@ interface EmpData {
   권한?: string;
   검수결과?: string;
   지적비지적?: string;
-  img?: JSX.Element;
   진행상황?: string;
+  img?: JSX.Element;
 }
 
 interface EmpInfo {
