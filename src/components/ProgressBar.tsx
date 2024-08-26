@@ -11,14 +11,11 @@ const ProgressBar = ({ progressGauge = 0, width = 100, height = 20, className = 
   const widthProgress = progressGauge > 100 ? 100 : progressGauge < 0 ? 0 : progressGauge;
 
   return (
-    <div className="progressBar-container">
-      <div className={`progressBar__${className}`} style={{ width: `${width}px`, height: `${height}px` }}>
-        <div
-          className={`progressBar__gauge__${className}`}
-          style={{ width: `${widthProgress}%`, height: `${height - 4}px` }}
-        />
+    <div className="progressBar-wrapper">
+      <div className="progressBar-wrapper__mainbar">
+        <div className="progressBar-wrapper__mainbar__gauge" style={{ width: `${width}%` }} />
       </div>
-      <div className="progressBar__rate">{widthProgress}%</div>
+      {<div className="progressBar_wrapper__mainbar__rate">{progress}</div>}{' '}
     </div>
   );
 };
