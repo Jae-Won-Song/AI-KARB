@@ -1,4 +1,3 @@
-
 import { ReactNode } from 'react';
 
 const SearchBar = ({ children }: { children: ReactNode }) => {

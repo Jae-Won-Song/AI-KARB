@@ -1,4 +1,5 @@
 import ProgressBar from './ProgressBar';
+
 interface Column {
   name: string;
   width?: string | number;
