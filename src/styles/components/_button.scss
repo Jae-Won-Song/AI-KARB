@@ -1,0 +1,57 @@
+.button__wrapper {
+  @include flex(between, center);
+  width: 100%;
+}
+
+.Button {
+  display: flex;
+  width: 6.5rem;
+  height: 3.25rem;
+  padding: 0rem var(--16, 1rem);
+  justify-content: center;
+  align-items: center;
+  gap: var(--4, 0.25rem);
+  flex-shrink: 0;
+  border-radius: var(--8, 0.5rem);
+
+  &__default {
+    background-color: $primary-50;
+    color: white;
+    &:active {
+      background-color: $primary-70;
+    }
+  }
+
+  &__disabled {
+    background-color: $grayscale-30;
+    color: $grayscale-60;
+    cursor: not-allowed;
+  }
+
+  &__defaultWhite {
+    border: solid 1px $primary-50;
+    color: $primary-50;
+    background-color: white;
+    &:active {
+      background-color: $primary-70;
+      color: white;
+      border: none;
+    }
+  }
+
+  &__defaultGray {
+    background-color: white;
+    color: $grayscale-70;
+    border: solid 1px $grayscale-40;
+
+    &:active {
+      background-color: $primary-70;
+      color: white;
+      border: none;
+    }
+  }
+  &__danger {
+    background-color: $danger-50;
+    color: white;
+  }
+}

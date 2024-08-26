@@ -1,11 +1,23 @@
-import { useState } from 'react';
-import './App.css';
 import './styles/main.scss';
+import Layout from './components/Layout';
+import { Routes, Route } from 'react-router-dom';
 
 const App = () => {
-  const [count, setCount] = useState(0);
-
-  return <div>hello world</div>;
+  return (
+    <Routes>
+      {/* 로그인쪽 넣으세용 */}
+      <Route
+        path="/*"
+        element={
+          <Layout>
+            <Routes>
+              {/* <Routes>레이아웃 필요한거 넣으세용 <Route path="/mypage" element={<Mypage />} /></Routes> */}
+            </Routes>
+          </Layout>
+        }
+      />
+    </Routes>
+  );
 };
 
 export default App;

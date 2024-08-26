@@ -1,0 +1,49 @@
+.filter {
+  position: relative;
+
+  &__filterBtn {
+    @include inline-flex;
+    flex-shrink: 0;
+
+    height: 3.704vh;
+    padding: 0 0.833vw;
+    border: 1px solid $grayscale-30;
+    border-radius: 8px;
+
+    background-color: $white;
+
+    gap: 0.625vw;
+
+    &__span {
+      font-size: 17px;
+      color: $grayscale-70;
+    }
+
+    &__icon {
+      width: 0.833vw;
+      height: 1.574vh;
+    }
+
+    &--active {
+      border: 1px solid $primary-50;
+
+      .filter__filterBtn__span {
+        color: $primary-50;
+      }
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    right: 0;
+
+    width: 15.625vw;
+    height: 41.574vh;
+    margin-top: 1.019vh;
+    padding: 1.852vh 1.852vw 1.111vh 1.852vw;
+    border: 1px solid $grayscale-40;
+    border-radius: 8px;
+
+    background-color: $white;
+  }
+}
