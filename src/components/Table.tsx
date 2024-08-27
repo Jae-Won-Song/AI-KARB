@@ -1,7 +1,8 @@
+import React from 'react';
 import ProgressBar from './ProgressBar';
 
 interface Column {
-  name: string;
+  name?: string;
   width?: string | number;
   height?: string | number;
   img?: JSX.Element;
@@ -32,7 +33,7 @@ interface EmpData {
   검수결과?: string;
   지적비지적?: string;
   진행상황?: string;
-  img?: JSX.Element;
+  체크박스?: JSX.Element;
 }
 
 interface EmpInfo {
@@ -51,9 +52,9 @@ const Table = (props: EmpInfo) => {
             {columns.map((column, index) => (
               <th
                 key={index}
-                className={`table__head__${column.name}`}
+                className={`table__head__${column.name || 'img'}`}
                 style={{ width: column.width, height: column.height }}>
-                {column.name}
+                {column.img ? column.img : column.name}
               </th>
             ))}
           </tr>
@@ -61,18 +62,23 @@ const Table = (props: EmpInfo) => {
         <tbody className="info">
           {data.map((row, rowIndex) => (
             <tr key={rowIndex} className="info__data">
-              {columns.map((column, colIndex) => (
-                <td
-                  key={colIndex}
-                  className={`table__data__${column.name}`}
-                  style={{ width: column.width, height: column.height }}>
-                  {column.name === '작업진척도' ? (
-                    <ProgressBar progress={parseInt(row.작업진척도 as string, 10)} />
-                  ) : (
-                    row[column.name as keyof EmpData]
-                  )}
-                </td>
-              ))}
+              {columns.map((column, colIndex) => {
+                const cellData = row[column.name as keyof EmpData];
+                return (
+                  <td
+                    key={colIndex}
+                    className={`table__data__${column.name || 'img'}`}
+                    style={{ width: column.width, height: column.height }}>
+                    {React.isValidElement(cellData) ? (
+                      cellData
+                    ) : column.name === '작업진척도' ? (
+                      <ProgressBar progress={parseInt(cellData as string, 10)} />
+                    ) : (
+                      cellData
+                    )}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>
