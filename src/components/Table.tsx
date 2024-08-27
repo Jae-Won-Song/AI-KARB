@@ -33,6 +33,7 @@ interface EmpData {
   검수결과?: string;
   지적비지적?: string;
   진행상황?: string;
+  아이디?: string | number;
   체크박스?: JSX.Element;
 }
 
