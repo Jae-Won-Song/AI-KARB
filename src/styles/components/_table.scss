@@ -1,34 +1,39 @@
 .table {
-  @include flex(center center);
+  @include flex;
   margin: 0 30px 0 30px;
-  gap: 0.625rem;
   &__head {
     border-top: 2px solid $primary-60;
     border-bottom: 1px solid $primary-60;
-    padding: 0.875rem var(--16, 1rem);
-    font-size: 1.0625rem;
     color: $primary-60;
+    font-size: 0.885vw;
     text-align: left;
     line-height: 150%;
     :first-child {
+      justify-content: center;
       text-align: center;
     }
   }
 }
 
 .info {
-  @include flex(center center);
+  @include flex;
   flex-direction: column;
   margin: 0 30px 0 30px;
-  gap: 0.625rem;
   &__data {
-    padding: var(--16, 1rem);
-    text-align: left;
-    @include flex(center center);
+    @include flex;
     border-bottom: 1px solid $grayscale-30;
-    padding: var(--16, 1rem);
     :first-child {
       text-align: center;
     }
+    :last-child {
+      padding: 0%;
+    }
   }
+}
+th {
+  padding: 14px 16px 14px 16px;
+}
+
+td {
+  padding: 16px 16px 16px 16px;
 }
