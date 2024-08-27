@@ -1,33 +1,23 @@
 import React from 'react';
+import dailyRate from '../../assets/daily-rate.svg';
 
-interface DailyChart {
-  dailyGauge?: number; // 게이지 값 (0 ~ 100)
-  size?: number; // 원형 게이지의 크기
-  className?: string; // 추가적인 클래스 이름
-}
-
-const DailyRateChart = ({ dailyGauge = 84, size = 150, className = '' }: DailyChart) => {
-  const gaugeValue = dailyGauge > 100 ? 100 : dailyGauge < 0 ? 0 : dailyGauge;
-
+const DailyrateChart = () => {
   return (
-    <div className={`dailychart-container ${className}`}>
-      <div className="dailychartBar">
-        <div className="dailychartBar__background" />
-        <div
-          className="dailychartBar__gauge"
-          // style={{
-          //   background: `conic-gradient(
-          //     #006597 0deg ${gaugeValue * 2.7}deg,
-          //     transparent ${gaugeValue * 2.7}deg 270deg
-          //   )`,
-          // }}
-        />
-        <div className="dailychartBar__center">
-          <span className="dailychartBar__rate">{gaugeValue}%</span>
+    <div className="dailyRateWrapper">
+      <h1 className="dailyRateWrapper__title">오늘의 달성률</h1>
+      <img src={dailyRate} alt="eclipse" />
+      <div className="dailyRateWrapper__subtitle">
+        <div className="dailyRateWrapper__subtitle__legend">
+          완료
+          <div>42건</div>
+        </div>
+        <div className="dailyRateWrapper__subtitle__legend">
+          잔여
+          <div>21건</div>
         </div>
       </div>
     </div>
   );
 };
 
-export default DailyRateChart;
+export default DailyrateChart;

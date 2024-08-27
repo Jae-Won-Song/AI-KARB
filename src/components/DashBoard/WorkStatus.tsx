@@ -1,6 +1,6 @@
-// import allTask from '../../assets/all-task.png';
-// import notDone from '../../assets/not-done-task.png';
-// import doneTask from '../../assets/done-task.png';
+import allTask from '../../assets/all-task.png';
+import notDone from '../../assets/not-done-task.png';
+import doneTask from '../../assets/done-task.png';
 
 const WorkStatus = () => {
   return (
@@ -9,7 +9,7 @@ const WorkStatus = () => {
       <div className="workStatus-wrapper__task">
         <div className="workStatus-wrapper__task__allTask">
           <div className="workStatus-wrapper__task__image-container">
-            {/* <img src={allTask} alt="전체 작업 이미지" /> */}
+            <img src={allTask} alt="전체 작업 이미지" />
             <div className="workStatus-wrapper__task__info">
               <div className="workStatus-wrapper__task__info__wrapper">
                 <div className="workStatus-wrapper__task__info__title">전체작업</div>
@@ -24,7 +24,7 @@ const WorkStatus = () => {
         </div>
         <div className="workStatus-wrapper__task__doneTask">
           <div className="workStatus-wrapper__task__image-container">
-            {/* <img src={doneTask} alt="전체 작업 이미지" /> */}
+            <img src={doneTask} alt="전체 작업 이미지" />
             <div className="workStatus-wrapper__task__info">
               <div className="workStatus-wrapper__task__info__wrapper">
                 <div className="workStatus-wrapper__task__info__title">완료건</div>
@@ -39,7 +39,7 @@ const WorkStatus = () => {
         </div>
         <div className="workStatus-wrapper__task__notDoneTask">
           <div className="workStatus-wrapper__task__image-container">
-            {/* <img src={notDone} alt="미완료 작업 이미지" /> */}
+            <img src={notDone} alt="미완료 작업 이미지" />
             <div className="workStatus-wrapper__task__info">
               <div className="workStatus-wrapper__task__info__wrapper">
                 <div className="workStatus-wrapper__task__info__title">미완료건</div>

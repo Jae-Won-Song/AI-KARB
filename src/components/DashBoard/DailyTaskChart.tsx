@@ -1,11 +1,10 @@
 import { ResponsiveLine } from '@nivo/line';
-// import { ReactNode } from "react";
 
-// interface chartProps {
-//   data: string[];
-// }
+interface chartProps {
+  data: [];
+}
 
-const DailyTaskChart = ({ data }) => {
+const DailyTaskChart = ({ data }: chartProps) => {
   return (
     <div className="daily-chart">
       <div className="daily-chart__wrapper">
@@ -14,27 +13,14 @@ const DailyTaskChart = ({ data }) => {
       </div>
       <ResponsiveLine
         data={data}
+        colors={{ scheme: 'nivo' }}
         curve="monotoneX"
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
         xScale={{ type: 'point' }}
-        // yScale={{
-        //   type: 'linear',
-        //   min: 'auto',
-        //   max: 'auto',
-        //   stacked: true,
-        //   reverse: false,
-        // }}
         gridXValues={[]}
-        // axisTop={null}
-        // axisRight={null}
-        // colors={{ scheme: 'set1' }}
-        // pointSize={10}
-        // pointColor="black"
         pointBorderWidth={0}
-        // pointBorderColor={{ from: 'serieColor', modifiers: [] }}
         pointLabel="data.yFormatted"
-        // pointLabelYOffset={-12}
-        // enableTouchCrosshair={true}
+        enableArea
         useMesh
         legends={[
           {
