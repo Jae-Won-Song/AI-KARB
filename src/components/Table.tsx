@@ -34,6 +34,7 @@ interface EmpData {
   지적비지적?: string;
   진행상황?: string;
   아이디?: string | number;
+  관리?: string;
   체크박스?: JSX.Element;
 }
 
