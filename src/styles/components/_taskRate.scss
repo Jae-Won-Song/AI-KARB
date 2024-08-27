@@ -1,16 +1,12 @@
 .rate-wrapper {
-  display: flex;
-  width: 512px;
-  height: 300px;
+  @include flex(center, start);
+  width: 514px;
+  height: 302px;
   padding: 32px 30px 29px 30px;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 12px;
-  flex-shrink: 0;
+  gap: var(--24, 24px);
   border-radius: var(--12, 12px);
   border: 1px solid #e6edff;
-  background: #fff;
   box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
   &__title {
     color: var(--Gray-Gray-90, #1d1d1d);
@@ -19,14 +15,12 @@
     line-height: 150%;
   }
   &__rate {
-    display: flex;
-    height: var(--28, 28px);
-    padding-right: 11px;
+    @include flex(start, start);
     align-items: center;
     gap: 10px;
   }
   &__text {
-    width: 400px;
+    width: 387px;
     text-align: right;
   }
 }
@@ -49,14 +43,20 @@
   }
   &__gauge {
     &__mine {
+      height: 11px !important;
       margin: 2px;
       border-radius: 12px;
       background-color: #006597;
     }
     &__all {
+      height: 11px !important;
       margin: 2px;
       border-radius: 12px;
       background-color: #64aca7;
     }
   }
+}
+
+.progressBar-container {
+  @include flex;
 }

@@ -4,26 +4,25 @@ import TaskSummary from '../components/DashBoard/TaskSummary';
 import WorkStatus from '../components/DashBoard/WorkStatus';
 import DailyTaskChart from '../components/DashBoard/DailyTaskChart';
 import data from '../../data.json';
-// import dailychart from '../../dailychart.json';
 import RecentTask from '../components/DashBoard/RecentTask';
 import TaskRate from '../components/DashBoard/TaskRate';
 import DailyRateChart from '../components/DashBoard/DailyRateChart';
 
 const HomeDashBoard = () => {
   return (
-    <div>
+    <div style={{ background: 'white' }}>
       {' '}
-      <section style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <section style={{ display: 'flex', justifyContent: 'space-around', padding: '10px 30px 24px 30px' }}>
         <Worker />
         <DashBoardDate />
         <TaskSummary />
       </section>
-      <section style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <section style={{ display: 'flex', justifyContent: 'space-around', padding: '0 30px 24px 30px' }}>
         <WorkStatus />
         <TaskRate />
         <DailyRateChart />
       </section>
-      <section style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <section style={{ display: 'flex', justifyContent: 'space-around', padding: '0 30px 62px 30px' }}>
         <DailyTaskChart data={data} />
         <RecentTask />
       </section>

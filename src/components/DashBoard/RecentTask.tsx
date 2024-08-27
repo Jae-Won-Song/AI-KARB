@@ -7,13 +7,13 @@ const RecentTask = () => {
         <div className="recent-wrapper__header__title">최근작업</div>
         <div className="recent-wrapper__header__detail">자세히 보기 </div>
       </div>
-      <div className="recent-wrapper__table" style={{ fontWeight: '400' }}>
+      <div className="recent-wrapper__table">
         <Table
           columns={[
-            { name: '번호', width: '60px', height: '23px' },
-            { name: '고유번호', width: '100px', height: '23px' },
-            { name: '상품명', width: '140px', height: '23px' },
-            { name: '작업날짜', width: '160px', height: '23px' },
+            { name: '번호', width: '60px', height: '60px' },
+            { name: '고유번호', width: '100px', height: '60px' },
+            { name: '상품명', width: '140px', height: '60px' },
+            { name: '작업날짜', width: '160px', height: '60px' },
           ]}
           data={[
             {
