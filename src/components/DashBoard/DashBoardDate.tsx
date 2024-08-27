@@ -4,7 +4,7 @@ const monthSplit = date.getDate() <= 14 ? '1차' : '2차';
 
 const DashBoardDate = () => {
   return (
-    <div className="date-wrapper">
+    <section className="date-wrapper">
       <div>
         <h2 className="date-wrapper__today">Today </h2>
       </div>
@@ -12,7 +12,7 @@ const DashBoardDate = () => {
         <div className="date-wrapper__info__today">{today}</div>
         <div className="date-wrapper__info__split">{`${date.getMonth() + 1}월 ${monthSplit}`}</div>
       </div>
-    </div>
+    </section>
   );
 };
 

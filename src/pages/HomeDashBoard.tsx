@@ -10,7 +10,7 @@ import DailyRateChart from '../components/DashBoard/DailyRateChart';
 
 const HomeDashBoard = () => {
   return (
-    <div style={{ background: 'white' }}>
+    <section style={{ background: 'white' }}>
       {' '}
       <section style={{ display: 'flex', justifyContent: 'space-around', padding: '10px 30px 24px 30px' }}>
         <Worker />
@@ -26,7 +26,7 @@ const HomeDashBoard = () => {
         <DailyTaskChart data={data} />
         <RecentTask />
       </section>
-    </div>
+    </section>
   );
 };
 

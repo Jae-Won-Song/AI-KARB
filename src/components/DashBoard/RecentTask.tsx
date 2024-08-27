@@ -2,7 +2,7 @@ import Table from '../Table';
 
 const RecentTask = () => {
   return (
-    <div className="recent-wrapper">
+    <section className="recent-wrapper">
       <div className="recent-wrapper__header">
         <div className="recent-wrapper__header__title">최근작업</div>
         <div className="recent-wrapper__header__detail">자세히 보기 </div>
@@ -49,7 +49,7 @@ const RecentTask = () => {
           ]}
         />
       </div>
-    </div>
+    </section>
   );
 };
 

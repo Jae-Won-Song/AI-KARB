@@ -4,7 +4,7 @@ import doneTask from '../../assets/done-task.png';
 
 const WorkStatus = () => {
   return (
-    <div className="workStatus-wrapper">
+    <section className="workStatus-wrapper">
       <h1 className="workStatus-wrapper__title">작업현황</h1>
       <div className="workStatus-wrapper__task">
         <div className="workStatus-wrapper__task__allTask">
@@ -53,7 +53,7 @@ const WorkStatus = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
