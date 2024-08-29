@@ -49,9 +49,11 @@ const SameAdResult = () => {
               </span>
             </div>
           </div>
-          <SameAdResultBox />
-          <SameAdResultBox />
-          <SameAdResultBox />
+          <div className="sameAdResult__wrapperRight_contents_resultBox">
+            <SameAdResultBox />
+            <SameAdResultBox />
+            <SameAdResultBox />
+          </div>
         </div>
       </article>
     </main>
