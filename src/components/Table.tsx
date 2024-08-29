@@ -30,9 +30,9 @@ interface EmpData {
   최종로그인일?: string | number;
   가입요청일?: string | number;
   권한?: string;
-  검수결과?: string;
-  지적비지적?: string;
-  진행상황?: string;
+  검수결과?: JSX.Element | string;
+  지적비지적?: JSX.Element | string;
+  진행상황?: JSX.Element | string;
   아이디?: string | number;
   관리?: string;
   체크박스?: JSX.Element;
@@ -56,7 +56,7 @@ const Table = (props: EmpInfo) => {
                 key={index}
                 className={`table__head__${column.name || 'img'}`}
                 style={{ width: column.width, height: column.height }}>
-                {column.img ? column.img : column.name}
+                {column.name === '지적비지적' ? '지적/비지적' : column.img ? column.img : column.name}
               </th>
             ))}
           </tr>
@@ -75,6 +75,8 @@ const Table = (props: EmpInfo) => {
                       cellData
                     ) : column.name === '작업진척도' ? (
                       <ProgressBar progress={parseInt(cellData as string, 10)} />
+                    ) : column.name === '지적/비지적' ? (
+                      cellData
                     ) : (
                       cellData
                     )}
