@@ -1,0 +1,120 @@
+.SameAdResultBox {
+  width: 41.146vw;
+  height: 100vh;
+
+  overflow-y: auto;
+
+  &__container {
+    width: 39.583vw;
+    height: 17.963vh;
+
+    border: 1px solid $grayscale-20;
+    border-radius: 12px;
+
+    &_top {
+      @include flex(between, center);
+      height: 4.815vh;
+      padding: 0.926vh 1.042vw;
+      border-bottom: 1px solid $grayscale-20;
+
+      &_number {
+        font-size: 13px;
+      }
+
+      &_id {
+        width: 29.271vw;
+
+        @include text-style(19, $grayscale-90, 700);
+      }
+
+      &_detail {
+        @include flex;
+        @include text-style(15, $grayscale-70, 400);
+
+        cursor: pointer;
+      }
+    }
+
+    &_bottom {
+      @include flex(between, center);
+    }
+
+    &_tableWrapper {
+      @include column-flex(center);
+
+      height: 13.148vh;
+      padding: 2.315vh 0 2.315vh 1.563vw;
+
+      &_table {
+        @include flex(start, center);
+
+        &:first-child {
+          margin-bottom: 2.593vh;
+        }
+
+        &_small {
+          width: 4.167vw;
+          border-right: 1px solid $grayscale-20;
+          box-sizing: border-box;
+
+          @include text-style(17, $grayscale-70, 400);
+        }
+
+        &_medium {
+          width: 6.771vw;
+          padding-left: 0.833vw;
+
+          @include text-style(17, $grayscale-90, 400);
+        }
+
+        &_large {
+          width: 8.802vw;
+          padding-left: 0.833vw;
+
+          @include text-style(17, $grayscale-90, 400);
+        }
+      }
+    }
+
+    &_result {
+      @include flex(between, center);
+
+      width: 9.688vw;
+      height: 8.148vh;
+      padding: 0.926vh 0.625vw;
+      margin-right: 1.458vw;
+      border-radius: 12px;
+      background-color: $secondary-5;
+
+      &_box {
+        @include column-flex(between, center);
+        gap: 0.37vh;
+
+        width: 4.583vw;
+        height: 100%;
+      }
+
+      &_similarity {
+        @include text-style(17, $primary-60, 400);
+      }
+
+      &_ratio {
+        @include flex;
+        height: 3.519vh;
+
+        @include text-style(25, $primary-60, 700);
+      }
+
+      &_same {
+        @include text-style(17, $grayscale-70, 400);
+
+        &_num {
+          @include flex;
+          height: 3.519vh;
+
+          @include text-style(25, $grayscale-70, 700);
+        }
+      }
+    }
+  }
+}
