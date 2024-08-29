@@ -12,6 +12,7 @@
       padding: 20px;
       border: 1px solid #e6edff;
       margin: 60px 821px 0 29px;
+      box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
 
       &__tasks {
         @include flex;
