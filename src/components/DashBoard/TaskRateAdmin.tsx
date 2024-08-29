@@ -1,36 +1,29 @@
 const TaskRateAdmin = () => {
-  const totalTasks = 50;
-  const completedTasks = 40;
-  const completionRate = (completedTasks / totalTasks) * 75;
+  const totalTasks = 5000;
+  const completedTasks = 2500;
+  const completionRate = (completedTasks / totalTasks) * 180; // 최대 180도까지 색상 적용
   const percentage = Math.round((completedTasks / totalTasks) * 100);
 
   return (
-    <section className="dailyRateWrapper">
-      <h1 className="dailyRateWrapper__title">오늘의 달성률</h1>
-      <div className="dailyRateWrapper__gauge">
-        <div className="gauge">
-          <div className="gauge__circle">
-            <div
-              className="gauge__rate"
-              style={{
-                background: `conic-gradient(#006597 0deg, #006597 ${completionRate}%, transparent ${completionRate}% 270deg)`,
-              }}
-            />
+    <section className="dailyRateContainer">
+      <h1 className="dailyRateContainer__title">작업 진행률</h1>
+      <div className="dailyRateContainer__gauge">
+        <div className="adminGauge">
+          <div
+            className="adminGauge__rate"
+            style={{
+              background: `conic-gradient(
+                from 0deg, 
+                #349bcd 0deg, 
+                #349bcd ${completionRate}deg,
+                transparent ${completionRate}deg,
+                transparent 360deg
+              )`,
+            }}
+          />
+          <div className="adminGauge__center">
+            <div className="adminGauge__center__percentage">{percentage}%</div>
           </div>
-          <div className="gauge__center" />
-          <div className="gauge__center__percentage">{percentage}%</div>
-        </div>
-      </div>
-      <div className="dailyRateWrapper__subtitle">
-        <div className="dailyRateWrapper__subtitle__legend">
-          {/* <img src={rateDone} alt="rateDone" /> */}
-          <div className="dailyRateWrapper__subtitle__legend__main">완료</div>
-          <div className="dailyRateWrapper__subtitle__legend__compare">{completedTasks}건</div>
-        </div>
-        <div className="dailyRateWrapper__subtitle__legend">
-          {/* <img src={rateNotDone} alt="rateNotDone" /> */}
-          <div className="dailyRateWrapper__subtitle__legend__main">잔여</div>
-          <div className="dailyRateWrapper__subtitle__legend__compare">{totalTasks - completedTasks}건</div>
         </div>
       </div>
     </section>

@@ -1,4 +1,3 @@
-import React from 'react';
 import ProgressBar from '../ProgressBar';
 import myrate from '../../assets/icon-my-rate.svg';
 import allrate from '../../assets/icon-all-rate.svg';

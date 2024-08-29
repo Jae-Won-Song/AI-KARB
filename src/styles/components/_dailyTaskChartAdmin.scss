@@ -1,0 +1,71 @@
+.dailyChartWrapper {
+  display: inline-flex;
+  width: 373px;
+  height: 435px;
+  padding: 30px 22px 30px 30px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--24, 24px);
+  flex-shrink: 0;
+  border-radius: var(--12, 12px);
+  border: 1px solid #e6edff;
+  background: #fff;
+  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+
+  &__info {
+    &__title {
+      color: var(--Gray-Gray-90, #1d1d1d);
+      font-size: 25px;
+      font-weight: 700;
+      line-height: 150%;
+    }
+
+    &__wrapper {
+      @include flex(between, center);
+      width: 226px;
+
+      &__count {
+        color: var(--Gray-Gray-90, #1d1d1d);
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 150%;
+        letter-spacing: 0.32px;
+      }
+
+      &__eve {
+        color: var(--Gray-Gray-70, #555);
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 150%;
+      }
+
+      &__plusCount {
+        position: relative;
+        color: var(--Point-Green-green-50, #64aca7);
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 150%;
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          right: -15px;
+          transform: translateY(-50%);
+          width: 1px;
+          height: 16px;
+          background-color: #ddd;
+        }
+      }
+
+      &__percentage {
+        margin-left: 20px;
+        color: var(--Point-Green-green-50, #64aca7);
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 150%;
+      }
+    }
+  }
+}

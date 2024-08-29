@@ -1,0 +1,62 @@
+.dailyRateContainer {
+  @include flex;
+  width: 378px;
+  height: 270px;
+  padding: 30px;
+  flex-direction: column;
+  gap: var(--24, 24px);
+  background-color: $white;
+  border-radius: 12px;
+  border: 1px solid #e6edff;
+  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+
+  &__title {
+    @include flex(start, start);
+    flex-direction: column;
+    align-self: stretch;
+  }
+
+  &__gauge {
+    width: 280px;
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+.adminGauge {
+  position: relative;
+  background-color: var(--Gray-Gray-20, #e4e4e4);
+  height: 280px;
+  border-radius: 50%;
+
+  &__rate {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: inherit;
+    transform: rotate(-90deg);
+  }
+
+  &__center {
+    width: 220px;
+    height: 220px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    &__percentage {
+      color: #006597;
+      position: absolute;
+      top: 20%;
+      left: 33%;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 150%;
+      letter-spacing: 0.32px;
+    }
+  }
+}

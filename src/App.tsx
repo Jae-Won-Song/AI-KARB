@@ -16,6 +16,7 @@ const App = () => {
             <Routes>
               <Route path="/dashboard" element={<HomeDashBoard />} />
               <Route path="/dashboard/admin" element={<AdminDashBoard />} />
+              <Route path="admin/manage-emp" element={<ManageEmp />} />
             </Routes>
           </Layout>
         }
