@@ -1,0 +1,172 @@
+.sameAdResult {
+  @include flex(start, start);
+
+  width: 100%;
+  height: 100vh;
+  margin-top: 10px;
+  background-color: white;
+
+  &__wrapperLeft {
+    width: 50%;
+    height: 100vh;
+    padding: 18px 0 0 27px;
+
+    &_contents {
+      width: 39.583vw;
+      height: 79.259vh;
+      margin: 2.5vh 0 0 0.156vw;
+
+      &_title {
+        @include flex(start, center);
+        gap: 1.042vw;
+
+        height: 6.111vh;
+        margin-bottom: 2.778vh;
+
+        &_img {
+          @include flex;
+
+          width: 3.438vw;
+          height: 6.111vh;
+          border-radius: 8px;
+
+          background-color: $secondary-5;
+        }
+
+        &_span {
+          @include column-flex(between, start);
+          height: 5.926vh;
+
+          &_name {
+            @include flex;
+            height: 2.407vh;
+            @include text-style(17, $grayscale-90, 700);
+          }
+
+          &_number {
+            @include flex;
+            height: 3.519vh;
+
+            // @include text-style(25, $grayscale-90, 700);
+            font-size: 25px;
+            font-weight: 700;
+            color: $grayscale-90;
+          }
+        }
+      }
+
+      &_table {
+        @include flex(start, center);
+
+        height: 3.704vh;
+
+        border: 1px solid $grayscale-20;
+
+        &:nth-child(2) {
+          border-bottom: none;
+        }
+
+        &_small {
+          @include flex;
+
+          width: 5.208vw;
+          height: 100%;
+          padding: 1.296vh 0.833vw;
+
+          border-right: 1px solid $grayscale-20;
+        }
+
+        &_large {
+          @include flex(start, center);
+
+          width: 14.583vw;
+          height: 100%;
+          padding: 1.296vh 0.833vw;
+
+          border-right: 1px solid $grayscale-20;
+
+          &:last-child {
+            border-right: none;
+          }
+        }
+      }
+
+      &_article {
+        height: 60.185vh;
+        padding: 1.852vh 1.042vw;
+        margin-top: 2.778vh;
+        border: 2px solid $secondary-5;
+
+        overflow-y: auto;
+      }
+    }
+  }
+
+  &__wrapperRight {
+    width: 50%;
+    height: 100vh;
+
+    &_contents {
+      @include column-flex(center, start);
+
+      width: 39.583vw;
+      height: 79.259vh;
+      margin: 6.019vh 0 0 1.563vw;
+
+      &_title {
+        @include flex(start, center);
+        gap: 1.042vw;
+
+        height: 6.111vh;
+        margin-bottom: 2.778vh;
+
+        &_img {
+          @include flex;
+
+          width: 3.438vw;
+          height: 6.111vh;
+          border-radius: 8px;
+
+          background-color: $secondary-5;
+        }
+
+        &_result {
+          @include column-flex(between, start);
+
+          height: 100%;
+
+          &_box {
+            @include flex(start, center);
+            gap: 0.417vw;
+
+            height: 2.407;
+
+            &_span {
+              @include flex;
+              height: 2.407vh;
+
+              @include text-style(19, $grayscale-90, 700);
+            }
+
+            &_number {
+              @include flex;
+
+              min-width: 1.25vw;
+              height: 2.222vh;
+              border-radius: 50%;
+
+              background-color: $secondary-5;
+            }
+          }
+
+          &_detail {
+            @include flex;
+            height: 3.519vh;
+
+            @include text-style(15, $grayscale-70, 400);
+          }
+        }
+      }
+    }
+  }
+}
