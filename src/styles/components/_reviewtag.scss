@@ -1,0 +1,31 @@
+.review-tag,
+.review-tag-large {
+  &__container {
+    @include inline-flex;
+    padding: 0 8px;
+    border-radius: 19px;
+    background: #f7e5ea;
+    min-width: 51px;
+    height: 20px;
+    &__circle {
+      width: 6px;
+      height: 6px;
+      margin-right: 6px;
+      border-radius: 50%;
+      background: red;
+    }
+    &__content {
+      @include text-style(13, black, 400);
+    }
+  }
+}
+
+.review-tag-large__container {
+  @include inline-flex;
+  min-width: 54px;
+  height: 23px;
+  border-radius: 11.5px;
+  &__content {
+    @include text-style(15, black, 400);
+  }
+}
