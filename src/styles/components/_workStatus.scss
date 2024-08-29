@@ -37,7 +37,7 @@
       color: white;
       padding: 20px 132.75px 20.75px 17.25px;
       &__wrapper {
-        display: flex;
+        @include flex;
         flex-direction: column;
         gap: 38px;
       }
@@ -50,6 +50,12 @@
         font-size: 40px;
         font-weight: 700;
         padding-bottom: 1.5px;
+      }
+      &__admin-counts {
+        font-size: 40px;
+        font-weight: 700;
+        padding-bottom: 1.5px;
+        margin-left: 20px;
       }
       &__subcount {
         @include inline-flex;

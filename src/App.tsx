@@ -3,6 +3,7 @@ import Layout from './components/Layout';
 import { Routes, Route } from 'react-router-dom';
 import ManageEmp from './pages/ManageEmp';
 import HomeDashBoard from './pages/HomeDashBoard';
+import AdminDashBoard from './pages/AdminDashBoard';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Layout>
             <Routes>
               <Route path="/dashboard" element={<HomeDashBoard />} />
+              <Route path="/dashboard/admin" element={<AdminDashBoard />} />
             </Routes>
           </Layout>
         }

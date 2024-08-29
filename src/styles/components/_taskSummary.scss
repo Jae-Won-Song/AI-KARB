@@ -1,5 +1,6 @@
 .task-wrapper {
   @include flex;
+  background-color: $white;
   width: 48.75rem;
   height: 8.75rem;
   padding: 1.25rem;
