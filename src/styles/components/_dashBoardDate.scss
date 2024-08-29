@@ -1,0 +1,35 @@
+.date-wrapper {
+  @include flex(center center);
+  flex-direction: row;
+  width: 23.625rem;
+  height: 8.75rem;
+  padding: 1.875rem;
+  align-items: flex-start;
+  gap: 0.9375rem;
+  border-radius: var(--12, 0.75rem);
+  // border 색상 글로벌 추가할건지 상의
+  border: 1px solid #e6edff;
+  background: $white;
+  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+  &__today {
+    color: $primary-60;
+    font-size: $font-size-19;
+    line-height: 260%;
+  }
+  &__info {
+    @include flex;
+    flex-direction: column;
+    align-items: flex-start;
+    &__today {
+      color: var(--Gray-Gray-90, $grayscale-90);
+      // 1.5625rem -> 25px 타이포그래피 추가해야함
+      font-size: 1.5625rem;
+      line-height: 150%;
+    }
+    &__split {
+      color: var(--Gray-Gray-60, $grayscale-60);
+      font-size: $font-size-19;
+      line-height: 150%;
+    }
+  }
+}

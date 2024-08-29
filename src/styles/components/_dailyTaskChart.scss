@@ -1,0 +1,30 @@
+.daily-chart {
+  width: 1020px;
+  height: 400px;
+  padding: 30px;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: var(--12, 12px);
+  border: 1px solid #e6edff;
+  background: $white;
+  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+  &__wrapper {
+    @include flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    flex: 1 0 0;
+  }
+  &__title {
+    color: var(--Gray-Gray-80, #2d2d2d);
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 150%;
+  }
+  &__date {
+    color: var(--Gray-Gray-50, #8e8e8e);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+}

@@ -1,10 +1,10 @@
-// import DashBoardDate from '../components/DashBoard/DashBoardDate';
+import DashBoardDate from '../components/DashBoard/DashBoardDate';
 import Worker from '../components/DashBoard/Worker';
-// import TaskSummary from '../components/DashBoard/TaskSummary';
-// import WorkStatus from '../components/DashBoard/WorkStatus';
-// import DailyTaskChart from '../components/DashBoard/DailyTaskChart';
-// import data from '../../data.json';
-// import dailychart from '../../dailychart.json';
+import TaskSummary from '../components/DashBoard/TaskSummary';
+import WorkStatus from '../components/DashBoard/WorkStatus';
+import DailyTaskChart from '../components/DashBoard/DailyTaskChart';
+import data from '../../data.json';
+import dailychart from '../../dailychart.json';
 import RecentTask from '../components/DashBoard/RecentTask';
 import TaskRate from '../components/DashBoard/TaskRate';
 import DailyRateChart from '../components/DashBoard/DailyRateChart';
@@ -15,16 +15,16 @@ const HomeDashBoard = () => {
       {' '}
       <section style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Worker />
-        {/* <DashBoardDate />
-        <TaskSummary /> */}
+        <DashBoardDate />
+        <TaskSummary />
       </section>
       <section style={{ display: 'flex', justifyContent: 'space-between' }}>
-        {/* <WorkStatus /> */}
+        <WorkStatus />
         <TaskRate />
         <DailyRateChart />
       </section>
       <section style={{ display: 'flex', justifyContent: 'space-between' }}>
-        {/* <DailyTaskChart data={data} /> */}
+        <DailyTaskChart data={data} />
         <RecentTask />
       </section>
     </div>
