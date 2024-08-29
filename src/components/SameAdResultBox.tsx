@@ -1,3 +1,5 @@
+import chevronRight from '../assets/chevron-right.svg';
+
 const SameAdResultBox = () => {
   return (
     <div className="SameAdResultBox">
@@ -7,11 +9,11 @@ const SameAdResultBox = () => {
           <span className="SameAdResultBox__container_top_id">A00058</span>
           <div className="SameAdResultBox__container_top_detail">
             자세히 보기
-            {/* <img
+            <img
               src={chevronRight}
               alt="자세히 보기 버튼"
               className="sameAdResult__wrapperRight_contents_articleWrapper_article_title_detail_img"
-            /> */}
+            />
           </div>
         </div>
         <div className="SameAdResultBox__container_bottom">
