@@ -22,13 +22,18 @@
 @import './components/filter';
 @import './components/sortFilter';
 @import './components/button';
+@import './components/table';
+@import './components/progressBar';
+@import './components/searchBar';
 @import './components/searchInput';
 @import './components/modal';
 @import './components/calendar';
 @import './components/tab';
+@import './components/sameAdResultBox';
 
 // 페이지
 @import './components/signin';
 @import './components/signup';
 @import './components/findId';
 @import './components/mypage';
+@import './components/sameAdResult';
