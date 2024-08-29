@@ -47,10 +47,7 @@
             @include flex;
             height: 3.519vh;
 
-            // @include text-style(25, $grayscale-90, 700);
-            font-size: 25px;
-            font-weight: 700;
-            color: $grayscale-90;
+            @include text-style(25, $grayscale-90, 700);
           }
         }
       }
@@ -107,7 +104,7 @@
     height: 100vh;
 
     &_contents {
-      @include column-flex(center, start);
+      @include column-flex(start, start);
 
       width: 39.583vw;
       height: 79.259vh;
@@ -166,6 +163,10 @@
             @include text-style(15, $grayscale-70, 400);
           }
         }
+      }
+
+      &_resultBox {
+        overflow-y: auto;
       }
     }
   }
