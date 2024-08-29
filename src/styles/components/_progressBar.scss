@@ -1,24 +1,25 @@
-.progressBar-wrapper {
-  @include flex(start, center);
+.progressBar-container {
+  @include flex(center center);
   height: 4rem;
   gap: 1.25rem;
-  padding: 16px 16px 16px 16px !important;
-  &__mainbar {
-    width: 13.125rem;
-    height: 10px;
-    background-color: #c1cfe4;
+}
+
+.progressBar {
+  width: 13.125rem;
+  height: 10px;
+  background-color: #c1cfe4;
+  border-radius: 12px;
+  &__gauge {
+    @include flex(center center);
+    justify-content: center;
+    margin: 2px;
+    height: 6px;
+    background-color: #006597;
     border-radius: 12px;
-    &__gauge {
-      @include flex;
-      margin: 2px;
-      height: 6px;
-      background-color: #006597;
-      border-radius: 12px;
-    }
-    &__rate {
-      font-size: 1.0625rem;
-      line-height: 150%;
-      color: #2e7d96;
-    }
+  }
+  &__rate {
+    font-size: 1.0625rem;
+    line-height: 150%;
+    color: #2e7d96;
   }
 }

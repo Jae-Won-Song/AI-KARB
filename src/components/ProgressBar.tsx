@@ -1,24 +1,17 @@
-import React from 'react';
-
-interface Progress {
-  progressGauge?: number;
-  width?: number;
-  height?: number;
-  className?: string;
+interface progressBarProps {
+  progress: number;
 }
-
-const ProgressBar = ({ progressGauge = 0, width = 100, height = 20, className = '' }: Progress) => {
-  const widthProgress = progressGauge > 100 ? 100 : progressGauge < 0 ? 0 : progressGauge;
+const ProgressBar = ({ progress }: progressBarProps) => {
+  const maxItem = 5;
+  const availableItem = 1;
+  const width = 100 - (availableItem * 100) / maxItem;
 
   return (
     <div className="progressBar-container">
-      <div className={`progressBar__${className}`} style={{ width: `${width}px`, height: `${height}px` }}>
-        <div
-          className={`progressBar__gauge__${className}`}
-          style={{ width: `${widthProgress}%`, height: `${height}px` }}
-        />
+      <div className="progressBar">
+        <div className="progressBar__gauge" style={{ width: `${width}%` }} />
       </div>
-      {<div className="progressBar_wrapper__mainbar__rate">{progress}</div>}{' '}
+      {<div className="progressBar__rate">{progress}</div>}{' '}
     </div>
   );
 };

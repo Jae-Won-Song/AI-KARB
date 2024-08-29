@@ -1,6 +1,8 @@
 import './styles/main.scss';
 import Layout from './components/Layout';
 import { Routes, Route } from 'react-router-dom';
+import ManageEmp from './pages/ManageEmp';
+import HomeDashBoard from './pages/HomeDashBoard';
 
 const App = () => {
   return (
@@ -11,7 +13,7 @@ const App = () => {
         element={
           <Layout>
             <Routes>
-              {/* <Routes>레이아웃 필요한거 넣으세용 <Route path="/mypage" element={<Mypage />} /></Routes> */}
+              <Route path="/dashboard" element={<HomeDashBoard />} />
             </Routes>
           </Layout>
         }
