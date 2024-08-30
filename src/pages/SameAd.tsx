@@ -1,10 +1,19 @@
+import SearchInput from '../components/SearchInput';
 import SearchBar from '../components/SearchBar';
 import Table from '../components/Table';
+import TagFilter from '../components/TagFilter';
+import Filter from '../components/Filter';
+import Calendar from '../components/Calendar';
 
 const SameAd = () => {
   return (
     <main className="SameAd">
-      <SearchBar />
+      <SearchBar>
+        <SearchInput placeholder="검색어를 2글자 이상 입력해주세요" />
+        <TagFilter tag1="전체" tag2="동일" tag3="비동일" />
+        <Filter />
+        <Calendar />
+      </SearchBar>
       <Table
         columns={[
           { name: '번호', width: '88px' },
