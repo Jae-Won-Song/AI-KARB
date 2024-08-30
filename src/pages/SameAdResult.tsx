@@ -33,6 +33,7 @@ const SameAdResult = () => {
           <div className="sameAdResult__wrapperLeft_contents_article">기사내용 (스크롤 테스트 완료)</div>
         </div>
       </article>
+      <div className="middleBar"> </div>
       <article className="sameAdResult__wrapperRight">
         <div className="sameAdResult__wrapperRight_contents">
           <div className="sameAdResult__wrapperRight_contents_title">
