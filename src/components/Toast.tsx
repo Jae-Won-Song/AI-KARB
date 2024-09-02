@@ -6,15 +6,17 @@ import closeRed from '../assets/closeRed-mypage.svg';
 
 type ToastProps = {
   mode: ReactNode | JSX.Element;
+  title: string;
+  content: string;
 };
 
-function successToast(onClose: () => void) {
+function successToast({ content, title }: ToastProps, onClose: () => void) {
   return (
     <div className="toast__success-container">
       <img src={success} alt="성공" />
       <div className="toast__success-container__success-box">
-        <div className="toast__success-container__success-box_title">개인정보 수정 완료</div>
-        <div className="toast__success-container__success-box_content">개인정보 수정이 완료되었습니다.</div>
+        <div className="toast__success-container__success-box_title">{title}</div>
+        <div className="toast__success-container__success-box_content">{content}</div>
       </div>
       <div onClick={onClose}>
         <img className="close" src={closeBlue} alt="닫기버튼" />
@@ -23,13 +25,13 @@ function successToast(onClose: () => void) {
   );
 }
 
-function failedToast(onClose: () => void) {
+function failedToast({ content, title }: ToastProps, onClose: () => void) {
   return (
     <div className="toast__failed-container">
       <img src={failed} alt="실패" />
       <div className="toast__failed-container__failed-box">
-        <div className="toast__failed-container__failed-box_title">개인정보 수정 실패</div>
-        <div className="toast__failed-container__failed-box_content">개인정보 수정 중에 오류가 발생했습니다.</div>
+        <div className="toast__failed-container__failed-box_title">{title}</div>
+        <div className="toast__failed-container__failed-box_content">{content}</div>
       </div>
       <div onClick={onClose}>
         <img className="close" src={closeRed} alt="닫기버튼" />
@@ -38,7 +40,7 @@ function failedToast(onClose: () => void) {
   );
 }
 
-const Toast = ({ mode }: ToastProps) => {
+const Toast = ({ mode, content, title }: ToastProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isShowing, setIsShowing] = useState(false);
   const [isHiding, setIsHiding] = useState(false);
@@ -68,7 +70,9 @@ const Toast = ({ mode }: ToastProps) => {
 
   return (
     <div className={`toast ${isShowing ? 'show' : ''} ${isHiding ? 'hide' : ''}`}>
-      {mode === 'red' ? failedToast(handleClose) : successToast(handleClose)}
+      {mode === 'red'
+        ? failedToast({ mode, title, content }, handleClose)
+        : successToast({ mode, title, content }, handleClose)}
     </div>
   );
 };
