@@ -48,15 +48,14 @@
           width: 100%;
 
           gap: 12px;
+        }
+      }
 
-          button {
-            width: 5.417vw;
-            height: 4.815vh;
-            box-sizing: border-box;
-            border: none;
-            background-color: $grayscale-30;
-            border-radius: 8px;
-          }
+      &_button {
+        width: 100%;
+
+        button {
+          @include text-style(19, white, 400);
         }
       }
     }
