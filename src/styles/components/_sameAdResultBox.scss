@@ -2,6 +2,10 @@
   width: 41.146vw;
   margin-bottom: 2.778vh;
 
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   &__container {
     width: 39.583vw;
     height: 17.963vh;
