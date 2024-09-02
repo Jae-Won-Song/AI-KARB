@@ -5,7 +5,7 @@ import closeBlue from '../assets/closeBlue-mypage.svg';
 import closeRed from '../assets/closeRed-mypage.svg';
 
 type ToastProps = {
-  mode: ReactNode | JSX.Element;
+  mode?: ReactNode | JSX.Element;
   title: string;
   content: string;
 };
