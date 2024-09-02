@@ -1,4 +1,3 @@
-import AuthButton from '../../components/AuthButton';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 
@@ -29,7 +28,14 @@ const SignUp = () => {
             <Input placeholder="이메일" type="email" />
           </div>
           <div className="signUp__wrapper__box_button">
-            <AuthButton disabled>회원가입</AuthButton>
+            <Button
+              type="button"
+              state="disabled"
+              onClick={() => alert('회원가입 버튼 클릭')}
+              width="20.833vw"
+              height="5.926vh">
+              회원가입
+            </Button>
           </div>
           <div className="signUp__wrapper__box_text">
             <span>이미 계정이 있으신가요? </span>
