@@ -2,7 +2,7 @@ import DashBoardDate from '../components/DashBoard/DashBoardDate';
 import Worker from '../components/DashBoard/Worker';
 import TaskSummary from '../components/DashBoard/TaskSummary';
 import WorkStatus from '../components/DashBoard/WorkStatus';
-import DailyTaskChart from '../components/DashBoard/DailyTaskChart';
+import DailyChart from '../components/DashBoard/DailyChart';
 import data from '../../data.json';
 import RecentTask from '../components/DashBoard/RecentTask';
 import TaskRate from '../components/DashBoard/TaskRate';
@@ -23,7 +23,7 @@ const HomeDashBoard = () => {
         <DailyRateChart />
       </section>
       <section style={{ display: 'flex', justifyContent: 'space-around', padding: '0 30px 62px 30px' }}>
-        <DailyTaskChart data={data} />
+        <DailyChart data={data} />
         <RecentTask />
       </section>
     </section>

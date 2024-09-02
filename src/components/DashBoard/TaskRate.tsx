@@ -11,7 +11,7 @@ const TaskRate = () => {
           <img src={myrate} alt="my-rate" />
           <div className="rate-wrapper__label">나</div>
         </div>
-        <ProgressBar width={387} height={15} progressGauge={46} className="mine" />
+        <ProgressBar width={387} height={15} progressGauge={10} className="mine" />
         <div className="rate-wrapper__text">123 / 421건</div>
       </div>
       <div className="rate-wrapper__all">

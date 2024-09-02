@@ -34,13 +34,15 @@
 @import './components/workStatus';
 @import './components/worker';
 @import './components/taskSummary';
-@import './components/dailyTaskChart';
+@import './components/dailyChart';
 @import './components/recentTask';
 @import './components/taskRate';
 @import './components/dailyRateChart';
 @import './components/progressBar';
 @import './components/taskRateAdmin';
 @import './components/dailyTaskChartAdmin';
+@import './components/dailyChartAdmin';
+@import './components/workerRateAdmin';
 
 // 페이지
 @import './components/table';

@@ -4,7 +4,7 @@ interface ChartProps {
   data: [];
 }
 
-const DailyTaskChart = ({ data }: ChartProps) => {
+const DailyChart = ({ data }: ChartProps) => {
   return (
     <section className="daily-chart">
       <div className="daily-chart__wrapper">
@@ -42,4 +42,4 @@ const DailyTaskChart = ({ data }: ChartProps) => {
   );
 };
 
-export default DailyTaskChart;
+export default DailyChart;

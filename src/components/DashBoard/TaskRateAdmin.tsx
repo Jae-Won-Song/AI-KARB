@@ -1,7 +1,7 @@
 const TaskRateAdmin = () => {
   const totalTasks = 5000;
   const completedTasks = 2500;
-  const completionRate = (completedTasks / totalTasks) * 180; // 최대 180도까지 색상 적용
+  const completionRate = (completedTasks / totalTasks) * 180;
   const percentage = Math.round((completedTasks / totalTasks) * 100);
 
   return (

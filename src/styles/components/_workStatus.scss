@@ -1,7 +1,7 @@
 .workStatus-wrapper {
   @include flex(center, start);
   width: 48.625rem;
-  height: 18.75rem;
+  // height: 300px;
   padding: 1.875rem;
   flex-direction: column;
   gap: var(--24, 1.5rem);

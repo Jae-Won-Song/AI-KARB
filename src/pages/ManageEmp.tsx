@@ -1,4 +1,3 @@
-import React from 'react';
 import Table from '../components/Table';
 import Contents from '../components/Contents';
 import SearchBar from '../components/SearchBar';

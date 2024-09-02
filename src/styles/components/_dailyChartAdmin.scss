@@ -1,0 +1,113 @@
+.daily-chartAdmin {
+  width: 1020px;
+  height: 430px;
+  padding: 30px;
+  gap: 10px;
+  position: relative;
+  border-radius: var(--12, 12px);
+  border: 1px solid #e6edff;
+  background: $white;
+  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+
+  &__wrapper {
+    @include flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__title {
+    color: $grayscale-80;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 150%;
+  }
+
+  &__date {
+    @include flex(between, center);
+    width: 100%;
+    color: $grayscale-50;
+    font-size: 15px;
+    line-height: 150%;
+
+    &__legend {
+      @include flex;
+
+      &__dropdown {
+        @include flex;
+        width: 80px;
+        height: 23px;
+        padding: 0px 6px;
+        margin-right: 16px;
+        margin-left: 8px;
+        gap: var(--4, 4px);
+        border-radius: var(--4, 4px);
+        border: 1px solid $grayscale-40;
+
+        &__selected {
+          @include flex(around, center);
+          width: 100%;
+        }
+
+        &__options {
+          position: absolute;
+          top: 94px;
+          right: 96px;
+          width: 80px;
+          padding: 6px 6px 0 6px;
+          background-color: $white;
+          border: 1px solid $grayscale-40;
+          border-radius: 8px;
+          max-height: 316px;
+          overflow-y: auto;
+          z-index: 10;
+          box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.5);
+        }
+
+        &__option {
+          padding: 4px 0;
+          position: relative;
+          text-align: center;
+          color: $grayscale-50;
+          font-size: 15px;
+          line-height: 150%;
+          transition:
+            background 0.3s,
+            color 0.3s;
+          cursor: pointer;
+
+          &:hover {
+            background: $secondary-1;
+            color: $primary-70;
+          }
+
+          &.selected {
+            background: $secondary-1;
+            color: $primary-70;
+          }
+
+          &::after {
+            @include flex;
+            content: '';
+            left: 0;
+            position: absolute;
+            width: 100%;
+            border: 1px solid $grayscale-40;
+            align-self: stretch;
+          }
+
+          &:last-child::after {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.dropdown-wrapper {
+  display: flex;
+}
+
+.taskavr {
+  margin-right: 8px;
+}
