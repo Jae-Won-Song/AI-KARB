@@ -1,0 +1,204 @@
+.Calendar {
+  position: relative;
+
+  width: 187px;
+  height: 40px;
+
+  &__wrapper {
+    @include flex;
+    gap: 20px;
+
+    width: 187px;
+    height: 40px;
+    border: 1px solid $grayscale-30;
+    border-radius: 8px;
+
+    background-color: white;
+
+    &__date {
+      font-size: $font-size-17;
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    right: 0;
+
+    width: 301px;
+    height: 119px;
+    margin-top: 10px;
+    padding: 20px 20px 12px 20px;
+
+    border: 1px solid $grayscale-40;
+    border-radius: 8px;
+
+    box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.5);
+
+    &__wrapper {
+      @include flex;
+      position: relative;
+
+      width: 261px;
+      height: 54px;
+      padding: 12px 0;
+
+      &_year {
+        @include flex;
+        gap: 4px;
+
+        width: 80px;
+        height: 100%;
+        padding: 0 6px;
+
+        border: 1px solid $grayscale-40;
+        border-radius: 4px;
+
+        cursor: pointer;
+
+        &_span {
+          @include flex;
+
+          width: 48px;
+        }
+      }
+
+      &_month {
+        @include flex;
+        gap: 4px;
+
+        width: 60px;
+        height: 100%;
+        padding: 0 6px;
+
+        border: 1px solid $grayscale-40;
+        border-radius: 4px;
+
+        cursor: pointer;
+
+        &_span {
+          @include flex;
+
+          width: 28px;
+        }
+      }
+
+      &_week {
+        @include flex;
+        gap: 4px;
+
+        width: 48px;
+        height: 100%;
+        padding: 0 6px;
+
+        border: 1px solid $grayscale-40;
+        border-radius: 4px;
+
+        cursor: pointer;
+
+        &_span {
+          @include flex;
+
+          width: 16px;
+          height: 23px;
+        }
+      }
+
+      &_span {
+        margin-left: 6px;
+        margin-right: 8px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      &_select {
+        @include flex;
+
+        width: 100%;
+        height: 31px;
+
+        border-bottom: 1px solid $grayscale-40;
+
+        font-size: $font-size-15;
+        color: $grayscale-50;
+
+        cursor: pointer;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &.previous-selected {
+          border-bottom: none;
+        }
+
+        &.selected {
+          border-bottom: none;
+          border-radius: 8px;
+
+          color: $primary-70;
+          background-color: $secondary-1;
+        }
+      }
+
+      &_select-year {
+        @include column-flex;
+        position: absolute;
+
+        width: 80px;
+        max-height: 316px;
+        padding: 6px 6px 0 6px;
+
+        border: 1px solid $grayscale-40;
+        border-radius: 8px;
+
+        background-color: white;
+
+        overflow-y: auto;
+      }
+
+      &_select-month {
+        @include column-flex;
+        position: absolute;
+        left: 127px;
+
+        width: 60px;
+        padding: 6px 6px 0 6px;
+
+        border: 1px solid $grayscale-40;
+        border-radius: 8px;
+
+        background-color: white;
+      }
+
+      &_select-week {
+        @include column-flex;
+        position: absolute;
+        right: 36px;
+
+        width: 48px;
+        padding: 6px 6px 0 6px;
+
+        border: 1px solid $grayscale-40;
+        border-radius: 8px;
+
+        background-color: white;
+      }
+    }
+
+    &_reset-wrapper {
+      @include flex(end, end);
+
+      height: 33px;
+      padding: 10px 10px 0;
+
+      font-size: $font-size-15;
+      color: $primary-50;
+    }
+
+    &_reset-span {
+      cursor: pointer;
+    }
+  }
+}

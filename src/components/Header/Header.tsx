@@ -1,5 +1,5 @@
 import logout from '../../assets/icon-logout.svg';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const location = useLocation();
@@ -30,18 +30,26 @@ const Header = () => {
         return '헤더타이틀명';
     }
   }
+
+  const navigate = useNavigate();
+
   return (
     <div className="header">
       <div className="header__container">
         <div className="header__container__title">{headerTitle(location.pathname)}</div>
 
         <div className="header__container__admin-box">
-          <div className="header__container__admin-box-picture">K</div>
+          <div className="header__container__admin-box-picture" />
           <div className="header__container__admin-box__content-box">
             <div className="header__container__admin-box__content-box-name">김여진</div>
             <div className="header__container__admin-box__content-box-class">건달</div>
           </div>
-          <img className="header__container__admin-box-icon" src={logout} alt="로그아웃" />
+          <div
+            onClick={() => {
+              navigate('/signin');
+            }}>
+            <img className="header__container__admin-box-icon" src={logout} alt="로그아웃" />
+          </div>
         </div>
       </div>
     </div>

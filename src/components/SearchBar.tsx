@@ -1,17 +1,16 @@
-import TagFilter from './TagFilter';
-import Filter from './Filter';
+import { ReactNode } from 'react';
 
-const SearchBar = () => {
+const SearchBar = ({ children }: { children: ReactNode }) => {
   return (
-    <main className="searchBar">
+    <div className="searchBar">
       <section className="searchBar__topBar">
         <div className="searchBar__topBar_counter">
           <div className="searchBar__topBar_counter_total">총</div>
           <div className="searchBar__topBar_counter_number">200건</div>
         </div>
-        <div className="searchBar__topBar_wrapper">{/* 여기에 각자 들어가는 컴포넌트 넣으면 됨 */}</div>
+        <div className="searchBar__topBar_wrapper">{children}</div>
       </section>
-    </main>
+    </div>
   );
 };
 

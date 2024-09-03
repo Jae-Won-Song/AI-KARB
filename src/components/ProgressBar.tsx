@@ -1,10 +1,7 @@
-import React from 'react';
-
-interface Progress {
-  width: number;
+interface progressBarProps {
+  progress: number;
 }
-
-const ProgressBar = () => {
+const ProgressBar = ({ progress }: progressBarProps) => {
   const maxItem = 5;
   const availableItem = 1;
   const width = 100 - (availableItem * 100) / maxItem;
@@ -14,7 +11,7 @@ const ProgressBar = () => {
       <div className="progressBar">
         <div className="progressBar__gauge" style={{ width: `${width}%` }} />
       </div>
-      <div className="progressBar__rate">80%</div>
+      {<div className="progressBar__rate">{progress}</div>}{' '}
     </div>
   );
 };

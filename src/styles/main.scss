@@ -22,10 +22,24 @@
 @import './components/filter';
 @import './components/sortFilter';
 @import './components/button';
+@import './components/table';
+@import './components/progressBar';
+@import './components/searchBar';
 @import './components/searchInput';
+@import './components/modal';
+@import './components/calendar';
+@import './components/tab';
+@import './components/sameAdResultBox';
+@import './components/reviewtag';
+@import './components/toast';
+@import './components/adInfoTable';
+@import './components/reviewAdNumber';
+@import './components/reviewAdResult';
 
 // 페이지
 @import './components/signin';
 @import './components/signup';
-@import './components/findId';
+@import './components/findUser';
 @import './components/mypage';
+@import './components/sameAd';
+@import './components/sameAdResult';
