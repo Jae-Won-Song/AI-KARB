@@ -1,5 +1,5 @@
-import React from 'react';
 import ProgressBar from './ProgressBar';
+import React, { ReactNode } from 'react';
 
 interface Column {
   name?: string;
@@ -41,10 +41,11 @@ interface EmpData {
 interface EmpInfo {
   columns: Column[];
   data: EmpData[];
+  onRowClick?: ReactNode;
 }
 
 const Table = (props: EmpInfo) => {
-  const { columns, data } = props;
+  const { columns, data, onRowClick } = props;
 
   return (
     <div>
@@ -63,7 +64,12 @@ const Table = (props: EmpInfo) => {
         </thead>
         <tbody className="info">
           {data.map((row, rowIndex) => (
-            <tr key={rowIndex} className="info__data">
+            <tr
+              key={rowIndex}
+              className="info__data"
+              onClick={() => {
+                onRowClick(row);
+              }}>
               {columns.map((column, colIndex) => {
                 const cellData = row[column.name as keyof EmpData];
                 return (
@@ -74,7 +80,7 @@ const Table = (props: EmpInfo) => {
                     {React.isValidElement(cellData) ? (
                       cellData
                     ) : column.name === '작업진척도' ? (
-                      <ProgressBar progress={parseInt(cellData as string, 10)} />
+                      <ProgressBar width={200} height={15} progressGauge={30} className="mine" />
                     ) : column.name === '지적/비지적' ? (
                       cellData
                     ) : (
