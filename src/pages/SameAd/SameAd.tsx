@@ -1,9 +1,9 @@
-import SearchInput from '../components/SearchInput';
-import SearchBar from '../components/SearchBar';
-import Table from '../components/Table';
-import TagFilter from '../components/TagFilter';
-import Filter from '../components/Filter';
-import Calendar from '../components/Calendar';
+import SearchInput from '../../components/SearchInput';
+import SearchBar from '../../components/SearchBar';
+import Table from '../../components/Table';
+import TagFilter from '../../components/TagFilter';
+import Filter from '../../components/Filter';
+import Calendar from '../../components/Calendar';
 
 const SameAd = () => {
   return (
