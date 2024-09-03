@@ -1,28 +1,28 @@
 .myTasks {
   &__container {
-    margin-top: 15px;
-    height: 945px;
-    background: white;
+    height: 87.5vh;
+    margin-top: 1.389vh;
+    background: $white;
     overflow: hidden;
 
     &__tasksBox {
-      width: 790px;
-      height: 140px;
+      width: 41.146vw;
+      height: 12.963vh;
       border-radius: 12px;
-      padding: 20px;
+      padding: 1.852vh 1.042vw 1.852vh 1.042vw;
       border: 1px solid #e6edff;
-      margin: 60px 821px 0 29px;
+      margin: 5.556vh 42.76vw 0 1.51vw;
       box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
 
       &__tasks {
         @include flex;
-        height: 100px;
+        height: 9.259vh;
 
         &__task {
           @include column-flex(center, start);
-          width: 206px;
-          height: 100px;
-          padding: 0 36px;
+          width: 10.729vw;
+          height: 9.259vh;
+          padding: 0 1.875vw;
           border-right: 1px solid #e6edff;
 
           &:first-child {
@@ -36,10 +36,10 @@
           }
 
           &_title {
-            @include text-style(15, #717171, 500);
+            @include text-style(15, $grayscale-60, 500);
           }
           &_content {
-            @include text-style(32, black, 700);
+            @include text-style(32, $black, 700);
           }
         }
       }
