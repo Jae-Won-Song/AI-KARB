@@ -1,0 +1,35 @@
+.ReviewAdNumber {
+  @include flex(start, center);
+  gap: 1.042vw;
+
+  height: 6.111vh;
+  margin-bottom: 2.778vh;
+
+  &_img {
+    @include flex;
+
+    width: 3.438vw;
+    height: 6.111vh;
+    border-radius: 8px;
+
+    background-color: $secondary-5;
+  }
+
+  &_span {
+    @include column-flex(between, start);
+    height: 5.926vh;
+
+    &_name {
+      @include flex;
+      height: 2.407vh;
+      @include text-style(17, $grayscale-90, 700);
+    }
+
+    &_number {
+      @include flex;
+      height: 3.519vh;
+
+      @include text-style(25, $grayscale-90, 700);
+    }
+  }
+}
