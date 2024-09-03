@@ -1,8 +1,8 @@
 import arrowLeft from '../../assets/arrow-left.svg';
-import fileCheck from '../../assets/icon-file-check.svg';
 import SameAdResultBox from '../../components/SameAdResultBox';
 import AdInfoTable from '../../components/AdInfoTable';
 import ReviewAdNumber from '../../components/ReviewAdNumber';
+import ReviewAdResult from '../../components/ReviewAdResult';
 
 const SameAdResult = () => {
   return (
@@ -19,20 +19,7 @@ const SameAdResult = () => {
       <div className="middleBar"> </div>
       <article className="sameAdResult__wrapperRight">
         <div className="sameAdResult__wrapperRight_contents">
-          <div className="sameAdResult__wrapperRight_contents_title">
-            <div className="sameAdResult__wrapperRight_contents_title_img">
-              <img src={fileCheck} alt="검수 결과 아이콘" />
-            </div>
-            <div className="sameAdResult__wrapperRight_contents_title_result">
-              <div className="sameAdResult__wrapperRight_contents_title_result_box">
-                <span className="sameAdResult__wrapperRight_contents_title_result_box_span">검수결과</span>
-                <div className="sameAdResult__wrapperRight_contents_title_result_box_number">4</div>
-              </div>
-              <span className="sameAdResult__wrapperRight_contents_title_result_detail">
-                동일 광고는 유사도 80% 이상의 광고만 간주합니다.
-              </span>
-            </div>
-          </div>
+          <ReviewAdResult reviewNumber={4} detailSpan="동일 광고는 유사도 80% 이상의 광고만 간주합니다." />
           <div className="sameAdResult__wrapperRight_contents_resultBox">
             <SameAdResultBox />
             <SameAdResultBox />
