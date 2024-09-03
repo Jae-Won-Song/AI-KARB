@@ -1,9 +1,10 @@
 import './styles/main.scss';
 import Layout from './components/Layout';
 import { Routes, Route } from 'react-router-dom';
-import ManageEmp from './pages/ManageEmp';
-import HomeDashBoard from './pages/HomeDashBoard';
-import AdminDashBoard from './pages/AdminDashBoard';
+import ManageEmp from './pages/ManageEmp/ManageEmp';
+import HomeDashBoard from './pages/Dashboard/HomeDashBoard';
+import AdminDashBoard from './pages/Dashboard/AdminDashBoard';
+import ManageEmpDetail from './pages/ManageEmp/ManageEmpDetail';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
               <Route path="/dashboard" element={<HomeDashBoard />} />
               <Route path="/dashboard/admin" element={<AdminDashBoard />} />
               <Route path="admin/manage-emp" element={<ManageEmp />} />
+              <Route path="/employee/:employeeId" element={<ManageEmpDetail />} />
             </Routes>
           </Layout>
         }

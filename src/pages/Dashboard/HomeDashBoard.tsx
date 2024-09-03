@@ -1,12 +1,12 @@
-import DashBoardDate from '../components/DashBoard/DashBoardDate';
-import Worker from '../components/DashBoard/Worker';
-import TaskSummary from '../components/DashBoard/TaskSummary';
-import WorkStatus from '../components/DashBoard/WorkStatus';
-import DailyChart from '../components/DashBoard/DailyChart';
-import data from '../../data.json';
-import RecentTask from '../components/DashBoard/RecentTask';
-import TaskRate from '../components/DashBoard/TaskRate';
-import DailyRateChart from '../components/DashBoard/DailyRateChart';
+import DashBoardDate from '../../components/DashBoard/DashBoardDate';
+import Worker from '../../components/DashBoard/Worker';
+import TaskSummary from '../../components/DashBoard/TaskSummary';
+import WorkStatus from '../../components/DashBoard/WorkStatus';
+import DailyChart from '../../components/DashBoard/DailyChart';
+import data from '../../../data.json';
+import RecentTask from '../../components/DashBoard/RecentTask';
+import TaskRate from '../../components/DashBoard/TaskRate';
+import DailyRateChart from '../../components/DashBoard/DailyRateChart';
 
 const HomeDashBoard = () => {
   return (

@@ -1,11 +1,10 @@
 .work-wrapper {
-  @include flex(center center);
+  @include flex(start, center);
   flex-direction: row;
   width: 23.625rem;
   height: 8.75rem;
   padding: 1.875rem;
   gap: 0.9375rem;
-  // border 색상 글로벌 추가할건지 상의
   border: 1px solid #e6edff;
   border-radius: var(--12, 0.75rem);
   background: $white;

@@ -42,4 +42,8 @@
       display: none;
     }
   }
+  &__title {
+    @include flex(center, start);
+    cursor: pointer;
+  }
 }

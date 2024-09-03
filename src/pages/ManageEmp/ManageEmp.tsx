@@ -1,11 +1,22 @@
-import Table from '../components/Table';
-import Contents from '../components/Contents';
-import SearchBar from '../components/SearchBar';
+import { useNavigate } from 'react-router-dom';
+import Table from '../../components/Table';
+import SearchBar from '../../components/SearchBar';
+import Filter from '../../components/Filter';
+import Calendar from '../../components/Calendar';
 
 const ManageEmp = () => {
+  const navigate = useNavigate();
+
+  const handleRowClick = (rowData) => {
+    navigate(`/employee/${rowData.사원번호}`, { state: rowData });
+  };
+
   return (
-    <Contents>
-      <SearchBar />
+    <div className="manageEmp-wrapper">
+      <SearchBar>
+        <Filter />
+        <Calendar />
+      </SearchBar>
       <Table
         columns={[
           { name: '번호', width: '6.25vw' },
@@ -135,8 +146,9 @@ const ManageEmp = () => {
             작업진척도: '80%',
           },
         ]}
+        onRowClick={handleRowClick}
       />
-    </Contents>
+    </div>
   );
 };
 

@@ -1,13 +1,13 @@
 .daily-chartAdmin {
-  width: 1020px;
-  height: 430px;
-  padding: 30px;
-  gap: 10px;
+  width: 53.125vw;
+  height: 39.8148vh;
+  padding: 1.5625vw;
+  gap: 0.5208vw;
   position: relative;
-  border-radius: var(--12, 12px);
-  border: 1px solid #e6edff;
+  border-radius: var(--12, 0.625vw);
+  border: 0.052vw solid #e6edff;
   background: $white;
-  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+  box-shadow: 0.208vw 0.208vw 0.52vw 0px rgba(220, 220, 220, 0.2);
 
   &__wrapper {
     @include flex;
@@ -34,14 +34,14 @@
 
       &__dropdown {
         @include flex;
-        width: 80px;
-        height: 23px;
-        padding: 0px 6px;
-        margin-right: 16px;
-        margin-left: 8px;
-        gap: var(--4, 4px);
-        border-radius: var(--4, 4px);
-        border: 1px solid $grayscale-40;
+        width: 4.1667vw;
+        height: 2.1296vh;
+        padding: 0px 0.3125vw;
+        margin-right: 0.8333vw;
+        margin-left: 0.4167vw;
+        gap: var(--4, 0.208vw);
+        border-radius: var(--4, 0.208vw);
+        border: 0.052vw solid $grayscale-40;
 
         &__selected {
           @include flex(around, center);
@@ -50,21 +50,21 @@
 
         &__options {
           position: absolute;
-          top: 94px;
-          right: 96px;
-          width: 80px;
-          padding: 6px 6px 0 6px;
+          top: 8.7037vh;
+          right: 5vw;
+          width: 4.1667vw;
+          padding: 0.3125vw 0.3125vw 0 0.3125vw;
           background-color: $white;
-          border: 1px solid $grayscale-40;
-          border-radius: 8px;
-          max-height: 316px;
+          border: 0.052vw solid $grayscale-40;
+          border-radius: 0.4167vw;
+          max-height: 29.2593vh;
           overflow-y: auto;
           z-index: 10;
-          box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.5);
+          box-shadow: 0.208vw 0.208vw 0.52vw 0px rgba(220, 220, 220, 0.5);
         }
 
         &__option {
-          padding: 4px 0;
+          padding: 0.208vw 0;
           position: relative;
           text-align: center;
           color: $grayscale-50;
@@ -91,7 +91,7 @@
             left: 0;
             position: absolute;
             width: 100%;
-            border: 1px solid $grayscale-40;
+            border: 0.052vw solid $grayscale-40;
             align-self: stretch;
           }
 
@@ -109,5 +109,5 @@
 }
 
 .taskavr {
-  margin-right: 8px;
+  margin-right: 0.4167vw;
 }

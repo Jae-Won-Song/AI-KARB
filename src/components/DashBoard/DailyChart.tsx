@@ -14,7 +14,7 @@ const DailyChart = ({ data }: ChartProps) => {
       <ResponsiveLine
         data={data}
         curve="monotoneX"
-        margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
+        margin={{ top: 30, right: 30, bottom: 60, left: 30 }}
         gridXValues={[]}
         pointLabel="data.yFormatted"
         enableArea

@@ -1,6 +1,6 @@
 const TaskRateAdmin = () => {
   const totalTasks = 5000;
-  const completedTasks = 2500;
+  const completedTasks = 4200;
   const completionRate = (completedTasks / totalTasks) * 180;
   const percentage = Math.round((completedTasks / totalTasks) * 100);
 

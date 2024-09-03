@@ -1,5 +1,5 @@
-import React from 'react';
 import ProgressBar from './ProgressBar';
+import React, { ReactNode } from 'react';
 
 interface Column {
   name?: string;
@@ -41,10 +41,11 @@ interface EmpData {
 interface EmpInfo {
   columns: Column[];
   data: EmpData[];
+  onRowClick?: ReactNode;
 }
 
 const Table = (props: EmpInfo) => {
-  const { columns, data } = props;
+  const { columns, data, onRowClick } = props;
 
   return (
     <div>
@@ -63,7 +64,12 @@ const Table = (props: EmpInfo) => {
         </thead>
         <tbody className="info">
           {data.map((row, rowIndex) => (
-            <tr key={rowIndex} className="info__data">
+            <tr
+              key={rowIndex}
+              className="info__data"
+              onClick={() => {
+                onRowClick(row);
+              }}>
               {columns.map((column, colIndex) => {
                 const cellData = row[column.name as keyof EmpData];
                 return (

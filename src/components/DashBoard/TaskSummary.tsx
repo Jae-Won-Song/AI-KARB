@@ -1,12 +1,21 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import targetIcon from '../../assets/icon-target.svg';
 import caseIcon from '../../assets/icon-case.svg';
+import adminCase from '../../assets/case-admin.svg';
 import checkIcon from '../../assets/icon-check.svg';
 import userIcon from '../../assets/user-icon.svg';
+import rightArrow from '../../assets/chevron-right.svg';
 
 const TaskSummary = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname === '/dashboard/admin';
+  const navigate = useNavigate();
+  const movemanageTask = () => {
+    navigate('/admin/manage-task');
+  };
+  const moveapproveUser = () => {
+    navigate('/admin/approve-user');
+  };
 
   return (
     <section className="task-wrapper">
@@ -21,14 +30,20 @@ const TaskSummary = () => {
         <>
           <div className="task-wrapper__dailytask">
             <div className="task-wrapper__info">
-              잔여 배분량
+              <div className="task-wrapper__title" onClick={movemanageTask}>
+                잔여 배분량
+                <img src={rightArrow} alt="잔여 배분량 바로가기" />
+              </div>
               <div className="task-wrapper__info__subtitle">30건</div>
             </div>
-            <img src={caseIcon} alt="caseIcon" />
+            <img src={adminCase} alt="adminCaseIcon" />
           </div>
           <div className="task-wrapper__dailyrecommend">
             <div className="task-wrapper__info">
-              가입 미승인 회원
+              <div className="task-wrapper__title" onClick={moveapproveUser}>
+                가입 미승인 회원
+                <img src={rightArrow} alt="가입 미승인 회원 바로가기" />
+              </div>
               <div className="task-wrapper__info__subtitle">5명</div>
             </div>
             <img src={userIcon} alt="userIcon" />

@@ -10,4 +10,12 @@
   border: 1px solid #e6edff;
   background: #fff;
   box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+  overflow-y: auto;
+  overflow-x: hidden;
+  &__title {
+    color: var(--Gray-Gray-90, #1d1d1d);
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 150%;
+  }
 }

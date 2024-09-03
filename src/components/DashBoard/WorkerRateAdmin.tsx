@@ -1,47 +1,60 @@
 import { ResponsiveBar } from '@nivo/bar';
+import { useState } from 'react';
 
 interface ChartProps {
   data: Array<{ [key: string]: string | number }>;
 }
 
 const WorkRateAdmin = ({ data }: ChartProps) => {
+  const [selectedBar, setSelectedBar] = useState<{ name: string; progress: number } | null>(null);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const CustomTooltip = ({ id, value, color, totalWork }: any) => (
+    <div
+      style={{
+        padding: 12,
+        color,
+        background: '#fff',
+        border: '1px solid #ccc',
+        borderRadius: '4px',
+      }}>
+      <strong>
+        {totalWork}/{value}
+      </strong>{' '}
+    </div>
+  );
+
   return (
     <div className="workRateWrapper">
-      <div className="workRateWrapper__info">
-        <div className="workRateWrapper__info__title">작업자별 진행률</div>
-        <div className="workRateWrapper__info__wrapper">
-          <div className="workRateWrapper__info__wrapper__count">562</div>
-          <div className="workRateWrapper__info__wrapper__eve">전일대비</div>
-          <div className="workRateWrapper__info__wrapper__plusCount">+12</div>
-          <div className="workRateWrapper__info__wrapper__percentage">12.3%</div>
-        </div>
-      </div>
-      <div style={{ width: '321px', height: '228px' }}>
+      <div className="workRateWrapper__title">작업자별 진행률</div>
+      <div style={{ width: '446px', height: '430px' }}>
         <ResponsiveBar
           data={data}
-          keys={['김지안', '나하윤', '도유준', '민서현', '박서아', '신지윤', '오현서']}
-          indexBy="date"
-          margin={{ top: 30, right: 22, bottom: 30, left: 40 }}
+          keys={['progress']}
+          indexBy="name"
+          margin={{ top: 10, right: 22, bottom: 30, left: 60 }}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
-          padding={0.8}
+          padding={0.4}
           layout="horizontal"
+          colors={({ id, data }) => data.color || '#83C5C1'}
           borderColor={{
             from: 'color',
             modifiers: [['darker', 1.6]],
           }}
           axisLeft={{
-            tickValues: [200, 500, 1000],
+            tickSize: 0,
           }}
+          axisBottom={null}
+          gridYValues={5}
+          gridXValues={[]}
           labelSkipWidth={12}
           labelSkipHeight={-1}
           labelTextColor={{
             from: 'color',
             modifiers: [['opacity', 1]],
           }}
-          colors={({ index }) => {
-            return index === data.length - 1 ? '#83C5C1' : '#006597';
-          }}
+          tooltip={CustomTooltip}
         />
       </div>
     </div>

@@ -1,11 +1,23 @@
 import Table from '../Table';
+import rightArrow from '../../assets/chevron-right.svg';
+import { useNavigate } from 'react-router-dom';
 
 const RecentTask = () => {
+  const navigate = useNavigate();
+  const moveMyTask = () => {
+    navigate('/my-task');
+  };
+
   return (
     <section className="recent-wrapper">
       <div className="recent-wrapper__header">
         <div className="recent-wrapper__header__title">최근작업</div>
-        <div className="recent-wrapper__header__detail">자세히 보기 </div>
+        <div className="recent-wrapper__header__detail">
+          <div className="recent-wrapper__header__arrow" onClick={moveMyTask}>
+            자세히 보기
+            <img src={rightArrow} alt="내 작업관리 바로가기" />
+          </div>
+        </div>
       </div>
       <div className="recent-wrapper__table">
         <Table
