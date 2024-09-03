@@ -1,5 +1,6 @@
 import ProgressBar from './ProgressBar';
 import React, { ReactNode } from 'react';
+import clipBoard from '../assets/icon-clipBoard.svg';
 
 interface Column {
   name?: string;
@@ -26,6 +27,7 @@ interface EmpData {
   총배분작업?: string | number;
   연락처?: string | number;
   이메일?: string;
+  연락처관리?: string;
   회원가입일?: string | number;
   최종로그인일?: string | number;
   가입요청일?: string | number;
@@ -34,7 +36,7 @@ interface EmpData {
   지적비지적?: JSX.Element | string;
   진행상황?: JSX.Element | string;
   아이디?: string | number;
-  관리?: string;
+  관리?: JSX.Element;
   체크박스?: JSX.Element;
 }
 
@@ -57,7 +59,13 @@ const Table = (props: EmpInfo) => {
                 key={index}
                 className={`table__head__${column.name || 'img'}`}
                 style={{ width: column.width, height: column.height }}>
-                {column.name === '지적비지적' ? '지적/비지적' : column.img ? column.img : column.name}
+                {column.name === '지적비지적'
+                  ? '지적/비지적'
+                  : column.name === '총배분작업'
+                    ? '총 배분작업'
+                    : column.img
+                      ? column.img
+                      : column.name}
               </th>
             ))}
           </tr>
@@ -86,6 +94,9 @@ const Table = (props: EmpInfo) => {
                     ) : (
                       cellData
                     )}
+                    {column.name === '연락처' ? (
+                      <img style={{ marginLeft: '10px' }} src={clipBoard} alt="클립보드" />
+                    ) : null}
                   </td>
                 );
               })}

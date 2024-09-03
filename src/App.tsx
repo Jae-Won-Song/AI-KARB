@@ -8,6 +8,7 @@ import ManageEmpDetail from './pages/ManageEmp/ManageEmpDetail';
 import FindUser from './pages/Auth/FindUser';
 import SignUp from './pages/Auth/SignUp';
 import SignIn from './pages/Auth/SignIn';
+import ManageTask from './pages/ManageEmp/ManageTask';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
               <Route path="/dashboard/admin" element={<AdminDashBoard />} />
               <Route path="admin/manage-emp" element={<ManageEmp />} />
               <Route path="/employee/:employeeId" element={<ManageEmpDetail />} />
+              <Route path="admin/manage-task" element={<ManageTask />} />
             </Routes>
           </Layout>
         }

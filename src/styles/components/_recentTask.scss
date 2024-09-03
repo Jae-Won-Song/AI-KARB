@@ -30,18 +30,18 @@
 }
 .table {
   &__head {
-    color: var(--Primary-Primary-60_Hover, #006597) !important;
-    font-size: 15px !important;
-    font-weight: 400 !important;
+    // color: var(--Primary-Primary-60_Hover, #006597) !important;
+    // font-size: 15px !important;
+    // font-weight: 400 !important;
   }
 }
 .info {
   &__data {
-    height: 50px !important;
-    align-items: baseline !important;
+    // height: 50px !important;
+    // align-items: baseline !important;
     white-space: nowrap;
     td {
-      padding: 16px !important;
+      // padding: 16px !important;
     }
     &:last-child {
       border-bottom: none;
