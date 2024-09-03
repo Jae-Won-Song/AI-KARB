@@ -55,6 +55,88 @@
         height: 79.259vh;
 
         overflow-y: auto;
+
+        &_addResult {
+          height: 27.87vh;
+          padding: 1.852vh 0.625vw;
+
+          &_toggleBar {
+            @include flex(between, center);
+
+            &_title {
+              @include flex;
+              gap: 0.521vw;
+
+              &_number {
+                @include text-style(13, $grayscale-60, 400);
+              }
+
+              &_articleNum {
+                @include flex;
+                gap: 0.104vw;
+
+                width: 4.635vw;
+                height: 2.593vh;
+                padding: 0.37vh 0.521vw;
+                border: 1px solid $grayscale-30;
+                border-radius: 4px;
+
+                @include text-style(13, $grayscale-70, 400);
+
+                cursor: pointer;
+
+                &-span {
+                  @include text-style(13, $grayscale-70, 400);
+
+                  outline: none;
+                }
+              }
+
+              &_articleTitle {
+                @include text-style(17, $grayscale-90, 700);
+              }
+            }
+
+            img {
+              cursor: pointer;
+            }
+          }
+
+          &_selectInput {
+            width: 30.26vw;
+            height: 4.815vh;
+            padding: 1.481vh 0.833vw;
+            margin: 1.481vh 0 0 6.51vw;
+
+            border: 1px solid $grayscale-20;
+            border-radius: 8px;
+
+            @include text-style(15, $grayscale-50, 400);
+
+            outline: none;
+          }
+
+          &_writeInput {
+            width: 30.26vw;
+            height: 9.167vh;
+            padding: 1.481vh 0.833vw;
+            margin: 1.481vh 0 0 6.51vw;
+
+            border: 1px solid $grayscale-20;
+            border-radius: 8px;
+
+            @include text-style(15, $grayscale-50, 400);
+            text-align: left;
+
+            outline: none;
+          }
+
+          &_button {
+            @include flex(end, center);
+
+            margin: 1.481vh 1.719vw 0 0;
+          }
+        }
       }
     }
   }
