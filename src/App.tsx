@@ -5,11 +5,17 @@ import ManageEmp from './pages/ManageEmp/ManageEmp';
 import HomeDashBoard from './pages/Dashboard/HomeDashBoard';
 import AdminDashBoard from './pages/Dashboard/AdminDashBoard';
 import ManageEmpDetail from './pages/ManageEmp/ManageEmpDetail';
+import FindUser from './pages/Auth/FindUser';
+import SignUp from './pages/Auth/SignUp';
+import SignIn from './pages/Auth/SignIn';
 
 const App = () => {
   return (
     <Routes>
       {/* 로그인쪽 넣으세용 */}
+      <Route path="/find-user" element={<FindUser />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/signin" element={<SignIn />} />
       <Route
         path="/*"
         element={
