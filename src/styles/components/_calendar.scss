@@ -1,22 +1,22 @@
 .Calendar {
   position: relative;
 
-  width: 187px;
-  height: 40px;
+  width: 9.74vw;
+  height: 3.704vh;
 
   &__wrapper {
     @include flex;
-    gap: 20px;
+    gap: 1.042vw;
 
-    width: 187px;
-    height: 40px;
+    width: 9.74vw;
+    height: 3.704vh;
     border: 1px solid $grayscale-30;
     border-radius: 8px;
 
     background-color: white;
 
     &__date {
-      font-size: $font-size-17;
+      @include text-style(17, $grayscale-70, 400);
     }
   }
 
@@ -24,88 +24,97 @@
     position: absolute;
     right: 0;
 
-    width: 301px;
-    height: 119px;
-    margin-top: 10px;
-    padding: 20px 20px 12px 20px;
+    width: 15.677vw;
+    height: 11.019vh;
+    margin-top: 0.926vh;
+    padding: 1.852vh 1.042vw 1.111vh;
 
     border: 1px solid $grayscale-40;
     border-radius: 8px;
 
+    background-color: white;
     box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.5);
 
     &__wrapper {
       @include flex;
       position: relative;
 
-      width: 261px;
-      height: 54px;
-      padding: 12px 0;
+      width: 13.594vw;
+      height: 5vh;
+      padding: 1.111vh 0;
 
       &_year {
         @include flex;
-        gap: 4px;
+        gap: 0.208vw;
 
-        width: 80px;
+        width: 4.167vw;
         height: 100%;
-        padding: 0 6px;
+        padding: 0 0.313vw;
 
         border: 1px solid $grayscale-40;
         border-radius: 4px;
+
+        @include text-style(15, $grayscale-80, 400);
 
         cursor: pointer;
 
         &_span {
           @include flex;
 
-          width: 48px;
+          width: 2.5vw;
         }
       }
 
       &_month {
         @include flex;
-        gap: 4px;
+        gap: 0.208vw;
 
-        width: 60px;
+        width: 3.125vw;
         height: 100%;
-        padding: 0 6px;
+        padding: 0 0.313vw;
 
         border: 1px solid $grayscale-40;
         border-radius: 4px;
+
+        @include text-style(15, $grayscale-80, 400);
 
         cursor: pointer;
 
         &_span {
           @include flex;
 
-          width: 28px;
+          width: 1.458vw;
         }
       }
 
       &_week {
         @include flex;
-        gap: 4px;
+        gap: 0.208vw;
 
-        width: 48px;
+        width: 2.5vw;
         height: 100%;
-        padding: 0 6px;
+        padding: 0 0.313vw;
 
         border: 1px solid $grayscale-40;
         border-radius: 4px;
+
+        @include text-style(15, $grayscale-80, 400);
 
         cursor: pointer;
 
         &_span {
           @include flex;
 
-          width: 16px;
-          height: 23px;
+          width: 0.833vw;
+          height: 2.13vh;
         }
       }
 
       &_span {
-        margin-left: 6px;
-        margin-right: 8px;
+        margin-left: 0.313vw;
+        margin-right: 0.417vw;
+
+        @include text-style(15, $grayscale-90, 400);
 
         &:last-child {
           margin-right: 0;
@@ -116,12 +125,11 @@
         @include flex;
 
         width: 100%;
-        height: 31px;
+        height: 2.87vh;
 
         border-bottom: 1px solid $grayscale-40;
 
-        font-size: $font-size-15;
-        color: $grayscale-50;
+        @include text-style(15, $grayscale-50, 400);
 
         cursor: pointer;
 
@@ -146,9 +154,9 @@
         @include column-flex;
         position: absolute;
 
-        width: 80px;
-        max-height: 316px;
-        padding: 6px 6px 0 6px;
+        width: 4.167vw;
+        max-height: 29.259vh;
+        padding: 0.556vh 0.313vw 0;
 
         border: 1px solid $grayscale-40;
         border-radius: 8px;
@@ -161,10 +169,10 @@
       &_select-month {
         @include column-flex;
         position: absolute;
-        left: 127px;
+        left: 6.615vw;
 
-        width: 60px;
-        padding: 6px 6px 0 6px;
+        width: 3.125vw;
+        padding: 0.556vh 0.313vw 0;
 
         border: 1px solid $grayscale-40;
         border-radius: 8px;
@@ -175,10 +183,10 @@
       &_select-week {
         @include column-flex;
         position: absolute;
-        right: 36px;
+        right: 1.875vw;
 
-        width: 48px;
-        padding: 6px 6px 0 6px;
+        width: 2.5vw;
+        padding: 0.556vh 0.313vw 0;
 
         border: 1px solid $grayscale-40;
         border-radius: 8px;
@@ -190,11 +198,10 @@
     &_reset-wrapper {
       @include flex(end, end);
 
-      height: 33px;
-      padding: 10px 10px 0;
+      height: 3.056vh;
+      padding: 0.926vh 0.521vw 0;
 
-      font-size: $font-size-15;
-      color: $primary-50;
+      @include text-style(15, $primary-50, 400);
     }
 
     &_reset-span {
