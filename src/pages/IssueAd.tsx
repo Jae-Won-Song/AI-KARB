@@ -1,13 +1,23 @@
+import SearchInput from '../components/SearchInput';
 import SearchBar from '../components/SearchBar';
 import Table from '../components/Table';
+import TagFilter from '../components/TagFilter';
+import Filter from '../components/Filter';
+import Calendar from '../components/Calendar';
 
 const IssueAd = () => {
   return (
     <main className="issueAd">
-      <SearchBar />
+      <SearchBar>
+        <SearchInput placeholder="검색어를 2글자 이상 입력해주세요" />
+        <TagFilter tag1="전체" tag2="지적" tag3="비지적" />
+        <TagFilter tag1="전체" tag2="검수전" tag3="검수완료" />
+        <Filter />
+        <Calendar />
+      </SearchBar>
       <Table
         columns={[
-          { name: '번호', width: '48px' },
+          { name: '번호', width: '80px' },
           { name: '고유번호', width: '120px' },
           { name: '매체명', width: '180px' },
           { name: '업종구분', width: '180px' },
