@@ -1,35 +1,35 @@
 .sign-up-request {
   &__container {
-    margin-top: 15px;
-    height: 945px;
-    background: white;
+    height: 87.5vh;
+    margin-top: 1.389vh;
+    background: $white;
   }
 }
 
 .checkBox {
-  appearance: none;
-  border-radius: 4px;
-  width: 16px;
-  height: 16px;
-  background: #fff;
   position: relative;
+  width: 0.833vw;
+  height: 1.481vh;
+  border: 1px solid $grayscale-50;
+  border-radius: 4px;
+  background: $white;
+  appearance: none;
   cursor: pointer;
-  border: 1px solid #8e8e8e;
 }
 
 .checkBox:checked {
-  background: #029eeb;
-  border: 1px solid #029eeb;
+  border: 1px solid $primary-50;
+  background: $primary-50;
 }
 
 .checkBox:checked::after {
   content: '';
   position: absolute;
-  top: 1.5px;
-  left: 4px;
-  width: 4px;
-  height: 8px;
-  border: 1px solid white;
-  border-width: 0 2px 2px 0;
+  top: 0.139vh;
+  left: 0.208vw;
+  width: 0.208vw;
+  height: 0.741vh;
+  border: 1px solid $white;
+  border-width: 0 0.104vw 0.104vw 0;
   transform: rotate(45deg);
 }
