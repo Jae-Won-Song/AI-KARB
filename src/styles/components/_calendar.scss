@@ -18,6 +18,11 @@
     &__date {
       @include text-style(17, $grayscale-70, 400);
     }
+
+    &__img {
+      width: 1.25vw;
+      height: 2.222vh;
+    }
   }
 
   &__dropdown {
