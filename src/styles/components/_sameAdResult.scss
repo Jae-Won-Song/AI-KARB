@@ -39,61 +39,6 @@
       height: 79.259vh;
       margin: 6.019vh 0 0 1.563vw;
 
-      &_title {
-        @include flex(start, center);
-        gap: 1.042vw;
-
-        height: 6.111vh;
-        margin-bottom: 2.778vh;
-
-        &_img {
-          @include flex;
-
-          width: 3.438vw;
-          height: 6.111vh;
-          border-radius: 8px;
-
-          background-color: $secondary-5;
-        }
-
-        &_result {
-          @include column-flex(between, start);
-
-          height: 100%;
-
-          &_box {
-            @include flex(start, center);
-            gap: 0.417vw;
-
-            height: 2.407;
-
-            &_span {
-              @include flex;
-              height: 2.407vh;
-
-              @include text-style(19, $grayscale-90, 700);
-            }
-
-            &_number {
-              @include flex;
-
-              min-width: 1.25vw;
-              height: 2.222vh;
-              border-radius: 50%;
-
-              background-color: $secondary-5;
-            }
-          }
-
-          &_detail {
-            @include flex;
-            height: 3.519vh;
-
-            @include text-style(15, $grayscale-70, 400);
-          }
-        }
-      }
-
       &_resultBox {
         overflow-y: auto;
       }
