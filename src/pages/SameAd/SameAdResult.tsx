@@ -1,7 +1,8 @@
-import arrowLeft from '../assets/arrow-left.svg';
-import fileSearch from '../assets/icon-file-search.svg';
-import fileCheck from '../assets/icon-file-check.svg';
+import arrowLeft from '../../assets/arrow-left.svg';
+import fileSearch from '../../assets/icon-file-search.svg';
+import fileCheck from '../../assets/icon-file-check.svg';
 import SameAdResultBox from '../../components/SameAdResultBox';
+import AdInfoTable from '../../components/AdInfoTable';
 
 const SameAdResult = () => {
   return (
@@ -18,18 +19,8 @@ const SameAdResult = () => {
               <div className="sameAdResult__wrapperLeft_contents_title_span_number">A12345</div>
             </div>
           </div>
-          <div className="sameAdResult__wrapperLeft_contents_table">
-            <div className="sameAdResult__wrapperLeft_contents_table_small">상품명</div>
-            <div className="sameAdResult__wrapperLeft_contents_table_large">명작수</div>
-            <div className="sameAdResult__wrapperLeft_contents_table_small">광고주</div>
-            <div className="sameAdResult__wrapperLeft_contents_table_large">아모레퍼시픽 코리아</div>
-          </div>
-          <div className="sameAdResult__wrapperLeft_contents_table">
-            <div className="sameAdResult__wrapperLeft_contents_table_small">업종구분</div>
-            <div className="sameAdResult__wrapperLeft_contents_table_large">식품/음료</div>
-            <div className="sameAdResult__wrapperLeft_contents_table_small">게재일</div>
-            <div className="sameAdResult__wrapperLeft_contents_table_large">2024-07-26</div>
-          </div>
+          <AdInfoTable title1="상품명" title2="광고주" content1="명작수" content2="아모레퍼시픽 코리아" />
+          <AdInfoTable title1="업종구분" title2="게재일" content1="식품/음료" content2="2024-07-26" />
           <div className="sameAdResult__wrapperLeft_contents_article">기사내용 (스크롤 테스트 완료)</div>
         </div>
       </article>
