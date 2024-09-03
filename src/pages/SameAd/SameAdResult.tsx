@@ -1,8 +1,8 @@
 import arrowLeft from '../../assets/arrow-left.svg';
-import fileSearch from '../../assets/icon-file-search.svg';
 import fileCheck from '../../assets/icon-file-check.svg';
 import SameAdResultBox from '../../components/SameAdResultBox';
 import AdInfoTable from '../../components/AdInfoTable';
+import ReviewAdNumber from '../../components/ReviewAdNumber';
 
 const SameAdResult = () => {
   return (
@@ -10,15 +10,7 @@ const SameAdResult = () => {
       <article className="sameAdResult__wrapperLeft">
         <img src={arrowLeft} alt="뒤로가기 화살표" className="sameAdResult__wrapperLeft_arrow" />
         <div className="sameAdResult__wrapperLeft_contents">
-          <div className="sameAdResult__wrapperLeft_contents_title">
-            <div className="sameAdResult__wrapperLeft_contents_title_img">
-              <img src={fileSearch} alt="검수 광고 아이콘" />
-            </div>
-            <div className="sameAdResult__wrapperLeft_contents_title_span">
-              <span className="sameAdResult__wrapperLeft_contents_title_span_name">검수 광고</span>
-              <div className="sameAdResult__wrapperLeft_contents_title_span_number">A12345</div>
-            </div>
-          </div>
+          <ReviewAdNumber adNumber="A12345" />
           <AdInfoTable title1="상품명" title2="광고주" content1="명작수" content2="아모레퍼시픽 코리아" />
           <AdInfoTable title1="업종구분" title2="게재일" content1="식품/음료" content2="2024-07-26" />
           <div className="sameAdResult__wrapperLeft_contents_article">기사내용 (스크롤 테스트 완료)</div>
