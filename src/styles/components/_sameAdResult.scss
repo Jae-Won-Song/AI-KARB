@@ -53,42 +53,6 @@
         }
       }
 
-      &_table {
-        @include flex(start, center);
-
-        height: 3.704vh;
-
-        border: 1px solid $grayscale-20;
-
-        &:nth-child(2) {
-          border-bottom: none;
-        }
-
-        &_small {
-          @include flex;
-
-          width: 5.208vw;
-          height: 100%;
-          padding: 1.296vh 0.833vw;
-
-          border-right: 1px solid $grayscale-20;
-        }
-
-        &_large {
-          @include flex(start, center);
-
-          width: 14.583vw;
-          height: 100%;
-          padding: 1.296vh 0.833vw;
-
-          border-right: 1px solid $grayscale-20;
-
-          &:last-child {
-            border-right: none;
-          }
-        }
-      }
-
       &_article {
         height: 60.185vh;
         padding: 1.852vh 1.042vw;
