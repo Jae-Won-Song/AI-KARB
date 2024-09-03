@@ -1,0 +1,94 @@
+.IssuedReason {
+  height: 26.759vh;
+  padding: 1.852vh 0.625vw;
+  border: 1px solid $grayscale-20;
+  border-radius: 8px;
+
+  &__toggleBar {
+    @include flex(between, center);
+
+    &_title {
+      @include flex;
+      gap: 0.521vw;
+
+      &_number {
+        @include text-style(13, $grayscale-60, 400);
+      }
+
+      &_articleNum {
+        @include flex;
+
+        width: 3.125vw;
+        height: 2.593vh;
+        padding: 0.37vh 0.521vw;
+        border-radius: 4px;
+
+        background-color: $grayscale-10;
+
+        @include text-style(13, $grayscale-70, 400);
+      }
+
+      &_articleTitle {
+        @include text-style(17, $grayscale-90, 700);
+      }
+    }
+
+    &_icon {
+      @include flex;
+
+      cursor: pointer;
+    }
+  }
+
+  &__content {
+    width: 31.875vw;
+    height: 10.648vh;
+    margin: 0.926vh 1.563vw 0.926vh 4.896vw;
+
+    @include text-style(15, $grayscale-60, 400);
+  }
+
+  &__reviewComment {
+    @include flex(start, center);
+    gap: 0.521vw;
+
+    margin-left: 4.896vw;
+
+    &_title {
+      @include text-style(15, $grayscale-90, 700);
+    }
+
+    &_comment {
+      @include text-style(15, $grayscale-90, 400);
+    }
+  }
+
+  &__widthBar {
+    width: 35.417vw;
+    height: 0.093vh;
+    margin: 1.852vh 0 1.852vh 1.25vw;
+
+    background-color: $grayscale-40;
+  }
+
+  &__icons {
+    @include flex(end, center);
+    gap: 0.833vw;
+
+    margin-right: 0.625vw;
+
+    img {
+      cursor: pointer;
+    }
+
+    &_trash {
+      width: 0.833vw;
+      height: 1.667vh;
+    }
+
+    &_pencil {
+      width: 0.99vw;
+      height: 1.759vh;
+    }
+  }
+}
