@@ -1,7 +1,7 @@
 import arrowLeft from '../assets/arrow-left.svg';
 import fileSearch from '../assets/icon-file-search.svg';
 import fileCheck from '../assets/icon-file-check.svg';
-import SameAdResultBox from '../components/SameAdResultBox';
+import SameAdResultBox from '../../components/SameAdResultBox';
 
 const SameAdResult = () => {
   return (
