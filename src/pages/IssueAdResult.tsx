@@ -3,6 +3,7 @@ import arrowLeft from '../assets/arrow-left.svg';
 import ReviewAdNumber from '../components/ReviewAdNumber';
 import ReviewAdResult from '../components/ReviewAdResult';
 import Button from '../components/Button';
+import IssuedReason from '../components/IssuedReason';
 
 const IssueAdResult = () => {
   return (
@@ -31,7 +32,26 @@ const IssueAdResult = () => {
               </Button>
             </div>
           </div>
-          <div className="IssueAdResult__wrapperRight_contents_resultBox">여기 결과 박스들</div>
+          <div className="IssueAdResult__wrapperRight_contents_resultBox">
+            <IssuedReason
+              contentNumber={1}
+              articleNumber={10}
+              articleTitle="소비자 오도 표현"
+              articleContent="일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵"
+            />
+            <IssuedReason
+              contentNumber={2}
+              articleNumber={11}
+              articleTitle="주장의 무입증"
+              articleContent="일품진로 어쩌구 저쩌구 이러쿵 저러쿵 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말"
+            />
+            <IssuedReason
+              contentNumber={3}
+              articleNumber={32}
+              articleTitle="주류광고의 부당표현"
+              articleContent="일품진로 어쩌구 저쩌구 이러쿵 저러쿵 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트"
+            />
+          </div>
         </div>
       </article>
     </main>
