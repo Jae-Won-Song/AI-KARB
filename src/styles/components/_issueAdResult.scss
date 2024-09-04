@@ -114,6 +114,22 @@
             @include text-style(15, $grayscale-50, 400);
 
             outline: none;
+
+            &:focus {
+              border: 1px solid $grayscale-70;
+              color: $grayscale-90;
+            }
+
+            &:focus:not(:placeholder-shown) {
+              border: 1px solid $grayscale-70;
+
+              color: $grayscale-90;
+            }
+
+            &:not(:placeholder-shown) {
+              border: 1px solid $grayscale-40;
+              color: $grayscale-90;
+            }
           }
 
           &_writeInput {
@@ -130,6 +146,22 @@
 
             outline: none;
             resize: none;
+
+            &:focus {
+              border: 1px solid $grayscale-70;
+              color: $grayscale-90;
+            }
+
+            &:focus:not(:placeholder-shown) {
+              border: 1px solid $grayscale-70;
+
+              color: $grayscale-90;
+            }
+
+            &:not(:placeholder-shown) {
+              border: 1px solid $grayscale-40;
+              color: $grayscale-90;
+            }
           }
 
           &_button {
