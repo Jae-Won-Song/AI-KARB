@@ -107,6 +107,7 @@
               }
 
               &_articleNum {
+                position: relative;
                 @include flex;
                 gap: 0.104vw;
 
@@ -205,6 +206,50 @@
             margin: 1.481vh 1.719vw 0 0;
           }
         }
+      }
+    }
+  }
+
+  &__selectReason {
+    position: absolute;
+    top: 3.519vh;
+    left: 0;
+
+    width: 9.479vw;
+    height: 16.481vh;
+    padding: 1.111vh 0 0.556vh 0.625vw;
+    padding-top: 1.111vh;
+
+    border: 1px solid $grayscale-40;
+    border-radius: 9px;
+
+    overflow-y: auto;
+
+    background-color: white;
+
+    &_reason {
+      @include flex(start, center);
+
+      height: 2.963vh;
+      padding: 1.481vh 0.417vw 1.481vh 0.521vw;
+      border-bottom: 1px solid $grayscale-40;
+
+      @include text-style(15, $grayscale-50, 400);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &.previous-selected {
+        border-bottom: none;
+      }
+
+      &.selected {
+        border-bottom: none;
+        border-radius: 8px;
+
+        color: $primary-70;
+        background-color: $secondary-1;
       }
     }
   }
