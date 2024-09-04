@@ -78,8 +78,7 @@ const IssueAdResult = () => {
                 className="IssueAdResult__wrapperRight_contents_resultBox_addResult_selectInput"
                 placeholder="지적 문장을 선택해주세요."
               />
-              <input
-                type="text"
+              <textarea
                 className="IssueAdResult__wrapperRight_contents_resultBox_addResult_writeInput"
                 placeholder="검토 의견을 작성해주세요."
               />
