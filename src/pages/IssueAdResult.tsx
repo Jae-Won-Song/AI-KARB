@@ -6,8 +6,16 @@ import Button from '../components/Button';
 import IssuedReason from '../components/IssuedReason';
 import arrowDown from '../assets/arrow-down.svg';
 import arrowUp from '../assets/arrow-up.svg';
+import iconPlus from '../assets/icon-plus.svg';
+import { useState } from 'react';
 
 const IssueAdResult = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <main className="IssueAdResult">
       <article className="IssueAdResult__wrapperLeft">
@@ -53,41 +61,69 @@ const IssueAdResult = () => {
               articleTitle="주류광고의 부당표현"
               articleContent="일품진로 어쩌구 저쩌구 이러쿵 저러쿵 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트"
             />
-            <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult">
-              <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar">
-                <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title">
-                  <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_number">
-                    #1
-                  </div>
-                  <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleNum">
-                    <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleNum-span">
-                      조항 선택
+
+            {isOpen ? (
+              <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult">
+                <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar">
+                  <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title">
+                    <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_number">
+                      #1
                     </div>
-                    <img src={arrowDown} alt="아래 화살표" />
+                    <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleNum">
+                      <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleNum-span">
+                        조항 선택
+                      </div>
+                      <img src={arrowDown} alt="아래 화살표" />
+                    </div>
+                    <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleTitle">
+                      선택한 조항이 표시됩니다
+                    </div>
                   </div>
-                  <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleTitle">
-                    선택한 조항이 표시됩니다
+                  <div
+                    className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_icon"
+                    onClick={handleToggle}>
+                    <img src={arrowUp} alt="화살표" />
                   </div>
                 </div>
-                <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_icon">
-                  <img src={arrowUp} alt="화살표" />
+                <input
+                  type="text"
+                  className="IssueAdResult__wrapperRight_contents_resultBox_addResult_selectInput"
+                  placeholder="지적 문장을 선택해주세요."
+                />
+                <textarea
+                  className="IssueAdResult__wrapperRight_contents_resultBox_addResult_writeInput"
+                  placeholder="검토 의견을 작성해주세요."
+                />
+                <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_button">
+                  <Button type="button" state="default" width="5.417vw" height="4.815vh">
+                    추가
+                  </Button>
                 </div>
               </div>
-              <input
-                type="text"
-                className="IssueAdResult__wrapperRight_contents_resultBox_addResult_selectInput"
-                placeholder="지적 문장을 선택해주세요."
-              />
-              <textarea
-                className="IssueAdResult__wrapperRight_contents_resultBox_addResult_writeInput"
-                placeholder="검토 의견을 작성해주세요."
-              />
-              <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_button">
-                <Button type="button" state="default" width="5.417vw" height="4.815vh">
-                  추가
-                </Button>
+            ) : (
+              <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult-close">
+                <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar-close">
+                  <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title">
+                    <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_number">
+                      #1
+                    </div>
+                    <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar-close_title_articleNum">
+                      <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar-close_title_articleNum-span">
+                        조항 선택
+                      </div>
+                    </div>
+                    <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar-close_title_articleTitle">
+                      위반 내용을 작성해주세요.
+                    </div>
+                  </div>
+                  <div
+                    className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar-close_icon"
+                    onClick={handleToggle}>
+                    <img src={iconPlus} alt="플러스 아이콘" />
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </article>

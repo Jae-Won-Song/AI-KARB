@@ -57,11 +57,46 @@
         overflow-y: auto;
 
         &_addResult {
-          height: 27.87vh;
           padding: 1.852vh 0.625vw;
+
+          &-close {
+            padding: 1.852vh 0.625vw;
+            margin-top: 1.481vh;
+          }
 
           &_toggleBar {
             @include flex(between, center);
+
+            &-close {
+              @include flex(between, center);
+
+              &_title {
+                &_articleNum {
+                  @include flex;
+
+                  height: 2.593vh;
+                  padding: 0.37vh 0.521vw;
+                  border-radius: 4px;
+
+                  background-color: $grayscale-10;
+
+                  @include text-style(13, $grayscale-70, 400);
+                }
+
+                &_articleTitle {
+                  @include text-style(15, $grayscale-70, 400);
+                }
+              }
+
+              &_icon {
+                @include flex;
+
+                width: 0.833vw;
+                height: 1.481vh;
+
+                cursor: pointer;
+              }
+            }
 
             &_title {
               @include flex;
