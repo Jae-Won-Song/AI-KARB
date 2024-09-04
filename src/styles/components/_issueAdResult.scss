@@ -223,9 +223,10 @@
     border: 1px solid $grayscale-40;
     border-radius: 9px;
 
-    overflow-y: auto;
-
     background-color: white;
+
+    overflow-y: auto;
+    box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.5);
 
     &_reason {
       @include flex(start, center);
