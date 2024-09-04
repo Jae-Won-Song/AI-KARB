@@ -8,10 +8,12 @@ import arrowDown from '../assets/arrow-down.svg';
 import arrowUp from '../assets/arrow-up.svg';
 import iconPlus from '../assets/icon-plus.svg';
 import { useState } from 'react';
+import Modal from '../components/Modal';
 
 const IssueAdResult = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActiveSelectReason, setIsActiveSelectReason] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -59,6 +61,10 @@ const IssueAdResult = () => {
     ));
   };
 
+  const handleModalOpen = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <main className="IssueAdResult">
       <article className="IssueAdResult__wrapperLeft">
@@ -80,7 +86,7 @@ const IssueAdResult = () => {
               <Button type="button" state="default_white" width="5.417vw" height="4.815vh">
                 임시 저장
               </Button>
-              <Button type="button" state="default" width="5.417vw" height="4.815vh">
+              <Button type="button" state="default" width="5.417vw" height="4.815vh" onClick={handleModalOpen}>
                 다음
               </Button>
             </div>
@@ -179,6 +185,12 @@ const IssueAdResult = () => {
           </div>
         </div>
       </article>
+
+      {isModalOpen && (
+        <div className="IssueAdResult__modal">
+          <Modal mode="decisionType" btnContentOne="취소" btnContentTwo="확인" />
+        </div>
+      )}
     </main>
   );
 };
