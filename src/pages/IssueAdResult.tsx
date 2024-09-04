@@ -11,9 +11,52 @@ import { useState } from 'react';
 
 const IssueAdResult = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isActiveSelectReason, setIsActiveSelectReason] = useState(false);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleActiveSelectReason = () => {
+    setIsActiveSelectReason(!isActiveSelectReason);
+  };
+
+  const reasons = [
+    '7조 진실성 위반 표현이 길어지면',
+    '8조 광고의 품위상실',
+    '9조 광고주 불표시',
+    '10조 소비자 오도 표현',
+    '11조 주장의 무입증',
+    '12조 추천, 보증',
+  ];
+
+  const [selectedIndex, setSelectedIndex] = useState<{ reason: number | null }>({ reason: null });
+
+  const handleSelected = (type: 'reason', index: number) => {
+    setSelectedIndex((prevState) => ({
+      ...prevState,
+      [type]: index,
+    }));
+  };
+
+  const getShortArticleContent = (reason: string) => {
+    if (reason.length > 12) {
+      return `${reason.substring(0, 12)}...`;
+    }
+    return reason;
+  };
+
+  const renderDropdownList = (items: string[], type: 'reason') => {
+    return items.map((item, index) => (
+      <div
+        key={index}
+        className={`IssueAdResult__selectReason_reason ${
+          selectedIndex[type] === index ? 'selected' : ''
+        } ${selectedIndex[type] === index + 1 ? 'previous-selected' : ''}`}
+        onClick={() => handleSelected(type, index)}>
+        {getShortArticleContent(item)}
+      </div>
+    ));
   };
 
   return (
@@ -69,14 +112,23 @@ const IssueAdResult = () => {
                     <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_number">
                       #1
                     </div>
-                    <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleNum">
+                    <div
+                      className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleNum"
+                      onClick={handleActiveSelectReason}>
+                      {isActiveSelectReason && (
+                        <div className="IssueAdResult__selectReason">{renderDropdownList(reasons, 'reason')}</div>
+                      )}
+
                       <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleNum-span">
                         조항 선택
                       </div>
                       <img src={arrowDown} alt="아래 화살표" />
                     </div>
+
                     <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleTitle">
-                      선택한 조항이 표시됩니다
+                      {selectedIndex.reason !== null && selectedIndex.reason >= 0
+                        ? reasons[selectedIndex.reason]
+                        : '선택한 조항이 표시됩니다'}
                     </div>
                   </div>
                   <div
