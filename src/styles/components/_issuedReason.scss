@@ -54,7 +54,7 @@
     width: 31.875vw;
     margin: 0.556vh 1.563vw 1.111vh 4.896vw;
 
-    @include text-style(15, $grayscale-60, 400);
+    @include text-style(15, $grayscale-90, 400);
   }
 
   &__reviewComment {
