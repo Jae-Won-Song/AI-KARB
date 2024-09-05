@@ -14,6 +14,7 @@ import SameAd from './pages/SameAd/SameAd';
 import SameAdResult from './pages/SameAd/SameAdResult';
 import IssueAd from './pages/IssueAd/IssueAd';
 import IssueAdResult from './pages/IssueAd/IssueAdResult';
+import ManageUser from './pages/ManageUser';
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
               <Route path="admin/manage-emp" element={<ManageEmp />} />
               <Route path="/employee/:employeeId" element={<ManageEmpDetail />} />
               <Route path="admin/manage-task" element={<ManageTask />} />
+              <Route path="/admin/manage-user" element={<ManageUser />} />
               <Route path="/mypage" element={<Mypage />} />
               <Route path="/same-ad" element={<SameAd />} />
               <Route path="/same-ad/result" element={<SameAdResult />} />
