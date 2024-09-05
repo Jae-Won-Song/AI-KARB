@@ -54,7 +54,7 @@
       }
 
       &_text {
-        @include flex(center, center);
+        @include flex;
         gap: 0.26vw;
 
         width: 20.833vw;
