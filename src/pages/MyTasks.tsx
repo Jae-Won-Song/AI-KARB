@@ -1,9 +1,9 @@
-import SearchBar from './SearchBar';
-import SearchInput from './SearchInput';
-import Filter from './Filter';
-import TagFilter from './TagFilter';
-import Calendar from './Calendar';
-import Table from './Table';
+import SearchBar from '../components/Common/SearchBar';
+import SearchInput from '../components/Common/SearchInput';
+import Filter from '../components/Common/Filter';
+import TagFilter from '../components/Common/TagFilter';
+import Calendar from '../components/Common/Calendar';
+import Table from '../components/Common/Table';
 
 const MyTasks = () => {
   return (
