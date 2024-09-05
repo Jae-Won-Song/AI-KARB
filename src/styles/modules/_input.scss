@@ -1,6 +1,5 @@
 .InputWrapper {
   @include column-flex(center, start);
-
   gap: 1.111vh;
 }
 
@@ -44,14 +43,11 @@
   }
 
   &__error {
-    @include flex;
-
+    @include flex(start, center);
     gap: 0.208vw;
 
     &_message {
-      color: $danger-50;
-
-      font-size: $font-size-15;
+      @include text-style(15, $danger-50, 400);
     }
   }
 
@@ -67,9 +63,7 @@
     gap: 0.208vw;
 
     &_message {
-      color: $success-50;
-
-      font-size: $font-size-15;
+      @include text-style(15, $success-50, 400);
     }
   }
 }
