@@ -1,5 +1,5 @@
-import SearchBar from '../components/SearchBar';
-import Table from '../components/Table';
+import SearchBar from '../components/Common/SearchBar';
+import Table from '../components/Common/Table';
 import Tab from '../components/Tab';
 import check from '../assets/check-signup-request.svg';
 
