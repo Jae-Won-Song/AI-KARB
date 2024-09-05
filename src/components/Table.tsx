@@ -34,48 +34,53 @@ interface EmpData {
   지적비지적?: JSX.Element | string;
   진행상황?: JSX.Element | string;
   아이디?: string | number;
-  관리?: string;
+  관리?: JSX.Element;
+  작업날짜?: string | number;
   체크박스?: JSX.Element;
 }
 
 interface EmpInfo {
   columns: Column[];
   data: EmpData[];
-  onRowClick?: ReactNode;
+  onRowClick?: (row: EmpData) => void;
+  headerClassName?: string;
+  rowClassName?: string;
 }
 
 const Table = (props: EmpInfo) => {
-  const { columns, data, onRowClick } = props;
+  const { columns, data, onRowClick, headerClassName = 'table', rowClassName = 'info' } = props;
 
   return (
     <div>
       <table>
-        <thead className="table">
-          <tr className="table__head">
+        <thead className={headerClassName}>
+          <tr className={`${headerClassName}__head`}>
             {columns.map((column, index) => (
               <th
                 key={index}
-                className={`table__head__${column.name || 'img'}`}
+                className={`${headerClassName}__head__${column.name || 'img'}`}
                 style={{ width: column.width, height: column.height }}>
                 {column.name === '지적비지적' ? '지적/비지적' : column.img ? column.img : column.name}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="info">
+        <tbody className={rowClassName}>
           {data.map((row, rowIndex) => (
             <tr
               key={rowIndex}
-              className="info__data"
+              className={`${rowClassName}__data`}
               onClick={() => {
-                onRowClick(row);
+                if (onRowClick) {
+                  onRowClick(row);
+                }
               }}>
               {columns.map((column, colIndex) => {
                 const cellData = row[column.name as keyof EmpData];
                 return (
                   <td
                     key={colIndex}
-                    className={`table__data__${column.name || 'img'}`}
+                    className={`${headerClassName}__data__${column.name || 'img'}`}
                     style={{ width: column.width, height: column.height }}>
                     {React.isValidElement(cellData) ? (
                       cellData
