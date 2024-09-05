@@ -32,16 +32,19 @@
     justify-content: space-around;
     align-items: center;
     gap: 0.75rem;
+
     &::after {
       content: '';
       display: block;
       border: 0.0625rem solid #e6edff;
       height: 6.375rem;
     }
+
     &:last-child::after {
       display: none;
     }
   }
+
   &__title {
     @include flex(center, start);
     cursor: pointer;

@@ -1,9 +1,9 @@
 .daily-chart {
+  flex-shrink: 0;
   width: 53.125vw;
   height: 37.037vh;
   padding: 1.5625vw;
   gap: 0.5208vw;
-  flex-shrink: 0;
   border-radius: var(--12, 0.625vw);
   border: 0.052vw solid #e6edff;
   background: $white;
