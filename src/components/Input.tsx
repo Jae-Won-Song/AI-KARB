@@ -22,11 +22,13 @@ const Input = ({
 }: InputProps) => {
   return (
     <div className="InputWrapper">
-      <input
-        placeholder={placeholder}
-        type={type}
-        className={['Input', size, isError ? 'error' : '', isSuccess ? 'success' : ''].join(' ')}
-      />
+      <div className="InputWrapper_input">
+        <input
+          placeholder={placeholder}
+          type={type}
+          className={['Input', size, isError ? 'error' : '', isSuccess ? 'success' : ''].join(' ')}
+        />
+      </div>
       {isError && (
         <div className="Input__error">
           <img src={errorIcon} alt="에러 아이콘" />
