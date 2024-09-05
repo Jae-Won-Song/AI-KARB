@@ -9,6 +9,7 @@ import FindUser from './pages/Auth/FindUser';
 import SignUp from './pages/Auth/SignUp';
 import SignIn from './pages/Auth/SignIn';
 import ManageTask from './pages/ManageEmp/ManageTask';
+import Mypage from './pages/MyPage';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
               <Route path="admin/manage-emp" element={<ManageEmp />} />
               <Route path="/employee/:employeeId" element={<ManageEmpDetail />} />
               <Route path="admin/manage-task" element={<ManageTask />} />
+              <Route path="/mypage" element={<Mypage />} />
             </Routes>
           </Layout>
         }
