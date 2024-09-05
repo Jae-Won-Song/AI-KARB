@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import SortIcon from '../assets/Icon-sort.svg';
-import SortIconActive from '../assets/Icon-sort-a.svg';
+import SortIcon from '../../assets/Icon-sort.svg';
+import SortIconActive from '../../assets/Icon-sort-a.svg';
 
 const SortFilter = () => {
   const [isActive, setIsActive] = useState(false);

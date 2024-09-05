@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import calendarIcon from '../assets/icon-calendar.svg';
-import arrowDown from '../assets/arrow-down.svg';
+import calendarIcon from '../../assets/icon-calendar.svg';
+import arrowDown from '../../assets/arrow-down.svg';
 
 const Calendar = () => {
   const [isActiveMain, setIsActiveMain] = useState(false);

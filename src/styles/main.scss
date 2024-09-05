@@ -7,8 +7,6 @@
 @import './mixins/flex';
 @import './mixins/text-style';
 
-@import './modules/input';
-
 // 레이아웃
 @import './components/header';
 @import './components/layout';
@@ -18,7 +16,6 @@
 // 컴포넌트
 @import './components/searchBar';
 @import './components/tagFilter';
-@import './components/authButton';
 @import './components/filter';
 @import './components/sortFilter';
 @import './components/button';
@@ -49,6 +46,8 @@
 @import './components/reviewAdNumber';
 @import './components/reviewAdResult';
 @import './components/table';
+@import './components/issuedReason';
+@import './components/input';
 
 // 페이지
 @import './components/signin';
@@ -57,5 +56,8 @@
 @import './components/mypage';
 @import './components/sameAdResult';
 @import './components/sameAd';
+@import './components/manageTask';
 @import './components/manageEmp';
 @import './components/manageEmpDetail';
+@import './components/issueAd';
+@import './components/issueAdResult';

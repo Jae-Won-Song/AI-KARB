@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import searchIconGray from '../assets/icon-search-g.svg';
-import searchIconBlack from '../assets/icon-search-b.svg';
+import searchIconGray from '../../assets/icon-search-g.svg';
+import searchIconBlack from '../../assets/icon-search-b.svg';
 
 type SearchInputProps = {
   placeholder: string;

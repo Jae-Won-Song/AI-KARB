@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import Table from '../../components/Table';
-import SearchBar from '../../components/SearchBar';
-import Filter from '../../components/Filter';
-import Calendar from '../../components/Calendar';
+import Table from '../../components/Common/Table';
+import SearchBar from '../../components/Common/SearchBar';
+import Filter from '../../components/Common/Filter';
+import Calendar from '../../components/Common/Calendar';
 
 const ManageEmp = () => {
   const navigate = useNavigate();
@@ -19,13 +19,13 @@ const ManageEmp = () => {
       </SearchBar>
       <Table
         columns={[
-          { name: '번호', width: '6.25vw' },
-          { name: '사원번호', width: '10.417vw' },
-          { name: '작업자', width: '10.417vw' },
-          { name: '전체작업', width: '12.5vw' },
-          { name: '미완료건', width: '12.5vw' },
-          { name: '완료건', width: '12.5vw' },
-          { name: '작업진척도', width: '17.708vw' },
+          { name: '번호', width: '6.25vw', height: '50px' },
+          { name: '사원번호', width: '10.417vw', height: '50px' },
+          { name: '작업자', width: '10.417vw', height: '50px' },
+          { name: '전체작업', width: '12.5vw', height: '50px' },
+          { name: '미완료건', width: '12.5vw', height: '50px' },
+          { name: '완료건', width: '12.5vw', height: '50px' },
+          { name: '작업진척도', width: '17.708vw', height: '50px' },
         ]}
         data={[
           {

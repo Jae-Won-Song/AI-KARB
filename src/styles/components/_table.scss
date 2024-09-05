@@ -1,12 +1,16 @@
 .table {
   @include flex;
-  margin: 0 30px;
-
+  margin: 0 30px 0 30px;
+  &__data {
+    &__번호 {
+      @include flex;
+    }
+  }
   &__head {
     border-top: 2px solid $primary-60;
     border-bottom: 1px solid $primary-60;
-    font-size: 0.885vw;
     color: $primary-60;
+    // font-size: 0.885vw;
     text-align: left;
     line-height: 150%;
 
@@ -25,7 +29,6 @@
   &__data {
     @include flex;
     border-bottom: 1px solid $grayscale-30;
-
     :first-child {
       text-align: center;
     }
@@ -33,9 +36,11 @@
 }
 
 th {
-  padding: 14px 16px;
+  padding: 14px 14px 14px 14px;
 }
 
 td {
-  padding: 16px 20px;
+  @include flex(start, center);
+  @include text-style(17, $grayscale-70, 400);
+  padding: 14px;
 }

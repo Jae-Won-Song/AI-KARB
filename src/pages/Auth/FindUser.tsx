@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import AuthButton from '../../components/AuthButton';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import Input from '../../components/Common/Input';
+import Button from '../../components/Common/Button';
 
 const FindUser = () => {
   const [focusedBtn, setFocusedBtn] = useState('findId');
@@ -34,7 +33,7 @@ const FindUser = () => {
                 </div>
               </div>
               <div className="findId__wrapper__box_button">
-                <Button type="button" state="default" width="100%" height="5.926vh">
+                <Button type="button" state="default" width="20.833vw" height="5.926vh">
                   아이디 찾기
                 </Button>
               </div>
@@ -53,7 +52,7 @@ const FindUser = () => {
                 </div>
               </div>
               <div className="findId__wrapper__box_button">
-                <Button type="button" state="default" width="100%" height="5.926vh">
+                <Button type="button" state="default" width="20.833vw" height="5.926vh">
                   확인
                 </Button>
               </div>

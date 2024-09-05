@@ -1,5 +1,6 @@
-import ProgressBar from './ProgressBar';
+import ProgressBar from '../ProgressBar';
 import React, { ReactNode } from 'react';
+import clipBoard from '../../assets/icon-clipBoard.svg';
 
 interface Column {
   name?: string;
@@ -26,6 +27,7 @@ interface EmpData {
   총배분작업?: string | number;
   연락처?: string | number;
   이메일?: string;
+  연락처관리?: string;
   회원가입일?: string | number;
   최종로그인일?: string | number;
   가입요청일?: string | number;
@@ -35,52 +37,53 @@ interface EmpData {
   진행상황?: JSX.Element | string;
   아이디?: string | number;
   관리?: JSX.Element;
-  작업날짜?: string | number;
   체크박스?: JSX.Element;
 }
 
 interface EmpInfo {
   columns: Column[];
   data: EmpData[];
-  onRowClick?: (row: EmpData) => void;
-  headerClassName?: string;
-  rowClassName?: string;
+  onRowClick?: ReactNode;
 }
 
 const Table = (props: EmpInfo) => {
-  const { columns, data, onRowClick, headerClassName = 'table', rowClassName = 'info' } = props;
+  const { columns, data, onRowClick } = props;
 
   return (
     <div>
       <table>
-        <thead className={headerClassName}>
-          <tr className={`${headerClassName}__head`}>
+        <thead className="table">
+          <tr className="table__head">
             {columns.map((column, index) => (
               <th
                 key={index}
-                className={`${headerClassName}__head__${column.name || 'img'}`}
+                className={`table__head__${column.name || 'img'}`}
                 style={{ width: column.width, height: column.height }}>
-                {column.name === '지적비지적' ? '지적/비지적' : column.img ? column.img : column.name}
+                {column.name === '지적비지적'
+                  ? '지적/비지적'
+                  : column.name === '총배분작업'
+                    ? '총 배분작업'
+                    : column.img
+                      ? column.img
+                      : column.name}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className={rowClassName}>
+        <tbody className="info">
           {data.map((row, rowIndex) => (
             <tr
               key={rowIndex}
-              className={`${rowClassName}__data`}
+              className="info__data"
               onClick={() => {
-                if (onRowClick) {
-                  onRowClick(row);
-                }
+                onRowClick(row);
               }}>
               {columns.map((column, colIndex) => {
                 const cellData = row[column.name as keyof EmpData];
                 return (
                   <td
                     key={colIndex}
-                    className={`${headerClassName}__data__${column.name || 'img'}`}
+                    className={`table__data__${column.name || 'img'}`}
                     style={{ width: column.width, height: column.height }}>
                     {React.isValidElement(cellData) ? (
                       cellData
@@ -91,6 +94,9 @@ const Table = (props: EmpInfo) => {
                     ) : (
                       cellData
                     )}
+                    {column.name === '연락처' ? (
+                      <img style={{ marginLeft: '10px' }} src={clipBoard} alt="클립보드" />
+                    ) : null}
                   </td>
                 );
               })}
