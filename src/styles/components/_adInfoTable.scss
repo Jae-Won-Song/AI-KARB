@@ -4,7 +4,8 @@
   height: 3.704vh;
   border: 1px solid $grayscale-20;
 
-  &:nth-child(2) {
+  &:nth-child(2),
+  &:nth-child(3) {
     border-bottom: none;
   }
 

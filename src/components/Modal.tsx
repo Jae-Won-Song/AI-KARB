@@ -3,8 +3,6 @@ import Button from './Button';
 import checkBox from '../assets/checkbox-confirm-img.svg';
 import danger from '../assets/icon-danger-modal.svg';
 
-/* mode 사용하실것들 이중에 골라골라~ distribution, decisionType, delUserInfo, default */
-
 type ModalProps = {
   title?: string;
   content?: string;
@@ -12,6 +10,8 @@ type ModalProps = {
   btnContentOne?: string;
   btnContentTwo?: string;
   mode?: string;
+  onClickOne?: () => void;
+  onClickTwo?: () => void;
 };
 
 type DecisionTypeModalProps = {
@@ -19,45 +19,47 @@ type DecisionTypeModalProps = {
   btnContentTwo?: string;
   selectedItem: number | null;
   onItemClick: (index: number) => void;
+  onClickOne?: () => void;
+  onClickTwo?: () => void;
 };
 
-function one({ btnContentOne }: ModalProps) {
+function one({ btnContentOne, onClickOne }: ModalProps) {
   return (
-    <Button type="button" state="default_gray" width="160px" height="48px">
+    <Button type="button" state="default_gray" width="160px" height="48px" onClick={onClickOne}>
       {btnContentOne}
     </Button>
   );
 }
 
-function twoRed({ btnContentOne, btnContentTwo }: ModalProps) {
+function twoRed({ btnContentOne, btnContentTwo, onClickOne, onClickTwo }: ModalProps) {
   return (
     <>
-      <Button type="button" state="default_gray" width="160px" height="48px">
+      <Button type="button" state="default_gray" width="160px" height="48px" onClick={onClickOne}>
         {btnContentOne}
       </Button>
       <div style={{ width: '12px' }} />
-      <Button type="button" state="danger" width="160px" height="48px">
+      <Button type="button" state="danger" width="160px" height="48px" onClick={onClickTwo}>
         {btnContentTwo}
       </Button>
     </>
   );
 }
 
-function twoBlue({ btnContentOne, btnContentTwo }: ModalProps) {
+function twoBlue({ btnContentOne, btnContentTwo, onClickOne, onClickTwo }: ModalProps) {
   return (
     <>
-      <Button type="button" state="default_gray" width="160px" height="48px">
+      <Button type="button" state="default_gray" width="160px" height="48px" onClick={onClickOne}>
         {btnContentOne}
       </Button>
       <div style={{ width: '12px' }} />
-      <Button type="button" state="default" width="160px" height="48px">
+      <Button type="button" state="default" width="160px" height="48px" onClick={onClickTwo}>
         {btnContentTwo}
       </Button>
     </>
   );
 }
 
-function distributionConfirm({ btnContentOne, btnContentTwo }: ModalProps) {
+function distributionConfirm({ btnContentOne, btnContentTwo, onClickOne, onClickTwo }: ModalProps) {
   return (
     <div className="distributionConfirm">
       <img src={checkBox} alt="체크된 이미지" />
@@ -77,11 +79,11 @@ function distributionConfirm({ btnContentOne, btnContentTwo }: ModalProps) {
         </div>
       </div>
       <div className="distributionConfirm__btn-box">
-        <Button type="button" state="default_gray" width="102px" height="52px">
+        <Button type="button" state="default_gray" width="102px" height="52px" onClick={onClickOne}>
           {btnContentOne}
         </Button>
         <div style={{ width: '12px' }} />
-        <Button type="button" state="default" width="102px" height="52px">
+        <Button type="button" state="default" width="102px" height="52px" onClick={onClickTwo}>
           {btnContentTwo}
         </Button>
       </div>
@@ -89,7 +91,14 @@ function distributionConfirm({ btnContentOne, btnContentTwo }: ModalProps) {
   );
 }
 
-function decisionTypeModal({ btnContentOne, btnContentTwo, selectedItem, onItemClick }: DecisionTypeModalProps) {
+function decisionTypeModal({
+  btnContentOne,
+  btnContentTwo,
+  selectedItem,
+  onItemClick,
+  onClickOne,
+  onClickTwo,
+}: DecisionTypeModalProps) {
   return (
     <div className="decisionType">
       <div className="decisionType__title">심의 결정 구분을 선택해주세요</div>
@@ -120,11 +129,11 @@ function decisionTypeModal({ btnContentOne, btnContentTwo, selectedItem, onItemC
         </div>
       </div>
       <div className="decisionType__btn-box">
-        <Button type="button" state="default_gray" width="160px" height="48px">
+        <Button type="button" state="default_gray" width="160px" height="48px" onClick={onClickOne}>
           {btnContentOne}
         </Button>
         <div style={{ width: '12px' }} />
-        <Button type="button" state="default" width="160px" height="48px">
+        <Button type="button" state="default" width="160px" height="48px" onClick={onClickTwo}>
           {btnContentTwo}
         </Button>
       </div>
@@ -132,7 +141,7 @@ function decisionTypeModal({ btnContentOne, btnContentTwo, selectedItem, onItemC
   );
 }
 
-function delUserInfo({ btnContentOne, btnContentTwo }: ModalProps) {
+function delUserInfo({ btnContentOne, btnContentTwo, onClickOne, onClickTwo }: ModalProps) {
   return (
     <div className="delUserInfo">
       <img src={danger} alt="경고아이콘" />
@@ -140,11 +149,11 @@ function delUserInfo({ btnContentOne, btnContentTwo }: ModalProps) {
       <div className="delUserInfo__content">해당 사용자 정보는 삭제되며 복구되지 않습니다.</div>
       <div className="delUserInfo__content"> 해당 사용자를 삭제하시겠습니까?</div>
       <div className="delUserInfo__btn-box">
-        <Button type="button" state="default_gray" width="160px" height="48px">
+        <Button type="button" state="default_gray" width="160px" height="48px" onClick={onClickOne}>
           {btnContentOne}
         </Button>
         <div style={{ width: '12px' }} />
-        <Button type="button" state="danger" width="160px" height="48px">
+        <Button type="button" state="danger" width="160px" height="48px" onClick={onClickTwo}>
           {btnContentTwo}
         </Button>
       </div>
@@ -152,25 +161,25 @@ function delUserInfo({ btnContentOne, btnContentTwo }: ModalProps) {
   );
 }
 
-function colorChange({ add, btnContentOne, btnContentTwo }: ModalProps) {
+function colorChange({ add, btnContentOne, btnContentTwo, onClickOne, onClickTwo }: ModalProps) {
   if (add === '1') {
-    return one({ btnContentOne });
+    return one({ btnContentOne, onClickOne });
   }
   if (add === 'blue') {
-    return twoBlue({ btnContentOne, btnContentTwo });
+    return twoBlue({ btnContentOne, btnContentTwo, onClickOne, onClickTwo });
   }
   if (add === 'red') {
-    return twoRed({ btnContentOne, btnContentTwo });
+    return twoRed({ btnContentOne, btnContentTwo, onClickOne, onClickTwo });
   }
   return null;
 }
 
-const Modal = ({ title, content, add, btnContentTwo, btnContentOne, mode }: ModalProps) => {
+const Modal = ({ title, content, add, btnContentTwo, btnContentOne, mode, onClickOne, onClickTwo }: ModalProps) => {
   const [selectedItem, setSelectedIndex] = useState<number | null>(null);
 
-  function modalChange({ btnContentOne, btnContentTwo, mode }: ModalProps) {
+  function modalChange({ btnContentOne, btnContentTwo, mode, onClickOne, onClickTwo }: ModalProps) {
     if (mode === 'distribution') {
-      return distributionConfirm({ btnContentOne, btnContentTwo });
+      return distributionConfirm({ btnContentOne, btnContentTwo, onClickOne, onClickTwo });
     }
     if (mode === 'decisionType') {
       return decisionTypeModal({
@@ -178,11 +187,13 @@ const Modal = ({ title, content, add, btnContentTwo, btnContentOne, mode }: Moda
         btnContentTwo,
         selectedItem,
         onItemClick: setSelectedIndex,
+        onClickOne,
+        onClickTwo,
       });
     }
 
     if (mode === 'delUserInfo') {
-      return delUserInfo({ btnContentOne, btnContentTwo });
+      return delUserInfo({ btnContentOne, btnContentTwo, onClickOne, onClickTwo });
     }
 
     if (mode === 'default') {
@@ -193,7 +204,7 @@ const Modal = ({ title, content, add, btnContentTwo, btnContentOne, mode }: Moda
               <div className="modal__container__contentBox-title">{title}</div>
               <div className="modal__container__contentBox-content">{content}</div>
               <div className="modal__container__contentBox-btn-area">
-                {colorChange({ add, btnContentOne, btnContentTwo })}
+                {colorChange({ add, btnContentOne, btnContentTwo, onClickOne, onClickTwo })}{' '}
               </div>
             </div>
           </div>
@@ -203,7 +214,7 @@ const Modal = ({ title, content, add, btnContentTwo, btnContentOne, mode }: Moda
 
     return null;
   }
-  return <>{modalChange({ btnContentOne, btnContentTwo, mode })}</>;
+  return <>{modalChange({ btnContentOne, btnContentTwo, mode, onClickOne, onClickTwo })}</>;
 };
 
 export default Modal;
