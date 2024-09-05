@@ -34,7 +34,7 @@ const App = () => {
               <Route path="/employee/:employeeId" element={<ManageEmpDetail />} />
               <Route path="admin/manage-task" element={<ManageTask />} />
               <Route path="/mypage" element={<Mypage />} />
-              <Route path="/admin/manage-user" element={<MyTasks />} />
+              <Route path="/my-task" element={<MyTasks />} />
               <Route path="/same-ad" element={<SameAd />} />
               <Route path="/same-ad/result" element={<SameAdResult />} />
               <Route path="/issue-ad" element={<IssueAd />} />

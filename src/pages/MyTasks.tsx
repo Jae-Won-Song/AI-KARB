@@ -5,8 +5,6 @@ import TagFilter from '../components/Common/TagFilter';
 import Calendar from '../components/Common/Calendar';
 import Table from '../components/Common/Table';
 
-// 나중에 지울거임
-
 const MyTasks = () => {
   return (
     <div className="myTasks">
