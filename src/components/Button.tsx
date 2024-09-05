@@ -35,7 +35,7 @@ const Button = ({ type = 'button', children, state = 'default', onClick, width, 
   };
 
   return (
-    <button type={type} className={className} onClick={onClick} style={style}>
+    <button type={type} className={className} onClick={onClick} style={style} disabled={state === 'disabled'}>
       {children}
     </button>
   );
