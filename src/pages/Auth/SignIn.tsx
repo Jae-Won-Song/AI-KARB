@@ -1,5 +1,5 @@
-import AuthButton from '../../components/AuthButton';
-import Input from '../../components/Input';
+import Button from '../../components/Common/Button';
+import Input from '../../components/Common/Input';
 
 const SignIn = () => {
   return (
@@ -10,10 +10,14 @@ const SignIn = () => {
           <div className="signIn__wrapper__box_input">
             <Input placeholder="아이디" />
             <Input placeholder="비밀번호" type="password" />
-            <div className="signIn__wrapper__box_input_find">아이디 / 비밀번호 찾기</div>
+          </div>
+          <div className="signIn__wrapper__box_find">
+            <div className="signIn__wrapper__box_find_span">아이디 / 비밀번호 찾기</div>
           </div>
           <div className="signIn__wrapper__box_button">
-            <AuthButton>로그인</AuthButton>
+            <Button type="button" onClick={() => alert('로그인버튼 클릭')} width="20.833vw" height="5.926vh">
+              로그인
+            </Button>
           </div>
           <div className="signIn__wrapper__box_text">
             <span>계정이 없으신가요? </span>
