@@ -1,5 +1,5 @@
-import errorIcon from '../assets/icon-error.svg';
-import successIcon from '../assets/icon-success.svg';
+import errorIcon from '../../assets/icon-error.svg';
+import successIcon from '../../assets/icon-success.svg';
 
 type InputProps = {
   placeholder: string;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import Table from '../../components/Table';
-import SearchBar from '../../components/SearchBar';
-import Filter from '../../components/Filter';
+import Table from '../../components/Common/Table';
+import SearchBar from '../../components/Common/SearchBar';
+import Filter from '../../components/Common/Filter';
 
 const ManageEmpDetail = () => {
   const location = useLocation();

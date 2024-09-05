@@ -6,6 +6,8 @@ const Header = () => {
 
   function headerTitle(pathname: string): string {
     switch (pathname) {
+      case '/':
+        return '대시보드';
       case '/mypage':
         return '마이페이지';
       case '/dashboard':

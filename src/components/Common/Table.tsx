@@ -1,6 +1,6 @@
-import ProgressBar from './ProgressBar';
+import ProgressBar from '../ProgressBar';
 import React, { ReactNode } from 'react';
-import clipBoard from '../assets/icon-clipBoard.svg';
+import clipBoard from '../../assets/icon-clipBoard.svg';
 
 interface Column {
   name?: string;

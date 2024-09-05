@@ -1,7 +1,7 @@
-import SearchBar from '../../components/SearchBar';
+import SearchBar from '../../components/Common/SearchBar';
 import check from '../../assets/check-signup-request.svg';
-import Table from '../../components/Table';
-import Button from '../../components/Button';
+import Table from '../../components/Common/Table';
+import Button from '../../components/Common/Button';
 
 const ManageTask = () => {
   return (

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from './Button';
-import checkBox from '../assets/checkbox-confirm-img.svg';
-import danger from '../assets/icon-danger-modal.svg';
+import checkBox from '../../assets/checkbox-confirm-img.svg';
+import danger from '../../assets/icon-danger-modal.svg';
 
 type ModalProps = {
   title?: string;

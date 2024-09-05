@@ -1,4 +1,4 @@
-import Table from '../Table';
+import Table from '../Common/Table';
 import rightArrow from '../../assets/chevron-right.svg';
 import { useNavigate } from 'react-router-dom';
 

@@ -1,14 +1,14 @@
-import AdInfoTable from '../components/AdInfoTable';
-import arrowLeft from '../assets/arrow-left.svg';
-import ReviewAdNumber from '../components/ReviewAdNumber';
-import ReviewAdResult from '../components/ReviewAdResult';
-import Button from '../components/Button';
-import IssuedReason from '../components/IssuedReason';
-import arrowDown from '../assets/arrow-down.svg';
-import arrowUp from '../assets/arrow-up.svg';
-import iconPlus from '../assets/icon-plus.svg';
+import AdInfoTable from '../../components/AdInfoTable';
+import arrowLeft from '../../assets/arrow-left.svg';
+import ReviewAdNumber from '../../components/ReviewAdNumber';
+import ReviewAdResult from '../../components/ReviewAdResult';
+import Button from '../../components/Common/Button';
+import IssuedReason from '../../components/IssuedReason';
+import arrowDown from '../../assets/arrow-down.svg';
+import arrowUp from '../../assets/arrow-up.svg';
+import iconPlus from '../../assets/icon-plus.svg';
 import { useState } from 'react';
-import Modal from '../components/Modal';
+import Modal from '../../components/Common/Modal';
 
 const IssueAdResult = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import FilterIcon from '../assets/icon-filter.svg';
-import FilterIconActive from '../assets/icon-filter-a.svg';
+import FilterIcon from '../../assets/icon-filter.svg';
+import FilterIconActive from '../../assets/icon-filter-a.svg';
 
 const Filter = () => {
   const [isActive, setIsActive] = useState(false);

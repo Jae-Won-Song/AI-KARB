@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import Table from '../../components/Table';
-import SearchBar from '../../components/SearchBar';
-import Filter from '../../components/Filter';
-import Calendar from '../../components/Calendar';
+import Table from '../../components/Common/Table';
+import SearchBar from '../../components/Common/SearchBar';
+import Filter from '../../components/Common/Filter';
+import Calendar from '../../components/Common/Calendar';
 
 const ManageEmp = () => {
   const navigate = useNavigate();

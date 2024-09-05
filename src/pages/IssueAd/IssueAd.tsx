@@ -1,9 +1,9 @@
-import SearchInput from '../components/SearchInput';
-import SearchBar from '../components/SearchBar';
-import Table from '../components/Table';
-import TagFilter from '../components/TagFilter';
-import Filter from '../components/Filter';
-import Calendar from '../components/Calendar';
+import SearchInput from '../../components/Common/SearchInput';
+import SearchBar from '../../components/Common/SearchBar';
+import Table from '../../components/Common/Table';
+import TagFilter from '../../components/Common/TagFilter';
+import Filter from '../../components/Common/Filter';
+import Calendar from '../../components/Common/Calendar';
 
 const IssueAd = () => {
   return (
