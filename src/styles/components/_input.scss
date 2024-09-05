@@ -1,0 +1,69 @@
+.InputWrapper {
+  @include column-flex(center, start);
+  gap: 1.111vh;
+}
+
+.Input {
+  width: 20.833vw;
+  height: 4.815vh;
+  padding: 0 0.833vw;
+  border: 1px solid $grayscale-20;
+  border-radius: 8px;
+
+  background-color: $grayscale-5;
+
+  font-size: $font-size-15;
+
+  outline: none;
+
+  &:focus {
+    border: 1px solid $primary-50;
+    box-sizing: border-box;
+
+    background-color: $secondary-5;
+  }
+
+  &:focus:not(:placeholder-shown) {
+    border: 1px solid $primary-50;
+    background-color: $secondary-5;
+  }
+
+  &:not(:placeholder-shown) {
+    border: 1px solid $grayscale-50;
+  }
+
+  &.small {
+    width: 14.792vw;
+  }
+
+  &.error {
+    border: 1px solid $danger-50;
+
+    color: $grayscale-90;
+  }
+
+  &__error {
+    @include flex(start, center);
+    gap: 0.208vw;
+
+    &_message {
+      @include text-style(15, $danger-50, 400);
+    }
+  }
+
+  &.success {
+    border: 1px solid $success-50;
+
+    color: $grayscale-90;
+  }
+
+  &__success {
+    @include flex;
+
+    gap: 0.208vw;
+
+    &_message {
+      @include text-style(15, $success-50, 400);
+    }
+  }
+}
