@@ -1,6 +1,7 @@
 .table {
   @include flex;
-  margin: 0 30px 0 30px;
+  margin: 0 30px;
+
   &__head {
     border-top: 2px solid $primary-60;
     border-bottom: 1px solid $primary-60;
@@ -8,6 +9,7 @@
     color: $primary-60;
     text-align: left;
     line-height: 150%;
+
     :first-child {
       justify-content: center;
       text-align: center;
@@ -18,19 +20,22 @@
 .info {
   @include flex;
   flex-direction: column;
-  margin: 0 30px 0 30px;
+  margin: 0 30px;
+
   &__data {
     @include flex;
     border-bottom: 1px solid $grayscale-30;
+
     :first-child {
       text-align: center;
     }
   }
 }
+
 th {
-  padding: 14px 16px 14px 16px;
+  padding: 14px 16px;
 }
 
 td {
-  padding: 16px 16px 16px 20px;
+  padding: 16px 20px;
 }
