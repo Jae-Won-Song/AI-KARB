@@ -11,9 +11,9 @@ import WorkRateAdmin from '../../components/DashBoard/WorkerRateAdmin';
 
 const AdminDashBoard = () => {
   return (
-    <div style={{ background: 'white', height: '100%' }}>
-      <div style={{ display: 'flex', marginLeft: '29px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', marginRight: '30px' }}>
+    <div style={{ background: 'white', height: '100%', paddingTop: '10px' }}>
+      <div style={{ display: 'flex', marginLeft: '30px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', marginRight: '20px' }}>
           <div style={{ display: 'flex', marginBottom: '25px' }}>
             <div style={{ marginRight: '12px' }}>
               <DashBoardDate />

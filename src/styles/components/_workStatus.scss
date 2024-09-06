@@ -1,7 +1,6 @@
 .workStatus-wrapper {
   @include flex(center, start);
   width: 48.625rem;
-  // height: 300px;
   padding: 1.875rem;
   flex-direction: column;
   gap: var(--24, 1.5rem);
@@ -9,21 +8,25 @@
   border: 1px solid #e6edff;
   background: $white;
   box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+
   &__title {
     color: var(--Gray-Gray-90, #1d1d1d);
     font-size: $font-size-25;
     font-weight: 700;
     line-height: 150%;
   }
+
   &__task {
     @include flex;
     gap: var(--24, 24px);
     position: relative;
     width: 100%;
     align-items: center;
+
     &__image-container {
       position: relative;
     }
+
     &__info {
       display: inline-flex;
       flex-direction: column;
@@ -36,31 +39,37 @@
       height: 100%;
       color: white;
       padding: 20px 132.75px 20.75px 17.25px;
+
       &__wrapper {
         @include flex;
         flex-direction: column;
         gap: 38px;
       }
+
       &__title {
         font-size: 15px;
         font-weight: 700;
         line-height: 150%;
       }
+
       &__count {
         font-size: 40px;
         font-weight: 700;
         padding-bottom: 1.5px;
       }
+
       &__admin-counts {
         font-size: 40px;
         font-weight: 700;
         padding-bottom: 1.5px;
         margin-left: 20px;
       }
+
       &__subcount {
         @include inline-flex;
         font-size: 13px;
         font-weight: 400;
+
         &__total {
           margin-right: 5px;
         }
