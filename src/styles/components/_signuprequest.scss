@@ -1,0 +1,35 @@
+.sign-up-request {
+  &__container {
+    height: 87.5vh;
+    margin-top: 1.389vh;
+    background: $white;
+  }
+}
+
+.checkBox {
+  position: relative;
+  width: 0.833vw;
+  height: 1.481vh;
+  border: 1px solid $grayscale-50;
+  border-radius: 4px;
+  background: $white;
+  appearance: none;
+  cursor: pointer;
+}
+
+.checkBox:checked {
+  border: 1px solid $primary-50;
+  background: $primary-50;
+}
+
+.checkBox:checked::after {
+  content: '';
+  position: absolute;
+  top: 0.139vh;
+  left: 0.208vw;
+  width: 0.208vw;
+  height: 0.741vh;
+  border: 1px solid $white;
+  border-width: 0 0.104vw 0.104vw 0;
+  transform: rotate(45deg);
+}

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Table from '../../components/Common/Table';
 import SearchBar from '../../components/Common/SearchBar';

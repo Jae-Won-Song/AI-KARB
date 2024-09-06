@@ -15,7 +15,7 @@ const RecentTask = () => {
         <div className="recent-wrapper__header__detail">
           <div className="recent-wrapper__header__arrow" onClick={moveMyTask}>
             자세히 보기
-            <img src={rightArrow} alt="내 작업관리 바로가기" />
+            <img src={rightArrow} alt="내 작업 바로가기" />
           </div>
         </div>
       </div>
@@ -59,6 +59,8 @@ const RecentTask = () => {
               작업날짜: '2024-08-25 13:25',
             },
           ]}
+          headerClassName="recent-wrapper__table"
+          rowClassName="recent-wrapper__table__info"
         />
       </div>
     </section>

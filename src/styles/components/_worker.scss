@@ -9,11 +9,13 @@
   border-radius: var(--12, 0.75rem);
   background: $white;
   box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+
   &__main {
     color: var(--Gray-Gray-60, #717171);
     font-size: 1.1875rem;
     line-height: 150%;
   }
+
   &__name {
     color: var(--Gray-Gray-90, #1d1d1d);
     font-size: 1.5625rem;
