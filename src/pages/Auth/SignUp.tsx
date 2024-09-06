@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
 // utils
-import { validatePhoneNumber } from '../../utils/inputValidationUtils';
+import { validateName, validatePhoneNumber } from '../../utils/inputValidationUtils';
 
 const SignUp = () => {
   // input value 관리
@@ -13,6 +13,14 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [empNo, setEmpNo] = useState('');
   const [email, setEmail] = useState('');
+
+  // input state 관리
+  // 이름
+  const [isNameError, setIsNameError] = useState(false);
+  const [nameErrorMessage, setNameErrorMessage] = useState('');
+  // 연락처
+  const [isPhoneNumberError, setIsPhoneNumberError] = useState(false);
+  const [PhoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState('');
 
   // button state 관리
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
@@ -38,13 +46,38 @@ const SignUp = () => {
     }
   };
 
+  // 유효성 검사
+  // 이름, 연락처
+  const handleClickCertNoRequestBtn = () => {
+    if (validateName(name)) {
+      setIsNameError(true);
+      setNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
+    } else {
+      setIsNameError(false);
+    }
+
+    if (validatePhoneNumber(phoneNumber)) {
+      setIsPhoneNumberError(true);
+      setPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
+    } else {
+      setIsPhoneNumberError(false);
+    }
+  };
+
   return (
     <div className="signUp">
       <div className="signUp__wrapper">
         <div className="signUp__wrapper__box">
           <div className="signUp__wrapper__box_title">회원가입</div>
           <div className="signUp__wrapper__box_input">
-            <Input placeholder="이름" name="name" value={name} onChange={handleNameAndPhoneNUmberChange} />
+            <Input
+              placeholder="이름"
+              name="name"
+              value={name}
+              onChange={handleNameAndPhoneNUmberChange}
+              isError={isNameError}
+              errorMessage={nameErrorMessage}
+            />
             <div className="signUp__wrapper__box_input_box">
               <Input
                 placeholder="연락처 ('-'을 제외한 숫자만 입력)"
@@ -52,6 +85,8 @@ const SignUp = () => {
                 name="phoneNumber"
                 value={phoneNumber}
                 onChange={handleNameAndPhoneNUmberChange}
+                isError={isPhoneNumberError}
+                errorMessage={PhoneNumberErrorMessage}
               />
               <div className="signUp__wrapper__box_input_box_button">
                 <Button
@@ -59,7 +94,8 @@ const SignUp = () => {
                   state={isCertNoRequestBtnDisabled ? 'disabled' : 'default'}
                   width="5.417vw"
                   height="4.815vh"
-                  fontSize="0.781vw">
+                  fontSize="0.781vw"
+                  onClick={handleClickCertNoRequestBtn}>
                   인증요청
                 </Button>
               </div>
