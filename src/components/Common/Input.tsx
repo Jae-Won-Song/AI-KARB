@@ -9,6 +9,8 @@ type InputProps = {
   isSuccess?: boolean;
   errorMessage?: string;
   successMessage?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Input = ({
@@ -19,6 +21,8 @@ const Input = ({
   isSuccess = false,
   errorMessage,
   successMessage,
+  value,
+  onChange,
 }: InputProps) => {
   return (
     <div className="InputWrapper">
@@ -27,6 +31,8 @@ const Input = ({
           placeholder={placeholder}
           type={type}
           className={['Input', size, isError ? 'error' : '', isSuccess ? 'success' : ''].join(' ')}
+          value={value}
+          onChange={onChange}
         />
       </div>
       {isError && (
