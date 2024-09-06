@@ -17,15 +17,24 @@ const SignUp = () => {
   // button state 관리
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
 
-  // 유효성 검사
-  const handlePhoneNUmberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setPhoneNumber(value);
+  // 이름과 연락처의 input이 채워졌는지 검사
+  const handleNameAndPhoneNUmberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name: filledInput, value } = e.target;
 
-    if (validatePhoneNumber(value)) {
-      setIsCertNoRequestBtnDisabled(true);
-    } else {
+    if (filledInput === 'name') {
+      setName(value);
+    }
+    if (filledInput === 'phoneNumber') {
+      setPhoneNumber(value);
+    }
+
+    const updatedName = filledInput === 'name' ? value : name;
+    const updatedPhoneNumber = filledInput === 'phoneNumber' ? value : phoneNumber;
+
+    if (updatedName !== '' && updatedPhoneNumber !== '') {
       setIsCertNoRequestBtnDisabled(false);
+    } else {
+      setIsCertNoRequestBtnDisabled(true);
     }
   };
 
@@ -35,13 +44,14 @@ const SignUp = () => {
         <div className="signUp__wrapper__box">
           <div className="signUp__wrapper__box_title">회원가입</div>
           <div className="signUp__wrapper__box_input">
-            <Input placeholder="이름" value={name} onChange={(e) => setName(e.target.value)} />
+            <Input placeholder="이름" name="name" value={name} onChange={handleNameAndPhoneNUmberChange} />
             <div className="signUp__wrapper__box_input_box">
               <Input
                 placeholder="연락처 ('-'을 제외한 숫자만 입력)"
                 size="small"
+                name="phoneNumber"
                 value={phoneNumber}
-                onChange={handlePhoneNUmberChange}
+                onChange={handleNameAndPhoneNUmberChange}
               />
               <div className="signUp__wrapper__box_input_box_button">
                 <Button
