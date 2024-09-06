@@ -49,14 +49,14 @@ const SignUp = () => {
   // 유효성 검사
   // 이름, 연락처
   const handleClickCertNoRequestBtn = () => {
-    if (validateName(name)) {
+    if (!validateName(name)) {
       setIsNameError(true);
       setNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
     } else {
       setIsNameError(false);
     }
 
-    if (validatePhoneNumber(phoneNumber)) {
+    if (!validatePhoneNumber(phoneNumber)) {
       setIsPhoneNumberError(true);
       setPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
     } else {
