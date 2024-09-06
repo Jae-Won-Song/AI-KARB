@@ -29,7 +29,6 @@
   &__data {
     @include flex;
     border-bottom: 1px solid $grayscale-30;
-
     :first-child {
       text-align: center;
     }
