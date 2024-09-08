@@ -3,6 +3,8 @@ import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
 // utils
 import { validateCertNo, validateName, validatePhoneNumber } from '../../utils/inputValidationUtils';
+// api
+import { fetchCheckCertNoDuringSignUp } from '../../api/auth/authApi';
 
 const SignUp = () => {
   // input value 관리
@@ -93,6 +95,30 @@ const SignUp = () => {
       setCertNoErrorMessage('유효한 인증번호가 아닙니다');
     } else {
       setIsCertNoError(false);
+      console.log('인증번호:', certNo);
+
+      console.log('api 요청 전');
+
+      // 인증 api 요청
+      // CORS 에러로 테스트 불가
+      const payload = {
+        type: 'SignUp',
+        phoneNumber,
+        certNo,
+      };
+
+      fetchCheckCertNoDuringSignUp(payload)
+        .then((response) => {
+          console.log(response);
+          if (response.data.result_code === 3104) {
+            console.log('인증번호 api 요청 됨');
+          }
+        })
+        .catch((error) => {
+          console.error('인증번호 확인 오류', error);
+        });
+
+      console.log('api 요청 후');
     }
   };
 
