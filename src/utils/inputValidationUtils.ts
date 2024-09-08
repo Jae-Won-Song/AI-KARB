@@ -14,3 +14,11 @@ export const validatePhoneNumber = (phoneNumber: string): boolean => {
   }
   return true;
 };
+
+// 인증번호
+export const validateCertNo = (certNo: string): boolean => {
+  if (/^\d{6}$/.test(certNo)) {
+    return false;
+  }
+  return true;
+};
