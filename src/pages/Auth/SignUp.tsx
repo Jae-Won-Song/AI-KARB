@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
 // utils
-import { validateName, validatePhoneNumber } from '../../utils/inputValidationUtils';
+import { validateCertNo, validateName, validatePhoneNumber } from '../../utils/inputValidationUtils';
 
 const SignUp = () => {
   // input value 관리
@@ -13,6 +13,9 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [empNo, setEmpNo] = useState('');
   const [email, setEmail] = useState('');
+  const [certNo, setCertNo] = useState('');
+  // 인증번호를 입력하는 input 추가
+  const [addCertNoInput, setAddCertNoInput] = useState(false);
 
   // input state 관리
   // 이름
@@ -21,14 +24,18 @@ const SignUp = () => {
   // 연락처
   const [isPhoneNumberError, setIsPhoneNumberError] = useState(false);
   const [PhoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState('');
+  // 인증번호
+  const [isCertNoError, setIsCertNoError] = useState(false);
+  const [certNoErrorMessage, setCertNoErrorMessage] = useState('');
 
   // button state 관리
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
 
-  // 이름과 연락처의 input이 채워졌는지 검사
-  const handleNameAndPhoneNUmberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // input이 채워졌는지 검사
+  const checkIfInputsFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name: filledInput, value } = e.target;
 
+    // 이름, 연락처
     if (filledInput === 'name') {
       setName(value);
     }
@@ -44,23 +51,48 @@ const SignUp = () => {
     } else {
       setIsCertNoRequestBtnDisabled(true);
     }
+
+    // 인증번호
+    if (filledInput === 'certNo') {
+      setCertNo(value);
+    }
   };
 
   // 유효성 검사
   // 이름, 연락처
   const handleClickCertNoRequestBtn = () => {
+    let isValid = true;
+
     if (validateName(name)) {
       setIsNameError(true);
       setNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
+      isValid = false;
     } else {
       setIsNameError(false);
+      console.log('이름 통과:', name);
     }
 
     if (validatePhoneNumber(phoneNumber)) {
       setIsPhoneNumberError(true);
       setPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
+      isValid = false;
     } else {
       setIsPhoneNumberError(false);
+      console.log('연락처 통과:', phoneNumber);
+    }
+
+    if (isValid) {
+      setAddCertNoInput(true);
+    }
+  };
+
+  // 인증번호
+  const handleClickCertNoCheckBtn = () => {
+    if (validateCertNo(certNo)) {
+      setIsCertNoError(true);
+      setCertNoErrorMessage('유효한 인증번호가 아닙니다');
+    } else {
+      setIsCertNoError(false);
     }
   };
 
@@ -74,7 +106,7 @@ const SignUp = () => {
               placeholder="이름"
               name="name"
               value={name}
-              onChange={handleNameAndPhoneNUmberChange}
+              onChange={checkIfInputsFilled}
               isError={isNameError}
               errorMessage={nameErrorMessage}
             />
@@ -84,7 +116,7 @@ const SignUp = () => {
                 size="small"
                 name="phoneNumber"
                 value={phoneNumber}
-                onChange={handleNameAndPhoneNUmberChange}
+                onChange={checkIfInputsFilled}
                 isError={isPhoneNumberError}
                 errorMessage={PhoneNumberErrorMessage}
               />
@@ -100,6 +132,31 @@ const SignUp = () => {
                 </Button>
               </div>
             </div>
+
+            {addCertNoInput && (
+              <div className="signUp__wrapper__box_input_box">
+                <Input
+                  placeholder="인증번호"
+                  size="small"
+                  name="certNo"
+                  value={certNo}
+                  onChange={checkIfInputsFilled}
+                  isError={isCertNoError}
+                  errorMessage={certNoErrorMessage}
+                />
+                <div className="signUp__wrapper__box_input_box_button">
+                  <Button
+                    type="button"
+                    width="5.417vw"
+                    height="4.815vh"
+                    fontSize="0.781vw"
+                    onClick={handleClickCertNoCheckBtn}>
+                    확인
+                  </Button>
+                </div>
+              </div>
+            )}
+
             <div className="signUp__wrapper__box_input_box">
               <Input
                 placeholder="아이디 (한글/특수문자 제외)"
