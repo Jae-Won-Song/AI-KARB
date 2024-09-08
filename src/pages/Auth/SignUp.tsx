@@ -29,6 +29,8 @@ const SignUp = () => {
   // 인증번호
   const [isCertNoError, setIsCertNoError] = useState(false);
   const [certNoErrorMessage, setCertNoErrorMessage] = useState('');
+  const [isCertNoSuccess, setIsCertNoSuccess] = useState(false);
+  const [certNoSuccessMessage, setCertNoSuccessMessage] = useState('');
 
   // button state 관리
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
@@ -101,24 +103,28 @@ const SignUp = () => {
 
       // 인증 api 요청
       // CORS 에러로 테스트 불가
-      const payload = {
-        type: 'SignUp',
-        phoneNumber,
-        certNo,
-      };
+      // const payload = {
+      //   type: 'SignUp',
+      //   phoneNumber,
+      //   certNo,
+      // };
 
-      fetchCheckCertNoDuringSignUp(payload)
-        .then((response) => {
-          console.log(response);
-          if (response.data.result_code === 3104) {
-            console.log('인증번호 api 요청 됨');
-          }
-        })
-        .catch((error) => {
-          console.error('인증번호 확인 오류', error);
-        });
+      // fetchCheckCertNoDuringSignUp(payload)
+      //   .then((response) => {
+      //     console.log(response);
+      //     if (response.data.code === 3104) {
+      //       console.log('인증번호 api 요청 됨');
+      //       setIsCertNoSuccess(true);
+      //       setCertNoSuccessMessage('인증되었습니다');
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.error('인증번호 확인 오류', error);
+      //     setIsCertNoError(true);
+      //     setCertNoErrorMessage('인증번호가 올바르지 않습니다');
+      //   });
 
-      console.log('api 요청 후');
+      // console.log('api 요청 후');
     }
   };
 
@@ -169,6 +175,8 @@ const SignUp = () => {
                   onChange={checkIfInputsFilled}
                   isError={isCertNoError}
                   errorMessage={certNoErrorMessage}
+                  isSuccess={isCertNoSuccess}
+                  successMessage={certNoSuccessMessage}
                 />
                 <div className="signUp__wrapper__box_input_box_button">
                   <Button
