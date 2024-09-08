@@ -32,7 +32,7 @@
         color: $grayscale-50;
 
         &_box {
-          @include flex(start, start); // 이렇게 해야 인풋이랑 버튼이 동일한 위치
+          @include flex(start, start);
           position: relative;
 
           gap: 0.625vw;
@@ -47,10 +47,6 @@
       &_button {
         @include flex(start, center);
         width: 100%;
-
-        button {
-          font-size: 19px;
-        }
       }
 
       &_text {
@@ -61,12 +57,11 @@
         margin-top: 1.852vh;
 
         span {
-          color: $grayscale-50;
+          @include text-style(15, $grayscale-50, 400);
         }
 
         .link {
-          color: $primary-50;
-          font-weight: 700;
+          @include text-style(15, $primary-50, 700);
           cursor: pointer;
         }
       }
