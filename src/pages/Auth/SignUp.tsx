@@ -4,7 +4,11 @@ import Input from '../../components/Common/Input';
 // utils
 import { validateCertNo, validateId, validateName, validatePhoneNumber } from '../../utils/inputValidationUtils';
 // api
-import { fetchCheckCertNoDuringSignUp, fetchSendCertNoDuringSignUp } from '../../api/auth/authApi';
+import {
+  fetchCheckCertNoDuringSignUp,
+  fetchCheckIdAvailable,
+  fetchSendCertNoDuringSignUp,
+} from '../../api/auth/authApi';
 
 const SignUp = () => {
   // input value 관리
@@ -174,6 +178,33 @@ const SignUp = () => {
     } else {
       setIsIdError(false);
       setIdErrorMessage('');
+
+      console.log('중복확인 api 요청 전');
+
+      const payload = {
+        id,
+      };
+
+      console.log(payload);
+
+      fetchCheckIdAvailable(payload)
+        .then((response) => {
+          console.log(payload);
+          console.log('중복확인 요청');
+          if (response.data.code === 3102) {
+            // 이전에 에러 떴던 메세지 삭제
+            setIsIdError(false);
+            setIdErrorMessage('');
+            // 사용 가능 메세지 노출
+            setIsIdSuccess(true);
+            setIdSuccessMessage('사용 가능한 아이디입니다');
+          }
+        })
+        .catch((error) => {
+          console.log('중복 확인 에러', error);
+          setIsIdError(true);
+          setIdErrorMessage('이미 존재하는 아이디입니다. 다른 아이디를 입력하세요');
+        });
     }
   };
 
