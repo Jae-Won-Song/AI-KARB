@@ -1,8 +1,14 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
 // utils
-import { validateCertNo, validateId, validateName, validatePhoneNumber } from '../../utils/inputValidationUtils';
+import {
+  validateCertNo,
+  validateId,
+  validateName,
+  validatePassword,
+  validatePhoneNumber,
+} from '../../utils/inputValidationUtils';
 // api
 import {
   fetchCheckCertNoDuringSignUp,
@@ -40,6 +46,9 @@ const SignUp = () => {
   const [idErrorMessage, setIdErrorMessage] = useState('');
   const [isIdSuccess, setIsIdSuccess] = useState(false);
   const [idSuccessMessage, setIdSuccessMessage] = useState('');
+  // 비밀번호
+  const [isPasswordError, setIsPasswordError] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
 
   // button state 관리
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
@@ -83,7 +92,7 @@ const SignUp = () => {
     }
   };
 
-  // 유효성 검사
+  // 유효성 검사 & api 요청
   // 이름, 연락처
   const handleClickCertNoRequestBtn = () => {
     let isValid = true;
@@ -208,6 +217,23 @@ const SignUp = () => {
     }
   };
 
+  // 비밀번호
+  const checkPasswordValidation = (e: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>) => {
+    if ('key' in e && e.key !== 'Tab' && e.key !== 'Enter') {
+      return;
+    }
+
+    const value = e.target;
+
+    if (validatePassword(password)) {
+      setIsPasswordError(true);
+      setPasswordErrorMessage('비밀번호 형식이 맞지 않습니다');
+    } else {
+      setIsPasswordError(false);
+      setPasswordErrorMessage('');
+    }
+  };
+
   return (
     <div className="signUp">
       <div className="signUp__wrapper">
@@ -300,6 +326,10 @@ const SignUp = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onBlur={checkPasswordValidation}
+              onKeyDown={checkPasswordValidation}
+              isError={isPasswordError}
+              errorMessage={passwordErrorMessage}
             />
             <Input
               placeholder="비밀번호 재확인"
