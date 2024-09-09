@@ -37,8 +37,8 @@ interface EmpData {
   진행상황?: JSX.Element | string;
   아이디?: string | number;
   관리?: JSX.Element;
-  작업날짜?: string | number;
   체크박스?: JSX.Element;
+  작업날짜?: string | number;
 }
 
 interface EmpInfo {
@@ -99,7 +99,7 @@ const Table = (props: EmpInfo) => {
                     ) : (
                       cellData
                     )}
-                    {column.name === '연락처' ? (
+                    {column.name === '연락처' || column.name === '이메일' ? (
                       <img style={{ marginLeft: '10px' }} src={clipBoard} alt="클립보드" />
                     ) : null}
                   </td>
