@@ -122,7 +122,6 @@ const SignUp = () => {
       console.log('api 요청 전');
 
       // 인증 api 요청
-      // CORS 에러로 테스트 불가
       const payload = {
         type: 'SignUp',
         phoneNumber,
