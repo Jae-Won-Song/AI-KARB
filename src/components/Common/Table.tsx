@@ -43,7 +43,7 @@ interface EmpData {
 interface EmpInfo {
   columns: Column[];
   data: EmpData[];
-  onRowClick?: ReactNode;
+  onRowClick?: (row: EmpData) => void;
 }
 
 const Table = (props: EmpInfo) => {
@@ -76,7 +76,7 @@ const Table = (props: EmpInfo) => {
               key={rowIndex}
               className="info__data"
               onClick={() => {
-                onRowClick(row);
+                onRowClick?.(row);
               }}>
               {columns.map((column, colIndex) => {
                 const cellData = row[column.name as keyof EmpData];
@@ -94,7 +94,7 @@ const Table = (props: EmpInfo) => {
                     ) : (
                       cellData
                     )}
-                    {column.name === '연락처' ? (
+                    {column.name === '연락처' || column.name === '이메일' ? (
                       <img style={{ marginLeft: '10px' }} src={clipBoard} alt="클립보드" />
                     ) : null}
                   </td>
