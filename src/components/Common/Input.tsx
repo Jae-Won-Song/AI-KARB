@@ -1,3 +1,4 @@
+import React from 'react';
 import errorIcon from '../../assets/icon-error.svg';
 import successIcon from '../../assets/icon-success.svg';
 
@@ -12,6 +13,8 @@ type InputProps = {
   name?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 const Input = ({
@@ -25,6 +28,8 @@ const Input = ({
   name,
   value,
   onChange,
+  onBlur,
+  onKeyDown,
 }: InputProps) => {
   return (
     <div className="InputWrapper">
@@ -36,6 +41,8 @@ const Input = ({
           className={['Input', size, isError ? 'error' : '', isSuccess ? 'success' : ''].join(' ')}
           value={value}
           onChange={onChange}
+          onBlur={onBlur}
+          onKeyDown={onKeyDown}
         />
       </div>
       {isError && (
