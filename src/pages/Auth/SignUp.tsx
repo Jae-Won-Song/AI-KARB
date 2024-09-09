@@ -31,9 +31,15 @@ const SignUp = () => {
   const [certNoErrorMessage, setCertNoErrorMessage] = useState('');
   const [isCertNoSuccess, setIsCertNoSuccess] = useState(false);
   const [certNoSuccessMessage, setCertNoSuccessMessage] = useState('');
+  // 아이디
+  const [isIdError, setIsIdError] = useState(false);
+  const [idErrorMessage, setIdErrorMessage] = useState('');
+  const [isIdSuccess, setIsIdSuccess] = useState(false);
+  const [idSuccessMessage, setIdSuccessMessage] = useState('');
 
   // button state 관리
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
+  const [isIdCheckBtnDisabled, setIsIdCheckBtnDisabled] = useState(true);
 
   // input이 채워졌는지 검사
   const checkIfInputsFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,6 +65,17 @@ const SignUp = () => {
     // 인증번호
     if (filledInput === 'certNo') {
       setCertNo(value);
+    }
+
+    // 아이디
+    if (filledInput === 'id') {
+      setId(value);
+    }
+
+    const updatedId = filledInput === 'id' ? value : id;
+
+    if (updatedId !== '') {
+      setIsIdCheckBtnDisabled(false);
     }
   };
 
@@ -149,6 +166,17 @@ const SignUp = () => {
     }
   };
 
+  // 아이디
+  const handleClickIdCheckBtn = () => {
+    if (validateId(id)) {
+      setIsIdError(true);
+      setIdErrorMessage('아이디는 4~12글자, 영 대/소문자/숫자만 입력해주세요');
+    } else {
+      setIsIdError(false);
+      setIdErrorMessage('');
+    }
+  };
+
   return (
     <div className="signUp">
       <div className="signUp__wrapper">
@@ -176,7 +204,7 @@ const SignUp = () => {
               <div className="signUp__wrapper__box_input_box_button">
                 <Button
                   type="button"
-                  state={isCertNoRequestBtnDisabled ? 'disabled' : 'default'}
+                  state={isCertNoRequestBtnDisabled ? 'disabled' : 'default_deepBlue'}
                   width="5.417vw"
                   height="4.815vh"
                   fontSize="0.781vw"
@@ -216,11 +244,22 @@ const SignUp = () => {
               <Input
                 placeholder="아이디 (한글/특수문자 제외)"
                 size="small"
+                name="id"
                 value={id}
-                onChange={(e) => setId(e.target.value)}
+                onChange={checkIfInputsFilled}
+                isError={isIdError}
+                errorMessage={idErrorMessage}
+                isSuccess={isIdSuccess}
+                successMessage={idSuccessMessage}
               />
               <div className="signUp__wrapper__box_input_box_button">
-                <Button type="button" state="disabled" width="5.417vw" height="4.815vh" fontSize="0.781vw">
+                <Button
+                  type="button"
+                  state={isIdCheckBtnDisabled ? 'disabled' : 'default_deepBlue'}
+                  width="5.417vw"
+                  height="4.815vh"
+                  fontSize="0.781vw"
+                  onClick={handleClickIdCheckBtn}>
                   중복확인
                 </Button>
               </div>
