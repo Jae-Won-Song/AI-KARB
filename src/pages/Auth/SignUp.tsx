@@ -2,9 +2,9 @@ import { useState } from 'react';
 import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
 // utils
-import { validateCertNo, validateName, validatePhoneNumber } from '../../utils/inputValidationUtils';
+import { validateCertNo, validateId, validateName, validatePhoneNumber } from '../../utils/inputValidationUtils';
 // api
-import { fetchCheckCertNoDuringSignUp } from '../../api/auth/authApi';
+import { fetchCheckCertNoDuringSignUp, fetchSendCertNoDuringSignUp } from '../../api/auth/authApi';
 
 const SignUp = () => {
   // input value 관리
@@ -83,6 +83,26 @@ const SignUp = () => {
     } else {
       setIsPhoneNumberError(false);
       console.log('연락처 통과:', phoneNumber);
+
+      console.log('인증번호 전송 전');
+
+      const payload = {
+        type: 'SignUp',
+        phoneNumber,
+      };
+
+      fetchSendCertNoDuringSignUp(payload)
+        .then((response) => {
+          console.log(payload);
+          console.log(response);
+          if (response.data.code === 3103) {
+            console.log('인증번호 발송 요청 성공');
+          }
+        })
+        .catch((error) => {
+          console.log(payload);
+          console.error('인증번호 발송 오류', error);
+        });
     }
 
     if (isValid) {
@@ -103,28 +123,30 @@ const SignUp = () => {
 
       // 인증 api 요청
       // CORS 에러로 테스트 불가
-      // const payload = {
-      //   type: 'SignUp',
-      //   phoneNumber,
-      //   certNo,
-      // };
+      const payload = {
+        type: 'SignUp',
+        phoneNumber,
+        certNo,
+      };
 
-      // fetchCheckCertNoDuringSignUp(payload)
-      //   .then((response) => {
-      //     console.log(response);
-      //     if (response.data.code === 3104) {
-      //       console.log('인증번호 api 요청 됨');
-      //       setIsCertNoSuccess(true);
-      //       setCertNoSuccessMessage('인증되었습니다');
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     console.error('인증번호 확인 오류', error);
-      //     setIsCertNoError(true);
-      //     setCertNoErrorMessage('인증번호가 올바르지 않습니다');
-      //   });
+      fetchCheckCertNoDuringSignUp(payload)
+        .then((response) => {
+          console.log(payload);
+          console.log(response);
+          if (response.data.code === 3104) {
+            console.log('인증번호 api 요청 됨');
+            setIsCertNoSuccess(true);
+            setCertNoSuccessMessage('인증되었습니다');
+          }
+        })
+        .catch((error) => {
+          console.log(payload);
+          console.error('인증번호 확인 오류', error);
+          setIsCertNoError(true);
+          setCertNoErrorMessage('인증번호가 올바르지 않습니다');
+        });
 
-      // console.log('api 요청 후');
+      console.log('api 요청 후');
     }
   };
 
