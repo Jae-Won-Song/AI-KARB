@@ -38,6 +38,7 @@ interface EmpData {
   아이디?: string | number;
   관리?: JSX.Element;
   체크박스?: JSX.Element;
+  작업날짜?: string | number;
 }
 
 interface EmpInfo {
