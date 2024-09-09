@@ -5,7 +5,7 @@ type TimerProps = {
 };
 
 const Timer = ({ onTimeUp }: TimerProps): ReactNode => {
-  const minutesInMs = 0.5 * 60 * 1000;
+  const minutesInMs = 3 * 60 * 1000;
   const interval = 1000;
   const [timeLeft, setTimeLeft] = useState(minutesInMs);
 

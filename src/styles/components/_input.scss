@@ -1,84 +1,89 @@
 .InputWrapper {
   @include column-flex(center, start);
+
   gap: 1.111vh;
-}
 
-.Input {
-  position: relative;
-
-  width: 20.833vw;
-  height: 4.815vh;
-  padding: 0 0.833vw;
-  border: 1px solid $grayscale-20;
-  border-radius: 8px;
-
-  background-color: $grayscale-5;
-
-  font-size: $font-size-15;
-
-  outline: none;
-
-  &:focus {
-    border: 1px solid $primary-50;
-    box-sizing: border-box;
-
-    background-color: $secondary-5;
+  &_input {
+    position: relative;
   }
 
-  &:focus:not(:placeholder-shown) {
-    border: 1px solid $primary-50;
-    background-color: $secondary-5;
-  }
+  .Input {
+    width: 20.833vw;
+    height: 4.815vh;
+    padding: 0 0.833vw;
+    border: 1px solid $grayscale-20;
+    border-radius: 8px;
 
-  &:not(:placeholder-shown) {
-    border: 1px solid $grayscale-50;
-  }
+    background-color: $grayscale-5;
 
-  &.small {
-    width: 14.792vw;
-  }
+    font-size: $font-size-15;
 
-  &.error {
-    border: 1px solid $danger-50;
+    outline: none;
 
-    color: $grayscale-90;
-  }
+    &:focus {
+      border: 1px solid $primary-50;
+      box-sizing: border-box;
 
-  &__error {
-    @include flex(start, center);
-    gap: 0.208vw;
-
-    &_message {
-      @include text-style(15, $danger-50, 400);
+      background-color: $secondary-5;
     }
-  }
 
-  &.success {
-    border: 1px solid $success-50;
-
-    color: $grayscale-90;
-  }
-
-  &__success {
-    @include flex;
-
-    gap: 0.208vw;
-
-    &_message {
-      @include text-style(15, $success-50, 400);
+    &:focus:not(:placeholder-shown) {
+      border: 1px solid $primary-50;
+      background-color: $secondary-5;
     }
-  }
 
-  &.timer {
-    padding-right: 5.781vw;
-  }
+    &:not(:placeholder-shown) {
+      border: 1px solid $grayscale-50;
+    }
 
-  &__timer {
-    position: absolute;
-    left: 9.5vw;
-    @include flex;
-    gap: 0.208vw;
+    &.small {
+      width: 14.792vw;
+    }
 
-    @include text-style(13, $grayscale-50, 400);
+    &.error {
+      border: 1px solid $danger-50;
+
+      color: $grayscale-90;
+    }
+
+    &__error {
+      @include flex(start, center);
+      gap: 0.208vw;
+
+      &_message {
+        @include text-style(15, $danger-50, 400);
+      }
+    }
+
+    &.success {
+      border: 1px solid $success-50;
+
+      color: $grayscale-90;
+    }
+
+    &__success {
+      @include flex;
+
+      gap: 0.208vw;
+
+      &_message {
+        @include text-style(15, $success-50, 400);
+      }
+    }
+
+    &.timer {
+      height: 4.815vh;
+      padding-right: 5.781vw;
+    }
+
+    &__timer {
+      position: absolute;
+      @include flex(end, center);
+      gap: 0.208vw;
+      top: 1.8vh;
+      left: 9.5vw;
+
+      @include text-style(13, $grayscale-50, 400);
+    }
   }
 }
