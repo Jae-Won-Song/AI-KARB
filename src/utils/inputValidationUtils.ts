@@ -22,3 +22,11 @@ export const validateCertNo = (certNo: string): boolean => {
   }
   return true;
 };
+
+// 아이디
+export const validateId = (id: string): boolean => {
+  if (/^[a-zA-Z0-9]{4,12}$/.test(id)) {
+    return false;
+  }
+  return true;
+};
