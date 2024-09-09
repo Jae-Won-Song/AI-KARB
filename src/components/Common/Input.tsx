@@ -1,4 +1,3 @@
-import React from 'react';
 import errorIcon from '../../assets/icon-error.svg';
 import successIcon from '../../assets/icon-success.svg';
 import Timer from './Timer';
