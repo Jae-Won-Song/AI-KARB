@@ -4,6 +4,8 @@
 }
 
 .Input {
+  position: relative;
+
   width: 20.833vw;
   height: 4.815vh;
   padding: 0 0.833vw;
@@ -65,5 +67,18 @@
     &_message {
       @include text-style(15, $success-50, 400);
     }
+  }
+
+  &.timer {
+    padding-right: 5.781vw;
+  }
+
+  &__timer {
+    position: absolute;
+    left: 9.8vw;
+    @include flex;
+    gap: 0.208vw;
+
+    @include text-style(13, $grayscale-50, 400);
   }
 }
