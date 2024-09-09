@@ -64,7 +64,7 @@ const Input = ({
       {timer && (
         <div className="Input__timer">
           <span className="Input__timer_span">남은 시간</span>
-          <span className="Input__timer_time">3:00</span>
+          <span className="Input__timer_time">03:00</span>
         </div>
       )}
     </div>
