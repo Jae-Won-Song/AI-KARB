@@ -1,6 +1,7 @@
 import React from 'react';
 import errorIcon from '../../assets/icon-error.svg';
 import successIcon from '../../assets/icon-success.svg';
+import Timer from './Timer';
 
 type InputProps = {
   placeholder: string;
@@ -16,6 +17,7 @@ type InputProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onTimeUp?: () => void;
 };
 
 const Input = ({
@@ -32,6 +34,7 @@ const Input = ({
   onChange,
   onBlur,
   onKeyDown,
+  onTimeUp,
 }: InputProps) => {
   return (
     <div className="InputWrapper">
@@ -64,7 +67,9 @@ const Input = ({
       {timer && (
         <div className="Input__timer">
           <span className="Input__timer_span">남은 시간</span>
-          <span className="Input__timer_time">03:00</span>
+          <span className="Input__timer_time">
+            <Timer onTimeUp={onTimeUp} />
+          </span>
         </div>
       )}
     </div>

@@ -1,7 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 
-const Timer = () => {
-  const minutesInMs = 3 * 60 * 1000;
+type TimerProps = {
+  onTimeUp?: () => void;
+};
+
+const Timer = ({ onTimeUp }: TimerProps): ReactNode => {
+  const minutesInMs = 0.5 * 60 * 1000;
   const interval = 1000;
   const [timeLeft, setTimeLeft] = useState(minutesInMs);
 
@@ -15,12 +19,15 @@ const Timer = () => {
 
     if (timeLeft <= 0) {
       clearInterval(timer);
+      if (onTimeUp) {
+        onTimeUp();
+      }
     }
 
     return () => {
       clearInterval(timer);
     };
-  }, [timeLeft]);
+  }, [timeLeft, onTimeUp]);
 
   return (
     <span>

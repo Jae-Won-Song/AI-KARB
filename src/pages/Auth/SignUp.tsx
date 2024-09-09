@@ -28,6 +28,12 @@ const SignUp = () => {
   const [certNo, setCertNo] = useState('');
   // 인증번호를 입력하는 input 추가
   const [addCertNoInput, setAddCertNoInput] = useState(false);
+  // 타이머 시간 관리
+  const [isTimeUp, setIsTimeUp] = useState(false);
+
+  const handleTimeUp = () => {
+    setIsTimeUp(true);
+  };
 
   // input state 관리
   // 이름
@@ -142,6 +148,10 @@ const SignUp = () => {
 
   // 인증번호
   const handleClickCertNoCheckBtn = () => {
+    if (isTimeUp) {
+      setIsTimeUp(false);
+    }
+
     if (validateCertNo(certNo)) {
       setIsCertNoError(true);
       setCertNoErrorMessage('유효한 인증번호가 아닙니다');
@@ -149,33 +159,33 @@ const SignUp = () => {
       setIsCertNoError(false);
       console.log('인증번호:', certNo);
 
-      console.log('api 요청 전');
+      // console.log('api 요청 전');
 
       // 인증 api 요청
-      const payload = {
-        type: 'SignUp',
-        phoneNumber,
-        certNo,
-      };
+      // const payload = {
+      //   type: 'SignUp',
+      //   phoneNumber,
+      //   certNo,
+      // };
 
-      fetchCheckCertNoDuringSignUp(payload)
-        .then((response) => {
-          console.log(payload);
-          console.log(response);
-          if (response.data.code === 3104) {
-            console.log('인증번호 api 요청 됨');
-            setIsCertNoSuccess(true);
-            setCertNoSuccessMessage('인증되었습니다');
-          }
-        })
-        .catch((error) => {
-          console.log(payload);
-          console.error('인증번호 확인 오류', error);
-          setIsCertNoError(true);
-          setCertNoErrorMessage('인증번호가 올바르지 않습니다');
-        });
+      // fetchCheckCertNoDuringSignUp(payload)
+      //   .then((response) => {
+      //     console.log(payload);
+      //     console.log(response);
+      //     if (response.data.code === 3104) {
+      //       console.log('인증번호 api 요청 됨');
+      //       setIsCertNoSuccess(true);
+      //       setCertNoSuccessMessage('인증되었습니다');
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.log(payload);
+      //     console.error('인증번호 확인 오류', error);
+      //     setIsCertNoError(true);
+      //     setCertNoErrorMessage('인증번호가 올바르지 않습니다');
+      //   });
 
-      console.log('api 요청 후');
+      // console.log('api 요청 후');
     }
   };
 
@@ -283,6 +293,8 @@ const SignUp = () => {
                   errorMessage={certNoErrorMessage}
                   isSuccess={isCertNoSuccess}
                   successMessage={certNoSuccessMessage}
+                  timer
+                  onTimeUp={handleTimeUp}
                 />
                 <div className="signUp__wrapper__box_input_box_button">
                   <Button
@@ -291,7 +303,7 @@ const SignUp = () => {
                     height="4.815vh"
                     fontSize="0.781vw"
                     onClick={handleClickCertNoCheckBtn}>
-                    확인
+                    {isTimeUp ? '재전송' : '확인'}
                   </Button>
                 </div>
               </div>
