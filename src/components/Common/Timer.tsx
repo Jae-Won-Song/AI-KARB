@@ -2,9 +2,10 @@ import { useState, useEffect, ReactNode } from 'react';
 
 type TimerProps = {
   onTimeUp?: () => void;
+  resetTrigger?: boolean;
 };
 
-const Timer = ({ onTimeUp }: TimerProps): ReactNode => {
+const Timer = ({ onTimeUp, resetTrigger = false }: TimerProps): ReactNode => {
   const minutesInMs = 3 * 60 * 1000;
   const interval = 1000;
   const [timeLeft, setTimeLeft] = useState(minutesInMs);
@@ -27,7 +28,14 @@ const Timer = ({ onTimeUp }: TimerProps): ReactNode => {
     return () => {
       clearInterval(timer);
     };
-  }, [timeLeft, onTimeUp]);
+  }, [timeLeft, onTimeUp, interval]);
+
+  // 재전송 눌렀을 때
+  useEffect(() => {
+    if (resetTrigger) {
+      setTimeLeft(minutesInMs);
+    }
+  }, [resetTrigger, minutesInMs]);
 
   return (
     <span>
