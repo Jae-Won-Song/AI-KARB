@@ -225,6 +225,8 @@ const SignUp = () => {
           console.log('중복 확인 에러', error);
           setIsIdError(true);
           setIdErrorMessage('이미 존재하는 아이디입니다. 다른 아이디를 입력하세요');
+          setIsIdSuccess(false);
+          setIdSuccessMessage('');
         });
     }
   };
