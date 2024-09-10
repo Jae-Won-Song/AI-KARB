@@ -53,3 +53,11 @@ export const validatePassword = (password: string): boolean => {
   }
   return true;
 };
+
+// 사원번호
+export const validateEmpNo = (empNo: string): boolean => {
+  if (/^\d{8}$/.test(empNo)) {
+    return false;
+  }
+  return true;
+};
