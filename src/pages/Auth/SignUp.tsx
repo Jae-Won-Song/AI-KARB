@@ -194,6 +194,8 @@ const SignUp = () => {
     if (validateId(id)) {
       setIsIdError(true);
       setIdErrorMessage('아이디는 4~12글자, 영 대/소문자/숫자만 입력해주세요');
+      setIsIdSuccess(false);
+      setIdSuccessMessage('');
     } else {
       setIsIdError(false);
       setIdErrorMessage('');
