@@ -1,8 +1,8 @@
 import { ReactNode, useEffect, useState } from 'react';
-import success from '../assets/checked-mypage.svg';
-import failed from '../assets/warning-mypage.svg';
-import closeBlue from '../assets/closeBlue-mypage.svg';
-import closeRed from '../assets/closeRed-mypage.svg';
+import success from '../../assets/checked-mypage.svg';
+import failed from '../../assets/warning-mypage.svg';
+import closeBlue from '../../assets/closeBlue-mypage.svg';
+import closeRed from '../../assets/closeRed-mypage.svg';
 
 type ToastProps = {
   mode?: ReactNode | JSX.Element;
