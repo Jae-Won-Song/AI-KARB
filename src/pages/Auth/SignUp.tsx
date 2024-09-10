@@ -4,6 +4,7 @@ import Input from '../../components/Common/Input';
 // utils
 import {
   validateCertNo,
+  validateEmpNo,
   validateId,
   validateName,
   validatePassword,
@@ -61,6 +62,9 @@ const SignUp = () => {
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState('');
   const [isConfirmPasswordSuccess, setIsConfirmPasswordSuccess] = useState(false);
   const [confirmPasswordSuccessMessage, setConfirmPasswordSuccessMessage] = useState('');
+  // 사원번호
+  const [isEmpNoError, setIsEmpNoError] = useState(false);
+  const [empNoErrorMessage, setEmpNoErrorMessage] = useState('');
 
   // button state 관리
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
@@ -304,6 +308,23 @@ const SignUp = () => {
     }
   };
 
+  // 사원번호
+  const checkEmpNoValidation = (e: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>) => {
+    if ('key' in e && e.key !== 'Tab' && e.key !== 'Enter') {
+      return;
+    }
+
+    const value = e.target;
+
+    if (validateEmpNo(empNo)) {
+      setIsEmpNoError(true);
+      setEmpNoErrorMessage('사원번호는 8글자 숫자만 입력해주세요');
+    } else {
+      setIsEmpNoError(false);
+      setEmpNoErrorMessage('');
+    }
+  };
+
   return (
     <div className="signUp">
       <div className="signUp__wrapper">
@@ -416,7 +437,15 @@ const SignUp = () => {
               isSuccess={isConfirmPasswordSuccess}
               successMessage={confirmPasswordSuccessMessage}
             />
-            <Input placeholder="사원번호" value={empNo} onChange={(e) => setEmpNo(e.target.value)} />
+            <Input
+              placeholder="사원번호"
+              value={empNo}
+              onChange={(e) => setEmpNo(e.target.value)}
+              onBlur={checkEmpNoValidation}
+              onKeyDown={checkEmpNoValidation}
+              isError={isEmpNoError}
+              errorMessage={empNoErrorMessage}
+            />
             <Input placeholder="이메일" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="signUp__wrapper__box_button">
