@@ -1,10 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import fetchDashBoardData from '../../api/dashboard/dashboardApi';
 import targetIcon from '../../assets/icon-target.svg';
 import caseIcon from '../../assets/icon-case.svg';
 import adminCase from '../../assets/case-admin.svg';
 import checkIcon from '../../assets/icon-check.svg';
 import userIcon from '../../assets/user-icon.svg';
 import rightArrow from '../../assets/chevron-right.svg';
+import { getDeadline } from './DashBoardDate';
 
 const TaskSummary = () => {
   const location = useLocation();
@@ -17,12 +19,31 @@ const TaskSummary = () => {
     navigate('/admin/approve-user');
   };
 
+  fetchDashBoardData()
+    .then((response) => {
+      const { data } = response;
+
+      const adCountData = data.data.adCount;
+      const myAdData = adCountData.myAd;
+      const myDoneAdData = adCountData.MyDoneAd;
+      const myNotDoneAdData = adCountData.myNotDoneAd;
+      const totalAdData = adCountData.totalAd;
+      const totalDoneAdData = adCountData.totalDoneAd;
+      const totalNotDoneAdData = adCountData.totalNotDoneAd;
+
+      const dailyDoneListData = response.data.data.dailyDoneList;
+      const recentDoneListData = response.data.data.recentDoneList;
+    })
+    .catch((error) => {
+      console.error('데이터 조회 실패:', error);
+    });
+
   return (
     <section className="task-wrapper">
       <div className="task-wrapper__deadline">
         <div className="task-wrapper__info">
           마감일
-          <div className="task-wrapper__info__subtitle">D-2</div>
+          <div className="task-wrapper__info__subtitle">D-{getDeadline()}</div>
         </div>
         <img src={targetIcon} alt="targetIcon" />
       </div>

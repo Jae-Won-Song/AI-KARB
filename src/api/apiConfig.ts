@@ -1,11 +1,25 @@
 import axios from 'axios';
 
+const accesstoken =
+  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJhZG1pbiIsImlhdCI6MTcyNTkwNjIwNSwiZXhwIjozMzI4MzUwNjIwNX0.Zv5azH6MospdmtBrqMasTSiLeZxS_8_qpSYfjhoa6Xk';
+
 /*
  * axios 인스턴스 생성
  */
 const instance = axios.create({
   baseURL: 'http://13.124.172.3',
 });
+
+instance.interceptors.request.use(
+  (config) => {
+    // eslint-disable-next-line no-param-reassign
+    config.headers.Authorization = `Bearer ${accesstoken}`;
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
 
 export default instance;
 

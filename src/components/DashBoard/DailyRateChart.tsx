@@ -3,7 +3,7 @@ import rateNotDone from '../../assets/rate-notdone.svg';
 
 const DailyrateChart = () => {
   const totalTasks = 50;
-  const completedTasks = 40;
+  const completedTasks = 30;
   const completionRate = (completedTasks / totalTasks) * 75;
   const percentage = Math.round((completedTasks / totalTasks) * 100);
 

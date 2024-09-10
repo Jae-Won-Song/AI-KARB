@@ -1,6 +1,6 @@
 const TaskRateAdmin = () => {
   const totalTasks = 5000;
-  const completedTasks = 4200;
+  const completedTasks = 3000;
   const completionRate = (completedTasks / totalTasks) * 180;
   const percentage = Math.round((completedTasks / totalTasks) * 100);
 
@@ -15,7 +15,7 @@ const TaskRateAdmin = () => {
               background: `conic-gradient(
                 from 0deg, 
                 #349bcd 0deg, 
-                #349bcd ${completionRate}deg,
+                #006597 ${completionRate}deg,
                 transparent ${completionRate}deg,
                 transparent 360deg
               )`,
