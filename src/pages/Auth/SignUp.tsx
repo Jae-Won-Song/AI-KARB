@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
+import errorIcon from '../../assets/icon-error.svg';
 // utils
 import {
   validateCertNo,
@@ -70,6 +71,10 @@ const SignUp = () => {
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
   const [isIdCheckBtnDisabled, setIsIdCheckBtnDisabled] = useState(true);
 
+  // 아이디 중복확인을 했는지 확인
+  const [isIdChecked, setIsIdChecked] = useState(false);
+  const [needToCheckId, setNeedToCheckId] = useState(false);
+
   // input이 채워졌는지 검사
   const checkIfInputsFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name: filledInput, value } = e.target;
@@ -132,23 +137,23 @@ const SignUp = () => {
 
       console.log('인증번호 전송 전');
 
-      const payload = {
-        type: 'SignUp',
-        phoneNumber,
-      };
+      // const payload = {
+      //   type: 'SignUp',
+      //   phoneNumber,
+      // };
 
-      fetchSendCertNoDuringSignUp(payload)
-        .then((response) => {
-          console.log(payload);
-          console.log(response);
-          if (response.data.code === 3103) {
-            console.log('인증번호 발송 요청 성공');
-          }
-        })
-        .catch((error) => {
-          console.log(payload);
-          console.error('인증번호 발송 오류', error);
-        });
+      // fetchSendCertNoDuringSignUp(payload)
+      //   .then((response) => {
+      //     console.log(payload);
+      //     console.log(response);
+      //     if (response.data.code === 3103) {
+      //       console.log('인증번호 발송 요청 성공');
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.log(payload);
+      //     console.error('인증번호 발송 오류', error);
+      //   });
     }
 
     if (isValid) {
@@ -172,28 +177,28 @@ const SignUp = () => {
       console.log('api 요청 전');
 
       // 인증 api 요청
-      const payload = {
-        type: 'SignUp',
-        phoneNumber,
-        certNo,
-      };
+      // const payload = {
+      //   type: 'SignUp',
+      //   phoneNumber,
+      //   certNo,
+      // };
 
-      fetchCheckCertNoDuringSignUp(payload)
-        .then((response) => {
-          console.log(payload);
-          console.log(response);
-          if (response.data.code === 3104) {
-            console.log('인증번호 api 요청 됨');
-            setIsCertNoSuccess(true);
-            setCertNoSuccessMessage('인증되었습니다');
-          }
-        })
-        .catch((error) => {
-          console.log(payload);
-          console.error('인증번호 확인 오류', error);
-          setIsCertNoError(true);
-          setCertNoErrorMessage('인증번호가 올바르지 않습니다');
-        });
+      // fetchCheckCertNoDuringSignUp(payload)
+      //   .then((response) => {
+      //     console.log(payload);
+      //     console.log(response);
+      //     if (response.data.code === 3104) {
+      //       console.log('인증번호 api 요청 됨');
+      //       setIsCertNoSuccess(true);
+      //       setCertNoSuccessMessage('인증되었습니다');
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.log(payload);
+      //     console.error('인증번호 확인 오류', error);
+      //     setIsCertNoError(true);
+      //     setCertNoErrorMessage('인증번호가 올바르지 않습니다');
+      //   });
 
       console.log('api 요청 후');
     }
@@ -258,6 +263,8 @@ const SignUp = () => {
             // 사용 가능 메세지 노출
             setIsIdSuccess(true);
             setIdSuccessMessage('사용 가능한 아이디입니다');
+            // 아이디 중복확인 완료
+            setIsIdChecked(true);
           }
         })
         .catch((error) => {
@@ -266,6 +273,7 @@ const SignUp = () => {
           setIdErrorMessage('이미 존재하는 아이디입니다. 다른 아이디를 입력하세요');
           setIsIdSuccess(false);
           setIdSuccessMessage('');
+          setIsIdChecked(false);
         });
     }
   };
@@ -322,6 +330,20 @@ const SignUp = () => {
     } else {
       setIsEmpNoError(false);
       setEmpNoErrorMessage('');
+    }
+  };
+
+  // 회원가입
+  // 모든 인풋에 값이 입력되었는지 검사
+  const checkAllInputFilled = () => {
+    const allInputs = [name, phoneNumber, certNo, id, password, confirmPassword, empNo, email];
+
+    return allInputs.every((field) => field.trim() !== '');
+  };
+
+  const handleSubmitSignUp = () => {
+    if (!isIdChecked) {
+      setNeedToCheckId(true);
     }
   };
 
@@ -448,8 +470,22 @@ const SignUp = () => {
             />
             <Input placeholder="이메일" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
+
+          {needToCheckId && (
+            <div className="idError">
+              <img src={errorIcon} alt="에러 아이콘" />
+              <span className="idError_message">아이디 중복확인을 해주세요</span>
+            </div>
+          )}
+
           <div className="signUp__wrapper__box_button">
-            <Button type="button" state="disabled" width="20.833vw" height="5.926vh" fontSize="0.99vw">
+            <Button
+              type="button"
+              state={checkAllInputFilled() ? 'default' : 'disabled'}
+              width="20.833vw"
+              height="5.926vh"
+              fontSize="0.99vw"
+              onClick={handleSubmitSignUp}>
               회원가입
             </Button>
           </div>
