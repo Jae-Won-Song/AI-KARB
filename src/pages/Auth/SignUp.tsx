@@ -56,6 +56,11 @@ const SignUp = () => {
   // 비밀번호
   const [isPasswordError, setIsPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+  // 비밀번호 재확인
+  const [isConfirmPasswordError, setIsConfirmPasswordError] = useState(false);
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState('');
+  const [isConfirmPasswordSuccess, setIsConfirmPasswordSuccess] = useState(false);
+  const [confirmPasswordSuccessMessage, setConfirmPasswordSuccessMessage] = useState('');
 
   // button state 관리
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
@@ -278,6 +283,27 @@ const SignUp = () => {
     }
   };
 
+  // 비밀번호 재확인
+  const checkConfirmPassword = (e: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>) => {
+    // if ('key' in e && e.key !== 'Tab' && e.key !== 'Enter') {
+    //   return;
+    // }
+
+    // const value = e.target;
+
+    if (confirmPassword === password) {
+      setIsConfirmPasswordSuccess(true);
+      setConfirmPasswordSuccessMessage('비밀번호가 일치합니다');
+      setIsConfirmPasswordError(false);
+      setConfirmPasswordErrorMessage('');
+    } else {
+      setIsConfirmPasswordSuccess(false);
+      setConfirmPasswordSuccessMessage('');
+      setIsConfirmPasswordError(true);
+      setConfirmPasswordErrorMessage('비밀번호가 일치하지 않습니다');
+    }
+  };
+
   return (
     <div className="signUp">
       <div className="signUp__wrapper">
@@ -383,6 +409,12 @@ const SignUp = () => {
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              onBlur={checkConfirmPassword}
+              onKeyDown={checkConfirmPassword}
+              isError={isConfirmPasswordError}
+              errorMessage={confirmPasswordErrorMessage}
+              isSuccess={isConfirmPasswordSuccess}
+              successMessage={confirmPasswordSuccessMessage}
             />
             <Input placeholder="사원번호" value={empNo} onChange={(e) => setEmpNo(e.target.value)} />
             <Input placeholder="이메일" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
