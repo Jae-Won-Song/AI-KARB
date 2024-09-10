@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
 import errorIcon from '../../assets/icon-error.svg';
@@ -20,6 +21,8 @@ import {
 } from '../../api/auth/authApi';
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   // input value 관리
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -495,7 +498,12 @@ const SignUp = () => {
               </div>
             </div>
             <div className="signUp__wrapper__success_button">
-              <Button type="button" state="default" width="20.833vw" height="5.926vh">
+              <Button
+                type="button"
+                state="default"
+                width="20.833vw"
+                height="5.926vh"
+                onClick={() => navigate('/signin')}>
                 로그인하기
               </Button>
             </div>
