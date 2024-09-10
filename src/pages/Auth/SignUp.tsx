@@ -285,11 +285,11 @@ const SignUp = () => {
 
   // 비밀번호 재확인
   const checkConfirmPassword = (e: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>) => {
-    // if ('key' in e && e.key !== 'Tab' && e.key !== 'Enter') {
-    //   return;
-    // }
+    if ('key' in e && e.key !== 'Tab' && e.key !== 'Enter') {
+      return;
+    }
 
-    // const value = e.target;
+    const value = e.target;
 
     if (confirmPassword === password) {
       setIsConfirmPasswordSuccess(true);
