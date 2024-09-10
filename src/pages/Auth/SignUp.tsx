@@ -455,7 +455,9 @@ const SignUp = () => {
           </div>
           <div className="signUp__wrapper__box_text">
             <span>이미 계정이 있으신가요? </span>
-            <span className="link">로그인하기</span>
+            <a href="/signin" className="link">
+              로그인하기
+            </a>
           </div>
         </div>
       </div>
