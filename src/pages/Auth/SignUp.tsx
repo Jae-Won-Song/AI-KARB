@@ -30,6 +30,7 @@ const SignUp = () => {
   const [addCertNoInput, setAddCertNoInput] = useState(false);
   // 타이머 시간 관리
   const [isTimeUp, setIsTimeUp] = useState(false);
+  const [resetTimer, setResetTimer] = useState(false);
 
   const handleTimeUp = () => {
     setIsTimeUp(true);
@@ -159,34 +160,62 @@ const SignUp = () => {
       setIsCertNoError(false);
       console.log('인증번호:', certNo);
 
-      // console.log('api 요청 전');
+      console.log('api 요청 전');
 
       // 인증 api 요청
-      // const payload = {
-      //   type: 'SignUp',
-      //   phoneNumber,
-      //   certNo,
-      // };
+      const payload = {
+        type: 'SignUp',
+        phoneNumber,
+        certNo,
+      };
 
-      // fetchCheckCertNoDuringSignUp(payload)
-      //   .then((response) => {
-      //     console.log(payload);
-      //     console.log(response);
-      //     if (response.data.code === 3104) {
-      //       console.log('인증번호 api 요청 됨');
-      //       setIsCertNoSuccess(true);
-      //       setCertNoSuccessMessage('인증되었습니다');
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     console.log(payload);
-      //     console.error('인증번호 확인 오류', error);
-      //     setIsCertNoError(true);
-      //     setCertNoErrorMessage('인증번호가 올바르지 않습니다');
-      //   });
+      fetchCheckCertNoDuringSignUp(payload)
+        .then((response) => {
+          console.log(payload);
+          console.log(response);
+          if (response.data.code === 3104) {
+            console.log('인증번호 api 요청 됨');
+            setIsCertNoSuccess(true);
+            setCertNoSuccessMessage('인증되었습니다');
+          }
+        })
+        .catch((error) => {
+          console.log(payload);
+          console.error('인증번호 확인 오류', error);
+          setIsCertNoError(true);
+          setCertNoErrorMessage('인증번호가 올바르지 않습니다');
+        });
 
-      // console.log('api 요청 후');
+      console.log('api 요청 후');
     }
+  };
+
+  // 인증번호 요청 재전송
+  const handleClickCertNoRetransmit = () => {
+    const payload = {
+      type: 'SignUp',
+      phoneNumber,
+    };
+
+    console.log(payload);
+
+    setIsTimeUp(false);
+    setResetTimer((prev) => !prev);
+    setIsCertNoError(false);
+    setCertNoErrorMessage('');
+
+    fetchSendCertNoDuringSignUp(payload)
+      .then((response) => {
+        if (response.data.code === 3103) {
+          setIsTimeUp(false);
+          setResetTimer((prev) => !prev);
+          setIsCertNoError(false);
+          setCertNoErrorMessage('');
+        }
+      })
+      .catch((error) => {
+        console.error('인증번호 발송 오류', error);
+      });
   };
 
   // 아이디
@@ -208,6 +237,7 @@ const SignUp = () => {
 
       console.log(payload);
 
+      // 아이디 중복확인 요청
       fetchCheckIdAvailable(payload)
         .then((response) => {
           console.log(payload);
@@ -299,6 +329,7 @@ const SignUp = () => {
                   successMessage={certNoSuccessMessage}
                   timer
                   onTimeUp={handleTimeUp}
+                  resetTrigger={resetTimer}
                 />
                 <div className="signUp__wrapper__box_input_box_button">
                   <Button
@@ -306,7 +337,7 @@ const SignUp = () => {
                     width="5.417vw"
                     height="4.815vh"
                     fontSize="0.781vw"
-                    onClick={handleClickCertNoCheckBtn}>
+                    onClick={isTimeUp ? handleClickCertNoRetransmit : handleClickCertNoCheckBtn}>
                     {isTimeUp ? '재전송' : '확인'}
                   </Button>
                 </div>
