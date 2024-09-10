@@ -68,3 +68,12 @@
     }
   }
 }
+
+.idError {
+  @include flex(start, center);
+  margin-bottom: 1.852vh;
+
+  &_message {
+    @include text-style(15, $danger-50, 400);
+  }
+}
