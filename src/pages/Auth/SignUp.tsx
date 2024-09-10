@@ -191,6 +191,8 @@ const SignUp = () => {
             console.log('인증번호 api 요청 됨');
             setIsCertNoSuccess(true);
             setCertNoSuccessMessage('인증되었습니다');
+            setIsCertNoError(false);
+            setCertNoErrorMessage('');
           }
         })
         .catch((error) => {
@@ -198,6 +200,8 @@ const SignUp = () => {
           console.error('인증번호 확인 오류', error);
           setIsCertNoError(true);
           setCertNoErrorMessage('인증번호가 올바르지 않습니다');
+          setIsCertNoSuccess(false);
+          setCertNoSuccessMessage('');
         });
 
       console.log('api 요청 후');
