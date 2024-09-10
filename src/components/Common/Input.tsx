@@ -17,6 +17,7 @@ type InputProps = {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onTimeUp?: () => void;
+  resetTrigger?: boolean;
 };
 
 const Input = ({
@@ -34,6 +35,7 @@ const Input = ({
   onBlur,
   onKeyDown,
   onTimeUp,
+  resetTrigger,
 }: InputProps) => {
   return (
     <div className="InputWrapper">
@@ -67,7 +69,7 @@ const Input = ({
         <div className="Input__timer">
           <span className="Input__timer_span">남은 시간</span>
           <span className="Input__timer_time">
-            <Timer onTimeUp={onTimeUp} />
+            <Timer onTimeUp={onTimeUp} resetTrigger={resetTrigger} />
           </span>
         </div>
       )}
