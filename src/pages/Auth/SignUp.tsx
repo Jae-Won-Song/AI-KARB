@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
 import errorIcon from '../../assets/icon-error.svg';
+import successIcon from '../../assets/icon-successSignUp.svg';
 // utils
 import {
   validateCertNo,
@@ -74,6 +75,9 @@ const SignUp = () => {
   // 아이디 중복확인을 했는지 확인
   const [isIdChecked, setIsIdChecked] = useState(false);
   const [needToCheckId, setNeedToCheckId] = useState(false);
+
+  // 회원가입 성공 여부
+  const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
 
   // input이 채워졌는지 검사
   const checkIfInputsFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -348,158 +352,180 @@ const SignUp = () => {
   const handleSubmitSignUp = () => {
     if (!isIdChecked) {
       setNeedToCheckId(true);
+      return;
     }
+    setIsSignUpSuccess(true);
   };
 
   return (
     <div className="signUp">
       <div className="signUp__wrapper">
-        <div className="signUp__wrapper__box">
-          <div className="signUp__wrapper__box_title">회원가입</div>
-          <div className="signUp__wrapper__box_input">
-            <Input
-              placeholder="이름"
-              name="name"
-              value={name}
-              onChange={checkIfInputsFilled}
-              isError={isNameError}
-              errorMessage={nameErrorMessage}
-            />
-            <div className="signUp__wrapper__box_input_box">
+        {!isSignUpSuccess && (
+          <div className="signUp__wrapper__box">
+            <div className="signUp__wrapper__box_title">회원가입</div>
+            <div className="signUp__wrapper__box_input">
               <Input
-                placeholder="연락처 ('-'을 제외한 숫자만 입력)"
-                size="small"
-                name="phoneNumber"
-                value={phoneNumber}
+                placeholder="이름"
+                name="name"
+                value={name}
                 onChange={checkIfInputsFilled}
-                isError={isPhoneNumberError}
-                errorMessage={PhoneNumberErrorMessage}
+                isError={isNameError}
+                errorMessage={nameErrorMessage}
               />
-              <div className="signUp__wrapper__box_input_box_button">
-                <Button
-                  type="button"
-                  state={isCertNoRequestBtnDisabled ? 'disabled' : 'default_deepBlue'}
-                  width="5.417vw"
-                  height="4.815vh"
-                  fontSize="0.781vw"
-                  onClick={handleClickCertNoRequestBtn}>
-                  인증요청
-                </Button>
-              </div>
-            </div>
-
-            {addCertNoInput && (
               <div className="signUp__wrapper__box_input_box">
                 <Input
-                  placeholder="인증번호"
+                  placeholder="연락처 ('-'을 제외한 숫자만 입력)"
                   size="small"
-                  name="certNo"
-                  value={certNo}
+                  name="phoneNumber"
+                  value={phoneNumber}
                   onChange={checkIfInputsFilled}
-                  isError={isCertNoError}
-                  errorMessage={certNoErrorMessage}
-                  isSuccess={isCertNoSuccess}
-                  successMessage={certNoSuccessMessage}
-                  timer
-                  onTimeUp={handleTimeUp}
-                  resetTrigger={resetTimer}
+                  isError={isPhoneNumberError}
+                  errorMessage={PhoneNumberErrorMessage}
                 />
                 <div className="signUp__wrapper__box_input_box_button">
                   <Button
                     type="button"
+                    state={isCertNoRequestBtnDisabled ? 'disabled' : 'default_deepBlue'}
                     width="5.417vw"
                     height="4.815vh"
                     fontSize="0.781vw"
-                    onClick={isTimeUp ? handleClickCertNoRetransmit : handleClickCertNoCheckBtn}>
-                    {isTimeUp ? '재전송' : '확인'}
+                    onClick={handleClickCertNoRequestBtn}>
+                    인증요청
                   </Button>
                 </div>
               </div>
+
+              {addCertNoInput && (
+                <div className="signUp__wrapper__box_input_box">
+                  <Input
+                    placeholder="인증번호"
+                    size="small"
+                    name="certNo"
+                    value={certNo}
+                    onChange={checkIfInputsFilled}
+                    isError={isCertNoError}
+                    errorMessage={certNoErrorMessage}
+                    isSuccess={isCertNoSuccess}
+                    successMessage={certNoSuccessMessage}
+                    timer
+                    onTimeUp={handleTimeUp}
+                    resetTrigger={resetTimer}
+                  />
+                  <div className="signUp__wrapper__box_input_box_button">
+                    <Button
+                      type="button"
+                      width="5.417vw"
+                      height="4.815vh"
+                      fontSize="0.781vw"
+                      onClick={isTimeUp ? handleClickCertNoRetransmit : handleClickCertNoCheckBtn}>
+                      {isTimeUp ? '재전송' : '확인'}
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              <div className="signUp__wrapper__box_input_box">
+                <Input
+                  placeholder="아이디 (한글/특수문자 제외)"
+                  size="small"
+                  name="id"
+                  value={id}
+                  onChange={checkIfInputsFilled}
+                  isError={isIdError}
+                  errorMessage={idErrorMessage}
+                  isSuccess={isIdSuccess}
+                  successMessage={idSuccessMessage}
+                />
+                <div className="signUp__wrapper__box_input_box_button">
+                  <Button
+                    type="button"
+                    state={isIdCheckBtnDisabled ? 'disabled' : 'default_deepBlue'}
+                    width="5.417vw"
+                    height="4.815vh"
+                    fontSize="0.781vw"
+                    onClick={handleClickIdCheckBtn}>
+                    중복확인
+                  </Button>
+                </div>
+              </div>
+              <Input
+                placeholder="비밀번호(영문자/숫자/특수문자 사용 가능, 8-16자)"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onBlur={checkPasswordValidation}
+                onKeyDown={checkPasswordValidation}
+                isError={isPasswordError}
+                errorMessage={passwordErrorMessage}
+              />
+              <Input
+                placeholder="비밀번호 재확인"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                onBlur={checkConfirmPassword}
+                onKeyDown={checkConfirmPassword}
+                isError={isConfirmPasswordError}
+                errorMessage={confirmPasswordErrorMessage}
+                isSuccess={isConfirmPasswordSuccess}
+                successMessage={confirmPasswordSuccessMessage}
+              />
+              <Input
+                placeholder="사원번호"
+                value={empNo}
+                onChange={(e) => setEmpNo(e.target.value)}
+                onBlur={checkEmpNoValidation}
+                onKeyDown={checkEmpNoValidation}
+                isError={isEmpNoError}
+                errorMessage={empNoErrorMessage}
+              />
+              <Input placeholder="이메일" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </div>
+
+            {needToCheckId && (
+              <div className="idError">
+                <img src={errorIcon} alt="에러 아이콘" />
+                <span className="idError_message">아이디 중복확인을 해주세요</span>
+              </div>
             )}
 
-            <div className="signUp__wrapper__box_input_box">
-              <Input
-                placeholder="아이디 (한글/특수문자 제외)"
-                size="small"
-                name="id"
-                value={id}
-                onChange={checkIfInputsFilled}
-                isError={isIdError}
-                errorMessage={idErrorMessage}
-                isSuccess={isIdSuccess}
-                successMessage={idSuccessMessage}
-              />
-              <div className="signUp__wrapper__box_input_box_button">
-                <Button
-                  type="button"
-                  state={isIdCheckBtnDisabled ? 'disabled' : 'default_deepBlue'}
-                  width="5.417vw"
-                  height="4.815vh"
-                  fontSize="0.781vw"
-                  onClick={handleClickIdCheckBtn}>
-                  중복확인
-                </Button>
+            <div className="signUp__wrapper__box_button">
+              <Button
+                type="button"
+                state={checkAllInputFilled() ? 'default' : 'disabled'}
+                width="20.833vw"
+                height="5.926vh"
+                fontSize="0.99vw"
+                onClick={handleSubmitSignUp}>
+                회원가입
+              </Button>
+            </div>
+            <div className="signUp__wrapper__box_text">
+              <span>이미 계정이 있으신가요? </span>
+              <a href="/signin" className="link">
+                로그인하기
+              </a>
+            </div>
+          </div>
+        )}
+        {isSignUpSuccess && (
+          <div className="signUp__wrapper__success">
+            <div className="signUp__wrapper__success_icon">
+              <img src={successIcon} alt="파란색 체크표시 아이콘" />
+            </div>
+            <div className="signUp__wrapper__success_contents">
+              <div className="signUp__wrapper__success_contents_big">회원가입 신청이 완료되었습니다</div>
+              <div className="signUp__wrapper__success_contents_small">
+                회원가입정보 검토 후, 승인완료 내용이 이메일로 전달될 예정입니다
               </div>
             </div>
-            <Input
-              placeholder="비밀번호(영문자/숫자/특수문자 사용 가능, 8-16자)"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onBlur={checkPasswordValidation}
-              onKeyDown={checkPasswordValidation}
-              isError={isPasswordError}
-              errorMessage={passwordErrorMessage}
-            />
-            <Input
-              placeholder="비밀번호 재확인"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              onBlur={checkConfirmPassword}
-              onKeyDown={checkConfirmPassword}
-              isError={isConfirmPasswordError}
-              errorMessage={confirmPasswordErrorMessage}
-              isSuccess={isConfirmPasswordSuccess}
-              successMessage={confirmPasswordSuccessMessage}
-            />
-            <Input
-              placeholder="사원번호"
-              value={empNo}
-              onChange={(e) => setEmpNo(e.target.value)}
-              onBlur={checkEmpNoValidation}
-              onKeyDown={checkEmpNoValidation}
-              isError={isEmpNoError}
-              errorMessage={empNoErrorMessage}
-            />
-            <Input placeholder="이메일" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </div>
-
-          {needToCheckId && (
-            <div className="idError">
-              <img src={errorIcon} alt="에러 아이콘" />
-              <span className="idError_message">아이디 중복확인을 해주세요</span>
+            <div className="signUp__wrapper__success_button">
+              <Button type="button" state="default" width="20.833vw" height="5.926vh">
+                로그인하기
+              </Button>
             </div>
-          )}
-
-          <div className="signUp__wrapper__box_button">
-            <Button
-              type="button"
-              state={checkAllInputFilled() ? 'default' : 'disabled'}
-              width="20.833vw"
-              height="5.926vh"
-              fontSize="0.99vw"
-              onClick={handleSubmitSignUp}>
-              회원가입
-            </Button>
           </div>
-          <div className="signUp__wrapper__box_text">
-            <span>이미 계정이 있으신가요? </span>
-            <a href="/signin" className="link">
-              로그인하기
-            </a>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
