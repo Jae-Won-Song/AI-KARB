@@ -128,7 +128,6 @@ const SignUp = () => {
       isValid = false;
     } else {
       setIsNameError(false);
-      console.log('이름 통과:', name);
     }
 
     if (validatePhoneNumber(phoneNumber)) {
@@ -137,9 +136,6 @@ const SignUp = () => {
       isValid = false;
     } else {
       setIsPhoneNumberError(false);
-      console.log('연락처 통과:', phoneNumber);
-
-      console.log('인증번호 전송 전');
 
       const payload = {
         type: 'SignUp',
@@ -148,14 +144,11 @@ const SignUp = () => {
 
       fetchSendCertNoDuringSignUp(payload)
         .then((response) => {
-          console.log(payload);
-          console.log(response);
           if (response.data.code === 3103) {
             console.log('인증번호 발송 요청 성공');
           }
         })
         .catch((error) => {
-          console.log(payload);
           console.error('인증번호 발송 오류', error);
         });
     }
@@ -176,9 +169,6 @@ const SignUp = () => {
       setCertNoErrorMessage('유효한 인증번호가 아닙니다');
     } else {
       setIsCertNoError(false);
-      console.log('인증번호:', certNo);
-
-      console.log('api 요청 전');
 
       // 인증 api 요청
       const payload = {
@@ -189,10 +179,7 @@ const SignUp = () => {
 
       fetchCheckCertNoDuringSignUp(payload)
         .then((response) => {
-          console.log(payload);
-          console.log(response);
           if (response.data.code === 3104) {
-            console.log('인증번호 api 요청 됨');
             setIsCertNoSuccess(true);
             setCertNoSuccessMessage('인증되었습니다');
             setIsCertNoError(false);
@@ -200,15 +187,11 @@ const SignUp = () => {
           }
         })
         .catch((error) => {
-          console.log(payload);
-          console.error('인증번호 확인 오류', error);
           setIsCertNoError(true);
           setCertNoErrorMessage('인증번호가 올바르지 않습니다');
           setIsCertNoSuccess(false);
           setCertNoSuccessMessage('');
         });
-
-      console.log('api 요청 후');
     }
   };
 
@@ -218,8 +201,6 @@ const SignUp = () => {
       type: 'SignUp',
       phoneNumber,
     };
-
-    console.log(payload);
 
     setIsTimeUp(false);
     setResetTimer((prev) => !prev);
@@ -251,19 +232,13 @@ const SignUp = () => {
       setIsIdError(false);
       setIdErrorMessage('');
 
-      console.log('중복확인 api 요청 전');
-
       const payload = {
         id,
       };
 
-      console.log(payload);
-
       // 아이디 중복확인 요청
       fetchCheckIdAvailable(payload)
         .then((response) => {
-          console.log(payload);
-          console.log('중복확인 요청');
           if (response.data.code === 3102) {
             // 이전에 에러 떴던 메세지 삭제
             setIsIdError(false);
