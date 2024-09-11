@@ -66,5 +66,41 @@
         }
       }
     }
+
+    &__success {
+      @include column-flex;
+
+      width: 26.042vw;
+      height: 31.667vh;
+      margin-left: 14.063vw;
+
+      &_contents {
+        @include column-flex;
+        margin: 3.704vh 0;
+
+        &_big {
+          height: 4.444vh;
+
+          @include text-style(32, $grayscale-90, 700);
+          line-height: 150%;
+        }
+
+        &_small {
+          height: 2.685vh;
+
+          @include text-style(19, $grayscale-90, 400);
+          line-height: 150%;
+        }
+      }
+    }
+  }
+}
+
+.idError {
+  @include flex(start, center);
+  margin-bottom: 1.852vh;
+
+  &_message {
+    @include text-style(15, $danger-50, 400);
   }
 }
