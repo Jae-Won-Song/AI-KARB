@@ -46,7 +46,6 @@ const Toast = ({ mode, content, title }: ToastProps) => {
   const [isHiding, setIsHiding] = useState(false);
 
   useEffect(() => {
-    // Toast가 처음 렌더링되거나 새로운 props가 올 때 상태를 초기화
     setIsVisible(true);
     setIsShowing(false);
     setIsHiding(false);
@@ -64,7 +63,7 @@ const Toast = ({ mode, content, title }: ToastProps) => {
       clearTimeout(showTimer);
       clearTimeout(hideTimer);
     };
-  }, [mode, content, title]); // mode, content, title이 바뀔 때마다 재실행
+  }, [mode, content, title]);
 
   const handleClose = () => {
     setIsHiding(true);
