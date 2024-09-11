@@ -160,14 +160,21 @@ const SignUp = () => {
           if (response.data.code === 3103) {
             console.log('인증번호 발송 요청 성공');
           }
+          if (isValid) {
+            setAddCertNoInput(true);
+          }
         })
         .catch((error) => {
           console.error('인증번호 발송 오류', error);
+          if (error.response.data.code === 3153) {
+            setIsPhoneNumberError(true);
+            setPhoneNumberErrorMessage('회원정보가 존재합니다');
+            isValid = false;
+          }
+          if (isValid) {
+            setAddCertNoInput(false);
+          }
         });
-    }
-
-    if (isValid) {
-      setAddCertNoInput(true);
     }
   };
 
