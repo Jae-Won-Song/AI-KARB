@@ -39,6 +39,11 @@
 
         @include text-style(15, $grayscale-50, 400);
         cursor: pointer;
+
+        &_span {
+          @include text-style(15, $grayscale-50, 400);
+          text-decoration: none;
+        }
       }
 
       &_button {
@@ -65,6 +70,7 @@
 
         .link {
           @include text-style(15, $primary-50, 700);
+          text-decoration: none;
           cursor: pointer;
         }
       }

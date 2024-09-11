@@ -28,7 +28,9 @@ const SignIn = () => {
             <Input placeholder="비밀번호" type="password" />
           </div>
           <div className="signIn__wrapper__box_find">
-            <div className="signIn__wrapper__box_find_span">아이디 / 비밀번호 찾기</div>
+            <a href="/find-user" className="signIn__wrapper__box_find_span">
+              아이디 / 비밀번호 찾기
+            </a>
           </div>
           <div className="signIn__wrapper__box_button">
             <Button type="button" onClick={() => alert('로그인버튼 클릭')} width="20.833vw" height="5.926vh">
@@ -37,7 +39,9 @@ const SignIn = () => {
           </div>
           <div className="signIn__wrapper__box_text">
             <span>계정이 없으신가요? </span>
-            <span className="link">회원가입 하기</span>
+            <a href="/signup" className="link">
+              회원가입 하기
+            </a>
           </div>
         </div>
       </div>
