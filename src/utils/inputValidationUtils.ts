@@ -61,3 +61,11 @@ export const validateEmpNo = (empNo: string): boolean => {
   }
   return true;
 };
+
+// 이메일
+export const validateEmail = (email: string): boolean => {
+  if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.com$/.test(email)) {
+    return false;
+  }
+  return true;
+};
