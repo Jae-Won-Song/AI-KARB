@@ -7,6 +7,7 @@ import successIcon from '../../assets/icon-successSignUp.svg';
 // utils
 import {
   validateCertNo,
+  validateEmail,
   validateEmpNo,
   validateId,
   validateName,
@@ -70,6 +71,9 @@ const SignUp = () => {
   // 사원번호
   const [isEmpNoError, setIsEmpNoError] = useState(false);
   const [empNoErrorMessage, setEmpNoErrorMessage] = useState('');
+  // 이메일
+  const [isEmailError, setIsEmailError] = useState(false);
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
 
   // button state 관리
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
@@ -319,6 +323,23 @@ const SignUp = () => {
     }
   };
 
+  // 이메일
+  const checkEmailValidation = (e: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>) => {
+    if ('key' in e && e.key !== 'Tab' && e.key !== 'Enter') {
+      return;
+    }
+
+    const value = e.target;
+
+    if (validateEmail(email)) {
+      setIsEmailError(true);
+      setEmailErrorMessage('이메일 주소가 올바르지 않습니다. 이메일 주소를 정확하게 입력해주세요.');
+    } else {
+      setIsEmailError(false);
+      setEmailErrorMessage('');
+    }
+  };
+
   // 회원가입
   // 모든 인풋에 값이 입력되었는지 검사
   const checkAllInputFilled = () => {
@@ -457,7 +478,16 @@ const SignUp = () => {
                 isError={isEmpNoError}
                 errorMessage={empNoErrorMessage}
               />
-              <Input placeholder="이메일" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Input
+                placeholder="이메일"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onBlur={checkEmailValidation}
+                onKeyDown={checkEmailValidation}
+                isError={isEmailError}
+                errorMessage={emailErrorMessage}
+              />
             </div>
 
             {needToCheckId && (
