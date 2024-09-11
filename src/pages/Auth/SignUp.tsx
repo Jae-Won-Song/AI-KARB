@@ -265,7 +265,6 @@ const SignUp = () => {
             setIsIdChecked(true);
             // 토큰 저장
             setIdCheckToken(response.data.data.idCheckToken);
-            console.log(idCheckToken);
           }
         })
         .catch((error) => {
@@ -364,7 +363,29 @@ const SignUp = () => {
       setNeedToCheckId(true);
       return;
     }
-    setIsSignUpSuccess(true);
+
+    const payload = {
+      name,
+      phoneNumber,
+      id,
+      password,
+      empNo,
+      email,
+      idCheckToken,
+      certNoCheckToken,
+    };
+
+    console.log(payload);
+
+    fetchRequestSignUp(payload)
+      .then((response) => {
+        if (response.data.code === 3101) {
+          setIsSignUpSuccess(true);
+        }
+      })
+      .catch((error) => {
+        console.error('회원가입 실패', error);
+      });
   };
 
   return (
