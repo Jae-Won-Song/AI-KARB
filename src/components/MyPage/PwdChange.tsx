@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from '../Common/Button';
 import Input from '../Common/Input';
 import { validatePassword } from '../../utils/inputValidationUtils';
-import Toast from '../Common/Toast';
+import Toast, { ToastProps } from '../Common/Toast';
 
 const PwdChange = () => {
   const adminPwd = '1111111a';
@@ -22,7 +22,7 @@ const PwdChange = () => {
   const [checkSuccessConfirmNewPwd, setCheckSuccessConfirmNewPwd] = useState(false);
   const [confirmNewPwdSuccessMessage, setConfirmNewPwdSuccessMessage] = useState('');
 
-  const [toastMessage, setToastMessage] = useState<{ mode?: string; title: string; content: string } | null>(null);
+  const [toastMessage, setToastMessage] = useState<ToastProps | null>(null);
 
   const updateCurrentPwd = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentPwdValue = e.target.value;
@@ -92,18 +92,25 @@ const PwdChange = () => {
     }
   };
 
-  function submitEditPwd() {
+  const submitEditPwd = () => {
     if (
       validatePassword(newPwd) ||
       validatePassword(confirmNewPwd) ||
       currentPwd !== adminPwd ||
       confirmNewPwd !== newPwd
     ) {
-      setToastMessage({ mode: 'red', title: '개인정보 수정 실패', content: '개인정보 수정 중에 오류가 발생했습니다.' });
+      setToastMessage({
+        mode: 'red',
+        title: '비밀번호 변경 실패',
+        content: '비밀번호 변경 중에 오류가 발생했습니다.',
+      });
     } else {
-      setToastMessage({ title: '개인정보 수정 완료', content: '개인정보 수정이 완료되었습니다.' });
+      setToastMessage({
+        title: '비밀번호 변경 완료',
+        content: '비밀번호 변경이 완료되었습니다.',
+      });
     }
-  }
+  };
 
   return (
     <form className="mypage__container__form">
@@ -147,17 +154,17 @@ const PwdChange = () => {
           </div>
         </div>
         <div className="mypage__container__form__btn">
-          <Button
-            onClick={() => {
-              submitEditPwd();
-            }}
-            type="button"
-            state="default"
-            width="91px"
-            height="41px">
+          <Button onClick={submitEditPwd} type="button" state="default" width="91px" height="41px">
             수정하기
           </Button>
-          {toastMessage && <Toast mode={toastMessage.mode} title={toastMessage.title} content={toastMessage.content} />}
+          {toastMessage && (
+            <Toast
+              mode={toastMessage.mode}
+              title={toastMessage.title}
+              content={toastMessage.content}
+              onClose={() => setToastMessage(null)}
+            />
+          )}
         </div>
       </div>
     </form>

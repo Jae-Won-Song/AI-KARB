@@ -2,6 +2,7 @@
   background: $white;
   width: 85.417vw;
   height: 88.889vh;
+
   &__container {
     @include column-flex(start, start);
     flex-grow: 1;
@@ -91,6 +92,7 @@
           min-height: 7.037vh;
           padding: 1.111vh 0;
           border-top: 1px solid $grayscale-20;
+          overflow: visible;
 
           &:first-child {
             height: auto;
@@ -112,6 +114,7 @@
             @include flex;
             &-box {
               @include flex(start, start);
+              position: relative;
               &__gap {
                 width: 0.625vw;
               }
