@@ -48,12 +48,13 @@
       border-bottom: 1px solid #bebebe;
 
       &__edit-info {
-        @include text-style(17, $primary-70, 700);
+        @include text-style(17, #bebebe, 700);
         width: 7.813vw;
         padding: 0.926vh 1.849vw 1.019vh 1.328vw;
         cursor: pointer;
         &.active {
           border-bottom: 2px solid $primary-70;
+          color: $primary-70;
         }
       }
 
@@ -64,6 +65,7 @@
         cursor: pointer;
         &.active {
           border-bottom: 2px solid $primary-70;
+          color: $primary-70;
         }
       }
 
@@ -103,11 +105,13 @@
           &-title {
             width: 6.146vw;
           }
-
+          &-title_call {
+            width: 6.146vw;
+          }
           &-content {
             @include flex;
             &-box {
-              @include flex;
+              @include flex(start, start);
               &__gap {
                 width: 0.625vw;
               }
