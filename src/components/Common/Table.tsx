@@ -1,11 +1,12 @@
+import React from 'react';
 import ProgressBar from '../ProgressBar';
-import React, { ReactNode } from 'react';
 import clipBoard from '../../assets/icon-clipBoard.svg';
 
 interface Column {
   name?: string;
   width?: string | number;
-  height?: string | number;
+  columnHeight?: string | number;
+  rowHeight?: string | number;
   img?: JSX.Element;
 }
 
@@ -61,7 +62,8 @@ const Table = (props: EmpInfo) => {
               <th
                 key={index}
                 className={`${headerClassName}__head__${column.name || 'img'}`}
-                style={{ width: column.width, height: column.height }}>
+                style={{ width: column.width, height: column.columnHeight }} // 헤더 높이 설정
+              >
                 {column.name === '지적비지적'
                   ? '지적/비지적'
                   : column.name === '총배분작업'
@@ -88,8 +90,8 @@ const Table = (props: EmpInfo) => {
                 return (
                   <td
                     key={colIndex}
-                    className={`${headerClassName}__data__${column.name || 'img'}`}
-                    style={{ width: column.width, height: column.height }}>
+                    className={`${rowClassName}__data__${column.name || 'img'}`}
+                    style={{ width: column.width, height: column.rowHeight }}>
                     {React.isValidElement(cellData) ? (
                       cellData
                     ) : column.name === '작업진척도' ? (

@@ -24,11 +24,11 @@ const ManageTask = () => {
         <div className="ad-wrapper">
           <Table
             columns={[
-              { name: '번호', width: '80px', height: '56px' },
-              { name: '고유번호', width: '120px', height: '56px' },
-              { name: '상품명', width: '340px', height: '56px' },
-              { name: '광고주', width: '200px', height: '56px' },
-              { name: '업종구분', width: '180px', height: '56px' },
+              { name: '번호', width: '80px', columnHeight: '60px', rowHeight: '64px' },
+              { name: '고유번호', width: '120px' },
+              { name: '상품명', width: '340px' },
+              { name: '광고주', width: '200px' },
+              { name: '업종구분', width: '180px' },
             ]}
             data={[
               {
@@ -74,19 +74,14 @@ const ManageTask = () => {
             columns={[
               {
                 name: '체크박스',
-                img: (
-                  <img
-                    style={{ display: 'flex', justifyContent: 'center', width: '17px', height: '17px' }}
-                    src={check}
-                    alt="체크박스"
-                  />
-                ),
-                width: '56px',
-                height: '56px',
+                img: <img src={check} alt="체크박스" />,
+                width: '60px',
+                columnHeight: '60px',
+                rowHeight: '64px',
               },
-              { name: '사원번호', width: '160px', height: '56px' },
-              { name: '이름', width: '160px', height: '56px' },
-              { name: '총배분작업', width: '160px', height: '56px' },
+              { name: '사원번호', width: '160px' },
+              { name: '이름', width: '160px' },
+              { name: '총배분작업', width: '160px' },
             ]}
             data={[
               {
