@@ -23,3 +23,20 @@ export const fetchCheckCertNoDuringSignUp = (payload: { type: string; phoneNumbe
 export const fetchCheckIdAvailable = (payload: { id: string }) => {
   return instance.post('/api/v1/auth/check-id', payload);
 };
+
+/*
+ * 회원가입
+ * @param payload {name, phoneNumber, id, password, empNo, email, idCheckToken, certNoCheckToken}
+ */
+export const fetchRequestSignUp = (payload: {
+  name: string;
+  phoneNumber: string;
+  id: string;
+  password: string;
+  empNo: string;
+  email: string;
+  idCheckToken: string;
+  certNoCheckToken: string;
+}) => {
+  return instance.post('/api/v1/auth/signup', payload);
+};
