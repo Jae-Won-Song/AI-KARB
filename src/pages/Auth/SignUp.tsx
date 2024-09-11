@@ -18,6 +18,7 @@ import {
 import {
   fetchCheckCertNoDuringSignUp,
   fetchCheckIdAvailable,
+  fetchRequestSignUp,
   fetchSendCertNoDuringSignUp,
 } from '../../api/auth/authApi';
 
@@ -85,6 +86,10 @@ const SignUp = () => {
 
   // 회원가입 성공 여부
   const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
+
+  // 회원가입 요청 때 필요한 api response에서 받아온 정보
+  const [certNoCheckToken, setCertNoCheckToken] = useState('');
+  const [idCheckToken, setIdCheckToken] = useState('');
 
   // input이 채워졌는지 검사
   const checkIfInputsFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -191,6 +196,9 @@ const SignUp = () => {
             setCertNoSuccessMessage('인증되었습니다');
             setIsCertNoError(false);
             setCertNoErrorMessage('');
+            // 토큰 저장
+            setCertNoCheckToken(response.data.data.certNoCheckToken);
+            console.log('인증번호 토큰', certNoCheckToken);
           }
         })
         .catch((error) => {
@@ -255,6 +263,9 @@ const SignUp = () => {
             setIdSuccessMessage('사용 가능한 아이디입니다');
             // 아이디 중복확인 완료
             setIsIdChecked(true);
+            // 토큰 저장
+            setIdCheckToken(response.data.data.idCheckToken);
+            console.log(idCheckToken);
           }
         })
         .catch((error) => {
