@@ -1,5 +1,6 @@
 import errorIcon from '../../assets/icon-error.svg';
 import successIcon from '../../assets/icon-success.svg';
+import Timer from './Timer';
 
 type InputProps = {
   placeholder: string;
@@ -11,7 +12,12 @@ type InputProps = {
   successMessage?: string;
   name?: string;
   value?: string;
+  timer?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onTimeUp?: () => void;
+  resetTrigger?: boolean;
 };
 
 const Input = ({
@@ -24,7 +30,12 @@ const Input = ({
   successMessage,
   name,
   value,
+  timer,
   onChange,
+  onBlur,
+  onKeyDown,
+  onTimeUp,
+  resetTrigger,
 }: InputProps) => {
   return (
     <div className="InputWrapper">
@@ -33,9 +44,13 @@ const Input = ({
           placeholder={placeholder}
           name={name}
           type={type}
-          className={['Input', size, isError ? 'error' : '', isSuccess ? 'success' : ''].join(' ')}
+          className={['Input', size, isError ? 'error' : '', isSuccess ? 'success' : '', timer ? 'timer' : ''].join(
+            ' ',
+          )}
           value={value}
           onChange={onChange}
+          onBlur={onBlur}
+          onKeyDown={onKeyDown}
         />
       </div>
       {isError && (
@@ -48,6 +63,14 @@ const Input = ({
         <div className="Input__success">
           <img src={successIcon} alt="성공 아이콘" />
           <span className="Input__success_message">{successMessage}</span>
+        </div>
+      )}
+      {timer && (
+        <div className="Input__timer">
+          <span className="Input__timer_span">남은 시간</span>
+          <span className="Input__timer_time">
+            <Timer onTimeUp={onTimeUp} resetTrigger={resetTrigger} />
+          </span>
         </div>
       )}
     </div>

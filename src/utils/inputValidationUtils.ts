@@ -30,3 +30,26 @@ export const validateId = (id: string): boolean => {
   }
   return true;
 };
+
+// 비밀번호
+export const validatePassword = (password: string): boolean => {
+  // 패턴 정의
+  const lengthRegex = /^.{8,16}$/;
+  const lowercaseRegex = /[a-z]/;
+  const uppercaseRegex = /[A-Z]/;
+  const numberRegex = /\d/;
+  const specialCharacterREgex = /[!"#$%&'()*+,\-./:;<=>?@[₩\]^_`{|}~]/;
+
+  // 8자~16자 가능
+  const isValidLength = lengthRegex.test(password);
+
+  // 최소 2가지 이상 조합 필요
+  const isValidCombination =
+    [lowercaseRegex, uppercaseRegex, numberRegex, specialCharacterREgex].filter((regex) => regex.test(password))
+      .length >= 2;
+
+  if (isValidLength && isValidCombination) {
+    return false;
+  }
+  return true;
+};

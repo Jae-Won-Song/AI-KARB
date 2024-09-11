@@ -31,3 +31,30 @@
     line-height: 150%;
   }
 }
+
+.customToolTip {
+  position: relative;
+  margin-top: 50px;
+}
+
+.customToolTip .tooltipContent {
+  @include flex(start, start);
+  flex-direction: column;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+}
+
+.customToolTip .tooltipDate {
+  color: var(--Gray-Gray-60, #717171);
+  font-size: 13px;
+  line-height: 150%;
+}
+
+.customToolTip .tooltipValue {
+  color: var(--Gray-Gray-90, #1d1d1d);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 150%;
+}

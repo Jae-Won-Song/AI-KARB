@@ -2,9 +2,19 @@ import { useState } from 'react';
 import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
 // utils
-import { validateCertNo, validateId, validateName, validatePhoneNumber } from '../../utils/inputValidationUtils';
+import {
+  validateCertNo,
+  validateId,
+  validateName,
+  validatePassword,
+  validatePhoneNumber,
+} from '../../utils/inputValidationUtils';
 // api
-import { fetchCheckCertNoDuringSignUp, fetchSendCertNoDuringSignUp } from '../../api/auth/authApi';
+import {
+  fetchCheckCertNoDuringSignUp,
+  fetchCheckIdAvailable,
+  fetchSendCertNoDuringSignUp,
+} from '../../api/auth/authApi';
 
 const SignUp = () => {
   // input value 관리
@@ -18,6 +28,13 @@ const SignUp = () => {
   const [certNo, setCertNo] = useState('');
   // 인증번호를 입력하는 input 추가
   const [addCertNoInput, setAddCertNoInput] = useState(false);
+  // 타이머 시간 관리
+  const [isTimeUp, setIsTimeUp] = useState(false);
+  const [resetTimer, setResetTimer] = useState(false);
+
+  const handleTimeUp = () => {
+    setIsTimeUp(true);
+  };
 
   // input state 관리
   // 이름
@@ -31,9 +48,18 @@ const SignUp = () => {
   const [certNoErrorMessage, setCertNoErrorMessage] = useState('');
   const [isCertNoSuccess, setIsCertNoSuccess] = useState(false);
   const [certNoSuccessMessage, setCertNoSuccessMessage] = useState('');
+  // 아이디
+  const [isIdError, setIsIdError] = useState(false);
+  const [idErrorMessage, setIdErrorMessage] = useState('');
+  const [isIdSuccess, setIsIdSuccess] = useState(false);
+  const [idSuccessMessage, setIdSuccessMessage] = useState('');
+  // 비밀번호
+  const [isPasswordError, setIsPasswordError] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
 
   // button state 관리
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
+  const [isIdCheckBtnDisabled, setIsIdCheckBtnDisabled] = useState(true);
 
   // input이 채워졌는지 검사
   const checkIfInputsFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,9 +86,20 @@ const SignUp = () => {
     if (filledInput === 'certNo') {
       setCertNo(value);
     }
+
+    // 아이디
+    if (filledInput === 'id') {
+      setId(value);
+    }
+
+    const updatedId = filledInput === 'id' ? value : id;
+
+    if (updatedId !== '') {
+      setIsIdCheckBtnDisabled(false);
+    }
   };
 
-  // 유효성 검사
+  // 유효성 검사 & api 요청
   // 이름, 연락처
   const handleClickCertNoRequestBtn = () => {
     let isValid = true;
@@ -112,6 +149,10 @@ const SignUp = () => {
 
   // 인증번호
   const handleClickCertNoCheckBtn = () => {
+    if (isTimeUp) {
+      setIsTimeUp(false);
+    }
+
     if (validateCertNo(certNo)) {
       setIsCertNoError(true);
       setCertNoErrorMessage('유효한 인증번호가 아닙니다');
@@ -149,6 +190,94 @@ const SignUp = () => {
     }
   };
 
+  // 인증번호 요청 재전송
+  const handleClickCertNoRetransmit = () => {
+    const payload = {
+      type: 'SignUp',
+      phoneNumber,
+    };
+
+    console.log(payload);
+
+    setIsTimeUp(false);
+    setResetTimer((prev) => !prev);
+    setIsCertNoError(false);
+    setCertNoErrorMessage('');
+
+    fetchSendCertNoDuringSignUp(payload)
+      .then((response) => {
+        if (response.data.code === 3103) {
+          setIsTimeUp(false);
+          setResetTimer((prev) => !prev);
+          setIsCertNoError(false);
+          setCertNoErrorMessage('');
+        }
+      })
+      .catch((error) => {
+        console.error('인증번호 발송 오류', error);
+      });
+  };
+
+  // 아이디
+  const handleClickIdCheckBtn = () => {
+    if (validateId(id)) {
+      setIsIdError(true);
+      setIdErrorMessage('아이디는 4~12글자, 영 대/소문자/숫자만 입력해주세요');
+      setIsIdSuccess(false);
+      setIdSuccessMessage('');
+    } else {
+      setIsIdError(false);
+      setIdErrorMessage('');
+
+      console.log('중복확인 api 요청 전');
+
+      const payload = {
+        id,
+      };
+
+      console.log(payload);
+
+      // 아이디 중복확인 요청
+      fetchCheckIdAvailable(payload)
+        .then((response) => {
+          console.log(payload);
+          console.log('중복확인 요청');
+          if (response.data.code === 3102) {
+            // 이전에 에러 떴던 메세지 삭제
+            setIsIdError(false);
+            setIdErrorMessage('');
+            // 사용 가능 메세지 노출
+            setIsIdSuccess(true);
+            setIdSuccessMessage('사용 가능한 아이디입니다');
+          }
+        })
+        .catch((error) => {
+          console.log('중복 확인 에러', error);
+          setIsIdError(true);
+          setIdErrorMessage('이미 존재하는 아이디입니다. 다른 아이디를 입력하세요');
+          setIsIdSuccess(false);
+          setIdSuccessMessage('');
+        });
+    }
+  };
+
+  // 비밀번호
+  const checkPasswordValidation = (e: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>) => {
+    if ('key' in e && e.key !== 'Tab' && e.key !== 'Enter') {
+      return;
+    }
+
+    const value = e.target;
+
+    if (validatePassword(password)) {
+      setIsPasswordError(true);
+      setPasswordErrorMessage('비밀번호 형식이 맞지 않습니다');
+    } else {
+      setIsPasswordError(false);
+      setPasswordErrorMessage('');
+    }
+  };
+
   return (
     <div className="signUp">
       <div className="signUp__wrapper">
@@ -176,7 +305,7 @@ const SignUp = () => {
               <div className="signUp__wrapper__box_input_box_button">
                 <Button
                   type="button"
-                  state={isCertNoRequestBtnDisabled ? 'disabled' : 'default'}
+                  state={isCertNoRequestBtnDisabled ? 'disabled' : 'default_deepBlue'}
                   width="5.417vw"
                   height="4.815vh"
                   fontSize="0.781vw"
@@ -198,6 +327,9 @@ const SignUp = () => {
                   errorMessage={certNoErrorMessage}
                   isSuccess={isCertNoSuccess}
                   successMessage={certNoSuccessMessage}
+                  timer
+                  onTimeUp={handleTimeUp}
+                  resetTrigger={resetTimer}
                 />
                 <div className="signUp__wrapper__box_input_box_button">
                   <Button
@@ -205,8 +337,8 @@ const SignUp = () => {
                     width="5.417vw"
                     height="4.815vh"
                     fontSize="0.781vw"
-                    onClick={handleClickCertNoCheckBtn}>
-                    확인
+                    onClick={isTimeUp ? handleClickCertNoRetransmit : handleClickCertNoCheckBtn}>
+                    {isTimeUp ? '재전송' : '확인'}
                   </Button>
                 </div>
               </div>
@@ -216,11 +348,22 @@ const SignUp = () => {
               <Input
                 placeholder="아이디 (한글/특수문자 제외)"
                 size="small"
+                name="id"
                 value={id}
-                onChange={(e) => setId(e.target.value)}
+                onChange={checkIfInputsFilled}
+                isError={isIdError}
+                errorMessage={idErrorMessage}
+                isSuccess={isIdSuccess}
+                successMessage={idSuccessMessage}
               />
               <div className="signUp__wrapper__box_input_box_button">
-                <Button type="button" state="disabled" width="5.417vw" height="4.815vh" fontSize="0.781vw">
+                <Button
+                  type="button"
+                  state={isIdCheckBtnDisabled ? 'disabled' : 'default_deepBlue'}
+                  width="5.417vw"
+                  height="4.815vh"
+                  fontSize="0.781vw"
+                  onClick={handleClickIdCheckBtn}>
                   중복확인
                 </Button>
               </div>
@@ -230,6 +373,10 @@ const SignUp = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onBlur={checkPasswordValidation}
+              onKeyDown={checkPasswordValidation}
+              isError={isPasswordError}
+              errorMessage={passwordErrorMessage}
             />
             <Input
               placeholder="비밀번호 재확인"
