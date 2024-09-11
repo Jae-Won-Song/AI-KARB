@@ -15,7 +15,7 @@ const TaskRateAdmin = () => {
               background: `conic-gradient(
                 from 0deg, 
                 #349bcd 0deg, 
-                #349bcd ${completionRate}deg,
+                #006597 ${completionRate}deg,
                 transparent ${completionRate}deg,
                 transparent 360deg
               )`,

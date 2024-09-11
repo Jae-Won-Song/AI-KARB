@@ -11,7 +11,7 @@
 
   &__title {
     color: var(--Gray-Gray-90, #1d1d1d);
-    font-size: $font-size-25;
+    font-size: 25px;
     font-weight: 700;
     line-height: 150%;
   }
@@ -28,10 +28,8 @@
     }
 
     &__info {
-      display: inline-flex;
+      @include flex(between, start);
       flex-direction: column;
-      align-items: center;
-      justify-content: space-evenly;
       position: absolute;
       top: 0;
       left: 0;
@@ -41,9 +39,15 @@
       padding: 20px 132.75px 20.75px 17.25px;
 
       &__wrapper {
-        @include flex;
+        @include flex(center, start);
         flex-direction: column;
         gap: 38px;
+      }
+
+      &__counts {
+        font-size: 13px;
+        font-weight: 400;
+        margin-bottom: 7px;
       }
 
       &__title {
@@ -53,16 +57,34 @@
       }
 
       &__count {
+        @include flex(center, end);
+        font-size: 40px;
+        font-weight: 700;
+        padding-bottom: 1.5px;
+
+        &__text {
+          font-size: 13px;
+          font-weight: 400;
+          // margin-bottom: 7px;
+        }
+      }
+      &__admin-count {
+        @include flex;
+      }
+
+      &__admin-counts {
+        @include flex(center, end);
         font-size: 40px;
         font-weight: 700;
         padding-bottom: 1.5px;
       }
 
-      &__admin-counts {
-        font-size: 40px;
-        font-weight: 700;
-        padding-bottom: 1.5px;
-        margin-left: 20px;
+      &__text {
+        color: var(--Primary-Primary-0, #fff);
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%;
       }
 
       &__subcount {

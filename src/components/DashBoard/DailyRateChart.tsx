@@ -1,27 +1,33 @@
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import rateDone from '../../assets/rate-done.svg';
 import rateNotDone from '../../assets/rate-notdone.svg';
 
 const DailyrateChart = () => {
   const totalTasks = 50;
   const completedTasks = 40;
-  const completionRate = (completedTasks / totalTasks) * 75;
   const percentage = Math.round((completedTasks / totalTasks) * 100);
 
   return (
     <section className="dailyRateWrapper">
       <h1 className="dailyRateWrapper__title">오늘의 달성률</h1>
       <div className="dailyRateWrapper__gauge">
-        <div className="gauge">
-          <div className="gauge__circle">
-            <div
-              className="gauge__rate"
-              style={{
-                background: `conic-gradient(#006597 0deg, #006597 ${completionRate}%, transparent ${completionRate}% 270deg)`,
-              }}
-            />
-          </div>
-          <div className="gauge__center" />
-          <div className="gauge__center__percentage">{percentage}%</div>
+        <div className="gauge" style={{ width: '130px', height: '130px' }}>
+          <CircularProgressbar
+            value={percentage}
+            text={`${percentage}%`}
+            strokeWidth={8}
+            className="circular-progressbar" // 추가된 className
+            styles={buildStyles({
+              rotation: 0.5,
+              strokeLinecap: 'round',
+              textSize: '20px',
+              pathTransitionDuration: 0.5,
+              pathColor: `rgba(0, 101, 151, ${percentage / 100})`,
+              textColor: '#006597',
+              trailColor: '#DDEFF8',
+            })}
+          />
         </div>
       </div>
       <div className="dailyRateWrapper__subtitle">
