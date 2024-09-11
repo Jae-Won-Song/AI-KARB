@@ -79,6 +79,7 @@ const SignUp = () => {
   // button state 관리
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
   const [isIdCheckBtnDisabled, setIsIdCheckBtnDisabled] = useState(true);
+  const [isCertNoCheckBtnDisabled, setIsCertNoCheckBtnDisabled] = useState(false);
 
   // 아이디 중복확인을 했는지 확인
   const [isIdChecked, setIsIdChecked] = useState(false);
@@ -196,9 +197,9 @@ const SignUp = () => {
             setCertNoSuccessMessage('인증되었습니다');
             setIsCertNoError(false);
             setCertNoErrorMessage('');
+            setIsCertNoCheckBtnDisabled(true);
             // 토큰 저장
             setCertNoCheckToken(response.data.data.certNoCheckToken);
-            console.log('인증번호 토큰', certNoCheckToken);
           }
         })
         .catch((error) => {
@@ -229,6 +230,7 @@ const SignUp = () => {
           setResetTimer((prev) => !prev);
           setIsCertNoError(false);
           setCertNoErrorMessage('');
+          setIsCertNoCheckBtnDisabled(true);
         }
       })
       .catch((error) => {
@@ -445,6 +447,7 @@ const SignUp = () => {
                   <div className="signUp__wrapper__box_input_box_button">
                     <Button
                       type="button"
+                      state={isCertNoCheckBtnDisabled ? 'disabled' : 'default'}
                       width="5.417vw"
                       height="4.815vh"
                       fontSize="0.781vw"
