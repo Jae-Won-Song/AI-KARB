@@ -1,7 +1,23 @@
+import { useState } from 'react';
 import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
 
 const SignIn = () => {
+  // input value 관리
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+
+  // input state 관리
+  // 아이디
+  const [isIdError, setIsIdError] = useState(false);
+  const [idErrorMessage, setIdErrorMessage] = useState('');
+  // 비밀번호
+  const [idPasswordError, setIdPasswordError] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+
+  // 계정 유무 확인
+  const [isExistAccount, setIsExistAccount] = useState(true);
+
   return (
     <div className="signIn">
       <div className="signIn__wrapper">
