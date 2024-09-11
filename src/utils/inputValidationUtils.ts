@@ -53,3 +53,19 @@ export const validatePassword = (password: string): boolean => {
   }
   return true;
 };
+
+// 사원번호
+export const validateEmpNo = (empNo: string): boolean => {
+  if (/^\d{8}$/.test(empNo)) {
+    return false;
+  }
+  return true;
+};
+
+// 이메일
+export const validateEmail = (email: string): boolean => {
+  if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.com$/.test(email)) {
+    return false;
+  }
+  return true;
+};
