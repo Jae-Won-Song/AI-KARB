@@ -14,7 +14,7 @@ const ManageEmpDetail = () => {
       </SearchBar>
       <Table
         columns={[
-          { name: '번호', width: '60px' },
+          { name: '번호', width: '60px', columnHeight: '60px', rowHeight: '64px' },
           { name: '고유번호', width: '180px' },
           { name: '매체명', width: '240px' },
           { name: '업종구분', width: '240px' },

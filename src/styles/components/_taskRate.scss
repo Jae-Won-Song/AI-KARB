@@ -66,5 +66,5 @@
 }
 
 .progressBar-container {
-  @include flex;
+  @include flex(start center);
 }
