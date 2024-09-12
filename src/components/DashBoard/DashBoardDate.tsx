@@ -17,6 +17,20 @@ const getLastDay = (year: number, month: number) => {
   return new Date(year, month, 0).getDate();
 };
 
+export const getCurrentCycleDays = () => {
+  const year = getYear();
+  const month = getMonth();
+  const currentDate = getDate();
+
+  const lastDay = getLastDay(year, month);
+  if (currentDate <= 14) {
+    // 1차
+    return currentDate;
+  }
+  // 2차
+  return currentDate - 14;
+};
+
 export const getDeadline = (day = getDate()) => {
   const year = getYear();
   const month = getMonth();
