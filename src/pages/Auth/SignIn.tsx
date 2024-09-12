@@ -58,6 +58,7 @@ const SignIn = () => {
         console.error(error);
         if (id !== '' && password !== '') {
           setIsExistAccount(false);
+          setPassword('');
         }
       });
   };
