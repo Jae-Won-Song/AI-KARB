@@ -12,7 +12,7 @@ const SignIn = () => {
   const [isIdError, setIsIdError] = useState(false);
   const [idErrorMessage, setIdErrorMessage] = useState('');
   // 비밀번호
-  const [idPasswordError, setIdPasswordError] = useState(false);
+  const [isPasswordError, setIsPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
 
   // 계정 유무 확인
