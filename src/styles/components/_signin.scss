@@ -39,16 +39,17 @@
 
         @include text-style(15, $grayscale-50, 400);
         cursor: pointer;
+
+        &_span {
+          @include text-style(15, $grayscale-50, 400);
+          text-decoration: none;
+        }
       }
 
       &_button {
         @include flex(start, center);
 
         margin-top: 1.852vh;
-
-        button {
-          @include text-style(19, white, 400);
-        }
       }
 
       &_text {
@@ -65,9 +66,19 @@
 
         .link {
           @include text-style(15, $primary-50, 700);
+          text-decoration: none;
           cursor: pointer;
         }
       }
     }
+  }
+}
+
+.idError {
+  @include flex(start, center);
+  margin-top: 1.111vh;
+
+  &_message {
+    @include text-style(15, $danger-50, 400);
   }
 }

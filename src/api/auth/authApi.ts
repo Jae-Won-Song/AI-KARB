@@ -40,3 +40,11 @@ export const fetchRequestSignUp = (payload: {
 }) => {
   return instance.post('/api/v1/auth/signup', payload);
 };
+
+/*
+ * 로그인
+ * @param payload {id, password}
+ */
+export const fetchSignIn = (payload: { id: string; password: string }) => {
+  return instance.post('/api/v1/auth/signin', payload);
+};
