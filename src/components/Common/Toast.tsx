@@ -1,16 +1,17 @@
 import { ReactNode, useEffect, useState } from 'react';
-import success from '../assets/checked-mypage.svg';
-import failed from '../assets/warning-mypage.svg';
-import closeBlue from '../assets/closeBlue-mypage.svg';
-import closeRed from '../assets/closeRed-mypage.svg';
+import success from '../../assets/checked-mypage.svg';
+import failed from '../../assets/warning-mypage.svg';
+import closeBlue from '../../assets/closeBlue-mypage.svg';
+import closeRed from '../../assets/closeRed-mypage.svg';
 
-type ToastProps = {
+export type ToastProps = {
   mode?: ReactNode | JSX.Element;
   title: string;
   content: string;
+  onClose?: () => void;
 };
 
-function successToast({ content, title }: ToastProps, onClose: () => void) {
+function successToast({ content, title, onClose }: ToastProps) {
   return (
     <div className="toast__success-container">
       <img src={success} alt="성공" />
@@ -25,7 +26,7 @@ function successToast({ content, title }: ToastProps, onClose: () => void) {
   );
 }
 
-function failedToast({ content, title }: ToastProps, onClose: () => void) {
+function failedToast({ content, title, onClose }: ToastProps) {
   return (
     <div className="toast__failed-container">
       <img src={failed} alt="실패" />
@@ -40,39 +41,32 @@ function failedToast({ content, title }: ToastProps, onClose: () => void) {
   );
 }
 
-const Toast = ({ mode, content, title }: ToastProps) => {
-  const [isVisible, setIsVisible] = useState(true);
-  const [isShowing, setIsShowing] = useState(false);
+const Toast = ({ mode, content, title, onClose }: ToastProps) => {
+  const [isVisible, setIsVisible] = useState(false);
   const [isHiding, setIsHiding] = useState(false);
 
   useEffect(() => {
-    const showTimer = setTimeout(() => {
-      setIsShowing(true);
-    }, 10);
-
+    setIsVisible(true);
     const hideTimer = setTimeout(() => {
       setIsHiding(true);
-      setTimeout(() => setIsVisible(false), 300);
+      setTimeout(() => {
+        setIsVisible(false);
+        if (onClose) onClose();
+      }, 300);
     }, 3000);
 
     return () => {
-      clearTimeout(showTimer);
       clearTimeout(hideTimer);
     };
-  }, []);
+  }, [onClose]);
 
-  const handleClose = () => {
-    setIsHiding(true);
-    setTimeout(() => setIsVisible(false), 300);
-  };
-
-  if (!isVisible) return null;
+  if (!isVisible && !isHiding) return null;
 
   return (
-    <div className={`toast ${isShowing ? 'show' : ''} ${isHiding ? 'hide' : ''}`}>
+    <div className={`toast ${isHiding ? 'hide' : 'show'}`}>
       {mode === 'red'
-        ? failedToast({ mode, title, content }, handleClose)
-        : successToast({ mode, title, content }, handleClose)}
+        ? failedToast({ mode, title, content, onClose })
+        : successToast({ mode, title, content, onClose })}
     </div>
   );
 };
