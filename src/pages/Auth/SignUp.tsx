@@ -80,6 +80,7 @@ const SignUp = () => {
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
   const [isIdCheckBtnDisabled, setIsIdCheckBtnDisabled] = useState(true);
   const [isCertNoCheckBtnDisabled, setIsCertNoCheckBtnDisabled] = useState(false);
+  const [isCertNoRequested, setIsCertNoRequested] = useState(false);
 
   // 아이디 중복확인을 했는지 확인
   const [isIdChecked, setIsIdChecked] = useState(false);
@@ -159,6 +160,7 @@ const SignUp = () => {
         .then((response) => {
           if (response.data.code === 3103) {
             console.log('인증번호 발송 요청 성공');
+            setIsCertNoRequested(true);
           }
           if (isValid) {
             setAddCertNoInput(true);
@@ -429,8 +431,8 @@ const SignUp = () => {
                     width="5.417vw"
                     height="4.815vh"
                     fontSize="0.781vw"
-                    onClick={handleClickCertNoRequestBtn}>
-                    인증요청
+                    onClick={isCertNoRequested ? handleClickCertNoRetransmit : handleClickCertNoRequestBtn}>
+                    {isCertNoRequested ? '재전송' : '인증요청'}
                   </Button>
                 </div>
               </div>
@@ -458,8 +460,8 @@ const SignUp = () => {
                       width="5.417vw"
                       height="4.815vh"
                       fontSize="0.781vw"
-                      onClick={isTimeUp ? handleClickCertNoRetransmit : handleClickCertNoCheckBtn}>
-                      {isTimeUp ? '재전송' : '확인'}
+                      onClick={handleClickCertNoCheckBtn}>
+                      확인
                     </Button>
                   </div>
                 </div>
