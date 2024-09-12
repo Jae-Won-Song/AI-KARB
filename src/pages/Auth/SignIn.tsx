@@ -4,6 +4,7 @@ import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
 import errorIcon from '../../assets/icon-error.svg';
 import { fetchSignIn } from '../../api/auth/authApi';
+import { handleKeyDown } from '../../utils/keyDownUtils';
 
 const SignIn = () => {
   // input value 관리
@@ -75,6 +76,7 @@ const SignIn = () => {
               isError={isIdError}
               errorMessage={idErrorMessage}
               onChange={(e) => setId(e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, handleSubmit)}
             />
             <Input
               placeholder="비밀번호"
@@ -83,6 +85,7 @@ const SignIn = () => {
               isError={isPasswordError}
               errorMessage={passwordErrorMessage}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, handleSubmit)}
             />
           </div>
 
