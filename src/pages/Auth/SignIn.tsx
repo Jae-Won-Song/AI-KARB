@@ -33,7 +33,12 @@ const SignIn = () => {
             </a>
           </div>
           <div className="signIn__wrapper__box_button">
-            <Button type="button" onClick={() => alert('로그인버튼 클릭')} width="20.833vw" height="5.926vh">
+            <Button
+              type="button"
+              onClick={() => alert('로그인버튼 클릭')}
+              width="20.833vw"
+              height="5.926vh"
+              fontSize="0.99vw">
               로그인
             </Button>
           </div>

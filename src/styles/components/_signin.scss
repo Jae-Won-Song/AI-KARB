@@ -50,10 +50,6 @@
         @include flex(start, center);
 
         margin-top: 1.852vh;
-
-        button {
-          @include text-style(19, white, 400);
-        }
       }
 
       &_text {
