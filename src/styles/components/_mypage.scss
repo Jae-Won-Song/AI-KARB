@@ -2,6 +2,7 @@
   background: $white;
   width: 85.417vw;
   height: 88.889vh;
+
   &__container {
     @include column-flex(start, start);
     flex-grow: 1;
@@ -48,12 +49,13 @@
       border-bottom: 1px solid #bebebe;
 
       &__edit-info {
-        @include text-style(17, $primary-70, 700);
+        @include text-style(17, #bebebe, 700);
         width: 7.813vw;
         padding: 0.926vh 1.849vw 1.019vh 1.328vw;
         cursor: pointer;
         &.active {
           border-bottom: 2px solid $primary-70;
+          color: $primary-70;
         }
       }
 
@@ -64,6 +66,7 @@
         cursor: pointer;
         &.active {
           border-bottom: 2px solid $primary-70;
+          color: $primary-70;
         }
       }
 
@@ -89,6 +92,7 @@
           min-height: 7.037vh;
           padding: 1.111vh 0;
           border-top: 1px solid $grayscale-20;
+          overflow: visible;
 
           &:first-child {
             height: auto;
@@ -103,11 +107,14 @@
           &-title {
             width: 6.146vw;
           }
-
+          &-title_call {
+            width: 6.146vw;
+          }
           &-content {
             @include flex;
             &-box {
-              @include flex;
+              @include flex(start, start);
+              position: relative;
               &__gap {
                 width: 0.625vw;
               }

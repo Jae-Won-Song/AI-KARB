@@ -25,9 +25,9 @@
     width: 376px;
     height: 76px;
     border-radius: 12px;
-    border: 1px solid #029eeb;
+    border: 1px solid $primary-50;
     padding: 16px;
-    background: #f0f4f8;
+    background: $secondary-5;
 
     &__success-box {
       @include column-flex(center, start);
@@ -35,11 +35,11 @@
       height: 43px;
       padding: 0 19px;
       &_title {
-        @include text-style(15, #029eeb, 700);
+        @include text-style(15, $primary-50, 700);
         height: 23px;
       }
       &_content {
-        @include text-style(13, #1d1d1d, 400);
+        @include text-style(13, $grayscale-90, 400);
         height: 20px;
       }
     }
@@ -50,7 +50,7 @@
     width: 376px;
     height: 76px;
     border-radius: 12px;
-    border: 1px solid #d50136;
+    border: 1px solid $danger-60;
     padding: 16px;
     background: #fef1f4;
 
@@ -60,11 +60,11 @@
       height: 43px;
       padding: 0 19px;
       &_title {
-        @include text-style(15, #d50136, 700);
+        @include text-style(15, $danger-60, 700);
         height: 23px;
       }
       &_content {
-        @include text-style(13, #1d1d1d, 400);
+        @include text-style(13, $grayscale-90, 400);
         height: 20px;
       }
     }
