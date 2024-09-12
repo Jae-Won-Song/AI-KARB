@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-const SearchBar = ({ children }: { children: ReactNode }) => {
+const SearchBar = ({ children }: { children?: ReactNode }) => {
   return (
     <div className="searchBar">
       <section className="searchBar__topBar">
