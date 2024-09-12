@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
+import { fetchSignIn } from '../../api/auth/authApi';
 
 const SignIn = () => {
   // input value 관리
@@ -15,8 +17,43 @@ const SignIn = () => {
   const [isPasswordError, setIsPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
 
-  // 계정 유무 확인
-  const [isExistAccount, setIsExistAccount] = useState(true);
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    // 아이디 검사
+    if (id === '') {
+      setIsIdError(true);
+      setIdErrorMessage('아이디를 입력해주세요');
+    } else {
+      setIsIdError(false);
+      setIdErrorMessage('');
+    }
+
+    // 비밀번호 검사
+    if (password === '') {
+      setIsPasswordError(true);
+      setPasswordErrorMessage('비밀번호를 입력해주세요');
+    } else {
+      setIsPasswordError(false);
+      setPasswordErrorMessage('');
+    }
+
+    // api 요청
+    const payload = {
+      id,
+      password,
+    };
+
+    fetchSignIn(payload)
+      .then((response) => {
+        if (response.data.code === 3105) {
+          navigate('/');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <div className="signIn">
@@ -24,8 +61,21 @@ const SignIn = () => {
         <div className="signIn__wrapper__box">
           <div className="signIn__wrapper__box_title">로그인</div>
           <div className="signIn__wrapper__box_input">
-            <Input placeholder="아이디" />
-            <Input placeholder="비밀번호" type="password" />
+            <Input
+              placeholder="아이디"
+              value={id}
+              isError={isIdError}
+              errorMessage={idErrorMessage}
+              onChange={(e) => setId(e.target.value)}
+            />
+            <Input
+              placeholder="비밀번호"
+              type="password"
+              value={password}
+              isError={isPasswordError}
+              errorMessage={passwordErrorMessage}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <div className="signIn__wrapper__box_find">
             <a href="/find-user" className="signIn__wrapper__box_find_span">
@@ -33,12 +83,7 @@ const SignIn = () => {
             </a>
           </div>
           <div className="signIn__wrapper__box_button">
-            <Button
-              type="button"
-              onClick={() => alert('로그인버튼 클릭')}
-              width="20.833vw"
-              height="5.926vh"
-              fontSize="0.99vw">
+            <Button type="button" onClick={handleSubmit} width="20.833vw" height="5.926vh" fontSize="0.99vw">
               로그인
             </Button>
           </div>
