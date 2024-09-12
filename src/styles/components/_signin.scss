@@ -73,3 +73,12 @@
     }
   }
 }
+
+.idError {
+  @include flex(start, center);
+  margin-top: 1.111vh;
+
+  &_message {
+    @include text-style(15, $danger-50, 400);
+  }
+}

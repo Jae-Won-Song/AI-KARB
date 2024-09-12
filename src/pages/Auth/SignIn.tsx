@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
+import errorIcon from '../../assets/icon-error.svg';
 import { fetchSignIn } from '../../api/auth/authApi';
 
 const SignIn = () => {
@@ -16,6 +17,9 @@ const SignIn = () => {
   // 비밀번호
   const [isPasswordError, setIsPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+
+  // 일치하는 계정이 없을 경우
+  const [isExistAccount, setIsExistAccount] = useState(true);
 
   const navigate = useNavigate();
 
@@ -52,6 +56,9 @@ const SignIn = () => {
       })
       .catch((error) => {
         console.error(error);
+        if (id !== '' && password !== '') {
+          setIsExistAccount(false);
+        }
       });
   };
 
@@ -77,6 +84,14 @@ const SignIn = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+
+          {!isExistAccount && (
+            <div className="idError">
+              <img src={errorIcon} alt="에러 아이콘" />
+              <span className="idError_message">아이디 또는 비밀번호를 잘못입력하셨습니다</span>
+            </div>
+          )}
+
           <div className="signIn__wrapper__box_find">
             <a href="/find-user" className="signIn__wrapper__box_find_span">
               아이디 / 비밀번호 찾기
