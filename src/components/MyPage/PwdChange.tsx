@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import instance from '../../api/apiConfig';
 import Button from '../Common/Button';
 import Input from '../Common/Input';
 import { validatePassword } from '../../utils/inputValidationUtils';
 import Toast, { ToastProps } from '../Common/Toast';
 
 const PwdChange = () => {
-  const adminPwd = '1111111a';
+  const adminPwd = 'asdasd12'; // 지울거임
 
   const [newPwd, setNewPwd] = useState('');
   const [confirmNewPwd, setConfirmNewPwd] = useState('');
@@ -92,26 +93,49 @@ const PwdChange = () => {
     }
   };
 
-  const submitEditPwd = () => {
-    if (
-      validatePassword(newPwd) ||
-      validatePassword(confirmNewPwd) ||
-      currentPwd !== adminPwd ||
-      confirmNewPwd !== newPwd
-    ) {
+  const submitEditPwd = async () => {
+    try {
+      if (
+        validatePassword(newPwd) ||
+        validatePassword(confirmNewPwd) ||
+        currentPwd !== adminPwd ||
+        confirmNewPwd !== newPwd
+      ) {
+        setToastMessage({
+          mode: 'red',
+          title: '비밀번호 변경 실패',
+          content: '비밀번호 변경 중에 오류가 발생했습니다.',
+        });
+        return;
+      }
+
+      const response = await instance.put('/api/v1/user/password', {
+        currentPassword: currentPwd,
+        newPassword: newPwd,
+      });
+
+      console.log('응답 데이터:', response.data);
+
+      if (response.status === 200) {
+        setToastMessage({
+          title: '비밀번호 변경 완료',
+          content: '비밀번호 변경이 완료되었습니다.',
+        });
+      } else {
+        setToastMessage({
+          mode: 'red',
+          title: '비밀번호 변경 실패',
+          content: '비밀번호 변경 중에 오류가 발생했습니다.',
+        });
+      }
+    } catch (error) {
       setToastMessage({
         mode: 'red',
         title: '비밀번호 변경 실패',
         content: '비밀번호 변경 중에 오류가 발생했습니다.',
       });
-    } else {
-      setToastMessage({
-        title: '비밀번호 변경 완료',
-        content: '비밀번호 변경이 완료되었습니다.',
-      });
     }
   };
-
   return (
     <form className="mypage__container__form">
       <div className="mypage__container__form__info">
