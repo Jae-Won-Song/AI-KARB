@@ -138,8 +138,6 @@ const SignUpRequest = () => {
             { name: '연락처', width: '17.708vw' },
             { name: '이메일', width: '21.875vw' },
             { name: '가입요청일', width: '13.542vw' },
-            { name: '승인', width: '8vw' },
-            { name: '반려', width: '8vw' },
           ]}
           data={tableData}
         />
