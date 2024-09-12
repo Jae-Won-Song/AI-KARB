@@ -62,6 +62,7 @@
 
         .link {
           @include text-style(15, $primary-50, 700);
+          text-decoration: none;
           cursor: pointer;
         }
       }
