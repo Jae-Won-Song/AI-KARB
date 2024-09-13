@@ -1,7 +1,7 @@
 .rate-wrapper {
   @include flex(center, start);
   width: 28.341vw;
-  height: 31.25vh;
+  height: 28.125vh;
   padding: 1.951vw 3.125vh 1.768vw 3.125vh;
   flex-direction: column;
   gap: var(--24, 24px);
@@ -21,7 +21,7 @@
   }
 
   &__text {
-    width: 387px;
+    width: 20.156vw;
     text-align: right;
   }
 }

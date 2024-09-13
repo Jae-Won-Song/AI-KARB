@@ -1,8 +1,9 @@
 .work-wrapper {
   @include flex(start, start);
-  width: 23.59vw;
+  width: 19.89vw;
   height: 14.583vh;
   padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  margin-right: 0.671vw;
   gap: 0.9375rem;
   border: 1px solid #e6edff;
   border-radius: var(--12, 0.75rem);

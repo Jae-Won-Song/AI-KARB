@@ -1,12 +1,13 @@
 .dailyRateWrapper {
   @include column-flex(between, center);
-  width: 14.878vw;
-  height: 31.25vh;
-  padding: 1.5625vw;
-  gap: 0.5208vw;
-  border-radius: 0.625vw;
-  border: 0.052vw solid $grayscale-10;
-  box-shadow: 0.208vw 0.208vw 0.521vw 0 rgba($grayscale-40, 0.2);
+  width: 11.22vw;
+  height: 28.125vh;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  margin-left: 0.671vw;
+  gap: 0.61vw;
+  border-radius: 12px;
+  border: 1px solid $grayscale-10;
+  box-shadow: 4px 4px 10px 0 rgba($grayscale-40, 0.2);
 
   &__title {
     @include column-flex(start, start);
@@ -16,12 +17,12 @@
   }
 
   &__subtitle {
-    @include flex(between, center);
+    @include flex;
     width: 100%;
 
     &__legend {
-      @include flex(between, center);
-      width: 4.427vw;
+      @include flex(evenly, center);
+      // width: 200px;
       @include text-style(15, $grayscale-50, 400);
 
       &__main {
