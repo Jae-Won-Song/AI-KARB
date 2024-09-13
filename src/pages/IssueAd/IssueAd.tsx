@@ -17,15 +17,15 @@ const IssueAd = () => {
       </SearchBar>
       <Table
         columns={[
-          { name: '번호', width: '80px' },
-          { name: '고유번호', width: '120px' },
-          { name: '매체명', width: '180px' },
-          { name: '업종구분', width: '180px' },
-          { name: '상품명', width: '380px' },
-          { name: '광고주', width: '180px' },
-          { name: '담당자', width: '160px' },
-          { name: '진행상황', width: '140px' },
-          { name: '지적비지적', width: '160px' },
+          { name: '번호', width: '4.878vw', columnHeight: '5.556vh', rowHeight: '5.926vh' },
+          { name: '고유번호', width: '7.317vw' },
+          { name: '매체명', width: '10.976vw' },
+          { name: '업종구분', width: '10.976vw' },
+          { name: '상품명', width: '23.171vw' },
+          { name: '광고주', width: '10.976vw' },
+          { name: '담당자', width: '9.756vw' },
+          { name: '진행상황', width: '8.537vw' },
+          { name: '지적비지적', width: '9.756vw' },
         ]}
         data={[
           {
