@@ -34,7 +34,7 @@ const WorkStatus = () => {
 
   return (
     <section>
-      <div style={{ height: isAdminRoute ? '270px' : '300px' }} className="workStatus-wrapper">
+      <div style={{ height: isAdminRoute ? '28.125vh' : '31.25vh' }} className="workStatus-wrapper">
         <h1 className="workStatus-wrapper__title">작업현황</h1>
         <div className="workStatus-wrapper__task">
           <div className="workStatus-wrapper__task__allTask">
