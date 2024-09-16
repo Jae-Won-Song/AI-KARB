@@ -6,12 +6,24 @@ import Filter from '../../components/Common/Filter';
 import Calendar from '../../components/Common/Calendar';
 import ReviewTag from '../../components/Common/ReviewTag';
 import { useNavigate } from 'react-router-dom';
+import { fetchLoadIssueAdDetail } from '../../api/issueAd/issueAdApi';
 
 const IssueAd = () => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate('/issue-ad/result');
+  const handleRowClick = (advertisementId: string) => {
+    console.log('광고번호', advertisementId);
+    fetchLoadIssueAdDetail({ advertisementId })
+      .then((response) => {
+        console.log('광고번호', advertisementId);
+        if (response.data.code === 3400) {
+          const adDetails = response.data;
+          navigate('issue-ad/result', { state: { adDetails } });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -70,7 +82,7 @@ const IssueAd = () => {
             지적비지적: <ReviewTag size="large" containerBg="#FDDFE6" circleBg="red" content="지적" />,
           },
         ]}
-        onRowClick={handleClick}
+        onRowClick={(row) => handleRowClick(row.고유번호)}
       />
     </main>
   );
