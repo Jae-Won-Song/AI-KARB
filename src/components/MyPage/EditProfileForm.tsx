@@ -1,9 +1,17 @@
-import axios from 'axios';
+import axiosInstance from '../../api/apiConfig';
 import Button from '../Common/Button';
 import Input from '../Common/Input';
 import { useState } from 'react';
 import Toast, { ToastProps } from '../Common/Toast';
 import { validateEmail, validatePhoneNumber, validateCertNo } from '../../utils/inputValidationUtils';
+
+interface Payload {
+  phoneNumber?: string;
+  email?: string;
+  certNoCheckToken?: string;
+  type?: string;
+  certNo?: string;
+}
 
 const EditProfileForm = () => {
   const [certifyForm, setCertForm] = useState(0);
@@ -19,8 +27,7 @@ const EditProfileForm = () => {
   const [checkNewPhoneNum, setCheckNewPhoneNum] = useState(false);
   const [phoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState('');
 
-  const [token] = useState('');
-
+  const [token, setToken] = useState('');
   const [cert, setCert] = useState('');
   const [checkErrorCert, setCheckErrorCert] = useState(false);
   const [certErrorMessage, setCertErrorMessage] = useState('');
@@ -67,9 +74,6 @@ const EditProfileForm = () => {
     if (validateCertNo(value)) {
       setCheckErrorCert(true);
       setCertErrorMessage('인증번호가 올바르지 않습니다.');
-    } else if (value !== token) {
-      setCheckErrorCert(true);
-      setCertErrorMessage('인증번호가 올바르지 않습니다.');
     } else {
       setCheckErrorCert(false);
       setCertErrorMessage('');
@@ -89,41 +93,57 @@ const EditProfileForm = () => {
     }
   };
 
-  const checkPhoneNumber = async () => {
-    if (!validatePhoneNumber(newPhoneNum)) {
-      try {
-        const payload = {
-          phoneNumber: newPhoneNum,
-          email: newEmail,
-          certNoCheckToken: token,
-        };
+  const requestCertNo = async () => {
+    try {
+      const payload: Payload = {
+        type: 'UpdateUser',
+        phoneNumber: newPhoneNum,
+      };
 
-        const response = await axios.put('/api/v1/user/info', payload);
+      const response = await axiosInstance.post('/api/v1/auth/cert-no', payload);
 
-        if (response.status === 200) {
-          setCertForm(1);
-          setCertBtnContent('재전송');
-          setCertButtonState('default_white');
-        } else {
-          throw new Error('인증번호 요청 실패');
-        }
-      } catch (error) {
-        console.log(error);
-        setToastMessage({
-          mode: 'red',
-          title: '인증번호 요청 실패',
-          content: '인증번호 요청 중 오류가 발생했습니다.',
-        });
+      if (response.status === 200) {
+        setCertForm(1);
+        setCertBtnContent('재전송');
+        setCertButtonState('default_white');
+        console.log('인증번호 요청 성공:', response.data);
+      } else {
+        throw new Error('인증번호 요청 실패');
       }
+    } catch (error) {
+      console.log('인증번호 요청 오류:', error);
+      setToastMessage({
+        mode: 'red',
+        title: '인증번호 요청 실패',
+        content: '인증번호 요청 중 오류가 발생했습니다.',
+      });
     }
   };
 
-  const checkCertBtn = () => {
-    if (cert === token) {
-      setCheckErrorCert(false);
-      setCheckSuccessCert(true);
-      setCertSuccessMessage('인증되었습니다.');
-      setCheckButtonState('disabled');
+  const checkCertBtn = async () => {
+    try {
+      const payload: Payload = {
+        type: 'UpdateUser',
+        phoneNumber: newPhoneNum,
+        certNo: cert,
+      };
+
+      const response = await axiosInstance.post('/api/v1/auth/check-cert-no', payload);
+
+      if (response.status === 200) {
+        const { certNoCheckToken } = response.data.data;
+        setToken(certNoCheckToken);
+        setCheckErrorCert(false);
+        setCheckSuccessCert(true);
+        setCertSuccessMessage('인증되었습니다.');
+        setCheckButtonState('disabled');
+      }
+    } catch (error) {
+      setToastMessage({
+        mode: 'red',
+        title: '인증 실패',
+        content: '인증번호가 올바르지 않습니다.',
+      });
     }
   };
 
@@ -139,67 +159,40 @@ const EditProfileForm = () => {
   };
 
   const editInfo = async () => {
-    let certValid = true;
-    let emailValid = true;
+    const payload: Payload = {};
 
-    if (cert !== token && cert.trim() !== '') {
-      setToastMessage({
-        mode: 'red',
-        title: '개인정보 수정 실패',
-        content: '개인정보 수정 중에 오류가 발생했습니다.',
-      });
-      certValid = false;
-    } else if (cert === token) {
-      setToastMessage({
-        title: '개인정보 수정 완료',
-        content: '개인정보 수정이 완료되었습니다.',
-      });
+    if (newPhoneNum && cert.trim() !== '') {
+      payload.phoneNumber = newPhoneNum;
+      payload.certNoCheckToken = token;
     }
 
-    if (validateEmail(newEmail) && newEmail.trim() !== '') {
-      setToastMessage({
-        mode: 'red',
-        title: '개인정보 수정 실패',
-        content: '개인정보 수정 중에 오류가 발생했습니다.',
-      });
-      emailValid = false;
-    } else if (!validateEmail(newEmail) && newEmail.trim() !== '') {
-      setToastMessage({
-        title: '개인정보 수정 완료',
-        content: '개인정보 수정이 완료되었습니다.',
-      });
+    if (newEmail && newEmail.trim() !== '') {
+      payload.email = newEmail;
     }
 
-    if (certValid && emailValid && cert.trim() !== '' && newEmail.trim() !== '') {
-      try {
-        const payload = {
-          phoneNumber: newPhoneNum,
-          email: newEmail,
-          certNoCheckToken: cert,
-        };
+    if (Object.keys(payload).length === 0) {
+      setToastMessage({
+        mode: 'red',
+        title: '수정 실패',
+        content: '수정할 정보가 없습니다.',
+      });
+      return;
+    }
 
-        const response = await axios.put('/api/v1/user/info', payload);
+    try {
+      const response = await axiosInstance.put('/api/v1/user/info', payload);
 
-        if (response.status === 200) {
-          setToastMessage({
-            title: '개인정보 수정 완료',
-            content: '개인정보 수정이 완료되었습니다.',
-          });
-        }
-      } catch (error) {
+      if (response.status === 200) {
         setToastMessage({
-          mode: 'red',
-          title: '개인정보 수정 실패',
-          content: '개인정보 수정 중에 오류가 발생했습니다.',
+          title: '수정 완료',
+          content: '정보가 성공적으로 수정되었습니다.',
         });
       }
-    }
-
-    if (cert.trim() === '' && newEmail.trim() === '') {
+    } catch (error) {
       setToastMessage({
         mode: 'red',
-        title: '개인정보 수정 실패',
-        content: '개인정보 수정 중에 오류가 발생했습니다.',
+        title: '수정 실패',
+        content: '정보 수정 중 오류가 발생했습니다.',
       });
     }
   };
@@ -226,7 +219,7 @@ const EditProfileForm = () => {
               <div className="mypage__container__form__info-box-content-box__gap" />
               <Button
                 onClick={() => {
-                  checkPhoneNumber();
+                  requestCertNo();
                   handleResendCert();
                 }}
                 type="button"

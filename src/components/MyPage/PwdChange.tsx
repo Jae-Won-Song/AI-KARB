@@ -6,11 +6,8 @@ import { validatePassword } from '../../utils/inputValidationUtils';
 import Toast, { ToastProps } from '../Common/Toast';
 
 const PwdChange = () => {
-  const adminPwd = 'asdasd12'; // 지울거임
-
   const [newPwd, setNewPwd] = useState('');
   const [confirmNewPwd, setConfirmNewPwd] = useState('');
-
   const [currentPwd, setCurrentPwd] = useState('');
   const [checkErrorCurrentPwd, setCheckErrorCurrentPwd] = useState(false);
   const [currentPwdErrorMessage, setCurrentPwdErrorMessage] = useState('');
@@ -35,9 +32,6 @@ const PwdChange = () => {
     } else if (validatePassword(currentPwdValue)) {
       setCheckErrorCurrentPwd(true);
       setCurrentPwdErrorMessage('비밀번호 형식이 맞지 않습니다.');
-    } else if (currentPwdValue !== adminPwd) {
-      setCheckErrorCurrentPwd(true);
-      setCurrentPwdErrorMessage('현재 비밀번호와 일치하지 않습니다.');
     } else {
       setCheckErrorCurrentPwd(false);
       setCurrentPwdErrorMessage('');
@@ -52,9 +46,6 @@ const PwdChange = () => {
       setCheckErrorNewPwd(true);
       setCheckSuccessConfirmNewPwd(false);
       setNewPwdErrorMessage('비밀번호를 입력해주세요.');
-    } else if (value === adminPwd) {
-      setCheckErrorNewPwd(true);
-      setNewPwdErrorMessage('현재 비밀번호와 같은 비밀번호 입니다.');
     } else if (validatePassword(value)) {
       setCheckErrorNewPwd(true);
       setNewPwdErrorMessage('비밀번호 형식이 맞지 않습니다.');
@@ -95,12 +86,7 @@ const PwdChange = () => {
 
   const submitEditPwd = async () => {
     try {
-      if (
-        validatePassword(newPwd) ||
-        validatePassword(confirmNewPwd) ||
-        currentPwd !== adminPwd ||
-        confirmNewPwd !== newPwd
-      ) {
+      if (validatePassword(newPwd) || validatePassword(confirmNewPwd) || confirmNewPwd !== newPwd) {
         setToastMessage({
           mode: 'red',
           title: '비밀번호 변경 실패',
@@ -113,8 +99,6 @@ const PwdChange = () => {
         currentPassword: currentPwd,
         newPassword: newPwd,
       });
-
-      console.log('응답 데이터:', response.data);
 
       if (response.status === 200) {
         setToastMessage({
@@ -136,6 +120,7 @@ const PwdChange = () => {
       });
     }
   };
+
   return (
     <form className="mypage__container__form">
       <div className="mypage__container__form__info">
