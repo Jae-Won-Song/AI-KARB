@@ -9,9 +9,16 @@ type IssuedReasonProps = {
   articleNumber: number;
   articleTitle: string;
   articleContent: string;
+  issuedReason: string;
 };
 
-const IssuedReason = ({ contentNumber, articleNumber, articleTitle, articleContent }: IssuedReasonProps) => {
+const IssuedReason = ({
+  contentNumber,
+  articleNumber,
+  articleTitle,
+  articleContent,
+  issuedReason,
+}: IssuedReasonProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
@@ -42,7 +49,7 @@ const IssuedReason = ({ contentNumber, articleNumber, articleTitle, articleConte
           <div className="IssuedReason__content--open">{articleContent}</div>
           <div className="IssuedReason__reviewComment">
             <div className="IssuedReason__reviewComment_title">검토 의견</div>
-            <div className="IssuedReason__reviewComment_comment">없음</div>
+            <div className="IssuedReason__reviewComment_comment">{issuedReason}</div>
           </div>
           <div className="IssuedReason__widthBar"> </div>
           <div className="IssuedReason__icons">
