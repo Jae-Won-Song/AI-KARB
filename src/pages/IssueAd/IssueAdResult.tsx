@@ -9,7 +9,7 @@ import arrowUp from '../../assets/arrow-up.svg';
 import iconPlus from '../../assets/icon-plus.svg';
 import { useState } from 'react';
 import Modal from '../../components/Common/Modal';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const IssueAdResult = () => {
   const [isOpen, setIsOpen] = useState(false);
