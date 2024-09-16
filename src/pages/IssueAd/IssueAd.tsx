@@ -4,6 +4,7 @@ import Table from '../../components/Common/Table';
 import TagFilter from '../../components/Common/TagFilter';
 import Filter from '../../components/Common/Filter';
 import Calendar from '../../components/Common/Calendar';
+import ReviewTag from '../../components/Common/ReviewTag';
 
 const IssueAd = () => {
   return (
@@ -36,8 +37,8 @@ const IssueAd = () => {
             상품명: '상품명상품명상품명',
             광고주: '한천KPS',
             담당자: '동일',
-            진행상황: '검수전',
-            지적비지적: '지적',
+            진행상황: <ReviewTag size="large" containerBg="#FFEDDA" circleBg="orange" content="검수전" />,
+            지적비지적: <ReviewTag size="large" containerBg="#FDDFE6" circleBg="red" content="지적" />,
           },
           {
             번호: 1,
@@ -47,8 +48,8 @@ const IssueAd = () => {
             상품명: '상품명상품명상품명',
             광고주: '한천KPS',
             담당자: '동일',
-            진행상황: '검수전',
-            지적비지적: '지적',
+            진행상황: <ReviewTag size="large" containerBg="#FFEDDA" circleBg="orange" content="검수전" />,
+            지적비지적: <ReviewTag size="large" containerBg="#FDDFE6" circleBg="red" content="지적" />,
           },
           {
             번호: 1,
@@ -58,8 +59,8 @@ const IssueAd = () => {
             상품명: '상품명상품명상품명',
             광고주: '한천KPS',
             담당자: '동일',
-            진행상황: '검수전',
-            지적비지적: '지적',
+            진행상황: <ReviewTag size="large" containerBg="#FFEDDA" circleBg="orange" content="검수전" />,
+            지적비지적: <ReviewTag size="large" containerBg="#FDDFE6" circleBg="red" content="지적" />,
           },
         ]}
       />
