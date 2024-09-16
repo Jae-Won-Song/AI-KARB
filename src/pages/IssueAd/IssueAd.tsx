@@ -12,10 +12,8 @@ const IssueAd = () => {
   const navigate = useNavigate();
 
   const handleRowClick = (advertisementId: string) => {
-    console.log('광고번호', advertisementId);
     fetchLoadIssueAdDetail({ advertisementId })
       .then((response) => {
-        console.log('광고번호', advertisementId);
         if (response.data.code === 3400) {
           const adDetails = response.data;
           navigate('/issue-ad/result', { state: { adDetails } });
