@@ -17,8 +17,9 @@ const IssueAd = () => {
       .then((response) => {
         console.log('광고번호', advertisementId);
         if (response.data.code === 3400) {
+          console.log(response);
           const adDetails = response.data;
-          navigate('issue-ad/result', { state: { adDetails } });
+          navigate('/issue-ad/result', { state: { adDetails } });
         }
       })
       .catch((error) => {
@@ -50,7 +51,7 @@ const IssueAd = () => {
         data={[
           {
             번호: 1,
-            고유번호: 'A13425',
+            고유번호: '202409A00001',
             매체명: '경상남도민일보',
             업종구분: '식품',
             상품명: '상품명상품명상품명',
@@ -61,7 +62,7 @@ const IssueAd = () => {
           },
           {
             번호: 1,
-            고유번호: 'A13425',
+            고유번호: '202409A00001',
             매체명: '경상남도민일보',
             업종구분: '식품',
             상품명: '상품명상품명상품명',
@@ -72,7 +73,7 @@ const IssueAd = () => {
           },
           {
             번호: 1,
-            고유번호: 'A13425',
+            고유번호: '202409A00001',
             매체명: '경상남도민일보',
             업종구분: '식품',
             상품명: '상품명상품명상품명',
