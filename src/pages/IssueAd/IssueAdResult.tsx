@@ -15,6 +15,40 @@ const IssueAdResult = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActiveSelectReason, setIsActiveSelectReason] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [issuedReasons, setIssuedReasons] = useState([
+    {
+      contentNumber: 1,
+      articleNumber: 10,
+      articleTitle: '소비자 오도 표현',
+      articleContent:
+        '일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵',
+      issuedReason: '없음',
+    },
+    {
+      contentNumber: 2,
+      articleNumber: 11,
+      articleTitle: '주장의 무입증',
+      articleContent:
+        '일품진로 어쩌구 저쩌구 이러쿵 저러쿵 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말',
+      issuedReason: '없음',
+    },
+    {
+      contentNumber: 3,
+      articleNumber: 32,
+      articleTitle: '주류광고의 부당표현',
+      articleContent:
+        '일품진로 어쩌구 저쩌구 이러쿵 저러쿵 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트',
+      issuedReason: '없음',
+    },
+  ]);
+
+  const [newReason, setNewReason] = useState({
+    contentNumber: issuedReasons.length + 1,
+    articleNumber: 0,
+    articleTitle: '',
+    articleContent: '',
+    issuedReason: '',
+  });
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,6 +79,15 @@ const IssueAdResult = () => {
       ...prevState,
       [type]: index,
     }));
+
+    const matchResult = reasons[index].match(/\d+/);
+    const articleNumber = matchResult ? parseInt(matchResult[0], 10) : 0;
+
+    setNewReason((prev) => ({
+      ...prev,
+      articleNumber,
+      articleTitle: reasons[index],
+    }));
   };
 
   const getShortArticleContent = (reason: string) => {
@@ -73,6 +116,32 @@ const IssueAdResult = () => {
 
   const goBack = () => {
     navigate(-1);
+  };
+
+  const addNewReason = (e: { target: { name: string; value: string } }) => {
+    const { name, value } = e.target;
+    setNewReason((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const clickAddIssuedReasonBtn = () => {
+    setIssuedReasons((prevReasons) => [
+      ...prevReasons,
+      {
+        ...newReason,
+        articleNumber: parseInt(newReason.articleNumber.toString(), 10),
+      },
+    ]);
+
+    setNewReason({
+      contentNumber: issuedReasons.length + 2,
+      articleNumber: 0,
+      articleTitle: '',
+      articleContent: '',
+      issuedReason: '',
+    });
   };
 
   return (
@@ -114,24 +183,16 @@ const IssueAdResult = () => {
             </div>
           </div>
           <div className="IssueAdResult__wrapperRight_contents_resultBox">
-            <IssuedReason
-              contentNumber={1}
-              articleNumber={10}
-              articleTitle="소비자 오도 표현"
-              articleContent="일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵"
-            />
-            <IssuedReason
-              contentNumber={2}
-              articleNumber={11}
-              articleTitle="주장의 무입증"
-              articleContent="일품진로 어쩌구 저쩌구 이러쿵 저러쿵 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말"
-            />
-            <IssuedReason
-              contentNumber={3}
-              articleNumber={32}
-              articleTitle="주류광고의 부당표현"
-              articleContent="일품진로 어쩌구 저쩌구 이러쿵 저러쿵 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트"
-            />
+            {issuedReasons.map((reason, index) => (
+              <IssuedReason
+                key={index}
+                contentNumber={reason.contentNumber}
+                articleNumber={reason.articleNumber}
+                articleTitle={reason.articleTitle}
+                articleContent={reason.articleContent}
+                issuedReason={reason.issuedReason}
+              />
+            ))}
 
             {isOpen ? (
               <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult">
@@ -148,15 +209,13 @@ const IssueAdResult = () => {
                       )}
 
                       <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleNum-span">
-                        조항 선택
+                        {newReason.articleNumber ? `제 ${newReason.articleNumber}조` : '조항 선택'}
                       </div>
                       <img src={arrowDown} alt="아래 화살표" />
                     </div>
 
                     <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleTitle">
-                      {selectedIndex.reason !== null && selectedIndex.reason >= 0
-                        ? reasons[selectedIndex.reason]
-                        : '선택한 조항이 표시됩니다'}
+                      {newReason.articleTitle || '선택한 조항이 표시됩니다'}
                     </div>
                   </div>
                   <div
@@ -166,16 +225,27 @@ const IssueAdResult = () => {
                   </div>
                 </div>
                 <input
+                  name="articleContent"
+                  value={newReason.articleContent}
+                  onChange={addNewReason}
                   type="text"
                   className="IssueAdResult__wrapperRight_contents_resultBox_addResult_selectInput"
                   placeholder="지적 문장을 선택해주세요."
                 />
                 <textarea
+                  name="issuedReason"
+                  value={newReason.issuedReason}
+                  onChange={addNewReason}
                   className="IssueAdResult__wrapperRight_contents_resultBox_addResult_writeInput"
                   placeholder="검토 의견을 작성해주세요."
                 />
                 <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_button">
-                  <Button type="button" state="default" width="5.417vw" height="4.815vh">
+                  <Button
+                    type="button"
+                    state="default"
+                    width="5.417vw"
+                    height="4.815vh"
+                    onClick={clickAddIssuedReasonBtn}>
                     추가
                   </Button>
                 </div>
