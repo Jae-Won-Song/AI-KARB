@@ -19,7 +19,7 @@ const IssueAdResult = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const adDetails = location.state?.adDetails;
+  const adDetails = location.state?.adDetails.data;
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -82,7 +82,7 @@ const IssueAdResult = () => {
           <img src={arrowLeft} alt="뒤로가기 화살표" />
         </button>
         <div className="IssueAdResult__wrapperLeft_contents">
-          <ReviewAdNumber adNumber="A12345" />
+          <ReviewAdNumber adNumber={adDetails?.id} />
           <AdInfoTable title1="상품명" title2="광고주" content1={adDetails?.product} content2={adDetails?.advertiser} />
           <AdInfoTable
             title1="업종구분"
