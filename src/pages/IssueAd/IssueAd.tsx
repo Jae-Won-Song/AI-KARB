@@ -17,7 +17,6 @@ const IssueAd = () => {
       .then((response) => {
         console.log('광고번호', advertisementId);
         if (response.data.code === 3400) {
-          console.log(response);
           const adDetails = response.data;
           navigate('/issue-ad/result', { state: { adDetails } });
         }
