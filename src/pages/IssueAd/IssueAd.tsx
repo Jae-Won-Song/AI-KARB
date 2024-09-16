@@ -5,8 +5,15 @@ import TagFilter from '../../components/Common/TagFilter';
 import Filter from '../../components/Common/Filter';
 import Calendar from '../../components/Common/Calendar';
 import ReviewTag from '../../components/Common/ReviewTag';
+import { useNavigate } from 'react-router-dom';
 
 const IssueAd = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/issue-ad/result');
+  };
+
   return (
     <main className="issueAd">
       <SearchBar>
@@ -63,6 +70,7 @@ const IssueAd = () => {
             지적비지적: <ReviewTag size="large" containerBg="#FDDFE6" circleBg="red" content="지적" />,
           },
         ]}
+        onRowClick={handleClick}
       />
     </main>
   );
