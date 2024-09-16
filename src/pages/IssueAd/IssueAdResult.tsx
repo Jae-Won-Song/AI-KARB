@@ -9,6 +9,7 @@ import arrowUp from '../../assets/arrow-up.svg';
 import iconPlus from '../../assets/icon-plus.svg';
 import { useState } from 'react';
 import Modal from '../../components/Common/Modal';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const IssueAdResult = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -65,10 +66,18 @@ const IssueAdResult = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <main className="IssueAdResult">
       <article className="IssueAdResult__wrapperLeft">
-        <img src={arrowLeft} alt="뒤로가기 화살표" className="IssueAdResult__wrapperLeft_arrow" />
+        <button className="IssueAdResult__wrapperLeft_arrow" onClick={goBack}>
+          <img src={arrowLeft} alt="뒤로가기 화살표" />
+        </button>
         <div className="IssueAdResult__wrapperLeft_contents">
           <ReviewAdNumber adNumber="A12345" />
           <AdInfoTable title1="상품명" title2="광고주" content1="명작수" content2="아모레퍼시픽 코리아" />
