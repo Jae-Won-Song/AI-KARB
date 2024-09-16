@@ -1,6 +1,5 @@
 .recent-wrapper {
   @include column-flex;
-  justify-content: normal;
   width: 29.024vw;
   height: 35.417vh;
   padding: 1.829vw 3.125vh 1.829vw 3.125vh;
@@ -12,6 +11,7 @@
 
   &__header {
     @include flex(between, center);
+    margin-top: 10px;
     align-self: stretch;
 
     &__title {

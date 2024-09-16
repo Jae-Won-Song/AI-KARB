@@ -1,8 +1,9 @@
 .workRateWrapper {
   @include column-flex(start, start);
-  width: 24.195vw;
-  height: 38.542vh;
+  width: 26.195vw;
+  height: 36.542vh;
   padding: 1.829vw 4.167vh 1.829vw 4.167vh;
+  margin-left: 16px;
   gap: 1.463vw;
   border-radius: 12px;
   border: 1px solid #e6edff;

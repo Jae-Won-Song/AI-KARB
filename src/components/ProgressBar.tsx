@@ -10,7 +10,7 @@ const ProgressBar = ({ progressGauge = 0, width = 100, height = 20, className = 
 
   return (
     <div className="progressBar-container">
-      <div className={`progressBar__${className}`} style={{ width: `${width}px`, height: `${height}px` }}>
+      <div className={`progressBar__${className}`} style={{ width: `${width}vw`, height: `${height}px` }}>
         <div
           className={`progressBar__gauge__${className}`}
           style={{ width: `${widthProgress}%`, height: `${height}px` }}
