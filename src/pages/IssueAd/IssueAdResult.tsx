@@ -9,12 +9,17 @@ import arrowUp from '../../assets/arrow-up.svg';
 import iconPlus from '../../assets/icon-plus.svg';
 import { useState } from 'react';
 import Modal from '../../components/Common/Modal';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const IssueAdResult = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActiveSelectReason, setIsActiveSelectReason] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const adDetails = location.state?.adDetails;
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -66,8 +71,6 @@ const IssueAdResult = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const navigate = useNavigate();
-
   const goBack = () => {
     navigate(-1);
   };
@@ -80,10 +83,20 @@ const IssueAdResult = () => {
         </button>
         <div className="IssueAdResult__wrapperLeft_contents">
           <ReviewAdNumber adNumber="A12345" />
-          <AdInfoTable title1="상품명" title2="광고주" content1="명작수" content2="아모레퍼시픽 코리아" />
-          <AdInfoTable title1="업종구분" title2="게재일" content1="식품/음료" content2="2024-07-26" />
-          <AdInfoTable title1="담당자" title2="김민지" content1="최종수정자" content2="김철수" />
-          <div className="IssueAdResult__wrapperLeft_contents_article">기사내용 (스크롤 테스트 완료)</div>
+          <AdInfoTable title1="상품명" title2="광고주" content1={adDetails?.product} content2={adDetails?.advertiser} />
+          <AdInfoTable
+            title1="업종구분"
+            title2="게재일"
+            content1={adDetails?.category}
+            content2={adDetails?.postDate}
+          />
+          <AdInfoTable
+            title1="담당자"
+            title2="최종수정자"
+            content1={adDetails?.assigneeName}
+            content2={adDetails?.modifierName}
+          />
+          <div className="IssueAdResult__wrapperLeft_contents_article">{adDetails?.content}</div>
         </div>
       </article>
       <div className="middleBar"> </div>
