@@ -42,6 +42,7 @@ const IssueAdResult = () => {
     },
   ]);
 
+  // 새로운 검토 의견 추가 관리
   const [newReason, setNewReason] = useState({
     contentNumber: issuedReasons.length + 1,
     articleNumber: 0,
@@ -53,6 +54,7 @@ const IssueAdResult = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // 지적광고 목록 페이지에서 요청한 데이터 응답
   const adDetails = location.state?.adDetails.data;
 
   const handleToggle = () => {
@@ -74,6 +76,7 @@ const IssueAdResult = () => {
 
   const [selectedIndex, setSelectedIndex] = useState<{ reason: number | null }>({ reason: null });
 
+  // 조항 선택
   const handleSelected = (type: 'reason', index: number) => {
     setSelectedIndex((prevState) => ({
       ...prevState,
@@ -90,6 +93,7 @@ const IssueAdResult = () => {
     }));
   };
 
+  // 검수 결과 이유 펼치기 전 말줄임표
   const getShortArticleContent = (reason: string) => {
     if (reason.length > 12) {
       return `${reason.substring(0, 12)}...`;
@@ -118,6 +122,7 @@ const IssueAdResult = () => {
     navigate(-1);
   };
 
+  // 새로운 검수 의견 추가
   const addNewReason = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     setNewReason((prev) => ({
