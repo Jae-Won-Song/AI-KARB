@@ -31,8 +31,8 @@ const TaskSummary = () => {
           <div className="task-wrapper__dailytask">
             <div className="task-wrapper__info">
               <div className="task-wrapper__title" onClick={movemanageTask}>
-                잔여 배분량
-                <img src={rightArrow} alt="잔여 배분량 바로가기" />
+                작업 미배분량
+                <img src={rightArrow} alt="작업배분관리 바로가기" />
               </div>
               <div className="task-wrapper__info__subtitle">30건</div>
             </div>
@@ -42,7 +42,7 @@ const TaskSummary = () => {
             <div className="task-wrapper__info">
               <div className="task-wrapper__title" onClick={moveapproveUser}>
                 가입 미승인 회원
-                <img src={rightArrow} alt="가입 미승인 회원 바로가기" />
+                <img src={rightArrow} alt="가입 요청 관리 바로가기" />
               </div>
               <div className="task-wrapper__info__subtitle">5명</div>
             </div>
