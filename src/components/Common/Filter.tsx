@@ -227,6 +227,11 @@ const Filter = () => {
                 </div>
               </div>
             )}
+
+            <div className="filter__dropdown__container__buttons">
+              <span className="filter__dropdown__container__buttons_reset">초기화</span>
+              <span className="filter__dropdown__container__buttons_apply">적용</span>
+            </div>
           </div>
         </div>
       )}
