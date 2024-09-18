@@ -4,6 +4,7 @@ import SearchBar from '../components/Common/SearchBar';
 import Table from '../components/Common/Table';
 import Tab from '../components/Tab';
 import Modal from '../components/Common/Modal';
+import Toast from '../components/Common/Toast';
 import check from '../assets/check-signup-request.svg';
 
 interface UserData {
@@ -39,6 +40,7 @@ const SignUpRequest = () => {
   const [selectedEmpNos, setSelectedEmpNos] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMode, setModalMode] = useState<'approve' | 'reject' | null>(null);
+  const [toast, setToast] = useState<{ mode: 'success' | 'failed'; title: string; content: string } | null>(null);
 
   const handleCheckboxChange = useCallback((empNo: string) => {
     setSelectedEmpNos((prevSelectedEmpNos) =>
@@ -65,9 +67,19 @@ const SignUpRequest = () => {
           userList: selectedEmpNos.map((empNo) => ({ empNo })),
         });
         console.log('API 호출 성공', response.data);
-        setIsModalOpen(false); // 모달 닫기
+        setIsModalOpen(false);
+        setToast({
+          mode: 'success',
+          title: '승인 완료',
+          content: '회원가입 요청이 승인되었습니다.',
+        });
       } catch (error) {
         console.error('API 호출 실패', error);
+        setToast({
+          mode: 'failed',
+          title: '승인 실패',
+          content: '회원가입 요청 승인에 실패했습니다.',
+        });
       }
     }
   }, [selectedEmpNos]);
@@ -79,9 +91,19 @@ const SignUpRequest = () => {
           userList: selectedEmpNos.map((empNo) => ({ empNo })),
         });
         console.log('API 호출 성공', response.data);
-        setIsModalOpen(false); // 모달 닫기
+        setIsModalOpen(false);
+        setToast({
+          mode: 'success',
+          title: '반려 완료',
+          content: '회원가입 요청이 반려되었습니다.',
+        });
       } catch (error) {
         console.error('API 호출 실패', error);
+        setToast({
+          mode: 'failed',
+          title: '반려 실패',
+          content: '회원가입 요청 반려에 실패했습니다.',
+        });
       }
     }
   }, [selectedEmpNos]);
@@ -153,10 +175,9 @@ const SignUpRequest = () => {
         />
       </div>
 
-      {/* 오버레이와 모달 */}
       {isModalOpen && (
         <>
-          <div className="modal-overlay" /> {/* 배경 오버레이 */}
+          <div className="modal-overlay" />
           <Modal
             title={modalMode === 'approve' ? '가입 승인' : '가입 반려'}
             content={
@@ -170,6 +191,15 @@ const SignUpRequest = () => {
             onClickTwo={modalMode === 'approve' ? confirmApprove : confirmReject}
           />
         </>
+      )}
+
+      {toast && (
+        <Toast
+          mode={toast.mode === 'success' ? 'blue' : 'red'}
+          title={toast.title}
+          content={toast.content}
+          onClose={() => setToast(null)}
+        />
       )}
     </div>
   );
