@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import Input from '../../components/Common/Input';
 import Button from '../../components/Common/Button';
+import Modal from '../../components/Common/Modal';
 import { validateName, validatePhoneNumber, validateCertNo } from '../../utils/inputValidationUtils';
-import { fetchCheckCertNo, fetchSendCertNo } from '../../api/auth/authApi';
+import { fetchCheckCertNo, fetchFindId, fetchSendCertNo } from '../../api/auth/authApi';
+import { useNavigate } from 'react-router-dom';
 
 const FindUser = () => {
   const [focusedBtn, setFocusedBtn] = useState('findId');
@@ -41,12 +43,18 @@ const FindUser = () => {
     setIsTimeUp(true);
   };
 
+  // 모달창
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isFailModalOpen, setIsFailModalOpen] = useState(false);
+
   // 아이디 찾기 요청 때 필요한 api response에서 받아온 정보
   const [certNoCheckToken, setCertNoCheckToken] = useState('');
 
   const handleBtnClick = (buttonType: string) => {
     setFocusedBtn(buttonType);
   };
+
+  const navigate = useNavigate();
 
   const checkIfInputsFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name: filledInput, value } = e.target;
@@ -148,6 +156,8 @@ const FindUser = () => {
       fetchCheckCertNo(payload)
         .then((response) => {
           if (response.data.code === 3104) {
+            console.log(response);
+            console.log(response.data.data.certNoCheckToken);
             setIsCertNoSuccess(true);
             setCertNoSuccessMessage('인증되었습니다');
             setIsCertNoError(false);
@@ -164,6 +174,28 @@ const FindUser = () => {
           setCertNoSuccessMessage('');
         });
     }
+  };
+
+  const handleClickFindIdBtn = () => {
+    const payload = {
+      name,
+      phoneNumber,
+      certNoCheckToken,
+    };
+
+    console.log(payload);
+    console.log('요청 전');
+
+    fetchFindId(payload)
+      .then((response) => {
+        if (response.data.code === 3106) {
+          console.log('성공', response);
+          setIsSuccessModalOpen(true);
+        }
+      })
+      .catch((error) => {
+        setIsFailModalOpen(true);
+      });
   };
 
   return (
@@ -244,10 +276,46 @@ const FindUser = () => {
               </div>
 
               <div className="findId__wrapper__box_button">
-                <Button type="button" state="default" width="20.833vw" height="5.926vh">
+                <Button type="button" state="default" width="20.833vw" height="5.926vh" onClick={handleClickFindIdBtn}>
                   아이디 찾기
                 </Button>
               </div>
+
+              {isSuccessModalOpen && (
+                <div className="FindId__modal">
+                  <Modal
+                    mode="twoBlue"
+                    title="아이디 찾기"
+                    content="회원님의 아이디는 [000] 입니다."
+                    btnContentOne="비밀번호 찾기"
+                    btnContentTwo="로그인하기"
+                    onClickOne={() => {
+                      setIsSuccessModalOpen(false);
+                    }}
+                    onClickTwo={() => {
+                      navigate('/signin');
+                    }}
+                  />
+                </div>
+              )}
+
+              {isFailModalOpen && (
+                <div className="FindId__modal">
+                  <Modal
+                    mode="twoBlue"
+                    title="아이디 찾기"
+                    content="입력하신 정보와 일치하는 아이디가 없습니다"
+                    btnContentOne="취소"
+                    btnContentTwo="회원가입하기"
+                    onClickOne={() => {
+                      setIsFailModalOpen(false);
+                    }}
+                    onClickTwo={() => {
+                      navigate('/signup');
+                    }}
+                  />
+                </div>
+              )}
             </>
           )}
 
