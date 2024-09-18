@@ -8,6 +8,7 @@ import arrowDown from '../../assets/arrow-down.svg';
 const Filter = () => {
   const [isActive, setIsActive] = useState(true);
   const [isMediaOpen, setIsMediaOpen] = useState(false);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
   const toggleActive = () => {
     setIsActive(!isActive);
@@ -19,6 +20,10 @@ const Filter = () => {
 
   const medialToggleActive = () => {
     setIsMediaOpen(!isMediaOpen);
+  };
+
+  const categoryToggleActive = () => {
+    setIsCategoryOpen(!isCategoryOpen);
   };
 
   return (
@@ -128,6 +133,100 @@ const Filter = () => {
                 </div>
               )}
             </div>
+
+            {isCategoryOpen ? (
+              <div className="filter__dropdown__container_category">
+                <div className="filter__dropdown__container_category--open">
+                  <div className="filter__dropdown__container_category--open_toggle">
+                    <div className="filter__dropdown__container_category--open_toggle_title">업종구분</div>
+                    <div
+                      className="filter__dropdown__container_category--open_toggle_arrow"
+                      onClick={categoryToggleActive}>
+                      <img src={arrowUp} alt="위 화살표" />
+                    </div>
+                  </div>
+                  <ul className="filter__dropdown__container_category--open_contents">
+                    <li className="filter__dropdown__container_category--open_contents_list">
+                      <div className="filter__dropdown__container_category--open_contents_list_checkbox">
+                        <input
+                          className="filter__dropdown__container_category--open_contents_list_checkbox_box"
+                          type="checkbox"
+                        />
+                      </div>
+                      <div className="filter__dropdown__container_category--open_contents_list_name">가정용품</div>
+                      <div className="filter__dropdown__container_category--open_contents_list_number">100</div>
+                    </li>
+                    <li className="filter__dropdown__container_category--open_contents_list">
+                      <div className="filter__dropdown__container_category--open_contents_list_checkbox">
+                        <input
+                          className="filter__dropdown__container_category--open_contents_list_checkbox_box"
+                          type="checkbox"
+                        />
+                      </div>
+                      <div className="filter__dropdown__container_category--open_contents_list_name">건강관련용품</div>
+                      <div className="filter__dropdown__container_category--open_contents_list_number">100</div>
+                    </li>
+                    <li className="filter__dropdown__container_category--open_contents_list">
+                      <div className="filter__dropdown__container_category--open_contents_list_checkbox">
+                        <input
+                          className="filter__dropdown__container_category--open_contents_list_checkbox_box"
+                          type="checkbox"
+                        />
+                      </div>
+                      <div className="filter__dropdown__container_category--open_contents_list_name">수송기기</div>
+                      <div className="filter__dropdown__container_category--open_contents_list_number">100</div>
+                    </li>
+                    <li className="filter__dropdown__container_category--open_contents_list">
+                      <div className="filter__dropdown__container_category--open_contents_list_checkbox">
+                        <input
+                          className="filter__dropdown__container_category--open_contents_list_checkbox_box"
+                          type="checkbox"
+                        />
+                      </div>
+                      <div className="filter__dropdown__container_category--open_contents_list_name">식품/음료</div>
+                      <div className="filter__dropdown__container_category--open_contents_list_number">100</div>
+                    </li>
+                    <li className="filter__dropdown__container_category--open_contents_list">
+                      <div className="filter__dropdown__container_category--open_contents_list_checkbox">
+                        <input
+                          className="filter__dropdown__container_category--open_contents_list_checkbox_box"
+                          type="checkbox"
+                        />
+                      </div>
+                      <div className="filter__dropdown__container_category--open_contents_list_name">의료</div>
+                      <div className="filter__dropdown__container_category--open_contents_list_number">100</div>
+                    </li>
+                    <li className="filter__dropdown__container_category--open_contents_list">
+                      <div className="filter__dropdown__container_category--open_contents_list_checkbox">
+                        <input
+                          className="filter__dropdown__container_category--open_contents_list_checkbox_box"
+                          type="checkbox"
+                        />
+                      </div>
+                      <div className="filter__dropdown__container_category--open_contents_list_name">전기/전자</div>
+                      <div className="filter__dropdown__container_category--open_contents_list_number">10</div>
+                    </li>
+                    <li className="filter__dropdown__container_category--open_contents_list">
+                      <div className="filter__dropdown__container_category--open_contents_list_checkbox">
+                        <input
+                          className="filter__dropdown__container_category--open_contents_list_checkbox_box"
+                          type="checkbox"
+                        />
+                      </div>
+                      <div className="filter__dropdown__container_category--open_contents_list_name">정밀사무기기</div>
+                      <div className="filter__dropdown__container_category--open_contents_list_number">100</div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              <div className="filter__dropdown__container_category--close">
+                <div className="filter__dropdown__container_category--close_title">업종구분</div>
+                <div className="filter__dropdown__container_category--close_arrow" onClick={categoryToggleActive}>
+                  <img src={arrowDown} alt="아래 화살표" />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
