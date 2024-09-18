@@ -279,13 +279,15 @@ const FindUser = () => {
               {isSuccessModalOpen && (
                 <div className="FindId__modal">
                   <Modal
-                    mode="twoBlue"
+                    mode="default"
+                    add="blue"
                     title="아이디 찾기"
                     content="회원님의 아이디는 [000] 입니다."
                     btnContentOne="비밀번호 찾기"
                     btnContentTwo="로그인하기"
                     onClickOne={() => {
                       setIsSuccessModalOpen(false);
+                      setFocusedBtn('findPw');
                     }}
                     onClickTwo={() => {
                       navigate('/signin');
@@ -297,7 +299,8 @@ const FindUser = () => {
               {isFailModalOpen && (
                 <div className="FindId__modal">
                   <Modal
-                    mode="twoBlue"
+                    mode="default"
+                    add="blue"
                     title="아이디 찾기"
                     content="입력하신 정보와 일치하는 아이디가 없습니다"
                     btnContentOne="취소"
