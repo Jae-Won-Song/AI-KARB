@@ -1,29 +1,48 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import fetchmytaskData from '../../api/admin/adminApi';
+import fetchDashBoardData from '../../api/dashboard/dashboardApi';
 import Table from '../Common/Table';
 import rightArrow from '../../assets/chevron-right.svg';
 
+interface RecentDoneItem {
+  adId: string;
+  adName: string;
+  adTaskDateTime: string;
+}
+
 const RecentTask = () => {
-  const [cursorId, setCursorId] = useState('');
-  const [cursorState, setCursorState] = useState(false);
+  const [recentDoneList, setRecentDoneList] = useState<RecentDoneItem[]>([]);
   const navigate = useNavigate();
+
   const handleMyTask = () => {
     navigate('/my-task');
   };
 
   useEffect(() => {
-    fetchmytaskData()
-      .then((response) => {
-        const cursorInfo = response.data.data;
-        console.log(cursorInfo);
-        setCursorId(cursorInfo.cursorId);
-        setCursorState(cursorInfo.cursorState);
-      })
-      .catch((error) => {
-        console.error('데이터 조회 실패:', error);
-      });
+    const getRecentDoneList = async () => {
+      try {
+        const response = await fetchDashBoardData();
+        if (response && response.data && response.data.data) {
+          const { recentDoneList } = response.data.data;
+          setRecentDoneList(recentDoneList);
+          console.log(response.data);
+        }
+      } catch (error) {
+        console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
+      }
+    };
+
+    getRecentDoneList();
   }, []);
+
+  const getFormattedData = () => {
+    return recentDoneList.slice(0, 5).map((item, index) => ({
+      번호: index + 1,
+      고유번호: item.adId,
+      상품명: item.adName,
+      작업날짜: item.adTaskDateTime,
+    }));
+  };
 
   const columns = [
     { name: '번호', width: '3vw', columnHeight: '22px', rowHeight: '7px' },
@@ -32,13 +51,7 @@ const RecentTask = () => {
     { name: '작업날짜', width: '9vw', columnHeight: '22px', rowHeight: '7px' },
   ];
 
-  const data = [
-    { 번호: 1, 고유번호: 'abc123', 상품명: '서울우유', 작업날짜: '2024-08-25 13:25' },
-    { 번호: 2, 고유번호: 'cursorId', 상품명: '서울우유', 작업날짜: '2024-08-25 13:25' },
-    { 번호: 3, 고유번호: 'cursorId', 상품명: '서울우유', 작업날짜: '2024-08-25 13:25' },
-    { 번호: 4, 고유번호: 'cursorId', 상품명: '서울우유', 작업날짜: '2024-08-25 13:25' },
-    { 번호: 5, 고유번호: 'cursorId', 상품명: '서울우유', 작업날짜: '2024-08-25 13:25' },
-  ];
+  const data = getFormattedData();
 
   return (
     <section className="recent-wrapper">
