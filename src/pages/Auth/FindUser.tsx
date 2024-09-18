@@ -49,6 +49,7 @@ const FindUser = () => {
 
   // 아이디 찾기 요청 때 필요한 api response에서 받아온 정보
   const [certNoCheckToken, setCertNoCheckToken] = useState('');
+  const [foundId, setFoundId] = useState('');
 
   const handleBtnClick = (buttonType: string) => {
     setFocusedBtn(buttonType);
@@ -172,6 +173,14 @@ const FindUser = () => {
   };
 
   const handleClickFindIdBtn = () => {
+    if (!isCertNoRequested) {
+      setIsNameError(true);
+      setNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
+      setIsPhoneNumberError(true);
+      setPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
+      return;
+    }
+
     const payload = {
       name,
       phoneNumber,
@@ -185,6 +194,7 @@ const FindUser = () => {
       .then((response) => {
         if (response.data.code === 3106) {
           console.log('성공', response);
+          setFoundId(response.data.data.userId);
           setIsSuccessModalOpen(true);
         }
       })
@@ -282,7 +292,7 @@ const FindUser = () => {
                     mode="default"
                     add="blue"
                     title="아이디 찾기"
-                    content="회원님의 아이디는 [000] 입니다."
+                    content={`회원님의 아이디는 [${foundId}] 입니다.`}
                     btnContentOne="비밀번호 찾기"
                     btnContentTwo="로그인하기"
                     onClickOne={() => {
