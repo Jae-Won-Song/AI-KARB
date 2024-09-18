@@ -178,6 +178,8 @@ const FindUser = () => {
               비밀번호 찾기
             </button>
           </div>
+
+          {/* 아이디 찾기 */}
           {focusedBtn === 'findId' && (
             <>
               <div className="findId__wrapper__box_input">
@@ -248,6 +250,8 @@ const FindUser = () => {
               </div>
             </>
           )}
+
+          {/* 비밀번호 찾기 */}
           {focusedBtn === 'findPw' && (
             <>
               <div className="findId__wrapper__box_input">
