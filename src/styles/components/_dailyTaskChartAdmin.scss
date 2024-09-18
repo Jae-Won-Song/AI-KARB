@@ -1,12 +1,12 @@
 .dailyChartWrapper {
   display: inline-flex;
-  width: 17.573vw;
+  width: 19.573vw;
   height: 44.863vh;
-  padding: 1.829vw 2.292vh 1.829vw 3.125vh;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
-  gap: var(--24, 24px);
+  gap: 1.463vw;
   border-radius: 12px;
   border: 1px solid #e6edff;
   background: $white;
@@ -52,7 +52,6 @@
 
       &__percentage {
         @include text-style(15, #64aca7, 700);
-        // margin-left: 20px;
         line-height: 150%;
       }
     }

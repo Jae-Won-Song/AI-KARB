@@ -84,6 +84,10 @@ const DailyChartAdmin = ({ data }: ChartProps) => {
         enableArea
         areaOpacity={0.1}
         colors={colors}
+        pointSize={0}
+        axisLeft={{
+          tickValues: [50, 100, 200],
+        }}
         defs={
           selectedPerson
             ? [
