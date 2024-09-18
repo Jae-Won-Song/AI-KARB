@@ -47,6 +47,7 @@
 
     &__container {
       @include column-flex(start, start);
+      position: relative;
 
       height: 100%;
       background-color: beige;
@@ -237,6 +238,24 @@
             padding-right: 0.5vw;
             cursor: pointer;
           }
+        }
+      }
+
+      &__buttons {
+        @include flex(end, center);
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        gap: 1.042vw;
+
+        &_reset {
+          @include text-style(15, $grayscale-50, 400);
+          cursor: pointer;
+        }
+
+        &_apply {
+          @include text-style(15, $primary-50, 400);
+          cursor: pointer;
         }
       }
     }
