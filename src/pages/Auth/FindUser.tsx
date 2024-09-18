@@ -277,7 +277,7 @@ const FindUser = () => {
               </div>
 
               {isSuccessModalOpen && (
-                <div className="FindId__modal">
+                <div className="FindUser__modal">
                   <Modal
                     mode="default"
                     add="blue"
@@ -297,7 +297,7 @@ const FindUser = () => {
               )}
 
               {isFailModalOpen && (
-                <div className="FindId__modal">
+                <div className="FindUser__modal">
                   <Modal
                     mode="default"
                     add="blue"
