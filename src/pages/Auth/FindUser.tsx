@@ -122,11 +122,6 @@ const FindUser = () => {
         })
         .catch((error) => {
           console.error('인증번호 발송 오류', error);
-          if (error.response.data.code === 3153) {
-            setIsPhoneNumberError(true);
-            setPhoneNumberErrorMessage('회원정보가 존재합니다');
-            isValid = false;
-          }
           if (isValid) {
             setAddCertNoInput(false);
           }
