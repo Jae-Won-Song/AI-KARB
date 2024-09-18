@@ -209,37 +209,37 @@ const FindUser = () => {
                     {isCertNoRequested ? '재전송' : '인증요청'}
                   </Button>
                 </div>
-              </div>
 
-              {addCertNoInput && (
-                <div className="signUp__wrapper__box_input_box">
-                  <Input
-                    placeholder="인증번호"
-                    size="small"
-                    name="certNo"
-                    value={certNo}
-                    onChange={checkIfInputsFilled}
-                    isError={isCertNoError}
-                    errorMessage={certNoErrorMessage}
-                    isSuccess={isCertNoSuccess}
-                    successMessage={certNoSuccessMessage}
-                    timer
-                    onTimeUp={handleTimeUp}
-                    resetTrigger={resetTimer}
-                  />
-                  <div className="signUp__wrapper__box_input_box_button">
-                    <Button
-                      type="button"
-                      state={isCertNoCheckBtnDisabled ? 'disabled' : 'default'}
-                      width="5.417vw"
-                      height="4.815vh"
-                      fontSize="0.781vw"
-                      onClick={handleClickCertNoCheckBtn}>
-                      확인
-                    </Button>
+                {addCertNoInput && (
+                  <div className="signUp__wrapper__box_input_box">
+                    <Input
+                      placeholder="인증번호"
+                      size="small"
+                      name="certNo"
+                      value={certNo}
+                      onChange={checkIfInputsFilled}
+                      isError={isCertNoError}
+                      errorMessage={certNoErrorMessage}
+                      isSuccess={isCertNoSuccess}
+                      successMessage={certNoSuccessMessage}
+                      timer
+                      onTimeUp={handleTimeUp}
+                      resetTrigger={resetTimer}
+                    />
+                    <div className="signUp__wrapper__box_input_box_button">
+                      <Button
+                        type="button"
+                        state={isCertNoCheckBtnDisabled ? 'disabled' : 'default'}
+                        width="5.417vw"
+                        height="4.815vh"
+                        fontSize="0.781vw"
+                        onClick={handleClickCertNoCheckBtn}>
+                        확인
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
 
               <div className="findId__wrapper__box_button">
                 <Button type="button" state="default" width="20.833vw" height="5.926vh">
