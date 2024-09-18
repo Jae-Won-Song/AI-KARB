@@ -138,9 +138,9 @@ const FindUser = () => {
     } else {
       setIsCertNoError(false);
 
-      // 인증 api 요청
+      // 인증번호 확인 요청
       const payload = {
-        type: 'SignUp',
+        type: 'FindId',
         phoneNumber,
         certNo,
       };
