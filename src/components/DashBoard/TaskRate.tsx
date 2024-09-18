@@ -24,8 +24,7 @@ const TaskRate = () => {
       });
   }, []);
 
-  const myProgress = totalAdData > 0 ? Math.round((myDoneAdData / totalAdData) * 100) : 0;
-
+  const myProgress = myAdData > 0 ? Math.round((myDoneAdData / myAdData) * 100) : 0;
   const totalProgress = totalAdData > 0 ? Math.round((totalDoneAdData / totalAdData) * 100) : 0;
 
   return (
@@ -36,7 +35,7 @@ const TaskRate = () => {
           <img src={myrate} alt="my-rate" />
           <div className="rate-wrapper__label">나</div>
         </div>
-        <ProgressBar width={387} height={15} progressGauge={myProgress} className="mine" />
+        <ProgressBar width={20.156} height={15} progressGauge={myProgress} className="mine" />
         <div className="rate-wrapper__text">
           {myDoneAdData} / {myAdData}건
         </div>
@@ -46,7 +45,7 @@ const TaskRate = () => {
           <img src={allrate} alt="all-rate" />
           <div className="rate-wrapper__label">전체</div>
         </div>
-        <ProgressBar width={387} height={15} progressGauge={totalProgress} className="all" />
+        <ProgressBar width={20.156} height={15} progressGauge={totalProgress} className="all" />
         <div className="rate-wrapper__text">
           {totalDoneAdData} / {totalAdData}건
         </div>

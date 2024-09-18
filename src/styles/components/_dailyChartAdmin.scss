@@ -1,13 +1,13 @@
 .daily-chartAdmin {
   position: relative;
-  width: 57.317vw;
-  height: 38.542vh;
+  width: 54vw;
+  height: 36.542vh;
   padding: 1.829vw 4.167vh 1.829vw 4.167vh;
-  gap: 0.5208vw;
+  margin-right: 16px;
   border-radius: 12px;
   border: 1px solid #e6edff;
   background: $white;
-  box-shadow: 0.208vw 0.208vw 0.52vw 0px rgba(220, 220, 220, 0.2);
+  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
 
   &__wrapper {
     @include column-flex(center, start);
@@ -45,12 +45,12 @@
 
         &__options {
           position: absolute;
-          top: 9.7vh;
-          right: 5.7vw;
+          top: 30%;
+          right: 10%;
           width: 4.1667vw;
           padding: 0.366vw 0.625vh 0 0.625vh;
           background-color: $white;
-          border: 0.052vw solid $grayscale-40;
+          border: 1px solid $grayscale-40;
           border-radius: 0.4167vw;
           max-height: 29.2593vh;
           overflow-y: auto;

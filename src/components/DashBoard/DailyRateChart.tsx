@@ -6,7 +6,6 @@ import { getDeadline } from './DashBoardDate';
 import rateDone from '../../assets/rate-done.svg';
 import rateNotDone from '../../assets/rate-notdone.svg';
 
-// !
 interface AdCount {
   myNotDoneAd: number;
 }
@@ -29,13 +28,10 @@ const DailyrateChart = () => {
   useEffect(() => {
     fetchDashBoardData()
       .then((response) => {
-        // 디스트럭처링?
         const { data } = response.data;
         const adCountData = data.adCount;
         setAdCount(adCountData);
         setDailyDoneListData(data.dailyDoneList);
-        console.log(data.dailyDoneList[0]);
-
         const deadline = getDeadline();
 
         if (deadline > 0) {

@@ -7,7 +7,9 @@ const accesstoken =
  * axios 인스턴스 생성
  */
 const instance = axios.create({
-  baseURL: 'http://13.124.172.3',
+  baseURL: 'https://www.neuroflow-fastcampus.store',
+  // https://www.neuroflow-fastcampus.store
+  // http://13.124.172.3:8880
 });
 
 instance.interceptors.request.use(
