@@ -12,7 +12,7 @@ export const fetchSendCertNo = (payload: { type: string; phoneNumber: string }) 
  * 인증번호 확인
  * @param payload {type, phoneNumber, certNo}
  */
-export const fetchCheckCertNoDuringSignUp = (payload: { type: string; phoneNumber: string; certNo: string }) => {
+export const fetchCheckCertNo = (payload: { type: string; phoneNumber: string; certNo: string }) => {
   return instance.post('/api/v1/auth/check-cert-no', payload);
 };
 
