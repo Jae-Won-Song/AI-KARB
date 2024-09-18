@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FilterIcon from '../../assets/icon-filter.svg';
 import FilterIconActive from '../../assets/icon-filter-a.svg';
 import SearchInput from './SearchInput';
@@ -6,7 +6,7 @@ import arrowUp from '../../assets/arrow-up.svg';
 import arrowDown from '../../assets/arrow-down.svg';
 
 const Filter = () => {
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(false);
   const [isMediaOpen, setIsMediaOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
@@ -26,12 +26,24 @@ const Filter = () => {
     setIsCategoryOpen(!isCategoryOpen);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+
+      if (target && !target.closest('.filter')) {
+        setIsActive(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="filter">
-      <button
-        className={`filter__filterBtn ${isActive ? 'filter__filterBtn--active' : ''}`}
-        onClick={toggleActive}
-        onBlur={handleBlur}>
+      <button className={`filter__filterBtn ${isActive ? 'filter__filterBtn--active' : ''}`} onClick={toggleActive}>
         <span className="filter__filterBtn__span">필터</span>
         <div className="filter__filterBtn__icon">
           <img src={isActive ? FilterIconActive : FilterIcon} alt="필터 이미지" />
