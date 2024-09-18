@@ -108,21 +108,16 @@ const FindUser = () => {
         phoneNumber,
       };
 
-      console.log('api 요청 전');
-
       fetchSendCertNo(payload)
         .then((response) => {
-          console.log('api 요청은 됨');
           if (response.data.code === 3103) {
-            console.log('인증번호 발송 요청 성공');
             setIsCertNoRequested(true);
           }
           if (isValid) {
             setAddCertNoInput(true);
           }
         })
-        .catch((error) => {
-          console.error('인증번호 발송 오류', error);
+        .catch(() => {
           if (isValid) {
             setAddCertNoInput(false);
           }
@@ -152,8 +147,6 @@ const FindUser = () => {
       fetchCheckCertNo(payload)
         .then((response) => {
           if (response.data.code === 3104) {
-            console.log(response);
-            console.log(response.data.data.certNoCheckToken);
             setIsCertNoSuccess(true);
             setCertNoSuccessMessage('인증되었습니다');
             setIsCertNoError(false);
@@ -187,13 +180,9 @@ const FindUser = () => {
       certNoCheckToken,
     };
 
-    console.log(payload);
-    console.log('요청 전');
-
     fetchFindId(payload)
       .then((response) => {
         if (response.data.code === 3106) {
-          console.log('성공', response);
           setFoundId(response.data.data.userId);
           setIsSuccessModalOpen(true);
         }
