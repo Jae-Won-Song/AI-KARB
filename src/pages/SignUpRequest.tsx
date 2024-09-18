@@ -3,9 +3,9 @@ import instance from '../api/apiConfig';
 import SearchBar from '../components/Common/SearchBar';
 import Table from '../components/Common/Table';
 import Tab from '../components/Tab';
+import Modal from '../components/Common/Modal';
 import check from '../assets/check-signup-request.svg';
 
-// 재원이한테 내보내달라 부탁하기
 interface UserData {
   cursorId: number;
   name: string;
@@ -37,6 +37,8 @@ const SignUpRequest = () => {
   const [userData, setUserData] = useState<UserData[]>([]);
   const [tableData, setTableData] = useState<TableData[]>([]);
   const [selectedEmpNos, setSelectedEmpNos] = useState<string[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [modalMode, setModalMode] = useState<'approve' | 'reject' | null>(null);
 
   const handleCheckboxChange = useCallback((empNo: string) => {
     setSelectedEmpNos((prevSelectedEmpNos) =>
@@ -46,33 +48,41 @@ const SignUpRequest = () => {
     );
   }, []);
 
-  const handleApprove = useCallback(async () => {
+  const handleApprove = useCallback(() => {
+    setModalMode('approve');
+    setIsModalOpen(true);
+  }, []);
+
+  const handleReject = useCallback(() => {
+    setModalMode('reject');
+    setIsModalOpen(true);
+  }, []);
+
+  const confirmApprove = useCallback(async () => {
     if (selectedEmpNos.length > 0) {
-      selectedEmpNos.forEach(async (empNo) => {
-        try {
-          const response = await instance.post('/api/v1/admin/approve-user', {
-            userList: [{ empNo }],
-          });
-          console.log('API 호출 성공', response.data);
-        } catch (error) {
-          console.error('API 호출 실패', error);
-        }
-      });
+      try {
+        const response = await instance.post('/api/v1/admin/approve-user', {
+          userList: selectedEmpNos.map((empNo) => ({ empNo })),
+        });
+        console.log('API 호출 성공', response.data);
+        setIsModalOpen(false); // 모달 닫기
+      } catch (error) {
+        console.error('API 호출 실패', error);
+      }
     }
   }, [selectedEmpNos]);
 
-  const handleReject = useCallback(async () => {
+  const confirmReject = useCallback(async () => {
     if (selectedEmpNos.length > 0) {
-      selectedEmpNos.forEach(async (empNo) => {
-        try {
-          const response = await instance.post('/api/v1/admin/reject-user', {
-            userList: [{ empNo }],
-          });
-          console.log('API 호출 성공', response.data);
-        } catch (error) {
-          console.error('API 호출 실패', error);
-        }
-      });
+      try {
+        const response = await instance.post('/api/v1/admin/reject-user', {
+          userList: selectedEmpNos.map((empNo) => ({ empNo })),
+        });
+        console.log('API 호출 성공', response.data);
+        setIsModalOpen(false); // 모달 닫기
+      } catch (error) {
+        console.error('API 호출 실패', error);
+      }
     }
   }, [selectedEmpNos]);
 
@@ -99,8 +109,8 @@ const SignUpRequest = () => {
             연락처: item.phoneNum,
             이메일: item.email,
             가입요청일: item.signUpRequestDateTime,
-            승인버튼: <button onClick={() => handleApprove()}>승인</button>,
-            반려버튼: <button onClick={() => handleReject()}>반려</button>,
+            승인버튼: <button onClick={handleApprove}>승인</button>,
+            반려버튼: <button onClick={handleReject}>반려</button>,
           }));
           setTableData(formattedData);
         }
@@ -142,6 +152,25 @@ const SignUpRequest = () => {
           data={tableData}
         />
       </div>
+
+      {/* 오버레이와 모달 */}
+      {isModalOpen && (
+        <>
+          <div className="modal-overlay" /> {/* 배경 오버레이 */}
+          <Modal
+            title={modalMode === 'approve' ? '가입 승인' : '가입 반려'}
+            content={
+              modalMode === 'approve' ? '회원가입 요청을 승인하시겠습니까?' : '회원가입 요청을 반려하시겠습니까?'
+            }
+            btnContentOne="취소"
+            btnContentTwo={modalMode === 'approve' ? '승인' : '반려'}
+            add="blue"
+            mode="default"
+            onClickOne={() => setIsModalOpen(false)}
+            onClickTwo={modalMode === 'approve' ? confirmApprove : confirmReject}
+          />
+        </>
+      )}
     </div>
   );
 };
