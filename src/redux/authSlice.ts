@@ -7,6 +7,7 @@ export interface UserInfo {
   empNo: string;
   email: string;
   authority: string;
+  accessToken: string;
 }
 
 interface AuthState {
@@ -23,13 +24,14 @@ const authSlice = createSlice({
   reducers: {
     login: (state, action: PayloadAction<UserInfo>) => {
       state.user = action.payload;
-      const { id, name, phoneNumber, empNo, email, authority } = action.payload;
+      const { id, name, phoneNumber, empNo, email, authority, accessToken } = action.payload;
       localStorage.setItem('id', id);
       localStorage.setItem('name', name);
       localStorage.setItem('phoneNumber', phoneNumber);
       localStorage.setItem('empNo', empNo);
       localStorage.setItem('email', email);
       localStorage.setItem('authority', authority);
+      localStorage.setItem('accessToken', accessToken);
     },
     logout: (state) => {
       state.user = null;
@@ -39,6 +41,7 @@ const authSlice = createSlice({
       localStorage.removeItem('empNo');
       localStorage.removeItem('email');
       localStorage.removeItem('authority');
+      localStorage.removeItem('accessToken');
     },
     loadUserFromLocalStorage: (state) => {
       const id = localStorage.getItem('id');
@@ -47,9 +50,10 @@ const authSlice = createSlice({
       const empNo = localStorage.getItem('empNo');
       const email = localStorage.getItem('email');
       const authority = localStorage.getItem('authority');
+      const accessToken = localStorage.getItem('accessToken');
 
-      if (id && name && phoneNumber && empNo && email && authority) {
-        state.user = { id, name, phoneNumber, empNo, email, authority };
+      if (id && name && phoneNumber && empNo && email && authority && accessToken) {
+        state.user = { id, name, phoneNumber, empNo, email, authority, accessToken };
       }
     },
   },
