@@ -48,3 +48,11 @@ export const fetchRequestSignUp = (payload: {
 export const fetchSignIn = (payload: { id: string; password: string }) => {
   return instance.post('/api/v1/auth/signin', payload);
 };
+
+/*
+ * 아이디 찾기
+ * @param payload {name, phoneNumber, certNoCheckToken}
+ */
+export const fetchFindId = (payload: { name: string; phoneNumber: string; certNoCheckToken: string }) => {
+  return instance.post('/api/v1/auth/find-id', payload);
+};
