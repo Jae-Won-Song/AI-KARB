@@ -9,10 +9,10 @@ const RecentTask = () => {
   };
 
   const columns = [
-    { name: '번호', width: '60px', columnHeight: '22px', rowHeight: '17px' },
-    { name: '고유번호', width: '100px', columnHeight: '22px', rowHeight: '17px' },
-    { name: '상품명', width: '140px', columnHeight: '22px', rowHeight: '17px' },
-    { name: '작업날짜', width: '160px', columnHeight: '22px', rowHeight: '17px' },
+    { name: '번호', width: '3vw', columnHeight: '22px', rowHeight: '7px' },
+    { name: '고유번호', width: '6vw', columnHeight: '22px', rowHeight: '7px' },
+    { name: '상품명', width: '8vw', columnHeight: '22px', rowHeight: '7px' },
+    { name: '작업날짜', width: '9vw', columnHeight: '22px', rowHeight: '7px' },
   ];
 
   const data = [

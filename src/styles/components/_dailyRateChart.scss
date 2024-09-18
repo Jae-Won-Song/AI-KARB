@@ -1,41 +1,37 @@
 .dailyRateWrapper {
-  @include flex(between, center);
-  flex-direction: column;
-  width: 12.708vw;
-  height: 27.7778vh;
-  padding: 1.5625vw;
-  gap: 0.5208vw;
-  border-radius: 0.625vw;
-  border: 0.052vw solid #e6edff;
-  box-shadow: 0.208vw 0.208vw 0.521vw 0px rgba(220, 220, 220, 0.2);
+  @include column-flex(between, center);
+  width: 11.22vw;
+  height: 28.125vh;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  margin-left: 0.671vw;
+  gap: 0.61vw;
+  border-radius: 12px;
+  border: 1px solid $grayscale-10;
+  box-shadow: 4px 4px 10px 0 rgba($grayscale-40, 0.2);
 
   &__title {
-    @include flex(start, start);
-    flex-direction: column;
+    @include column-flex(start, start);
     align-self: stretch;
     color: $grayscale-90;
-    font-size: 25px;
-    font-weight: 700;
-    line-height: 150%;
+    @include text-style(25, $grayscale-90, 700);
   }
 
   &__subtitle {
-    @include flex(between, center);
+    @include flex;
     width: 100%;
 
     &__legend {
-      @include flex(between, center);
-      width: 4.427vw;
-      font-size: 0.7813vw;
-      line-height: 150%;
+      @include flex(evenly, center);
+      // width: 200px;
+      @include text-style(15, $grayscale-50, 400);
 
       &__main {
-        color: #555;
+        color: $grayscale-70;
         font-weight: 400;
       }
 
       &__compare {
-        color: #1d1d1d;
+        color: $grayscale-90;
         font-weight: 700;
       }
     }

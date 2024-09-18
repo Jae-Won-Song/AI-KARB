@@ -1,29 +1,26 @@
 .recent-wrapper {
   @include column-flex;
-  justify-content: normal;
-  padding: 30px;
-  width: 536px;
-  height: 400px;
-  gap: 24px;
+  width: 29.024vw;
+  height: 35.417vh;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  margin-left: 0.732vw;
+  gap: 1.463vw;
   border-radius: 12px;
   border: 1px solid #e6edff;
   box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
 
   &__header {
     @include flex(between, center);
+    margin-top: 10px;
     align-self: stretch;
 
     &__title {
-      color: $grayscale-80;
-      font-size: 25px;
-      font-weight: 700;
+      @include text-style(25, $grayscale-80, 700);
       line-height: 150%;
     }
 
     &__detail {
-      color: $grayscale-70;
-      font-size: 13px;
-      font-weight: 400;
+      @include text-style(13, $grayscale-70, 400);
       line-height: 150%;
     }
 
@@ -37,9 +34,7 @@
 
     &__head {
       padding: 14px 16px 14px 16px;
-      color: $primary-60;
-      font-size: 15px;
-      font-weight: 400;
+      @include text-style(15, $primary-60, 400);
       text-align: left;
       line-height: 150%;
 
@@ -63,9 +58,8 @@
       &__data {
         @include flex;
         padding: 16px;
+        @include text-style(15, $grayscale-70, 400);
         border-bottom: 1px solid $grayscale-30;
-        color: $grayscale-70;
-
         &:last-child {
           border: none;
         }

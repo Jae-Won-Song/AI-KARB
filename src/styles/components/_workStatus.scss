@@ -1,35 +1,38 @@
 .workStatus-wrapper {
-  @include flex(center, start);
-  width: 48.625rem;
-  padding: 1.875rem;
-  flex-direction: column;
-  gap: var(--24, 1.5rem);
-  border-radius: var(--12, 0.75rem);
+  @include column-flex(center, start);
+  position: relative;
+  width: 40.65vw;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  margin-right: 11px;
+  gap: 24px;
+  border-radius: 12px;
   border: 1px solid #e6edff;
   background: $white;
   box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
 
   &__title {
-    color: var(--Gray-Gray-90, #1d1d1d);
-    font-size: 25px;
-    font-weight: 700;
+    @include text-style(25, $grayscale-90, 700);
     line-height: 150%;
   }
 
   &__task {
     @include flex;
     gap: var(--24, 24px);
-    position: relative;
     width: 100%;
     align-items: center;
-
     &__image-container {
+      @include flex;
+      top: 0;
+      left: 0;
       position: relative;
+      &-img {
+        width: 11.458vw;
+        height: 16.667vh;
+      }
     }
 
     &__info {
-      @include flex(between, start);
-      flex-direction: column;
+      @include column-flex(between, start);
       position: absolute;
       top: 0;
       left: 0;
@@ -45,27 +48,22 @@
       }
 
       &__counts {
-        font-size: 13px;
-        font-weight: 400;
+        @include text-style(13, $white, 300);
         margin-bottom: 7px;
       }
 
       &__title {
-        font-size: 15px;
-        font-weight: 700;
+        @include text-style(15, $white, 700);
         line-height: 150%;
       }
 
       &__count {
         @include flex(center, end);
-        font-size: 40px;
-        font-weight: 700;
+        @include text-style(40, $white, 700);
         padding-bottom: 1.5px;
 
         &__text {
-          font-size: 13px;
-          font-weight: 400;
-          // margin-bottom: 7px;
+          @include text-style(13, $white, 400);
         }
       }
       &__admin-count {
@@ -74,23 +72,18 @@
 
       &__admin-counts {
         @include flex(center, end);
-        font-size: 40px;
-        font-weight: 700;
         padding-bottom: 1.5px;
+        @include text-style(40, $white, 700);
       }
 
       &__text {
-        color: var(--Primary-Primary-0, #fff);
-        font-size: 13px;
-        font-style: normal;
-        font-weight: 400;
+        @include text-style(13, $white, 400);
         line-height: 150%;
       }
 
       &__subcount {
         @include inline-flex;
-        font-size: 13px;
-        font-weight: 400;
+        @include text-style(13, $white, 400);
 
         &__total {
           margin-right: 5px;

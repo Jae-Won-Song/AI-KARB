@@ -1,24 +1,23 @@
 .dailyRateContainer {
-  @include flex;
-  width: 378px;
-  height: 270px;
-  padding: 30px;
-  flex-direction: column;
-  gap: 24px;
+  @include column-flex;
+  width: 19.39vw;
+  height: 28.125vh;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  margin-left: 11px;
+  gap: 1.463vw;
   background-color: $white;
   border-radius: 12px;
   border: 1px solid #e6edff;
   box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
 
   &__title {
-    @include flex(start, start);
-    flex-direction: column;
+    @include column-flex(start, start);
     align-self: stretch;
   }
 
   &__gauge {
-    width: 280px;
-    height: 144px;
+    width: 14.583vw;
+    height: 14.333vh;
     position: relative;
     overflow: hidden;
   }
@@ -30,6 +29,9 @@
   width: 280px;
   height: 280px;
   border-radius: 50%;
+  @media (max-width: '200px') {
+    display: none;
+  }
 
   &__rate {
     width: 280px;
@@ -53,7 +55,7 @@
     &__percentage {
       color: #006597;
       position: absolute;
-      top: 40%;
+      top: 30%;
       left: 50%;
       transform: translate(-50%, -50%);
       font-size: 30px;

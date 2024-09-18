@@ -1,50 +1,41 @@
 .dailyChartWrapper {
   display: inline-flex;
-  width: 373px;
-  height: 435px;
-  padding: 30px 22px 30px 30px;
+  width: 19.573vw;
+  height: 44.863vh;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: flex-start;
-  gap: var(--24, 24px);
-  flex-shrink: 0;
-  border-radius: var(--12, 12px);
+  gap: 1.463vw;
+  border-radius: 12px;
   border: 1px solid #e6edff;
-  background: #fff;
+  background: $white;
   box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
 
   &__info {
     &__title {
-      color: var(--Gray-Gray-90, #1d1d1d);
-      font-size: 25px;
-      font-weight: 700;
+      @include text-style(25, $grayscale-90, 700);
       line-height: 150%;
     }
 
     &__wrapper {
       @include flex(between, center);
-      width: 226px;
+      width: 13.78vw;
 
       &__count {
-        color: var(--Gray-Gray-90, #1d1d1d);
-        font-size: 32px;
-        font-weight: 700;
+        @include text-style(32, $grayscale-90, 700);
         line-height: 150%;
         letter-spacing: 0.32px;
       }
 
       &__eve {
-        color: var(--Gray-Gray-70, #555);
-        font-size: 15px;
-        font-weight: 400;
+        @include text-style(15, $grayscale-70, 400);
         line-height: 150%;
       }
 
       &__plusCount {
         position: relative;
-        color: var(--Point-Green-green-50, #64aca7);
-        font-size: 15px;
-        font-weight: 700;
+        @include text-style(15, #83c5c1, 700);
         line-height: 150%;
 
         &::after {
@@ -60,10 +51,7 @@
       }
 
       &__percentage {
-        margin-left: 20px;
-        color: var(--Point-Green-green-50, #64aca7);
-        font-size: 15px;
-        font-weight: 700;
+        @include text-style(15, #64aca7, 700);
         line-height: 150%;
       }
     }

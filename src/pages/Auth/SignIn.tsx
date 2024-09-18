@@ -4,6 +4,9 @@ import Button from '../../components/Common/Button';
 import Input from '../../components/Common/Input';
 import errorIcon from '../../assets/icon-error.svg';
 import { fetchSignIn } from '../../api/auth/authApi';
+import { handleKeyDown } from '../../utils/keyDownUtils';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/authSlice';
 
 const SignIn = () => {
   // input value 관리
@@ -22,6 +25,7 @@ const SignIn = () => {
   const [isExistAccount, setIsExistAccount] = useState(true);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = () => {
     // 아이디 검사
@@ -51,6 +55,15 @@ const SignIn = () => {
     fetchSignIn(payload)
       .then((response) => {
         if (response.data.code === 3105) {
+          const userInfo = {
+            id: response.data.data.userInfo.id,
+            name: response.data.data.userInfo.name,
+            phoneNumber: response.data.data.userInfo.phoneNumber,
+            empNo: response.data.data.userInfo.empNo,
+            email: response.data.data.userInfo.email,
+            authority: response.data.data.userInfo.authority,
+          };
+          dispatch(login(userInfo));
           navigate('/');
         }
       })
@@ -75,6 +88,7 @@ const SignIn = () => {
               isError={isIdError}
               errorMessage={idErrorMessage}
               onChange={(e) => setId(e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, handleSubmit)}
             />
             <Input
               placeholder="비밀번호"
@@ -83,6 +97,7 @@ const SignIn = () => {
               isError={isPasswordError}
               errorMessage={passwordErrorMessage}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, handleSubmit)}
             />
           </div>
 

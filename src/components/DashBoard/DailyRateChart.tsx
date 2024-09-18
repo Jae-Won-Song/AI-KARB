@@ -17,7 +17,7 @@ const DailyrateChart = () => {
             value={percentage}
             text={`${percentage}%`}
             strokeWidth={8}
-            className="circular-progressbar" // 추가된 className
+            className="circular-progressbar"
             styles={buildStyles({
               rotation: 0.5,
               strokeLinecap: 'round',

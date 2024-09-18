@@ -5,25 +5,25 @@ import TaskRateAdmin from '../../components/DashBoard/TaskRateAdmin';
 import DailyTaskChartAdmin from '../../components/DashBoard/DailyTaskChartAdmin';
 import admindata from '../../../admindata.json';
 import data from '../../../comparedata.json';
-import workerData from '../../../workerRateData.json';
+import workerRateData from '../../../workerRateData.json';
 import DailyChartAdmin from '../../components/DashBoard/DailyChartAdmin';
 import WorkRateAdmin from '../../components/DashBoard/WorkerRateAdmin';
 
 const AdminDashBoard = () => {
   return (
     <div style={{ background: 'white', height: '100%', paddingTop: '10px' }}>
-      <div style={{ display: 'flex', marginLeft: '30px' }}>
+      <div style={{ display: 'flex', marginLeft: '30px', marginRight: '30px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', marginRight: '20px' }}>
           <div style={{ display: 'flex', marginBottom: '25px' }}>
-            <div style={{ marginRight: '12px' }}>
+            <div>
               <DashBoardDate />
             </div>
-            <div style={{ marginLeft: '12px' }}>
+            <div>
               <TaskSummary />
             </div>
           </div>
           <div style={{ display: 'flex', marginBottom: '25px' }}>
-            <div style={{ marginRight: '24px' }}>
+            <div>
               <WorkStatus />
             </div>
             <div>
@@ -31,13 +31,15 @@ const AdminDashBoard = () => {
             </div>
           </div>
         </div>
-        <DailyTaskChartAdmin data={admindata} />
+        <div>
+          <DailyTaskChartAdmin data={admindata} />
+        </div>
       </div>
       <div style={{ display: 'flex', marginLeft: '29px' }}>
-        <div style={{ marginRight: '32px' }}>
+        <div>
           <DailyChartAdmin data={data} />
         </div>
-        <WorkRateAdmin data={workerData} />
+        <WorkRateAdmin data={workerRateData} />
       </div>
     </div>
   );

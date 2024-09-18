@@ -9,15 +9,17 @@ const WorkStatus = () => {
 
   return (
     <section>
-      <div style={{ height: isAdminRoute ? '270px' : '300px' }} className="workStatus-wrapper">
-        <h1 className="workStatus-wrapper__title">작업현황</h1>
+      <div style={{ height: isAdminRoute ? '28.125vh' : '28.125vh' }} className="workStatus-wrapper">
+        {!isAdminRoute && <h1 className="workStatus-wrapper__title">작업현황</h1>}
+        {isAdminRoute && <h1 className="workStatus-wrapper__title">전체 작업 현황</h1>}
         <div className="workStatus-wrapper__task">
           <div className="workStatus-wrapper__task__allTask">
             <div className="workStatus-wrapper__task__image-container">
-              <img src={allTask} alt="전체 작업 이미지" />
+              <img className="workStatus-wrapper__task__image-container-img" src={allTask} alt="전체 작업 이미지" />
+
               <div className="workStatus-wrapper__task__info">
                 <div className="workStatus-wrapper__task__info__wrapper">
-                  <div className="workStatus-wrapper__task__info__title">전체작업</div>
+                  <div className="workStatus-wrapper__taskinfo__title">전체작업</div>
                   {!isAdminRoute && (
                     <div className="workStatus-wrapper__task__info__count">
                       421
@@ -43,7 +45,8 @@ const WorkStatus = () => {
           </div>
           <div className="workStatus-wrapper__task__doneTask">
             <div className="workStatus-wrapper__task__image-container">
-              <img src={doneTask} alt="완료 작업 이미지" />
+              <img className="workStatus-wrapper__task__image-container-img" src={doneTask} alt="완료 작업 이미지" />
+
               <div className="workStatus-wrapper__task__info">
                 <div className="workStatus-wrapper__task__info__wrapper">
                   <div className="workStatus-wrapper__task__info__title">완료건</div>
@@ -71,7 +74,8 @@ const WorkStatus = () => {
           </div>
           <div className="workStatus-wrapper__task__notDoneTask">
             <div className="workStatus-wrapper__task__image-container">
-              <img src={notDone} alt="미완료 작업 이미지" />
+              <img className="workStatus-wrapper__task__image-container-img" src={notDone} alt="미완료 작업 이미지" />
+
               <div className="workStatus-wrapper__task__info">
                 <div className="workStatus-wrapper__task__info__wrapper">
                   <div className="workStatus-wrapper__task__info__title">미완료건</div>

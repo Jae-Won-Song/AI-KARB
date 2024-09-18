@@ -1,12 +1,12 @@
 .progressBar-wrapper {
   @include flex(start, center);
-  height: 4rem;
+  height: 6.667vh;
   gap: 1.25rem;
   padding: 16px;
 
   &__mainbar {
-    width: 13.125rem;
-    height: 10px;
+    width: 12.805vw;
+    height: 1.042vh;
     background-color: #c1cfe4;
     border-radius: 12px;
 

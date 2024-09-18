@@ -4,8 +4,8 @@
   width: 5.417vw;
   height: 4.815vh;
   padding: 1.481vh 0.833vw 1.481vh 0.833vw;
-  gap: var(--4, 0.25rem);
-  border-radius: var(--8, 0.5rem);
+  gap: 0.25rem;
+  border-radius: 0.5rem;
 
   &__wrapper {
     @include flex(between, center);

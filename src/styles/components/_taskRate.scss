@@ -1,8 +1,8 @@
 .rate-wrapper {
   @include flex(center, start);
-  width: 514px;
-  height: 302px;
-  padding: 32px 30px 29px 30px;
+  width: 28.341vw;
+  height: 28.125vh;
+  padding: 1.951vw 3.125vh 1.768vw 3.125vh;
   flex-direction: column;
   gap: var(--24, 24px);
   border-radius: var(--12, 12px);
@@ -10,9 +10,7 @@
   box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
 
   &__title {
-    color: var(--Gray-Gray-90, #1d1d1d);
-    font-size: 25px;
-    font-weight: 700;
+    @include text-style(25, $grayscale-90, 700);
     line-height: 150%;
   }
 
@@ -23,17 +21,15 @@
   }
 
   &__text {
-    width: 387px;
+    width: 20.156vw;
     text-align: right;
   }
 }
 
 .progressBar {
   &__rate {
-    color: #555 !important;
-    font-size: 23px !important;
+    @include text-style(23, #555, 700);
     margin-left: 14px;
-    font-weight: 700;
   }
 
   &__mine {

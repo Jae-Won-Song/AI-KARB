@@ -1,37 +1,31 @@
 .date-wrapper {
-  @include flex(center center);
-  flex-direction: row;
-  width: 23.625rem;
-  height: 8.75rem;
-  padding: 1.875rem;
-  align-items: flex-start;
-  gap: 0.9375rem;
-  border-radius: var(--12, 0.75rem);
-  border: 1px solid #e6edff;
+  @include flex(start, start);
+  width: 19.39vw;
+  height: 14.583vh;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  margin-right: 12px;
+  gap: 0.915vw;
+  border-radius: 0.75rem;
+  border: 1px solid $grayscale-10;
   background: $white;
-  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+  box-shadow: 4px 4px 10px 0 rgba($grayscale-40, 0.2);
 
   &__today {
     color: $primary-60;
-    font-size: $font-size-19;
+    @include text-style(19, $primary-60, 700);
     line-height: 260%;
   }
 
   &__info {
-    @include flex;
-    flex-direction: column;
-    align-items: flex-start;
+    @include column-flex(center, start);
 
     &__today {
-      color: var(--Gray-Gray-90, $grayscale-90);
-      font-size: 1.5625rem;
+      @include text-style(25, $grayscale-90, 700);
       line-height: 150%;
-      font-weight: 700;
     }
 
     &__split {
-      color: var(--Gray-Gray-60, $grayscale-60);
-      font-size: $font-size-19;
+      @include text-style(19, $grayscale-60, 400);
       line-height: 150%;
     }
   }

@@ -1,32 +1,27 @@
 .daily-chartAdmin {
   position: relative;
-  width: 53.125vw;
-  height: 39.8148vh;
-  padding: 1.5625vw;
-  gap: 0.5208vw;
-  border-radius: var(--12, 0.625vw);
-  border: 0.052vw solid #e6edff;
+  width: 54vw;
+  height: 36.542vh;
+  padding: 1.829vw 4.167vh 1.829vw 4.167vh;
+  margin-right: 16px;
+  border-radius: 12px;
+  border: 1px solid #e6edff;
   background: $white;
-  box-shadow: 0.208vw 0.208vw 0.52vw 0px rgba(220, 220, 220, 0.2);
+  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
 
   &__wrapper {
-    @include flex;
-    flex-direction: column;
-    align-items: flex-start;
+    @include column-flex(center, start);
   }
 
   &__title {
-    color: $grayscale-80;
-    font-size: 25px;
-    font-weight: 700;
+    @include text-style(25, $grayscale-80, 700);
     line-height: 150%;
   }
 
   &__date {
     @include flex(between, center);
     width: 100%;
-    color: $grayscale-50;
-    font-size: 15px;
+    @include text-style(15, $grayscale-50, 400);
     line-height: 150%;
 
     &__legend {
@@ -36,12 +31,12 @@
         @include flex;
         width: 4.1667vw;
         height: 2.1296vh;
-        padding: 0px 0.3125vw;
+        padding: 0 6px;
         margin-right: 0.8333vw;
         margin-left: 0.4167vw;
-        gap: var(--4, 0.208vw);
-        border-radius: var(--4, 0.208vw);
-        border: 0.052vw solid $grayscale-40;
+        gap: 4px;
+        border-radius: 4px;
+        border: 1px solid $grayscale-40;
 
         &__selected {
           @include flex(around, center);
@@ -50,12 +45,12 @@
 
         &__options {
           position: absolute;
-          top: 8.7037vh;
-          right: 5vw;
+          top: 30%;
+          right: 10%;
           width: 4.1667vw;
-          padding: 0.3125vw 0.3125vw 0 0.3125vw;
+          padding: 0.366vw 0.625vh 0 0.625vh;
           background-color: $white;
-          border: 0.052vw solid $grayscale-40;
+          border: 1px solid $grayscale-40;
           border-radius: 0.4167vw;
           max-height: 29.2593vh;
           overflow-y: auto;
@@ -66,9 +61,8 @@
         &__option {
           padding: 0.208vw 0;
           position: relative;
+          @include text-style(15, $grayscale-50, 400);
           text-align: center;
-          color: $grayscale-50;
-          font-size: 15px;
           line-height: 150%;
           transition:
             background 0.3s,
@@ -91,7 +85,7 @@
             left: 0;
             position: absolute;
             width: 100%;
-            border: 0.052vw solid $grayscale-40;
+            border: 1px solid $grayscale-40;
             align-self: stretch;
           }
 

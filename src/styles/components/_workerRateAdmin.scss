@@ -1,22 +1,19 @@
 .workRateWrapper {
-  display: flex;
-  width: 526px;
-  height: 430px;
-  padding: 30px 40px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--24, 24px);
-  border-radius: var(--12, 12px);
+  @include column-flex(start, start);
+  width: 26.195vw;
+  height: 36.542vh;
+  padding: 1.829vw 4.167vh 1.829vw 4.167vh;
+  margin-left: 16px;
+  gap: 1.463vw;
+  border-radius: 12px;
   border: 1px solid #e6edff;
-  background: #fff;
+  background: $white;
   box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
   overflow-y: auto;
   overflow-x: hidden;
 
   &__title {
-    color: var(--Gray-Gray-90, #1d1d1d);
-    font-size: 25px;
-    font-weight: 700;
+    @include text-style(25, $grayscale-90, 700);
     line-height: 150%;
   }
 }
