@@ -14,10 +14,6 @@ const Filter = () => {
     setIsActive(!isActive);
   };
 
-  const handleBlur = () => {
-    setIsActive(false);
-  };
-
   const medialToggleActive = () => {
     setIsMediaOpen(!isMediaOpen);
   };
