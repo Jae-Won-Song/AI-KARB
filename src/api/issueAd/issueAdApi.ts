@@ -4,7 +4,7 @@ import instance from '../apiConfig';
  * 지적광고 리스트 조회
  * @params {cursorInfo, keyword, period, state, issue, media, category}
  */
-export const fetchLoadIssueAdList = (payload) => {
+export const fetchLoadIssueAdList = (payload: object) => {
   return instance.post('/api/v1/issue-ad', { payload });
 };
 
