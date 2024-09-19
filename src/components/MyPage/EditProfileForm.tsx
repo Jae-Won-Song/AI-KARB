@@ -13,6 +13,10 @@ interface Payload {
   certNo?: string;
 }
 
+const name = localStorage.getItem('name') || 'unknown';
+const id = localStorage.getItem('id') || 'unknown';
+const empNo = localStorage.getItem('empNo') || 'unknown';
+
 const EditProfileForm = () => {
   const [certifyForm, setCertForm] = useState(0);
   const [certButtonState, setCertButtonState] = useState<
@@ -202,7 +206,7 @@ const EditProfileForm = () => {
       <div className="mypage__container__form__info">
         <div className="mypage__container__form__info-box">
           <div className="mypage__container__form__info-box-title">이름</div>
-          <div className="mypage__container__form__info-box-content">김뉴로</div>
+          <div className="mypage__container__form__info-box-content">{name}</div>
         </div>
         <div className="mypage__container__form__info-box">
           <div className="mypage__container__form__info-box-title_call">연락처</div>
@@ -262,11 +266,11 @@ const EditProfileForm = () => {
         )}
         <div className="mypage__container__form__info-box">
           <div className="mypage__container__form__info-box-title">아이디</div>
-          <div className="mypage__container__form__info-box-content">KIMSONGPARK</div>
+          <div className="mypage__container__form__info-box-content">{id}</div>
         </div>
         <div className="mypage__container__form__info-box">
           <div className="mypage__container__form__info-box-title">사원번호</div>
-          <div className="mypage__container__form__info-box-content">AHAKI57</div>
+          <div className="mypage__container__form__info-box-content">{empNo}</div>
         </div>
         <div className="mypage__container__form__info-box">
           <div className="mypage__container__form__info-box-title">이메일</div>
