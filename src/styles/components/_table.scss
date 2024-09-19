@@ -24,6 +24,7 @@
   @include flex;
   flex-direction: column;
   margin: 0 30px;
+  color: $grayscale-70;
 
   &__data {
     border-bottom: 1px solid $grayscale-30;
