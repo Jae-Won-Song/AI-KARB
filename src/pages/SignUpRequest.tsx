@@ -153,7 +153,7 @@ const SignUpRequest = () => {
         </SearchBar>
         <Table
           columns={[
-            { name: '번호', width: '6.25vw' },
+            { name: '번호', width: '6.25vw', rowHeight: '5.926vh', columnHeight: '5.556vh' },
             {
               name: '체크박스',
               img: (
