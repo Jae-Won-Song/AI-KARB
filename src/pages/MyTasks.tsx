@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchBar from '../components/Common/SearchBar';
 import SearchInput from '../components/Common/SearchInput';
 import Filter from '../components/Common/Filter';
@@ -29,28 +29,32 @@ interface TaskList {
 
 const MyTasks = () => {
   const [taskData, setTaskData] = useState<TaskList | null>(null);
+  const [adCount, setAdCount] = useState({ myTotalAd: 0, myDoneAd: 0, myNotDoneAd: 0 });
 
   useEffect(() => {
     const fetchTaskData = async () => {
       try {
         const requestData = {
           cursorInfo: {
-            cursorState: true,
+            cursorState: false,
             cursorId: 'A00001',
           },
-          keyword: '검수완료',
-          period: '2024-09-1',
-          state: true,
-          issue: true,
-          media: ['동아일보'],
-          category: ['가정용품'],
+          keyword: null,
+          period: '2024-09-2',
+          state: null,
+          issue: null,
+          media: [],
+          category: [],
         };
 
         const response = await instance.post('/api/v1/user/my-task', requestData);
 
+        console.log(response.data);
+
         setTaskData(response.data.data.taskList);
-      } catch {
-        console.log('에러');
+        setAdCount(response.data.data.adCount);
+      } catch (error) {
+        console.log('에러', error);
       }
     };
 
@@ -69,33 +73,21 @@ const MyTasks = () => {
             <div className="myTasks__container__tasksBox__tasks__task">
               <div className="myTasks__container__tasksBox__tasks__task__area">
                 <div className="myTasks__container__tasksBox__tasks__task__area_title">전체 작업</div>
-                <div className="myTasks__container__tasksBox__tasks__task__area_content">
-                  {taskData.totalElements}건
-                </div>
+                <div className="myTasks__container__tasksBox__tasks__task__area_content">{adCount.myTotalAd}건</div>
               </div>
               <img src={totalTask} alt="전체 작업 수" />
             </div>
             <div className="myTasks__container__tasksBox__tasks__task">
               <div className="myTasks__container__tasksBox__tasks__task__area">
                 <div className="myTasks__container__tasksBox__tasks__task__area_title">완료건</div>
-                <div className="myTasks__container__tasksBox__tasks__task__area_content">
-                  {taskData.advertisementList
-                    ? taskData.advertisementList.filter((task) => task.state === true).length
-                    : 0}
-                  건
-                </div>
+                <div className="myTasks__container__tasksBox__tasks__task__area_content">{adCount.myDoneAd}건</div>
               </div>
               <img src={doneTask} alt="완료 작업 수" />
             </div>
             <div className="myTasks__container__tasksBox__tasks__task">
               <div className="myTasks__container__tasksBox__tasks__task__area">
                 <div className="myTasks__container__tasksBox__tasks__task__area_title">미완료건</div>
-                <div className="myTasks__container__tasksBox__tasks__task__area_content">
-                  {taskData.advertisementList
-                    ? taskData.advertisementList.filter((task) => task.state === false).length
-                    : 0}
-                  건
-                </div>
+                <div className="myTasks__container__tasksBox__tasks__task__area_content">{adCount.myNotDoneAd}건</div>
               </div>
               <img src={notDoneTask} alt="미완료 작업 수" />
             </div>
