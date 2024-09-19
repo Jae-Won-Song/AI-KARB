@@ -29,7 +29,7 @@ const DailyChartAdmin = ({ data }: ChartProps) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const chartData = selectedPerson && personData ? [baselineData, personData] : [baselineData];
+  const chartData = [baselineData, personData].filter((d): d is DataSet => d !== undefined);
   const colors = selectedPerson ? ['#83C5C1', '#006597'] : ['#83C5C1'];
 
   return (

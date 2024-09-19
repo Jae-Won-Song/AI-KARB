@@ -16,7 +16,7 @@ const DailyTaskChartAdmin = ({ data }: ChartProps) => {
           <div className="dailyChartWrapper__info__wrapper__percentage">12.3%</div>
         </div>
       </div>
-      <div style={{ width: '311px', height: '228px' }}>
+      <div style={{ width: '16.198vw', height: '21.111vh' }}>
         <ResponsiveBar
           data={data}
           keys={['before4', 'before3', 'before2', 'before1', 'today']}

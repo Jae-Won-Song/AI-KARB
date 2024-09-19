@@ -1,4 +1,4 @@
-import { ResponsiveLine } from '@nivo/line';
+import { ResponsiveLine, Point } from '@nivo/line';
 import tooltip from '../../assets/tooltip.svg';
 
 interface ChartProps {
@@ -6,8 +6,7 @@ interface ChartProps {
 }
 
 interface ToolTipProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  point: any;
+  point: Point;
 }
 
 const formatDate = (dateString: string) => {
@@ -18,11 +17,14 @@ const formatDate = (dateString: string) => {
 };
 
 const CustomTooltip = ({ point }: ToolTipProps) => {
+  const formattedDate =
+    typeof point.data.xFormatted === 'string' ? point.data.xFormatted : point.data.xFormatted.toString();
+
   return (
     <div className="customToolTip">
       <img src={tooltip} alt="툴팁 이미지" />
       <div className="tooltipContent">
-        <div className="tooltipDate">{formatDate(point.data.xFormatted)}</div>
+        <div className="tooltipDate">{formatDate(formattedDate)}</div>
         <div className="tooltipValue">{point.data.yFormatted}건</div>
       </div>
     </div>
