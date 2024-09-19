@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import IconWithText from './IconWithText';
 import SubMenu from './SubMenu';
@@ -28,7 +28,13 @@ type SubMenuItem =
 const SideBar = () => {
   const [selectedItem, setSelectedItem] = useState<MenuItem>('대시보드');
   const [selectedSubItem, setSelectedSubItem] = useState<SubMenuItem | ''>('홈 대시보드');
+  const [authority, setAuthority] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const authorityValue = localStorage.getItem('authority');
+    setAuthority(authorityValue);
+  }, []);
 
   const handleItemClick = (item: MenuItem, path: string) => {
     setSelectedItem(item);
@@ -80,16 +86,20 @@ const SideBar = () => {
               handleSubItemClick('대시보드', '홈 대시보드', '/dashboard');
             }}
           />
-          <SubMenu
-            text="홈 대시보드"
-            isActive={selectedSubItem === '홈 대시보드'}
-            onClick={() => handleSubItemClick('대시보드', '홈 대시보드', '/dashboard')}
-          />
-          <SubMenu
-            text="관리자 대시보드"
-            isActive={selectedSubItem === '관리자 대시보드'}
-            onClick={() => handleSubItemClick('대시보드', '관리자 대시보드', '/dashboard/admin')}
-          />
+          {authority === '관리자' && (
+            <>
+              <SubMenu
+                text="홈 대시보드"
+                isActive={selectedSubItem === '홈 대시보드'}
+                onClick={() => handleSubItemClick('대시보드', '홈 대시보드', '/dashboard')}
+              />
+              <SubMenu
+                text="관리자 대시보드"
+                isActive={selectedSubItem === '관리자 대시보드'}
+                onClick={() => handleSubItemClick('대시보드', '관리자 대시보드', '/dashboard/admin')}
+              />
+            </>
+          )}
           {[
             { name: '동일광고', icon: same, path: '/same-ad' },
             { name: '지적광고', icon: alert, path: '/issue-ad' },
@@ -105,37 +115,39 @@ const SideBar = () => {
             />
           ))}
         </div>
-        <div className="sidebar__container__admin-nav">
-          <IconWithText
-            icon={getIcon('관리자메뉴')}
-            text="관리자전용"
-            isActive={selectedItem === '관리자메뉴'}
-            onClick={() => {
-              handleItemClick('관리자메뉴', '/admin/approve-user');
-              handleSubItemClick('관리자메뉴', '가입 요청 관리', '/admin/approve-user');
-            }}
-          />
-          <SubMenu
-            text="가입 요청 관리"
-            isActive={selectedSubItem === '가입 요청 관리'}
-            onClick={() => handleSubItemClick('관리자메뉴', '가입 요청 관리', '/admin/approve-user')}
-          />
-          <SubMenu
-            text="회원 정보 관리"
-            isActive={selectedSubItem === '회원 정보 관리'}
-            onClick={() => handleSubItemClick('관리자메뉴', '회원 정보 관리', '/admin/manage-user')}
-          />
-          <SubMenu
-            text="작업자 관리"
-            isActive={selectedSubItem === '작업자 관리'}
-            onClick={() => handleSubItemClick('관리자메뉴', '작업자 관리', '/admin/manage-emp')}
-          />
-          <SubMenu
-            text="작업배분 관리"
-            isActive={selectedSubItem === '작업배분 관리'}
-            onClick={() => handleSubItemClick('관리자메뉴', '작업배분 관리', '/admin/manage-task')}
-          />
-        </div>
+        {authority === '관리자' && (
+          <div className="sidebar__container__admin-nav">
+            <IconWithText
+              icon={getIcon('관리자메뉴')}
+              text="관리자전용"
+              isActive={selectedItem === '관리자메뉴'}
+              onClick={() => {
+                handleItemClick('관리자메뉴', '/admin/approve-user');
+                handleSubItemClick('관리자메뉴', '가입 요청 관리', '/admin/approve-user');
+              }}
+            />
+            <SubMenu
+              text="가입 요청 관리"
+              isActive={selectedSubItem === '가입 요청 관리'}
+              onClick={() => handleSubItemClick('관리자메뉴', '가입 요청 관리', '/admin/approve-user')}
+            />
+            <SubMenu
+              text="회원 정보 관리"
+              isActive={selectedSubItem === '회원 정보 관리'}
+              onClick={() => handleSubItemClick('관리자메뉴', '회원 정보 관리', '/admin/manage-user')}
+            />
+            <SubMenu
+              text="작업자 관리"
+              isActive={selectedSubItem === '작업자 관리'}
+              onClick={() => handleSubItemClick('관리자메뉴', '작업자 관리', '/admin/manage-emp')}
+            />
+            <SubMenu
+              text="작업배분 관리"
+              isActive={selectedSubItem === '작업배분 관리'}
+              onClick={() => handleSubItemClick('관리자메뉴', '작업배분 관리', '/admin/manage-task')}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
