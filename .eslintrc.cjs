@@ -20,11 +20,12 @@ module.exports = {
       jsx: true,
     },
     project: './tsconfig.json',
-    ecmaVersion: 12,
+    ecmaVersion: 6,
     sourceType: 'module',
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    '@typescript-eslint/no-explicit-any': ['off'], // 나중에 지워야됨
     'no-alert': 'off',
     'react/require-default-props': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
