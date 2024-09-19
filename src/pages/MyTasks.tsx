@@ -16,7 +16,7 @@ interface Advertisement {
   adId: string;
   media: string[];
   category: string[];
-  productName: string;
+  product: string;
   advertiser: string;
   state: boolean;
   issue: boolean;
@@ -117,9 +117,9 @@ const MyTasks = () => {
               ? taskData.advertisementList.map((task, index) => ({
                   번호: index + 1,
                   고유번호: task.adId,
-                  매체명: task.media[0],
-                  업종구분: task.category[0],
-                  상품명: task.productName,
+                  매체명: Array.isArray(task.media) ? task.media.join(', ') : task.media,
+                  업종구분: Array.isArray(task.category) ? task.category.join(', ') : task.category,
+                  상품명: task.product,
                   광고주: task.advertiser,
                   진행상황: (
                     <ReviewTag
