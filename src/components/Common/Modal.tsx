@@ -37,7 +37,7 @@ function twoRed({ btnContentOne, btnContentTwo, onClickOne, onClickTwo }: ModalP
       <Button type="button" state="default_gray" width="160px" height="48px" onClick={onClickOne}>
         {btnContentOne}
       </Button>
-      <div style={{ width: '12px' }} />
+
       <Button type="button" state="danger" width="160px" height="48px" onClick={onClickTwo}>
         {btnContentTwo}
       </Button>
@@ -51,7 +51,7 @@ function twoBlue({ btnContentOne, btnContentTwo, onClickOne, onClickTwo }: Modal
       <Button type="button" state="default_gray" width="160px" height="48px" onClick={onClickOne}>
         {btnContentOne}
       </Button>
-      <div style={{ width: '12px' }} />
+
       <Button type="button" state="default" width="160px" height="48px" onClick={onClickTwo}>
         {btnContentTwo}
       </Button>
@@ -204,7 +204,7 @@ const Modal = ({ title, content, add, btnContentTwo, btnContentOne, mode, onClic
               <div className="modal__container__contentBox-title">{title}</div>
               <div className="modal__container__contentBox-content">{content}</div>
               <div className="modal__container__contentBox-btn-area">
-                {colorChange({ add, btnContentOne, btnContentTwo, onClickOne, onClickTwo })}{' '}
+                {colorChange({ add, btnContentOne, btnContentTwo, onClickOne, onClickTwo })}
               </div>
             </div>
           </div>
