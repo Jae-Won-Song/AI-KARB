@@ -1,11 +1,36 @@
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import fetchDashBoardData from '../../api/dashboard/dashboardApi';
 import allTask from '../../assets/all-task.png';
 import notDone from '../../assets/not-done-task.png';
 import doneTask from '../../assets/done-task.png';
 
 const WorkStatus = () => {
+  const [myAdData, setMyAdData] = useState(0); // 내 작업 건수
+  const [myDoneAdData, setMyDoneAdData] = useState(0); // 내 완료된 작업
+  const [myNotDoneAdData, setMyNotDoneAdData] = useState(0); // 내 완료되지 않은 작업
+  const [totalAdData, setTotalAdData] = useState(0); // 회사가 보유한 총 광고수
+  const [totalDoneAdData, setTotalDoneAdData] = useState(0); // 전체 광고 중 완료건
+  const [totalNotDoneAdData, setTotalNotDoneAdData] = useState(0); // 전체 광고 중 미완료건
+
   const location = useLocation();
   const isAdminRoute = location.pathname === '/dashboard/admin';
+
+  useEffect(() => {
+    fetchDashBoardData()
+      .then((response) => {
+        const adCountData = response.data.data.adCount;
+        setMyAdData(adCountData.myAd);
+        setMyDoneAdData(adCountData.myDoneAd);
+        setMyNotDoneAdData(adCountData.myNotDoneAd);
+        setTotalAdData(adCountData.totalAd);
+        setTotalDoneAdData(adCountData.totalDoneAd);
+        setTotalNotDoneAdData(adCountData.totalNotDoneAd);
+      })
+      .catch((error) => {
+        console.error('데이터 조회 실패:', error);
+      });
+  }, []);
 
   return (
     <section>
@@ -22,7 +47,7 @@ const WorkStatus = () => {
                   <div className="workStatus-wrapper__taskinfo__title">전체작업</div>
                   {!isAdminRoute && (
                     <div className="workStatus-wrapper__task__info__count">
-                      421
+                      {myAdData}
                       <div className="workStatus-wrapper__task__info__counts">건</div>
                     </div>
                   )}
@@ -31,12 +56,14 @@ const WorkStatus = () => {
                   {!isAdminRoute && <div className="workStatus-wrapper__task__info__subcount__total">Total</div>}
                   {!isAdminRoute && (
                     <div className="workStatus-wrapper__task__info__admin-count">
-                      6,201<div className="workStatus-wrapper__task__info__count__text">건</div>
+                      {totalAdData}
+                      <div className="workStatus-wrapper__task__info__count__text">건</div>
                     </div>
                   )}
                   {isAdminRoute && (
                     <div className="workStatus-wrapper__task__info__admin-counts">
-                      6,242<div className="workStatus-wrapper__task__info__counts">건</div>
+                      {totalAdData}
+                      <div className="workStatus-wrapper__task__info__counts">건</div>
                     </div>
                   )}
                 </div>
@@ -52,7 +79,8 @@ const WorkStatus = () => {
                   <div className="workStatus-wrapper__task__info__title">완료건</div>
                   {!isAdminRoute && (
                     <div className="workStatus-wrapper__task__info__count">
-                      123<div className="workStatus-wrapper__task__info__counts">건</div>
+                      {myDoneAdData}
+                      <div className="workStatus-wrapper__task__info__counts">건</div>
                     </div>
                   )}
                 </div>
@@ -60,12 +88,14 @@ const WorkStatus = () => {
                   {!isAdminRoute && <div className="workStatus-wrapper__task__info__subcount__total">Total</div>}
                   {!isAdminRoute && (
                     <div className="workStatus-wrapper__task__info__admin-count">
-                      6,201<div className="workStatus-wrapper__task__info__count__text">건</div>
+                      {totalDoneAdData}
+                      <div className="workStatus-wrapper__task__info__count__text">건</div>
                     </div>
                   )}
                   {isAdminRoute && (
                     <div className="workStatus-wrapper__task__info__admin-counts">
-                      1,724<div className="workStatus-wrapper__task__info__counts">건</div>
+                      {totalDoneAdData}
+                      <div className="workStatus-wrapper__task__info__counts">건</div>
                     </div>
                   )}
                 </div>
@@ -81,7 +111,8 @@ const WorkStatus = () => {
                   <div className="workStatus-wrapper__task__info__title">미완료건</div>
                   {!isAdminRoute && (
                     <div className="workStatus-wrapper__task__info__count">
-                      298<div className="workStatus-wrapper__task__info__counts">건</div>
+                      {myNotDoneAdData}
+                      <div className="workStatus-wrapper__task__info__counts">건</div>
                     </div>
                   )}
                 </div>
@@ -89,12 +120,14 @@ const WorkStatus = () => {
                   {!isAdminRoute && <div className="workStatus-wrapper__task__info__subcount__total">Total</div>}
                   {!isAdminRoute && (
                     <div className="workStatus-wrapper__task__info__admin-count">
-                      6,201<div className="workStatus-wrapper__task__info__count__text">건</div>
+                      {totalNotDoneAdData}
+                      <div className="workStatus-wrapper__task__info__count__text">건</div>
                     </div>
                   )}
                   {isAdminRoute && (
                     <div className="workStatus-wrapper__task__info__admin-counts">
-                      4,477<div className="workStatus-wrapper__task__info__counts">건</div>
+                      {totalNotDoneAdData}
+                      <div className="workStatus-wrapper__task__info__counts">건</div>
                     </div>
                   )}
                 </div>

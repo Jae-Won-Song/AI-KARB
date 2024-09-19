@@ -10,7 +10,7 @@ interface Column {
   img?: JSX.Element;
 }
 
-interface EmpData {
+export interface EmpData {
   번호?: number;
   사원번호?: number | string;
   고유번호?: number | string;
@@ -50,6 +50,16 @@ interface EmpInfo {
   rowClassName?: string;
 }
 
+interface RowData {
+  번호: number;
+  사원번호: number;
+  작업자: string;
+  전체작업: string;
+  미완료건: string;
+  완료건: string;
+  작업진척도: string;
+}
+
 const Table = (props: EmpInfo) => {
   const { columns, data, onRowClick, headerClassName = 'table', rowClassName = 'info' } = props;
 
@@ -62,8 +72,7 @@ const Table = (props: EmpInfo) => {
               <th
                 key={index}
                 className={`${headerClassName}__head__${column.name || 'img'}`}
-                style={{ width: column.width, height: column.columnHeight }} // 헤더 높이 설정
-              >
+                style={{ width: column.width, height: column.columnHeight }}>
                 {column.name === '지적비지적'
                   ? '지적/비지적'
                   : column.name === '총배분작업'

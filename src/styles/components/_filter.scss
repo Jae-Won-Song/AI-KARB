@@ -15,13 +15,17 @@
     gap: 0.625vw;
 
     &__span {
-      font-size: 17px;
-      color: $grayscale-70;
+      @include text-style(17, $grayscale-70, 400);
     }
 
     &__icon {
       width: 0.833vw;
       height: 1.574vh;
+
+      img {
+        width: 0.833vw;
+        height: 1.574vh;
+      }
     }
 
     &--active {
@@ -40,10 +44,144 @@
     width: 15.625vw;
     height: 41.574vh;
     margin-top: 1.019vh;
-    padding: 1.852vh 1.852vw 1.111vh 1.852vw;
+    padding: 1.852vh 1.852vw 1.111vh;
     border: 1px solid $grayscale-40;
     border-radius: 8px;
 
-    background-color: $white;
+    background-color: white;
+
+    &__container {
+      @include column-flex(start, start);
+      position: relative;
+
+      height: 100%;
+
+      &_wrapper {
+        width: 100%;
+        flex-grow: 1;
+        overflow-y: auto;
+
+        &_media,
+        &_category {
+          width: 100%;
+          max-height: 31.852vh;
+          overflow: auto;
+
+          &--open {
+            @include column-flex(start, start);
+
+            &_toggle {
+              @include flex(between, center);
+
+              width: 100%;
+              height: 4.352vh;
+              padding: 0 0.5vw 0 0.676vw;
+
+              @include text-style(15, $grayscale-90, 400);
+            }
+
+            &_contents {
+              width: 100%;
+              height: 23.148vh;
+              padding: 0.926vh 0;
+
+              background-color: $secondary-1;
+
+              &_list {
+                @include flex(start, center);
+                gap: 0.412vw;
+
+                height: 3.056vh;
+                padding: 0 0.5vw 0 0.676vw;
+
+                &_checkbox {
+                  @include flex;
+
+                  &_box {
+                    position: relative;
+                    width: 0.833vw;
+                    height: 1.481vh;
+                    border: 1px solid $grayscale-50;
+                    border-radius: 4px;
+                    background: $white;
+                    appearance: none;
+                    cursor: pointer;
+
+                    &:checked {
+                      border: 1px solid $primary-50;
+                      background: $primary-50;
+
+                      &::after {
+                        content: '';
+                        position: absolute;
+                        top: 0.139vh;
+                        left: 0.208vw;
+                        width: 0.208vw;
+                        height: 0.741vh;
+                        border: 1px solid $white;
+                        border-width: 0 0.104vw 0.104vw 0;
+                        transform: rotate(45deg);
+                      }
+                    }
+                  }
+                }
+
+                &_name {
+                  width: 9.381vw;
+                  @include text-style(15, $grayscale-90, 400);
+                }
+
+                &_number {
+                  @include text-style(15, $grayscale-50, 400);
+                }
+              }
+            }
+          }
+
+          &--close {
+            @include flex(between, center);
+
+            width: 100%;
+            height: 4.352vh;
+            border-bottom: 1px solid $grayscale-40;
+
+            @include text-style(15, $grayscale-50, 400);
+
+            &_title {
+              padding-left: 0.676vw;
+            }
+
+            &_arrow {
+              padding-right: 0.5vw;
+              cursor: pointer;
+            }
+          }
+        }
+
+        &_category--close {
+          border-bottom: none;
+        }
+      }
+
+      &__buttons {
+        @include flex(end, center);
+        position: sticky;
+        bottom: 0;
+        margin-left: 7.3vw;
+        gap: 1.042vw;
+
+        background-color: white;
+
+        &_reset {
+          @include text-style(15, $grayscale-50, 400);
+          cursor: pointer;
+        }
+
+        &_apply {
+          @include text-style(15, $primary-50, 400);
+          cursor: pointer;
+        }
+      }
+    }
   }
 }

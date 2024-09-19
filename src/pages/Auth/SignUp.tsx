@@ -15,12 +15,7 @@ import {
   validatePhoneNumber,
 } from '../../utils/inputValidationUtils';
 // api
-import {
-  fetchCheckCertNoDuringSignUp,
-  fetchCheckIdAvailable,
-  fetchRequestSignUp,
-  fetchSendCertNoDuringSignUp,
-} from '../../api/auth/authApi';
+import { fetchCheckCertNo, fetchCheckIdAvailable, fetchRequestSignUp, fetchSendCertNo } from '../../api/auth/authApi';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -156,7 +151,7 @@ const SignUp = () => {
         phoneNumber,
       };
 
-      fetchSendCertNoDuringSignUp(payload)
+      fetchSendCertNo(payload)
         .then((response) => {
           if (response.data.code === 3103) {
             console.log('인증번호 발송 요청 성공');
@@ -199,7 +194,7 @@ const SignUp = () => {
         certNo,
       };
 
-      fetchCheckCertNoDuringSignUp(payload)
+      fetchCheckCertNo(payload)
         .then((response) => {
           if (response.data.code === 3104) {
             setIsCertNoSuccess(true);
@@ -232,7 +227,7 @@ const SignUp = () => {
     setIsCertNoError(false);
     setCertNoErrorMessage('');
 
-    fetchSendCertNoDuringSignUp(payload)
+    fetchSendCertNo(payload)
       .then((response) => {
         if (response.data.code === 3103) {
           setIsTimeUp(false);

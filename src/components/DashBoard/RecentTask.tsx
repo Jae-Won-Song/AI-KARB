@@ -1,11 +1,47 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import fetchDashBoardData from '../../api/dashboard/dashboardApi';
 import Table from '../Common/Table';
 import rightArrow from '../../assets/chevron-right.svg';
-import { useNavigate } from 'react-router-dom';
+
+interface RecentDoneItem {
+  adId: string;
+  adName: string;
+  adTaskDateTime: string;
+}
 
 const RecentTask = () => {
+  const [recentDoneList, setRecentDoneList] = useState<RecentDoneItem[]>([]);
   const navigate = useNavigate();
-  const moveMyTask = () => {
+
+  const handleMyTask = () => {
     navigate('/my-task');
+  };
+
+  useEffect(() => {
+    const getRecentDoneList = async () => {
+      try {
+        const response = await fetchDashBoardData();
+        if (response && response.data && response.data.data) {
+          const { recentDoneList } = response.data.data;
+          setRecentDoneList(recentDoneList);
+          console.log(response.data);
+        }
+      } catch (error) {
+        console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
+      }
+    };
+
+    getRecentDoneList();
+  }, []);
+
+  const getFormattedData = () => {
+    return recentDoneList.slice(0, 5).map((item, index) => ({
+      번호: index + 1,
+      고유번호: item.adId,
+      상품명: item.adName,
+      작업날짜: item.adTaskDateTime,
+    }));
   };
 
   const columns = [
@@ -15,20 +51,14 @@ const RecentTask = () => {
     { name: '작업날짜', width: '9vw', columnHeight: '22px', rowHeight: '7px' },
   ];
 
-  const data = [
-    { 번호: 1, 고유번호: 'A12345', 상품명: '서울우유', 작업날짜: '2024-08-25 13:25' },
-    { 번호: 2, 고유번호: 'A12345', 상품명: '서울우유', 작업날짜: '2024-08-25 13:25' },
-    { 번호: 3, 고유번호: 'A12345', 상품명: '서울우유', 작업날짜: '2024-08-25 13:25' },
-    { 번호: 4, 고유번호: 'A12345', 상품명: '서울우유', 작업날짜: '2024-08-25 13:25' },
-    { 번호: 5, 고유번호: 'A12345', 상품명: '서울우유', 작업날짜: '2024-08-25 13:25' },
-  ];
+  const data = getFormattedData();
 
   return (
     <section className="recent-wrapper">
       <div className="recent-wrapper__header">
         <div className="recent-wrapper__header__title">최근작업</div>
         <div className="recent-wrapper__header__detail">
-          <div className="recent-wrapper__header__arrow" onClick={moveMyTask}>
+          <div className="recent-wrapper__header__arrow" onClick={handleMyTask}>
             자세히 보기
             <img src={rightArrow} alt="내 작업 바로가기" />
           </div>

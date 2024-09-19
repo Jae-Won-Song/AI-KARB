@@ -1,6 +1,6 @@
 import instance from '../apiConfig';
 
-// 회원 목록 가져오기
+
 
 export const getUserList = () => {
   return instance.get('/api/v1/admin/manage-user');
@@ -11,3 +11,17 @@ export const getUserList = () => {
 export const deleteUser = (userId: number) => {
   return instance.delete(`/api/v1/admin/manage-user/${userId}`);
 };
+
+const fetchmytaskData = () => {
+  return instance.post('/api/v1/user/my-task', {
+    // keyword: 'keyword',
+    // period: 'date',
+    // state: true,
+    // issue: true,
+    // media: [],
+    // category: [],
+  });
+};
+
+export default fetchmytaskData;
+
