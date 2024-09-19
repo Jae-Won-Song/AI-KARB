@@ -42,9 +42,11 @@ const DailyChart = ({ data }: ChartProps) => {
         margin={{ top: 30, right: 30, bottom: 60, left: 30 }}
         gridXValues={[]}
         pointSize={0}
-        pointBorderWidth={2}
         enableArea
         areaOpacity={0.1}
+        axisLeft={{
+          tickValues: [0, 50, 100],
+        }}
         colors={['#0227bc']}
         defs={[
           {

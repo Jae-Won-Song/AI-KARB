@@ -12,17 +12,17 @@ const HomeDashBoard = () => {
   return (
     <section style={{ background: 'white' }}>
       {' '}
-      <section style={{ display: 'flex', justifyContent: 'space-around', padding: '10px 30px 24px 30px' }}>
+      <section style={{ display: 'flex', padding: '10px 30px 24px 30px' }}>
         <Worker />
         <DashBoardDate />
         <TaskSummary />
       </section>
-      <section style={{ display: 'flex', justifyContent: 'space-around', padding: '0 30px 24px 30px' }}>
+      <section style={{ display: 'flex', padding: '0 30px 24px 30px' }}>
         <WorkStatus />
         <TaskRate />
         <DailyRateChart />
       </section>
-      <section style={{ display: 'flex', justifyContent: 'space-around', padding: '0 30px 62px 30px' }}>
+      <section style={{ display: 'flex', padding: '0 30px 62px 30px' }}>
         <DailyChart data={data} />
         <RecentTask />
       </section>

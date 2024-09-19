@@ -1,7 +1,9 @@
 .workStatus-wrapper {
   @include column-flex(center, start);
-  width: 43.78vw;
+  position: relative;
+  width: 40.65vw;
   padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  margin-right: 11px;
   gap: 24px;
   border-radius: 12px;
   border: 1px solid #e6edff;
@@ -16,12 +18,17 @@
   &__task {
     @include flex;
     gap: var(--24, 24px);
-    position: relative;
     width: 100%;
     align-items: center;
-
     &__image-container {
+      @include flex;
+      top: 0;
+      left: 0;
       position: relative;
+      &-img {
+        width: 11.458vw;
+        height: 16.667vh;
+      }
     }
 
     &__info {

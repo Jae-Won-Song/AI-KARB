@@ -1,10 +1,11 @@
 .task-wrapper {
   @include flex;
   background-color: $white;
-  width: 43.722vw;
+  width: 40.424vw;
   height: 14.583vh;
   padding: 1.22vw 2.083vh 1.22vw 2.083vh;
-  gap: 2.25rem;
+  margin-left: 0.671vw;
+  gap: 2.195vw;
   border-radius: 12px;
   border: 1px solid #e6edff;
   box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);

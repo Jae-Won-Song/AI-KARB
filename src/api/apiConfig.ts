@@ -4,7 +4,7 @@ import axios from 'axios';
  * axios 인스턴스 생성
  */
 const instance = axios.create({
-  baseURL: 'http://13.124.172.3',
+  baseURL: 'http://13.124.172.3:8880',
 });
 
 export default instance;
@@ -12,19 +12,21 @@ export default instance;
 /*
  * 요청 인터셉터 추가
  */
-// instance.interceptors.request.use(
-//   (config) => {
-//     const modifiedConfig = { ...config };
-//     const accessToken = localStorage.getItem('accessToken');
-//     if (accessToken) {
-//       modifiedConfig.headers.Authorization = `Bearer ${accessToken}`;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   },
-// );
+instance.interceptors.request.use(
+  (config) => {
+    const modifiedConfig = { ...config };
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (accessToken) {
+      modifiedConfig.headers.Authorization = `Bearer ${accessToken}`;
+    }
+
+    return modifiedConfig;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
 
 /*
  * 응답 인터셉터 설정

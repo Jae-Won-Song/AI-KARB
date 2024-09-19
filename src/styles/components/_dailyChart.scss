@@ -1,17 +1,17 @@
 .daily-chart {
-  flex-shrink: 0;
-  width: 58.537vw;
+  width: 51.537vw;
   height: 35.417vh;
   padding: 1.829vw 3.125vh 1.829vw 3.125vh;
-  gap: 10px;
+  margin-right: 0.671vw;
+  gap: 10vw;
   border-radius: 12px;
-  border: 0.052vw solid #e6edff;
+  border: 1px solid #e6edff;
   background: $white;
-  box-shadow: 0.208vw 0.208vw 0.52vw 0 rgba(220, 220, 220, 0.2);
+  box-shadow: 4px 4px 10px 0 rgba(220, 220, 220, 0.2);
 
   &__wrapper {
     @include column-flex(center, start);
-    gap: 0.104vw;
+    gap: 0.122vw;
     flex: 1 0 0;
   }
 
@@ -28,7 +28,6 @@
 
 .customToolTip {
   position: relative;
-  margin-top: 50px;
 }
 
 .customToolTip .tooltipContent {
