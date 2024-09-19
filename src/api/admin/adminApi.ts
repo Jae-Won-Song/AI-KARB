@@ -1,7 +1,5 @@
 import instance from '../apiConfig';
 
-
-
 export const getUserList = () => {
   return instance.get('/api/v1/admin/manage-user');
 };
@@ -12,7 +10,7 @@ export const deleteUser = (userId: number) => {
   return instance.delete(`/api/v1/admin/manage-user/${userId}`);
 };
 
-const fetchmytaskData = () => {
+export const fetchmytaskData = () => {
   return instance.post('/api/v1/user/my-task', {
     // keyword: 'keyword',
     // period: 'date',
@@ -22,6 +20,3 @@ const fetchmytaskData = () => {
     // category: [],
   });
 };
-
-export default fetchmytaskData;
-
