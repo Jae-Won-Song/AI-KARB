@@ -4,7 +4,7 @@ import instance from '../apiConfig';
  * 인증요청
  * @param payload {type, phoneNumber}
  */
-export const fetchSendCertNoDuringSignUp = (payload: { type: string; phoneNumber: string }) => {
+export const fetchSendCertNo = (payload: { type: string; phoneNumber: string }) => {
   return instance.post('/api/v1/auth/cert-no', payload);
 };
 
@@ -12,7 +12,7 @@ export const fetchSendCertNoDuringSignUp = (payload: { type: string; phoneNumber
  * 인증번호 확인
  * @param payload {type, phoneNumber, certNo}
  */
-export const fetchCheckCertNoDuringSignUp = (payload: { type: string; phoneNumber: string; certNo: string }) => {
+export const fetchCheckCertNo = (payload: { type: string; phoneNumber: string; certNo: string }) => {
   return instance.post('/api/v1/auth/check-cert-no', payload);
 };
 
@@ -47,4 +47,12 @@ export const fetchRequestSignUp = (payload: {
  */
 export const fetchSignIn = (payload: { id: string; password: string }) => {
   return instance.post('/api/v1/auth/signin', payload);
+};
+
+/*
+ * 아이디 찾기
+ * @param payload {name, phoneNumber, certNoCheckToken}
+ */
+export const fetchFindId = (payload: { name: string; phoneNumber: string; certNoCheckToken: string }) => {
+  return instance.post('/api/v1/auth/find-id', payload);
 };
