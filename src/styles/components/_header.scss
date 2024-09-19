@@ -15,10 +15,6 @@
       &-picture {
         @include flex;
         cursor: pointer;
-        width: 2.6045vw;
-        height: 5.292vh;
-        background-image: url('src/assets/icon-profileImage-header.svg');
-        color: white;
         margin-right: 0.625vw;
       }
       &__content-box {
