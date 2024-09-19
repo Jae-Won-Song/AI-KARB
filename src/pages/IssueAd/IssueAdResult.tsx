@@ -55,7 +55,7 @@ const IssueAdResult = () => {
   const location = useLocation();
 
   // 지적광고 목록 페이지에서 요청한 데이터 응답
-  const adDetails = location.state?.adDetails.data;
+  const adDetails = location.state?.adDetails;
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
