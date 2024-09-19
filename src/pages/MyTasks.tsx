@@ -103,7 +103,7 @@ const MyTasks = () => {
 
         <Table
           columns={[
-            { name: '번호', width: '4.167vw' },
+            { name: '번호', width: '4.167vw', rowHeight: '5.926vh', columnHeight: '5.556vh' },
             { name: '고유번호', width: '6.25vw' },
             { name: '매체명', width: '12.5vw' },
             { name: '업종구분', width: '9.375vw' },
