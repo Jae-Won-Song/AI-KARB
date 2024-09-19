@@ -27,7 +27,7 @@ type SubMenuItem =
 
 const SideBar = () => {
   const [selectedItem, setSelectedItem] = useState<MenuItem>('대시보드');
-  const [selectedSubItem, setSelectedSubItem] = useState<SubMenuItem | ''>('');
+  const [selectedSubItem, setSelectedSubItem] = useState<SubMenuItem | ''>('홈 대시보드');
   const navigate = useNavigate();
 
   const handleItemClick = (item: MenuItem, path: string) => {
