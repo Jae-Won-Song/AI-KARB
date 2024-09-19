@@ -4,7 +4,7 @@
 
   width: 100%;
   height: 100vh;
-  margin-top: 10px;
+  margin-top: 0.926vh;
   background-color: white;
 
   &__wrapperLeft {
@@ -50,9 +50,9 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 30px;
+  top: 2.778vh;
 
-  width: 1px;
+  width: 0.052vw;
   height: 81.944vh;
 
   background-color: $grayscale-30;

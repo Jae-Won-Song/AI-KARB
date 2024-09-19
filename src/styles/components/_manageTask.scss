@@ -1,13 +1,13 @@
 .manageTask-select-wrapper {
   @include flex(start, center);
   @include text-style(15, $grayscale-70, 400);
-  width: 420px;
+  width: 21.875vw;
   &__reset {
     @include text-style(15, $primary-50, 700);
-    margin-left: 12px;
+    margin-left: 0.625vw;
   }
   &__slash {
-    padding: 0 5px 0 5px;
+    padding: 0 0.26vw 0 0.26vw;
   }
   &__selectPeople {
     @include text-style(15, $primary-70, 700);
@@ -19,8 +19,8 @@
 }
 .manageTask-container {
   background-color: $white;
-  height: 945px;
-  margin-top: 15px;
+  height: 87.5vh;
+  margin-top: 0.781vw;
 }
 
 .checkBox {
