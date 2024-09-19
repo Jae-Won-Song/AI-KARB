@@ -13,5 +13,5 @@ export const fetchLoadIssueAdList = (payload: object) => {
  * @params {advertisementId}
  */
 export const fetchLoadIssueAdDetail = ({ advertisementId }: { advertisementId: string }) => {
-  return instance.get(`/api/v1/issue-ad/result/${advertisementId}`);
+  return instance.get(`/api/v1/issue-ad/result/202409${advertisementId}`);
 };

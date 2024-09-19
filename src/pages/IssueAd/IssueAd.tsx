@@ -46,6 +46,7 @@ const IssueAd = () => {
     fetchLoadIssueAdList(payload)
       .then((response) => {
         if (response.data.code === 3405) {
+          console.log(response);
           setIssueAdData(response.data.data);
         }
       })
@@ -55,11 +56,12 @@ const IssueAd = () => {
   }, []);
 
   const handleRowClick = (advertisementId: string) => {
+    const adDetails = `202409${advertisementId}`;
     fetchLoadIssueAdDetail({ advertisementId })
       .then((response) => {
         if (response.data.code === 3400) {
-          const adDetails = response.data;
-          navigate('/issue-ad/result', { state: { adDetails } });
+          console.log(response);
+          navigate(`/issue-ad/result/${adDetails}`);
         }
       })
       .catch((error) => {
