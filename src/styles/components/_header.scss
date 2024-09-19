@@ -1,30 +1,29 @@
 .header {
   &__container {
     @include flex(between, center);
-    width: 1640px;
-    height: 120px;
-    padding-left: 30px;
+    width: 85.417vw;
+    height: 11.111vh;
+    padding-left: 1.563vw;
     &__title {
       @include text-style(32, black, 700);
     }
     &__admin-box {
       @include flex;
-      width: 280px;
-      height: 80px;
-      padding: 20px 30px;
+      width: 14.583vw;
+      height: 7.407vh;
+      padding: 1.852vh 1.563vw 1.852vh 1.563vw;
       &-picture {
         @include flex;
         cursor: pointer;
-        width: 50px;
-        height: 50px;
+        width: 2.6045vw;
+        height: 5.292vh;
         background-image: url('src/assets/icon-profileImage-header.svg');
         color: white;
-        border-radius: 50%;
-        margin-right: 12px;
+        margin-right: 0.625vw;
       }
       &__content-box {
         @include column-flex(center, start);
-        width: 122px;
+        width: 6.354vw;
         &-name {
           @include text-style(15, black, 700);
         }
@@ -33,7 +32,7 @@
         }
       }
       &-icon {
-        margin-left: 12px;
+        margin-left: 0.625vw;
         cursor: pointer;
       }
     }
