@@ -9,11 +9,53 @@ import arrowUp from '../../assets/arrow-up.svg';
 import iconPlus from '../../assets/icon-plus.svg';
 import { useState } from 'react';
 import Modal from '../../components/Common/Modal';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const IssueAdResult = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActiveSelectReason, setIsActiveSelectReason] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [issuedReasons, setIssuedReasons] = useState([
+    {
+      contentNumber: 1,
+      articleNumber: 10,
+      articleTitle: '소비자 오도 표현',
+      articleContent:
+        '일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵',
+      issuedReason: '없음',
+    },
+    {
+      contentNumber: 2,
+      articleNumber: 11,
+      articleTitle: '주장의 무입증',
+      articleContent:
+        '일품진로 어쩌구 저쩌구 이러쿵 저러쿵 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말',
+      issuedReason: '없음',
+    },
+    {
+      contentNumber: 3,
+      articleNumber: 32,
+      articleTitle: '주류광고의 부당표현',
+      articleContent:
+        '일품진로 어쩌구 저쩌구 이러쿵 저러쿵 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트',
+      issuedReason: '없음',
+    },
+  ]);
+
+  // 새로운 검토 의견 추가 관리
+  const [newReason, setNewReason] = useState({
+    contentNumber: issuedReasons.length + 1,
+    articleNumber: 0,
+    articleTitle: '',
+    articleContent: '',
+    issuedReason: '',
+  });
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // 지적광고 목록 페이지에서 요청한 데이터 응답
+  const adDetails = location.state?.adDetails.data;
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -34,13 +76,24 @@ const IssueAdResult = () => {
 
   const [selectedIndex, setSelectedIndex] = useState<{ reason: number | null }>({ reason: null });
 
+  // 조항 선택
   const handleSelected = (type: 'reason', index: number) => {
     setSelectedIndex((prevState) => ({
       ...prevState,
       [type]: index,
     }));
+
+    const matchResult = reasons[index].match(/\d+/);
+    const articleNumber = matchResult ? parseInt(matchResult[0], 10) : 0;
+
+    setNewReason((prev) => ({
+      ...prev,
+      articleNumber,
+      articleTitle: reasons[index],
+    }));
   };
 
+  // 검수 결과 이유 펼치기 전 말줄임표
   const getShortArticleContent = (reason: string) => {
     if (reason.length > 12) {
       return `${reason.substring(0, 12)}...`;
@@ -65,16 +118,59 @@ const IssueAdResult = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
+  // 새로운 검수 의견 추가
+  const addNewReason = (e: { target: { name: string; value: string } }) => {
+    const { name, value } = e.target;
+    setNewReason((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const clickAddIssuedReasonBtn = () => {
+    setIssuedReasons((prevReasons) => [
+      ...prevReasons,
+      {
+        ...newReason,
+        articleNumber: parseInt(newReason.articleNumber.toString(), 10),
+      },
+    ]);
+
+    setNewReason({
+      contentNumber: issuedReasons.length + 2,
+      articleNumber: 0,
+      articleTitle: '',
+      articleContent: '',
+      issuedReason: '',
+    });
+  };
+
   return (
     <main className="IssueAdResult">
       <article className="IssueAdResult__wrapperLeft">
-        <img src={arrowLeft} alt="뒤로가기 화살표" className="IssueAdResult__wrapperLeft_arrow" />
+        <button className="IssueAdResult__wrapperLeft_arrow" onClick={goBack}>
+          <img src={arrowLeft} alt="뒤로가기 화살표" />
+        </button>
         <div className="IssueAdResult__wrapperLeft_contents">
-          <ReviewAdNumber adNumber="A12345" />
-          <AdInfoTable title1="상품명" title2="광고주" content1="명작수" content2="아모레퍼시픽 코리아" />
-          <AdInfoTable title1="업종구분" title2="게재일" content1="식품/음료" content2="2024-07-26" />
-          <AdInfoTable title1="담당자" title2="김민지" content1="최종수정자" content2="김철수" />
-          <div className="IssueAdResult__wrapperLeft_contents_article">기사내용 (스크롤 테스트 완료)</div>
+          <ReviewAdNumber adNumber={adDetails?.id} />
+          <AdInfoTable title1="상품명" title2="광고주" content1={adDetails?.product} content2={adDetails?.advertiser} />
+          <AdInfoTable
+            title1="업종구분"
+            title2="게재일"
+            content1={adDetails?.category}
+            content2={adDetails?.postDate}
+          />
+          <AdInfoTable
+            title1="담당자"
+            title2="최종수정자"
+            content1={adDetails?.assigneeName}
+            content2={adDetails?.modifierName}
+          />
+          <div className="IssueAdResult__wrapperLeft_contents_article">{adDetails?.content}</div>
         </div>
       </article>
       <div className="middleBar"> </div>
@@ -92,24 +188,16 @@ const IssueAdResult = () => {
             </div>
           </div>
           <div className="IssueAdResult__wrapperRight_contents_resultBox">
-            <IssuedReason
-              contentNumber={1}
-              articleNumber={10}
-              articleTitle="소비자 오도 표현"
-              articleContent="일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵"
-            />
-            <IssuedReason
-              contentNumber={2}
-              articleNumber={11}
-              articleTitle="주장의 무입증"
-              articleContent="일품진로 어쩌구 저쩌구 이러쿵 저러쿵 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말"
-            />
-            <IssuedReason
-              contentNumber={3}
-              articleNumber={32}
-              articleTitle="주류광고의 부당표현"
-              articleContent="일품진로 어쩌구 저쩌구 이러쿵 저러쿵 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트"
-            />
+            {issuedReasons.map((reason, index) => (
+              <IssuedReason
+                key={index}
+                contentNumber={reason.contentNumber}
+                articleNumber={reason.articleNumber}
+                articleTitle={reason.articleTitle}
+                articleContent={reason.articleContent}
+                issuedReason={reason.issuedReason}
+              />
+            ))}
 
             {isOpen ? (
               <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult">
@@ -126,15 +214,13 @@ const IssueAdResult = () => {
                       )}
 
                       <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleNum-span">
-                        조항 선택
+                        {newReason.articleNumber ? `제 ${newReason.articleNumber}조` : '조항 선택'}
                       </div>
                       <img src={arrowDown} alt="아래 화살표" />
                     </div>
 
                     <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleTitle">
-                      {selectedIndex.reason !== null && selectedIndex.reason >= 0
-                        ? reasons[selectedIndex.reason]
-                        : '선택한 조항이 표시됩니다'}
+                      {newReason.articleTitle || '선택한 조항이 표시됩니다'}
                     </div>
                   </div>
                   <div
@@ -144,16 +230,27 @@ const IssueAdResult = () => {
                   </div>
                 </div>
                 <input
+                  name="articleContent"
+                  value={newReason.articleContent}
+                  onChange={addNewReason}
                   type="text"
                   className="IssueAdResult__wrapperRight_contents_resultBox_addResult_selectInput"
                   placeholder="지적 문장을 선택해주세요."
                 />
                 <textarea
+                  name="issuedReason"
+                  value={newReason.issuedReason}
+                  onChange={addNewReason}
                   className="IssueAdResult__wrapperRight_contents_resultBox_addResult_writeInput"
                   placeholder="검토 의견을 작성해주세요."
                 />
                 <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_button">
-                  <Button type="button" state="default" width="5.417vw" height="4.815vh">
+                  <Button
+                    type="button"
+                    state="default"
+                    width="5.417vw"
+                    height="4.815vh"
+                    onClick={clickAddIssuedReasonBtn}>
                     추가
                   </Button>
                 </div>
