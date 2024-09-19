@@ -3,6 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const name = localStorage.getItem('name') || 'unknown';
+  const authority = localStorage.getItem('authority') || 'Lv999';
 
   function headerTitle(pathname: string): string {
     switch (pathname) {
@@ -35,8 +39,6 @@ const Header = () => {
     }
   }
 
-  const navigate = useNavigate();
-
   return (
     <div className="header">
       <div className="header__container">
@@ -45,8 +47,8 @@ const Header = () => {
         <div className="header__container__admin-box">
           <div className="header__container__admin-box-picture" />
           <div className="header__container__admin-box__content-box">
-            <div className="header__container__admin-box__content-box-name">김여진</div>
-            <div className="header__container__admin-box__content-box-class">건달</div>
+            <div className="header__container__admin-box__content-box-name">{name}</div>
+            <div className="header__container__admin-box__content-box-class">{authority}</div>
           </div>
           <div
             onClick={() => {
