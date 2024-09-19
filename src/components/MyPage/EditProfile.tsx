@@ -8,6 +8,9 @@ const EditProfile = () => {
   const [editProfileForm, setEditProfileForm] = useState(1);
   const [pwdChangeForm, setPwdChangeForm] = useState(0);
 
+  const name = localStorage.getItem('name') || 'unknown';
+  const authority = localStorage.getItem('authority') || 'unknown';
+
   return (
     <section className="mypage">
       <div className="mypage__container">
@@ -15,8 +18,8 @@ const EditProfile = () => {
           <img className="mypage__container__profile-area__bg-image" src={bg} alt="마이페이지 배경사진" />
           <img className="mypage__container__profile-area-image" src={profileImage} alt="프로필사진" />
           <div className="mypage__container__profile-area__content">
-            <div className="mypage__container__profile-area__content-name">김뉴로</div>
-            <div className="mypage__container__profile-area__content-class">관리자</div>
+            <div className="mypage__container__profile-area__content-name">{name}</div>
+            <div className="mypage__container__profile-area__content-class">{authority}</div>
           </div>
         </div>
         <nav className="mypage__container__nav">

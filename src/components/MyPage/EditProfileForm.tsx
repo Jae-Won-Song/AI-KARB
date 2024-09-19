@@ -1,31 +1,56 @@
+import axiosInstance from '../../api/apiConfig';
 import Button from '../Common/Button';
 import Input from '../Common/Input';
 import { useState } from 'react';
 import Toast, { ToastProps } from '../Common/Toast';
 import { validateEmail, validatePhoneNumber, validateCertNo } from '../../utils/inputValidationUtils';
 
+interface Payload {
+  phoneNumber?: string;
+  email?: string;
+  certNoCheckToken?: string;
+  type?: string;
+  certNo?: string;
+}
+
+const name = localStorage.getItem('name') || 'unknown';
+const id = localStorage.getItem('id') || 'unknown';
+const empNo = localStorage.getItem('empNo') || 'unknown';
+
 const EditProfileForm = () => {
   const [certifyForm, setCertForm] = useState(0);
-  const [buttonState, setButtonState] = useState<
+  const [certButtonState, setCertButtonState] = useState<
     'default_deepBlue' | 'danger' | 'default_white' | 'default_gray' | 'default' | 'disabled'
   >('disabled');
+  const [checkButtonState, setCheckButtonState] = useState<
+    'default_deepBlue' | 'danger' | 'default_white' | 'default_gray' | 'default' | 'disabled'
+  >('default');
   const [toastMessage, setToastMessage] = useState<ToastProps | null>(null);
-
-  const resCertNum = '111111'; // 지울거임
 
   const [newPhoneNum, setNewPhoneNum] = useState('');
   const [checkNewPhoneNum, setCheckNewPhoneNum] = useState(false);
   const [phoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState('');
 
+  const [token, setToken] = useState('');
   const [cert, setCert] = useState('');
   const [checkErrorCert, setCheckErrorCert] = useState(false);
   const [certErrorMessage, setCertErrorMessage] = useState('');
   const [checkSuccessCert, setCheckSuccessCert] = useState(false);
   const [certSuccessMessage, setCertSuccessMessage] = useState('');
 
-  const [email, setEmail] = useState('');
+  const [newEmail, setNewEmail] = useState('');
   const [checkErrorEmail, setCheckErrorEmail] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
+
+  const [certBtnContent, setCertBtnContent] = useState('인증요청');
+  const [resetTimer, setResetTimer] = useState(false);
+  const [isTimeUp, setIsTimeUp] = useState(false);
+
+  const handleTimeUp = () => {
+    setIsTimeUp(true);
+    setCheckErrorCert(true);
+    setCertErrorMessage('인증번호가 올바르지 않습니다.');
+  };
 
   const updatePhoneNum = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -40,9 +65,9 @@ const EditProfileForm = () => {
     }
 
     if (value.trim() !== '') {
-      setButtonState('default_deepBlue');
+      setCertButtonState('default_deepBlue');
     } else {
-      setButtonState('disabled');
+      setCertButtonState('disabled');
     }
   };
 
@@ -53,13 +78,6 @@ const EditProfileForm = () => {
     if (validateCertNo(value)) {
       setCheckErrorCert(true);
       setCertErrorMessage('인증번호가 올바르지 않습니다.');
-    } else if (value !== resCertNum) {
-      setCheckErrorCert(true);
-      setCertErrorMessage('인증번호가 올바르지 않습니다.');
-    } else if (value === resCertNum) {
-      setCheckErrorCert(false);
-      setCheckSuccessCert(true);
-      setCertSuccessMessage('인증되었습니다.');
     } else {
       setCheckErrorCert(false);
       setCertErrorMessage('');
@@ -68,7 +86,7 @@ const EditProfileForm = () => {
 
   const updateEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    setEmail(value);
+    setNewEmail(value);
 
     if (validateEmail(value)) {
       setCheckErrorEmail(true);
@@ -79,59 +97,106 @@ const EditProfileForm = () => {
     }
   };
 
-  const checkPhoneNumber = () => {
-    if (validatePhoneNumber(newPhoneNum)) {
-      setCertForm(0);
-    } else {
-      setCertForm(1);
-      setButtonState('disabled');
+  const requestCertNo = async () => {
+    try {
+      const payload: Payload = {
+        type: 'UpdateUser',
+        phoneNumber: newPhoneNum,
+      };
+
+      const response = await axiosInstance.post('/api/v1/auth/cert-no', payload);
+
+      if (response.status === 200) {
+        setCertForm(1);
+        setCertBtnContent('재전송');
+        setCertButtonState('default_white');
+        console.log('인증번호 요청 성공:', response.data);
+      } else {
+        throw new Error('인증번호 요청 실패');
+      }
+    } catch (error) {
+      console.log('인증번호 요청 오류:', error);
+      setToastMessage({
+        mode: 'red',
+        title: '인증번호 요청 실패',
+        content: '인증번호 요청 중 오류가 발생했습니다.',
+      });
     }
   };
 
-  const editInfo = () => {
-    let certValid = true;
-    let emailValid = true;
+  const checkCertBtn = async () => {
+    try {
+      const payload: Payload = {
+        type: 'UpdateUser',
+        phoneNumber: newPhoneNum,
+        certNo: cert,
+      };
 
-    if (cert !== resCertNum && cert.trim() !== '') {
+      const response = await axiosInstance.post('/api/v1/auth/check-cert-no', payload);
+
+      if (response.status === 200) {
+        const { certNoCheckToken } = response.data.data;
+        setToken(certNoCheckToken);
+        setCheckErrorCert(false);
+        setCheckSuccessCert(true);
+        setCertSuccessMessage('인증되었습니다.');
+        setCheckButtonState('disabled');
+      }
+    } catch (error) {
       setToastMessage({
         mode: 'red',
-        title: '개인정보 수정 실패',
-        content: '개인정보 수정 중에 오류가 발생했습니다.',
-      });
-      certValid = false;
-    } else if (cert === resCertNum) {
-      setToastMessage({
-        title: '개인정보 수정 완료',
-        content: '개인정보 수정이 완료되었습니다.',
+        title: '인증 실패',
+        content: '인증번호가 올바르지 않습니다.',
       });
     }
+  };
 
-    if (validateEmail(email) && email.trim() !== '') {
+  const handleResendCert = () => {
+    if (certBtnContent === '재전송') {
+      setResetTimer((prev) => !prev);
+      setIsTimeUp(false);
+      setCert('');
+      setCheckErrorCert(false);
+      setCheckSuccessCert(false);
+      setCheckButtonState('default');
+    }
+  };
+
+  const editInfo = async () => {
+    const payload: Payload = {};
+
+    if (newPhoneNum && cert.trim() !== '') {
+      payload.phoneNumber = newPhoneNum;
+      payload.certNoCheckToken = token;
+    }
+
+    if (newEmail && newEmail.trim() !== '') {
+      payload.email = newEmail;
+    }
+
+    if (Object.keys(payload).length === 0) {
       setToastMessage({
         mode: 'red',
-        title: '개인정보 수정 실패',
-        content: '개인정보 수정 중에 오류가 발생했습니다.',
+        title: '수정 실패',
+        content: '수정할 정보가 없습니다.',
       });
-      emailValid = false;
-    } else if (!validateEmail(email) && email.trim() !== '') {
-      setToastMessage({
-        title: '개인정보 수정 완료',
-        content: '개인정보 수정이 완료되었습니다.',
-      });
+      return;
     }
 
-    if (certValid && emailValid && cert.trim() !== '' && email.trim() !== '') {
-      setToastMessage({
-        title: '개인정보 수정 완료',
-        content: '개인정보 수정이 완료되었습니다.',
-      });
-    }
+    try {
+      const response = await axiosInstance.put('/api/v1/user/info', payload);
 
-    if (cert.trim() === '' && email.trim() === '') {
+      if (response.status === 200) {
+        setToastMessage({
+          title: '수정 완료',
+          content: '정보가 성공적으로 수정되었습니다.',
+        });
+      }
+    } catch (error) {
       setToastMessage({
         mode: 'red',
-        title: '개인정보 수정 실패',
-        content: '개인정보 수정 중에 오류가 발생했습니다.',
+        title: '수정 실패',
+        content: '정보 수정 중 오류가 발생했습니다.',
       });
     }
   };
@@ -141,7 +206,7 @@ const EditProfileForm = () => {
       <div className="mypage__container__form__info">
         <div className="mypage__container__form__info-box">
           <div className="mypage__container__form__info-box-title">이름</div>
-          <div className="mypage__container__form__info-box-content">김뉴로</div>
+          <div className="mypage__container__form__info-box-content">{name}</div>
         </div>
         <div className="mypage__container__form__info-box">
           <div className="mypage__container__form__info-box-title_call">연락처</div>
@@ -158,11 +223,12 @@ const EditProfileForm = () => {
               <div className="mypage__container__form__info-box-content-box__gap" />
               <Button
                 onClick={() => {
-                  checkPhoneNumber();
+                  requestCertNo();
+                  handleResendCert();
                 }}
                 type="button"
-                state={buttonState}>
-                인증요청
+                state={certButtonState}>
+                {certBtnContent}
               </Button>
             </div>
           </div>
@@ -182,35 +248,35 @@ const EditProfileForm = () => {
                   size="small"
                   onChange={checkCert}
                   timer
+                  resetTrigger={resetTimer}
+                  onTimeUp={handleTimeUp}
                 />
                 <div className="mypage__container__form__info-box-content-box__gap" />
-                {cert === resCertNum ? null : (
-                  <Button
-                    onClick={() => {
-                      alert('인증번호가 전송되었습니다.');
-                    }}
-                    type="button"
-                    state="default_white">
-                    재전송
-                  </Button>
-                )}
+                <Button
+                  onClick={() => {
+                    checkCertBtn();
+                  }}
+                  type="button"
+                  state={checkButtonState}>
+                  확인
+                </Button>
               </div>
             </div>
           </div>
         )}
         <div className="mypage__container__form__info-box">
           <div className="mypage__container__form__info-box-title">아이디</div>
-          <div className="mypage__container__form__info-box-content">KIMSONGPARK</div>
+          <div className="mypage__container__form__info-box-content">{id}</div>
         </div>
         <div className="mypage__container__form__info-box">
           <div className="mypage__container__form__info-box-title">사원번호</div>
-          <div className="mypage__container__form__info-box-content">AHAKI57</div>
+          <div className="mypage__container__form__info-box-content">{empNo}</div>
         </div>
         <div className="mypage__container__form__info-box">
           <div className="mypage__container__form__info-box-title">이메일</div>
           <div className="mypage__container__form__info-box-content">
             <Input
-              value={email}
+              value={newEmail}
               isError={checkErrorEmail}
               errorMessage={emailErrorMessage}
               placeholder="이메일임"
