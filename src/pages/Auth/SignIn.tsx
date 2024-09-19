@@ -62,6 +62,7 @@ const SignIn = () => {
             empNo: response.data.data.userInfo.empNo,
             email: response.data.data.userInfo.email,
             authority: response.data.data.userInfo.authority,
+            accessToken: response.data.data.tokenInfo.accessToken,
           };
           dispatch(login(userInfo));
           navigate('/');
