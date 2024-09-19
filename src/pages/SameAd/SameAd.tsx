@@ -16,7 +16,7 @@ const SameAd = () => {
       </SearchBar>
       <Table
         columns={[
-          { name: '번호', width: '88px' },
+          { name: '번호', width: '88px', rowHeight: '5.926vh', columnHeight: '5.556vh' },
           { name: '고유번호', width: '160px' },
           { name: '매체명', width: '240px' },
           { name: '업종구분', width: '200px' },
