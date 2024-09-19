@@ -5,6 +5,7 @@ import Modal from '../../components/Common/Modal';
 import { validateName, validatePhoneNumber, validateCertNo } from '../../utils/inputValidationUtils';
 import { fetchCheckCertNo, fetchFindId, fetchSendCertNo } from '../../api/auth/authApi';
 import { useNavigate } from 'react-router-dom';
+import bg from '../../assets/background.png';
 
 const FindUser = () => {
   const [focusedBtn, setFocusedBtn] = useState('findId');
@@ -194,6 +195,7 @@ const FindUser = () => {
 
   return (
     <div className="findId">
+      <img className="signIn_bg" src={bg} alt="배경이미지" />
       <div className="findId__wrapper">
         <div className="findId__wrapper__box">
           <div className="findId__wrapper__box_title">

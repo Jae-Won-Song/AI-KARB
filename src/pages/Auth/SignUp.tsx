@@ -16,6 +16,7 @@ import {
 } from '../../utils/inputValidationUtils';
 // api
 import { fetchCheckCertNo, fetchCheckIdAvailable, fetchRequestSignUp, fetchSendCertNo } from '../../api/auth/authApi';
+import bg from '../../assets/background.png';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -396,6 +397,7 @@ const SignUp = () => {
 
   return (
     <div className="signUp">
+      <img className="signIn_bg" src={bg} alt="배경이미지" />
       <div className="signUp__wrapper">
         {!isSignUpSuccess && (
           <div className="signUp__wrapper__box">

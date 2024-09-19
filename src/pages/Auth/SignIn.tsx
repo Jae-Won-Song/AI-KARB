@@ -7,6 +7,7 @@ import { fetchSignIn } from '../../api/auth/authApi';
 import { handleKeyDown } from '../../utils/keyDownUtils';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/authSlice';
+import bg from '../../assets/background.png';
 
 const SignIn = () => {
   // input value 관리
@@ -79,6 +80,7 @@ const SignIn = () => {
 
   return (
     <div className="signIn">
+      <img className="signIn_bg" src={bg} alt="배경이미지" />
       <div className="signIn__wrapper">
         <div className="signIn__wrapper__box">
           <div className="signIn__wrapper__box_title">로그인</div>

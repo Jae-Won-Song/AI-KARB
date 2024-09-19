@@ -1,8 +1,10 @@
 .findId {
-  background-image: url('src/assets/background.png');
-  background-size: cover;
-  background-repeat: round;
-
+  &_bg {
+    position: absolute;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+  }
   &__wrapper {
     @include flex(start, center);
 
