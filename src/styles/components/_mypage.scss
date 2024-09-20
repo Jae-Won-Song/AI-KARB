@@ -1,0 +1,131 @@
+.mypage {
+  background: $white;
+  width: 85.417vw;
+  height: 88.889vh;
+
+  &__container {
+    @include column-flex(start, start);
+    flex-grow: 1;
+    background: $white;
+
+    &__profile-area {
+      @include column-flex(start, start);
+      width: 100%;
+      position: relative;
+      height: 30.278vh;
+
+      &__bg-image {
+        width: 100%;
+        height: 23.148vh;
+        object-fit: cover;
+      }
+      &-image {
+        position: absolute;
+        top: 13.426vh;
+        left: 7.292vw;
+        width: 9.375vw;
+        height: 16.667vh;
+      }
+
+      &__content {
+        margin-left: 18.021vw;
+        &-name {
+          @include text-style(32, $black, 700);
+          width: 4.375vw;
+          height: 4.444vh;
+        }
+
+        &-class {
+          @include text-style(19, $black, 400);
+          width: 2.604vw;
+          height: 2.685vh;
+        }
+      }
+    }
+
+    &__nav {
+      @include flex(start, center);
+      margin: 4.63vh 7.292vw 0 7.292vw;
+      border-bottom: 1px solid #bebebe;
+
+      &__edit-info {
+        @include text-style(17, #bebebe, 700);
+        width: 7.813vw;
+        padding: 0.926vh 1.849vw 1.019vh 1.328vw;
+        cursor: pointer;
+        &.active {
+          border-bottom: 2px solid $primary-70;
+          color: $primary-70;
+        }
+      }
+
+      &__edit-password {
+        @include text-style(17, #bebebe, 400);
+        padding: 0.926vh 1.745vw 0.926vh 1.224vw;
+        width: 7.813vw;
+        cursor: pointer;
+        &.active {
+          border-bottom: 2px solid $primary-70;
+          color: $primary-70;
+        }
+      }
+
+      &__border {
+        width: 56.25vw;
+      }
+    }
+
+    &__form {
+      width: 78.125vw;
+      height: 46.296vh;
+      margin-left: 7.292vw;
+      flex-grow: 1;
+      overflow-y: auto;
+      background: $white;
+
+      &__info {
+        width: 26.979vw;
+        margin: 3.889vh 7.292vw 0 0;
+
+        &-box {
+          @include flex(start, center);
+          min-height: 7.037vh;
+          padding: 1.111vh 0;
+          border-top: 1px solid $grayscale-20;
+          overflow: visible;
+
+          &:first-child {
+            height: auto;
+            padding-top: 0;
+            border: none;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          &-title {
+            width: 6.146vw;
+          }
+          &-title_call {
+            width: 6.146vw;
+          }
+          &-content {
+            @include flex;
+            &-box {
+              @include flex(start, start);
+              position: relative;
+              &__gap {
+                width: 0.625vw;
+              }
+            }
+          }
+        }
+      }
+      &__btn {
+        margin-left: 21.615vw;
+        margin-top: 3.704vh;
+      }
+    }
+  }
+}

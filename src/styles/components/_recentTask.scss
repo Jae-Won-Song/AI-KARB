@@ -1,0 +1,74 @@
+.recent-wrapper {
+  @include column-flex;
+  width: 29.024vw;
+  height: 35.417vh;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  margin-left: 0.732vw;
+  gap: 1.463vw;
+  border-radius: 12px;
+  border: 1px solid #e6edff;
+  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+
+  &__header {
+    @include flex(between, center);
+    margin-top: 10px;
+    align-self: stretch;
+
+    &__title {
+      @include text-style(25, $grayscale-80, 700);
+      line-height: 150%;
+    }
+
+    &__detail {
+      @include text-style(13, $grayscale-70, 400);
+      line-height: 150%;
+    }
+
+    &__arrow {
+      @include flex(center, start);
+    }
+  }
+
+  &__table {
+    @include flex;
+
+    &__head {
+      padding: 1.296vh 0.833vw 1.296vh 0.833vw;
+      @include text-style(15, $primary-60, 400);
+      text-align: left;
+      line-height: 150%;
+
+      &__번호 {
+        text-align: center;
+        font-weight: 400;
+      }
+      &__고유번호,
+      &__상품명,
+      &__작업날짜 {
+        font-weight: 400;
+      }
+    }
+
+    thead {
+      border-top: 2px solid $primary-60;
+      border-bottom: 1px solid $primary-60;
+    }
+
+    &__info {
+      &__data {
+        @include flex;
+        padding: 1.481vh 0.833vw 1.481vh 0.833vw;
+        @include text-style(15, $grayscale-70, 400);
+        border-bottom: 1px solid $grayscale-30;
+        &:last-child {
+          border: none;
+        }
+
+        &__번호 {
+          text-align: center;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}

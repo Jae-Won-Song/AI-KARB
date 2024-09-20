@@ -1,11 +1,30 @@
-## [📌 과제 수행 및 제출 방법]
-1. 현재 저장소를 로컬에 클론(Clone) 혹은 포크(Fork) 합니다.
-2. 자신의 팀명으로 브랜치를 생성합니다.(구분 가능하도록 팀명을 꼭 파스칼케이스로 표시하세요, git branch KDT_FE8_Final-Project_Team1)
-3. 자신의 팀명 브랜치에서 과제를 수행합니다.
-4. main 혹은 다른 사람의 브랜치로 절대 병합하지 않도록 주의하세요!
-5. 과제 수행이 완료되면, 자신의 팀명 브랜치를 원격 저장소에 푸시(Push)합니다.(main 브랜치에 푸시하지 않도록 꼭 주의하세요.)
-6. 저장소에서 main 브랜치를 대상으로 Pull Request 생성하면, 과제 제출이 완료됩니다!(E.g, main <== KDT_FE8_Final-Project_Team1)
-7. Pull Request에서 과제 제출 후 절대 병합(Merge)하지 않도록 주의하세요!
-8. 웹 페이지 확인을 위해 설정해야 할 환경설정 값 등은 README.md 파일에 작성 부탁 드립니다.
-9. Pull Request 링크를 LMS로도 제출해 주셔야 합니다.
-10. 과제 수행 및 제출 과정에서 문제가 발생한 경우, 바로 담당 멘토나 운영진에게 얘기하세요!
+# React + TypeScript + Vite!
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+
+- Configure the top-level `parserOptions` property like this:
+
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
+    tsconfigRootDir: __dirname,
+  },
+};
+```
+
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list

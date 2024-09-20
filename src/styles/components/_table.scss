@@ -1,0 +1,38 @@
+.table {
+  @include flex;
+  margin: 0 1.563vw 0 1.563vw;
+  &__data {
+    &__번호 {
+      @include flex;
+    }
+  }
+  &__head {
+    border-top: 2px solid $primary-60;
+    border-bottom: 1px solid $primary-60;
+    color: $primary-60;
+    text-align: left;
+    line-height: 150%;
+
+    :first-child {
+      justify-content: center;
+      text-align: center;
+    }
+  }
+}
+
+.info {
+  @include flex;
+  flex-direction: column;
+  margin: 0 1.563vw 0 1.563vw;
+  color: $grayscale-70;
+
+  &__data {
+    border-bottom: 1px solid $grayscale-30;
+    :first-child {
+      text-align: center;
+    }
+    &:hover {
+      background-color: $secondary-1;
+    }
+  }
+}

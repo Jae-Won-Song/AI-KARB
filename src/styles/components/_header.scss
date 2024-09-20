@@ -1,0 +1,36 @@
+.header {
+  &__container {
+    @include flex(between, center);
+    width: 85.417vw;
+    height: 11.111vh;
+    padding-left: 1.563vw;
+    &__title {
+      @include text-style(32, black, 700);
+    }
+    &__admin-box {
+      @include flex;
+      width: 14.583vw;
+      height: 7.407vh;
+      padding: 1.852vh 1.563vw 1.852vh 1.563vw;
+      &-picture {
+        @include flex;
+        cursor: pointer;
+        margin-right: 0.625vw;
+      }
+      &__content-box {
+        @include column-flex(center, start);
+        width: 6.354vw;
+        &-name {
+          @include text-style(15, black, 700);
+        }
+        &-class {
+          @include text-style(15, black, 400);
+        }
+      }
+      &-icon {
+        margin-left: 0.625vw;
+        cursor: pointer;
+      }
+    }
+  }
+}

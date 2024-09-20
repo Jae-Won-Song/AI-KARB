@@ -1,0 +1,32 @@
+.date-wrapper {
+  @include flex(start, start);
+  width: 19.39vw;
+  height: 14.583vh;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  margin-right: 12px;
+  gap: 0.915vw;
+  border-radius: 0.75rem;
+  border: 1px solid $grayscale-10;
+  background: $white;
+  box-shadow: 4px 4px 10px 0 rgba($grayscale-40, 0.2);
+
+  &__today {
+    color: $primary-60;
+    @include text-style(19, $primary-60, 700);
+    line-height: 260%;
+  }
+
+  &__info {
+    @include column-flex(center, start);
+
+    &__today {
+      @include text-style(25, $grayscale-90, 700);
+      line-height: 150%;
+    }
+
+    &__split {
+      @include text-style(19, $grayscale-60, 400);
+      line-height: 150%;
+    }
+  }
+}

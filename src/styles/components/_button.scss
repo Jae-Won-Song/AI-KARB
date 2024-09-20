@@ -1,0 +1,65 @@
+.Button {
+  @include flex;
+  flex-shrink: 0;
+  width: 5.417vw;
+  height: 4.815vh;
+  padding: 1.481vh 0.833vw 1.481vh 0.833vw;
+  gap: 0.25rem;
+  border-radius: 0.5rem;
+
+  &__wrapper {
+    @include flex(between, center);
+    width: 100%;
+  }
+
+  &__default {
+    background-color: $primary-50;
+    color: $white;
+
+    &:active {
+      background-color: $primary-70;
+    }
+  }
+
+  &__disabled {
+    background-color: $grayscale-30;
+    color: $grayscale-60;
+    cursor: not-allowed;
+  }
+
+  &__defaultWhite {
+    border: solid 1px $primary-50;
+    color: $primary-50;
+    background-color: white;
+
+    &:active {
+      background-color: $primary-70;
+      color: white;
+      border: none;
+    }
+  }
+
+  &__defaultGray {
+    background-color: white;
+    color: $grayscale-70;
+    border: solid 1px $grayscale-40;
+
+    &:active {
+      background-color: $primary-70;
+      color: white;
+      border: none;
+    }
+  }
+
+  &__defaultDeepBlue {
+    background-color: $primary-70;
+    color: $white;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__danger {
+    background-color: $danger-50;
+    color: white;
+  }
+}

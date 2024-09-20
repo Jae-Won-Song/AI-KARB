@@ -1,0 +1,47 @@
+.task-wrapper {
+  @include flex;
+  background-color: $white;
+  width: 40.424vw;
+  height: 14.583vh;
+  padding: 1.22vw 2.083vh 1.22vw 2.083vh;
+  margin-left: 0.671vw;
+  gap: 2.195vw;
+  border-radius: 12px;
+  border: 1px solid #e6edff;
+  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+
+  &__info {
+    @include text-style(15, $grayscale-60, 500);
+    line-height: 150%;
+
+    &__subtitle {
+      @include text-style(32, $black, 700);
+      line-height: 150%;
+      letter-spacing: 0.02rem;
+    }
+  }
+
+  &__deadline,
+  &__dailytask,
+  &__dailyrecommend {
+    @include flex(around, center);
+    width: 15.854vw;
+    gap: 0.75rem;
+
+    &::after {
+      content: '';
+      display: block;
+      border: 1px solid #e6edff;
+      height: 10.625vh;
+    }
+
+    &:last-child::after {
+      display: none;
+    }
+  }
+
+  &__title {
+    @include flex(center, start);
+    cursor: pointer;
+  }
+}

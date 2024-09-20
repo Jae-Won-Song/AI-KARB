@@ -1,0 +1,116 @@
+.sidebar {
+  &__container {
+    width: 280px;
+    height: 100vh;
+    background: #006597;
+
+    &__logo-box {
+      @include flex;
+      padding: 49px 60px 45px 55px;
+
+      &__logo {
+        @include flex;
+      }
+    }
+
+    &__border {
+      width: 233.25px;
+      height: 1px;
+      background: linear-gradient(to right, rgba(224, 225, 226, 0) 0%, white 50%, rgba(224, 225, 226, 0.15625) 100%);
+      margin: 0 23.75px 0 23px;
+      margin-bottom: 46px;
+    }
+
+    &__nav-box {
+      &__item {
+        @include flex(start, center);
+        cursor: pointer;
+        height: 48px;
+        margin: 8px 0;
+
+        &-bar {
+          width: 5px;
+          height: 48px;
+          margin-right: 10px;
+          border-radius: 0 4px 4px 0;
+          background: white;
+          visibility: hidden;
+        }
+
+        &-area {
+          @include flex(start, center);
+          width: 222px;
+          height: 100%;
+          padding-left: 13px;
+          border-radius: 8px;
+
+          &__icon {
+            margin-right: 12px;
+          }
+        }
+      }
+    }
+
+    &__admin-nav {
+      height: 248px;
+
+      &__item {
+        @include flex;
+        cursor: pointer;
+        height: 48px;
+
+        &-bar {
+          width: 5px;
+          height: 48px;
+          margin-right: 10px;
+          border-radius: 0 4px 4px 0;
+          background: white;
+          visibility: hidden;
+        }
+
+        &-area {
+          @include flex;
+          width: 222px;
+          height: 100%;
+          padding-left: 13px;
+          border-radius: 8px;
+
+          &__icon {
+            margin-right: 12px;
+          }
+        }
+      }
+
+      &__items {
+        @include flex(start, center);
+        cursor: pointer;
+        height: 20px;
+        padding: 20px 0 20px 30px;
+        color: white;
+        text-decoration: none;
+
+        .dot {
+          margin-right: 10px;
+          text-decoration: none;
+          color: white;
+          font-size: 1.5rem;
+        }
+
+        &__title {
+          text-decoration: none;
+
+          &:hover,
+          &.selected {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .sidebar__container__nav-box {
+        &__item {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+.dailyRateContainer {
+  @include column-flex;
+  width: 19.39vw;
+  height: 28.125vh;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  margin-left: 11px;
+  gap: 1.463vw;
+  background-color: $white;
+  border-radius: 12px;
+  border: 1px solid #e6edff;
+  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+
+  &__title {
+    @include column-flex(start, start);
+    align-self: stretch;
+  }
+
+  &__gauge {
+    width: 14.583vw;
+    height: 14.333vh;
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+.adminGauge {
+  position: relative;
+  background-color: var(--Gray-Gray-20, #e4e4e4);
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  @media (max-width: '200px') {
+    display: none;
+  }
+
+  &__rate {
+    width: 280px;
+    height: 280px;
+    position: absolute;
+    top: 1%;
+    border-radius: 50%;
+    transform: rotate(-90deg);
+  }
+
+  &__center {
+    width: 220px;
+    height: 220px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    &__percentage {
+      color: #006597;
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 150%;
+      letter-spacing: 0.32px;
+      text-align: center;
+    }
+  }
+}
