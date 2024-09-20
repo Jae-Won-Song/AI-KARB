@@ -10,6 +10,7 @@ import iconPlus from '../../assets/icon-plus.svg';
 import { useEffect, useState } from 'react';
 import Modal from '../../components/Common/Modal';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { fetchLoadIssueOption } from '../../api/issueAd/issueAdApi';
 
 type IssuedReasonType = {
   contentNumber: number;
@@ -26,11 +27,18 @@ type AdDetailsType = {
   opinion: string;
 };
 
+type IssueOptionType = {
+  id: number;
+  article: number;
+  content: string;
+};
+
 const IssueAdResult = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActiveSelectReason, setIsActiveSelectReason] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [issuedReasons, setIssuedReasons] = useState<IssuedReasonType[]>([]);
+  const [reason, setReason] = useState<IssueOptionType[]>([]);
 
   // 새로운 검토 의견 추가 관리
   const [newReason, setNewReason] = useState({
@@ -40,6 +48,16 @@ const IssueAdResult = () => {
     articleContent: '',
     issuedReason: '',
   });
+
+  // 위반 조항
+  const reasons = [
+    '7조 진실성 위반 표현이 길어지면',
+    '8조 광고의 품위상실',
+    '9조 광고주 불표시',
+    '10조 소비자 오도 표현',
+    '11조 주장의 무입증',
+    '12조 추천, 보증',
+  ];
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -59,7 +77,20 @@ const IssueAdResult = () => {
         })),
       );
     }
+
+    fetchLoadIssueOption()
+      .then((response) => {
+        setReason(response.data.data.provisionList);
+        console.log('조항리스트', response);
+      })
+      .catch((error) => {
+        console.error('조항 리스트 조회 실패', error);
+      });
   }, [adDetails]);
+
+  useEffect(() => {
+    console.log('reason', reason);
+  }, [reason]);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -68,15 +99,6 @@ const IssueAdResult = () => {
   const handleActiveSelectReason = () => {
     setIsActiveSelectReason(!isActiveSelectReason);
   };
-
-  const reasons = [
-    '7조 진실성 위반 표현이 길어지면',
-    '8조 광고의 품위상실',
-    '9조 광고주 불표시',
-    '10조 소비자 오도 표현',
-    '11조 주장의 무입증',
-    '12조 추천, 보증',
-  ];
 
   const [selectedIndex, setSelectedIndex] = useState<{ reason: number | null }>({ reason: null });
 
@@ -87,13 +109,13 @@ const IssueAdResult = () => {
       [type]: index,
     }));
 
-    const matchResult = reasons[index].match(/\d+/);
-    const articleNumber = matchResult ? parseInt(matchResult[0], 10) : 0;
+    const selectedArticle = reason[index].article;
+    const selectedContent = reason[index].content;
 
     setNewReason((prev) => ({
       ...prev,
-      articleNumber,
-      articleTitle: reasons[index],
+      articleNumber: selectedArticle,
+      articleTitle: selectedContent,
     }));
   };
 
@@ -105,15 +127,16 @@ const IssueAdResult = () => {
     return reason;
   };
 
-  const renderDropdownList = (items: string[], type: 'reason') => {
-    return items.map((item, index) => (
+  // 조항 드롭다운
+  const renderDropdownList = () => {
+    return reason.map((item, index) => (
       <div
-        key={index}
+        key={item.article}
         className={`IssueAdResult__selectReason_reason ${
-          selectedIndex[type] === index ? 'selected' : ''
-        } ${selectedIndex[type] === index + 1 ? 'previous-selected' : ''}`}
-        onClick={() => handleSelected(type, index)}>
-        {getShortArticleContent(item)}
+          selectedIndex.reason === index ? 'selected' : ''
+        } ${selectedIndex.reason === index + 1 ? 'previous-selected' : ''}`}
+        onClick={() => handleSelected('reason', index)}>
+        {`${item.article}조 ${getShortArticleContent(item.content)} `}
       </div>
     ));
   };
@@ -218,7 +241,7 @@ const IssueAdResult = () => {
                       className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleNum"
                       onClick={handleActiveSelectReason}>
                       {isActiveSelectReason && (
-                        <div className="IssueAdResult__selectReason">{renderDropdownList(reasons, 'reason')}</div>
+                        <div className="IssueAdResult__selectReason">{renderDropdownList()}</div>
                       )}
 
                       <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleNum-span">
