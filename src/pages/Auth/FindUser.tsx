@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Input from '../../components/Common/Input';
 import Button from '../../components/Common/Button';
 import Modal from '../../components/Common/Modal';
-import { validateName, validatePhoneNumber, validateCertNo } from '../../utils/inputValidationUtils';
+import { validateName, validatePhoneNumber, validateCertNo, validateId } from '../../utils/inputValidationUtils';
 import { fetchCheckCertNo, fetchFindId, fetchSendCertNo } from '../../api/auth/authApi';
 import { useNavigate } from 'react-router-dom';
 import bg from '../../assets/background.png';
@@ -11,11 +11,15 @@ const FindUser = () => {
   const [focusedBtn, setFocusedBtn] = useState('findId');
 
   // input value 관리
+  const [id, setID] = useState('');
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [certNo, setCertNo] = useState('');
 
   // input state 관리
+  // 아이디
+  const [isIdError, setIsIdError] = useState(false);
+  const [idErrorMessage, setIdErrorMessage] = useState('');
   // 이름
   const [isNameError, setIsNameError] = useState(false);
   const [nameErrorMessage, setNameErrorMessage] = useState('');
@@ -61,7 +65,10 @@ const FindUser = () => {
   const checkIfInputsFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name: filledInput, value } = e.target;
 
-    // 이름, 연락처
+    // 아이디, 이름, 연락처
+    if (filledInput === 'id') {
+      setID(value);
+    }
     if (filledInput === 'name') {
       setName(value);
     }
@@ -69,10 +76,17 @@ const FindUser = () => {
       setPhoneNumber(value);
     }
 
+    const updateId = filledInput === 'id' ? value : id;
     const updatedName = filledInput === 'name' ? value : name;
     const updatedPhoneNumber = filledInput === 'phoneNumber' ? value : phoneNumber;
 
-    if (updatedName !== '' && updatedPhoneNumber !== '') {
+    if (focusedBtn === 'findId' && updatedName !== '' && updatedPhoneNumber !== '') {
+      setIsCertNoRequestBtnDisabled(false);
+    } else {
+      setIsCertNoRequestBtnDisabled(true);
+    }
+
+    if (focusedBtn === 'findPw' && updateId !== '' && updatedName !== '' && updatedPhoneNumber !== '') {
       setIsCertNoRequestBtnDisabled(false);
     } else {
       setIsCertNoRequestBtnDisabled(true);
@@ -89,6 +103,15 @@ const FindUser = () => {
   const handleClickCertNoRequestBtn = () => {
     let isValid = true;
 
+    if (validateId(id)) {
+      setIsIdError(true);
+      setIdErrorMessage('아이디는 4~12글자, 영 대/소문자/숫자만 입력해주세요');
+      isValid = false;
+    } else {
+      setIsIdError(false);
+      setIdErrorMessage('');
+    }
+
     if (validateName(name)) {
       setIsNameError(true);
       setNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
@@ -104,25 +127,52 @@ const FindUser = () => {
     } else {
       setIsPhoneNumberError(false);
 
-      const payload = {
-        type: 'FindId',
-        phoneNumber,
-      };
+      if (focusedBtn === 'findId') {
+        const payload = {
+          type: 'FindId',
+          phoneNumber,
+        };
 
-      fetchSendCertNo(payload)
-        .then((response) => {
-          if (response.data.code === 3103) {
-            setIsCertNoRequested(true);
-          }
-          if (isValid) {
-            setAddCertNoInput(true);
-          }
-        })
-        .catch(() => {
-          if (isValid) {
-            setAddCertNoInput(false);
-          }
-        });
+        fetchSendCertNo(payload)
+          .then((response) => {
+            if (response.data.code === 3103) {
+              setIsCertNoRequested(true);
+            }
+            if (isValid) {
+              setAddCertNoInput(true);
+            }
+          })
+          .catch(() => {
+            if (isValid) {
+              setAddCertNoInput(false);
+            }
+          });
+      }
+
+      if (focusedBtn === 'findPw') {
+        const payload = {
+          type: 'FindPassword',
+          phoneNumber,
+        };
+
+        console.log('요청 전');
+
+        fetchSendCertNo(payload)
+          .then((response) => {
+            console.log('요청 성공', response);
+            if (response.data.code === 3103) {
+              setIsCertNoRequested(true);
+            }
+            if (isValid) {
+              setAddCertNoInput(true);
+            }
+          })
+          .catch(() => {
+            if (isValid) {
+              setAddCertNoInput(false);
+            }
+          });
+      }
     }
   };
 
@@ -139,30 +189,59 @@ const FindUser = () => {
       setIsCertNoError(false);
 
       // 인증번호 확인 요청
-      const payload = {
-        type: 'FindId',
-        phoneNumber,
-        certNo,
-      };
+      if (focusedBtn === 'findId') {
+        const payload = {
+          type: 'FindId',
+          phoneNumber,
+          certNo,
+        };
 
-      fetchCheckCertNo(payload)
-        .then((response) => {
-          if (response.data.code === 3104) {
-            setIsCertNoSuccess(true);
-            setCertNoSuccessMessage('인증되었습니다');
-            setIsCertNoError(false);
-            setCertNoErrorMessage('');
-            setIsCertNoCheckBtnDisabled(true);
-            // 토큰 저장
-            setCertNoCheckToken(response.data.data.certNoCheckToken);
-          }
-        })
-        .catch(() => {
-          setIsCertNoError(true);
-          setCertNoErrorMessage('인증번호가 올바르지 않습니다');
-          setIsCertNoSuccess(false);
-          setCertNoSuccessMessage('');
-        });
+        fetchCheckCertNo(payload)
+          .then((response) => {
+            if (response.data.code === 3104) {
+              setIsCertNoSuccess(true);
+              setCertNoSuccessMessage('인증되었습니다');
+              setIsCertNoError(false);
+              setCertNoErrorMessage('');
+              setIsCertNoCheckBtnDisabled(true);
+              // 토큰 저장
+              setCertNoCheckToken(response.data.data.certNoCheckToken);
+            }
+          })
+          .catch(() => {
+            setIsCertNoError(true);
+            setCertNoErrorMessage('인증번호가 올바르지 않습니다');
+            setIsCertNoSuccess(false);
+            setCertNoSuccessMessage('');
+          });
+      }
+
+      if (focusedBtn === 'findPw') {
+        const payload = {
+          type: 'FindPassword',
+          phoneNumber,
+          certNo,
+        };
+
+        fetchCheckCertNo(payload)
+          .then((response) => {
+            if (response.data.code === 3104) {
+              setIsCertNoSuccess(true);
+              setCertNoSuccessMessage('인증되었습니다');
+              setIsCertNoError(false);
+              setCertNoErrorMessage('');
+              setIsCertNoCheckBtnDisabled(true);
+              // 토큰 저장
+              setCertNoCheckToken(response.data.data.certNoCheckToken);
+            }
+          })
+          .catch(() => {
+            setIsCertNoError(true);
+            setCertNoErrorMessage('인증번호가 올바르지 않습니다');
+            setIsCertNoSuccess(false);
+            setCertNoSuccessMessage('');
+          });
+      }
     }
   };
 
@@ -322,14 +401,72 @@ const FindUser = () => {
           {focusedBtn === 'findPw' && (
             <>
               <div className="findId__wrapper__box_input">
-                <Input placeholder="아이디 (한글/특수문자 제외)" />
-                <Input placeholder="이름" />
+                <Input
+                  placeholder="아이디 (한글/특수문자 제외)"
+                  name="id"
+                  value={id}
+                  onChange={checkIfInputsFilled}
+                  isError={isIdError}
+                  errorMessage={idErrorMessage}
+                />
+                <Input
+                  placeholder="이름"
+                  name="name"
+                  value={name}
+                  onChange={checkIfInputsFilled}
+                  isError={isNameError}
+                  errorMessage={nameErrorMessage}
+                />
                 <div className="findId__wrapper__box_input_inner">
-                  <Input placeholder="연락처('-'을 제외한 숫자만 입력)" size="small" />
-                  <Button type="button" state="disabled" width="5.417vw" height="4.815vh" fontSize="0.781vw">
-                    인증요청
+                  <Input
+                    placeholder="연락처('-'을 제외한 숫자만 입력)"
+                    size="small"
+                    name="phoneNumber"
+                    value={phoneNumber}
+                    onChange={checkIfInputsFilled}
+                    isError={isPhoneNumberError}
+                    errorMessage={PhoneNumberErrorMessage}
+                  />
+                  <Button
+                    type="button"
+                    state={isCertNoRequestBtnDisabled ? 'disabled' : 'default_deepBlue'}
+                    width="5.417vw"
+                    height="4.815vh"
+                    fontSize="0.781vw"
+                    onClick={handleClickCertNoRequestBtn}>
+                    {isCertNoRequested ? '재전송' : '인증요청'}
                   </Button>
                 </div>
+
+                {addCertNoInput && (
+                  <div className="signUp__wrapper__box_input_box">
+                    <Input
+                      placeholder="인증번호"
+                      size="small"
+                      name="certNo"
+                      value={certNo}
+                      onChange={checkIfInputsFilled}
+                      isError={isCertNoError}
+                      errorMessage={certNoErrorMessage}
+                      isSuccess={isCertNoSuccess}
+                      successMessage={certNoSuccessMessage}
+                      timer
+                      onTimeUp={handleTimeUp}
+                      resetTrigger={resetTimer}
+                    />
+                    <div className="signUp__wrapper__box_input_box_button">
+                      <Button
+                        type="button"
+                        state={isCertNoCheckBtnDisabled ? 'disabled' : 'default'}
+                        width="5.417vw"
+                        height="4.815vh"
+                        fontSize="0.781vw"
+                        onClick={handleClickCertNoCheckBtn}>
+                        확인
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="findId__wrapper__box_button">
                 <Button type="button" state="default" width="20.833vw" height="5.926vh">
