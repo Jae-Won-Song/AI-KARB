@@ -15,3 +15,10 @@ export const fetchLoadIssueAdList = (payload: object) => {
 export const fetchLoadIssueAdDetail = ({ advertisementId }: { advertisementId: string }) => {
   return instance.get(`/api/v1/issue-ad/result/202409${advertisementId}`);
 };
+
+/*
+ * 위반 조항 리스트 불러오기
+ */
+export const fetchLoadIssueOption = () => {
+  return instance.get('/api/v1/issue-ad/options/provision');
+};
