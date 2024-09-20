@@ -30,20 +30,34 @@ const FindUser = () => {
   const [findPwCertNo, setFindPwCertNo] = useState('');
 
   // input state 관리
+  // 아이디찾기용
+  // 이름
+  const [isFindIdNameError, setIsFindIdNameError] = useState(false);
+  const [findIdNameErrorMessage, setFindIdNameErrorMessage] = useState('');
+  // 연락처
+  const [isFindIdPhoneNumberError, setIsFindIdPhoneNumberError] = useState(false);
+  const [findIdPhoneNumberErrorMessage, setFindIdPhoneNumberErrorMessage] = useState('');
+  // 인증번호
+  const [isFindIdCertNoError, setIsFindIdCertNoError] = useState(false);
+  const [findIdCertNoErrorMessage, setFindIdCertNoErrorMessage] = useState('');
+  const [isFindIdCertNoSuccess, setIsFindIdCertNoSuccess] = useState(false);
+  const [findIdCertNoSuccessMessage, setFindIdCertNoSuccessMessage] = useState('');
+
+  // 비밀번호찾기용
   // 아이디
   const [isIdError, setIsIdError] = useState(false);
   const [idErrorMessage, setIdErrorMessage] = useState('');
   // 이름
-  const [isNameError, setIsNameError] = useState(false);
-  const [nameErrorMessage, setNameErrorMessage] = useState('');
+  const [isFindPwNameError, setIsFindPwNameError] = useState(false);
+  const [findPwNameErrorMessage, setFindPwNameErrorMessage] = useState('');
   // 연락처
-  const [isPhoneNumberError, setIsPhoneNumberError] = useState(false);
-  const [PhoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState('');
+  const [isFindPwPhoneNumberError, setIsFindPwPhoneNumberError] = useState(false);
+  const [findPwPhoneNumberErrorMessage, setFindPwPhoneNumberErrorMessage] = useState('');
   // 인증번호
-  const [isCertNoError, setIsCertNoError] = useState(false);
-  const [certNoErrorMessage, setCertNoErrorMessage] = useState('');
-  const [isCertNoSuccess, setIsCertNoSuccess] = useState(false);
-  const [certNoSuccessMessage, setCertNoSuccessMessage] = useState('');
+  const [isFindPwCertNoError, setIsFindPwCertNoError] = useState(false);
+  const [findPwCertNoErrorMessage, setFindPwCertNoErrorMessage] = useState('');
+  const [isFindPwCertNoSuccess, setIsFindPwCertNoSuccess] = useState(false);
+  const [findPwCertNoSuccessMessage, setFindPwCertNoSuccessMessage] = useState('');
   // 비밀번호
   const [isNewPasswordError, setIsNewPasswordError] = useState(false);
   const [newPasswordErrorMessage, setNewPasswordErrorMessage] = useState('');
@@ -153,22 +167,22 @@ const FindUser = () => {
 
     if (focusedBtn === 'findId') {
       if (validateName(findIdName)) {
-        setIsNameError(true);
-        setNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
+        setIsFindIdNameError(true);
+        setFindIdNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
         isValid = false;
         return;
       }
-      setIsNameError(false);
-      setNameErrorMessage('');
+      setIsFindIdNameError(false);
+      setFindIdNameErrorMessage('');
 
       if (validatePhoneNumber(findIdPhoneNumber)) {
-        setIsPhoneNumberError(true);
-        setPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
+        setIsFindIdPhoneNumberError(true);
+        setFindIdPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
         isValid = false;
         return;
       }
-      setIsPhoneNumberError(false);
-      setPhoneNumberErrorMessage('');
+      setIsFindIdPhoneNumberError(false);
+      setFindIdPhoneNumberErrorMessage('');
 
       const payload = {
         type: 'FindId',
@@ -199,22 +213,22 @@ const FindUser = () => {
       setIdErrorMessage('');
 
       if (validateName(findPwName)) {
-        setIsNameError(true);
-        setNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
+        setIsFindPwNameError(true);
+        setFindPwNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
         isValid = false;
         return;
       }
-      setIsNameError(false);
-      setNameErrorMessage('');
+      setIsFindPwNameError(false);
+      setFindPwNameErrorMessage('');
 
       if (validatePhoneNumber(findPwPhoneNumber)) {
-        setIsPhoneNumberError(true);
-        setPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
+        setIsFindPwPhoneNumberError(true);
+        setFindPwPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
         isValid = false;
         return;
       }
-      setIsPhoneNumberError(false);
-      setPhoneNumberErrorMessage('');
+      setIsFindPwPhoneNumberError(false);
+      setFindPwPhoneNumberErrorMessage('');
 
       const payload = {
         type: 'FindPassword',
@@ -247,75 +261,84 @@ const FindUser = () => {
       setIsTimeUp(false);
     }
 
-    if (validateCertNo(findIdCertNo) || validateCertNo(findPwCertNo)) {
-      setIsCertNoError(true);
-      setCertNoErrorMessage('유효한 인증번호가 아닙니다');
-    } else {
-      setIsCertNoError(false);
-
-      // 인증번호 확인 요청
-      if (focusedBtn === 'findId') {
-        const payload = {
-          type: 'FindId',
-          phoneNumber: findIdPhoneNumber,
-          certNo: findIdCertNo,
-        };
-
-        fetchCheckCertNo(payload)
-          .then((response) => {
-            if (response.data.code === 3104) {
-              setIsCertNoSuccess(true);
-              setCertNoSuccessMessage('인증되었습니다');
-              setIsCertNoError(false);
-              setCertNoErrorMessage('');
-              setIsFindIdCertNoCheckBtnDisabled(true);
-              // 토큰 저장
-              setCertNoCheckToken(response.data.data.certNoCheckToken);
-            }
-          })
-          .catch(() => {
-            setIsCertNoError(true);
-            setCertNoErrorMessage('인증번호가 올바르지 않습니다');
-            setIsCertNoSuccess(false);
-            setCertNoSuccessMessage('');
-          });
+    // 인증번호 확인 요청
+    if (focusedBtn === 'findId') {
+      if (validateCertNo(findIdCertNo)) {
+        setIsFindIdCertNoError(true);
+        setFindIdCertNoErrorMessage('유효한 인증번호가 아닙니다');
+        return;
       }
+      setIsFindIdCertNoError(false);
+      setFindIdCertNoErrorMessage('');
 
-      if (focusedBtn === 'findPw') {
-        const payload = {
-          type: 'FindPassword',
-          phoneNumber: findPwPhoneNumber,
-          certNo: findPwCertNo,
-        };
+      const payload = {
+        type: 'FindId',
+        phoneNumber: findIdPhoneNumber,
+        certNo: findIdCertNo,
+      };
 
-        fetchCheckCertNo(payload)
-          .then((response) => {
-            if (response.data.code === 3104) {
-              setIsCertNoSuccess(true);
-              setCertNoSuccessMessage('인증되었습니다');
-              setIsCertNoError(false);
-              setCertNoErrorMessage('');
-              setIsFindPwCertNoCheckBtnDisabled(true);
-              // 토큰 저장
-              setCertNoCheckToken(response.data.data.certNoCheckToken);
-            }
-          })
-          .catch(() => {
-            setIsCertNoError(true);
-            setCertNoErrorMessage('인증번호가 올바르지 않습니다');
-            setIsCertNoSuccess(false);
-            setCertNoSuccessMessage('');
-          });
+      fetchCheckCertNo(payload)
+        .then((response) => {
+          if (response.data.code === 3104) {
+            setIsFindIdCertNoSuccess(true);
+            setFindIdCertNoSuccessMessage('인증되었습니다');
+            setIsFindIdCertNoError(false);
+            setFindIdCertNoErrorMessage('');
+            setIsFindIdCertNoCheckBtnDisabled(true);
+            // 토큰 저장
+            setCertNoCheckToken(response.data.data.certNoCheckToken);
+          }
+        })
+        .catch(() => {
+          setIsFindIdCertNoError(true);
+          setFindIdCertNoErrorMessage('인증번호가 올바르지 않습니다');
+          setIsFindIdCertNoSuccess(false);
+          setFindIdCertNoSuccessMessage('');
+        });
+    }
+
+    if (focusedBtn === 'findPw') {
+      if (validateCertNo(findIdCertNo)) {
+        setIsFindPwCertNoError(true);
+        setFindPwCertNoErrorMessage('유효한 인증번호가 아닙니다');
+        return;
       }
+      setIsFindPwCertNoError(false);
+      setFindPwCertNoErrorMessage('');
+
+      const payload = {
+        type: 'FindPassword',
+        phoneNumber: findPwPhoneNumber,
+        certNo: findPwCertNo,
+      };
+
+      fetchCheckCertNo(payload)
+        .then((response) => {
+          if (response.data.code === 3104) {
+            setIsFindPwCertNoSuccess(true);
+            setFindPwCertNoSuccessMessage('인증되었습니다');
+            setIsFindPwCertNoError(false);
+            setFindPwCertNoErrorMessage('');
+            setIsFindPwCertNoCheckBtnDisabled(true);
+            // 토큰 저장
+            setCertNoCheckToken(response.data.data.certNoCheckToken);
+          }
+        })
+        .catch(() => {
+          setIsFindPwCertNoError(true);
+          setFindPwCertNoErrorMessage('인증번호가 올바르지 않습니다');
+          setIsFindPwCertNoSuccess(false);
+          setFindPwCertNoSuccessMessage('');
+        });
     }
   };
 
   const handleClickFindIdBtn = () => {
     if (!isCertNoRequested) {
-      setIsNameError(true);
-      setNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
-      setIsPhoneNumberError(true);
-      setPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
+      setIsFindIdNameError(true);
+      setFindIdNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
+      setIsFindIdPhoneNumberError(true);
+      setFindIdPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
       return;
     }
 
@@ -339,10 +362,10 @@ const FindUser = () => {
 
   const handleClickFindPwBtn = () => {
     if (!isCertNoRequested) {
-      setIsNameError(true);
-      setNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
-      setIsPhoneNumberError(true);
-      setPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
+      setIsFindPwNameError(true);
+      setFindPwNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
+      setIsFindPwPhoneNumberError(true);
+      setFindPwPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
       return;
     }
 
@@ -418,8 +441,8 @@ const FindUser = () => {
                   name="name"
                   value={findIdName}
                   onChange={handleFindIdInputsFilled}
-                  isError={isNameError}
-                  errorMessage={nameErrorMessage}
+                  isError={isFindIdNameError}
+                  errorMessage={findIdNameErrorMessage}
                 />
                 <div className="findId__wrapper__box_input_inner">
                   <Input
@@ -428,8 +451,8 @@ const FindUser = () => {
                     name="phoneNumber"
                     value={findIdPhoneNumber}
                     onChange={handleFindIdInputsFilled}
-                    isError={isPhoneNumberError}
-                    errorMessage={PhoneNumberErrorMessage}
+                    isError={isFindIdPhoneNumberError}
+                    errorMessage={findIdPhoneNumberErrorMessage}
                   />
                   <Button
                     type="button"
@@ -450,10 +473,10 @@ const FindUser = () => {
                       name="certNo"
                       value={findIdCertNo}
                       onChange={handleFindIdInputsFilled}
-                      isError={isCertNoError}
-                      errorMessage={certNoErrorMessage}
-                      isSuccess={isCertNoSuccess}
-                      successMessage={certNoSuccessMessage}
+                      isError={isFindIdCertNoError}
+                      errorMessage={findIdCertNoErrorMessage}
+                      isSuccess={isFindIdCertNoSuccess}
+                      successMessage={findIdCertNoSuccessMessage}
                       timer
                       onTimeUp={handleTimeUp}
                       resetTrigger={resetTimer}
@@ -537,8 +560,8 @@ const FindUser = () => {
                   name="name"
                   value={findPwName}
                   onChange={handleFindPwInputsFilled}
-                  isError={isNameError}
-                  errorMessage={nameErrorMessage}
+                  isError={isFindPwNameError}
+                  errorMessage={findPwNameErrorMessage}
                 />
                 <div className="findId__wrapper__box_input_inner">
                   <Input
@@ -547,8 +570,8 @@ const FindUser = () => {
                     name="phoneNumber"
                     value={findPwPhoneNumber}
                     onChange={handleFindPwInputsFilled}
-                    isError={isPhoneNumberError}
-                    errorMessage={PhoneNumberErrorMessage}
+                    isError={isFindPwPhoneNumberError}
+                    errorMessage={findPwPhoneNumberErrorMessage}
                   />
                   <Button
                     type="button"
@@ -569,10 +592,10 @@ const FindUser = () => {
                       name="certNo"
                       value={findPwCertNo}
                       onChange={handleFindPwInputsFilled}
-                      isError={isCertNoError}
-                      errorMessage={certNoErrorMessage}
-                      isSuccess={isCertNoSuccess}
-                      successMessage={certNoSuccessMessage}
+                      isError={isFindPwCertNoError}
+                      errorMessage={findPwCertNoErrorMessage}
+                      isSuccess={isFindPwCertNoSuccess}
+                      successMessage={findPwCertNoSuccessMessage}
                       timer
                       onTimeUp={handleTimeUp}
                       resetTrigger={resetTimer}
