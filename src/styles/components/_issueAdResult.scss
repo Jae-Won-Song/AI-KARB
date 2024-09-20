@@ -243,8 +243,7 @@
     &_reason {
       @include flex(start, center);
 
-      height: 2.963vh;
-      padding: 1.481vh 0.417vw 1.481vh 0.521vw;
+      padding: 0.417vh 0.417vw 0.417vh 0.521vw;
       border-bottom: 1px solid $grayscale-40;
 
       @include text-style(15, $grayscale-50, 400);
