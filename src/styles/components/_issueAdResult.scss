@@ -27,6 +27,8 @@
         margin-top: 1.852vh;
         border: 2px solid $secondary-5;
 
+        @include text-style(17, $grayscale-90, 400);
+
         overflow-y: auto;
       }
     }
