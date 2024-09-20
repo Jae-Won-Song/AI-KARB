@@ -33,6 +33,7 @@ const ManageUser = () => {
     const fetchUserData = async () => {
       try {
         const response = await getUserList();
+        console.log(response);
         const { contents } = response.data?.data || {};
         if (contents && Array.isArray(contents)) {
           setUserData(contents);
