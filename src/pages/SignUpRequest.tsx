@@ -11,7 +11,7 @@ interface UserData {
   cursorId: number;
   name: string;
   empNo: string;
-  phoneNum: string;
+  phoneNumber: string;
   email: string;
   signUpRequestDateTime: string;
 }
@@ -128,7 +128,7 @@ const SignUpRequest = () => {
             ),
             이름: item.name,
             사원번호: item.empNo,
-            연락처: item.phoneNum,
+            연락처: item.phoneNumber,
             이메일: item.email,
             가입요청일: item.signUpRequestDateTime,
             승인버튼: <button onClick={handleApprove}>승인</button>,
