@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import SearchBar from '../components/Common/SearchBar';
 import SearchInput from '../components/Common/SearchInput';
 import Filter from '../components/Common/Filter';
@@ -22,46 +22,44 @@ interface Advertisement {
   issue: boolean;
 }
 
-interface TaskList {
-  totalElements: number;
-  advertisementList: Advertisement[];
-}
-
 const MyTasks = () => {
-  const [taskData, setTaskData] = useState<TaskList | null>(null);
+  const [taskData, setTaskData] = useState<Advertisement[]>([]);
   const [adCount, setAdCount] = useState({ myTotalAd: 0, myDoneAd: 0, myNotDoneAd: 0 });
+  const [cursorId, setCursorId] = useState<string | null>('N00001');
+  const [hasMore, setHasMore] = useState(true);
+
+  const fetchTaskData = useCallback(async () => {
+    if (!cursorId) return;
+
+    try {
+      const requestData = {
+        cursorInfo: {
+          cursorState: taskData.length > 0,
+          cursorId,
+        },
+      };
+
+      const response = await instance.post('/api/v1/user/my-task', requestData);
+      console.log(response);
+
+      const newTaskData = response.data.data.taskList.advertisementList;
+      const newAdCount = response.data.data.adCount;
+      const newCursorId = response.data.data.taskList.cursorInfo?.cursorId || null;
+
+      setTaskData((prev) => [...prev, ...newTaskData]);
+      setAdCount(newAdCount);
+      setCursorId(newCursorId);
+      setHasMore(newTaskData.length > 0);
+    } catch (error) {
+      console.error('에러', error);
+    }
+  }, [cursorId, taskData]);
 
   useEffect(() => {
-    const fetchTaskData = async () => {
-      try {
-        const requestData = {
-          cursorInfo: {
-            cursorState: false,
-            cursorId: 'A00001',
-          },
-          keyword: null,
-          period: '2024-09-2',
-          state: null,
-          issue: null,
-          media: [],
-          category: [],
-        };
-
-        const response = await instance.post('/api/v1/user/my-task', requestData);
-
-        console.log(response.data);
-
-        setTaskData(response.data.data.taskList);
-        setAdCount(response.data.data.adCount);
-      } catch (error) {
-        console.log('에러', error);
-      }
-    };
-
     fetchTaskData();
-  }, []);
+  }, [fetchTaskData]);
 
-  if (!taskData) {
+  if (!taskData || taskData.length === 0) {
     return <Spinner />;
   }
 
@@ -113,8 +111,8 @@ const MyTasks = () => {
             { name: '지적비지적', width: '9.375vw' },
           ]}
           data={
-            taskData.advertisementList && taskData.advertisementList.length > 0
-              ? taskData.advertisementList.map((task, index) => ({
+            taskData && taskData.length > 0
+              ? taskData.map((task, index) => ({
                   번호: index + 1,
                   고유번호: task.adId,
                   매체명: Array.isArray(task.media) ? task.media.join(', ') : task.media,
@@ -124,9 +122,9 @@ const MyTasks = () => {
                   진행상황: (
                     <ReviewTag
                       size="large"
-                      containerBg={task.state ? '#FFEDDA' : '#DEEEED'}
-                      circleBg={task.state ? '#FFB566' : '#64ACA7'}
-                      content={task.state ? '검수전' : '검수완료'}
+                      containerBg={task.state ? '#DEEEED' : '#FFEDDA'}
+                      circleBg={task.state ? '#64ACA7' : '#FFB566'}
+                      content={task.state ? '검수완료' : '검수전'}
                     />
                   ),
                   지적비지적: (
@@ -142,6 +140,7 @@ const MyTasks = () => {
           }
         />
       </div>
+      {hasMore && <Spinner />}
     </div>
   );
 };
