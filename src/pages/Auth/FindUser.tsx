@@ -17,12 +17,18 @@ const FindUser = () => {
   const [focusedBtn, setFocusedBtn] = useState('findId');
 
   // input value 관리
-  const [userId, setUserId] = useState('');
-  const [name, setName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [certNo, setCertNo] = useState('');
+  // 아이디 찾기
+  const [findIdName, setFindIdName] = useState('');
+  const [findIdPhoneNumber, setFindIdPhoneNumber] = useState('');
+  // 비밀번호 찾기
+  const [findPwUserId, setFindPwUserId] = useState('');
+  const [findPwName, setFindPwName] = useState('');
+  const [findPwPhoneNumber, setFindPwPhoneNumber] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  // 인증번호
+  const [findIdCertNo, setFindIdCertNo] = useState('');
+  const [findPwCertNo, setFindPwCertNo] = useState('');
 
   // input state 관리
   // 아이디
@@ -79,23 +85,22 @@ const FindUser = () => {
 
   const navigate = useNavigate();
 
-  const checkIfInputsFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // 아이디 찾기 인증요청 버튼 활성화
+  const handleFindIdInputsFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name: filledInput, value } = e.target;
 
-    // 아이디, 이름, 연락처
-    if (filledInput === 'id') {
-      setUserId(value);
-    }
     if (filledInput === 'name') {
-      setName(value);
+      setFindIdName(value);
     }
     if (filledInput === 'phoneNumber') {
-      setPhoneNumber(value);
+      setFindIdPhoneNumber(value);
+    }
+    if (filledInput === 'certNo') {
+      setFindIdCertNo(value);
     }
 
-    const updateId = filledInput === 'id' ? value : userId;
-    const updatedName = filledInput === 'name' ? value : name;
-    const updatedPhoneNumber = filledInput === 'phoneNumber' ? value : phoneNumber;
+    const updatedName = filledInput === 'name' ? value : findIdName;
+    const updatedPhoneNumber = filledInput === 'phoneNumber' ? value : findIdPhoneNumber;
 
     if (focusedBtn === 'findId') {
       if (updatedName !== '' && updatedPhoneNumber !== '') {
@@ -104,6 +109,27 @@ const FindUser = () => {
         setIsCertNoRequestBtnDisabled(true);
       }
     }
+  };
+
+  // 비밀번호 찾기 인증요청 버튼 활성화
+  const handleFindPwInputsFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name: filledInput, value } = e.target;
+    if (filledInput === 'id') {
+      setFindPwUserId(value);
+    }
+    if (filledInput === 'name') {
+      setFindPwName(value);
+    }
+    if (filledInput === 'phoneNumber') {
+      setFindPwPhoneNumber(value);
+    }
+    if (filledInput === 'certNo') {
+      setFindPwCertNo(value);
+    }
+
+    const updateId = filledInput === 'id' ? value : findPwUserId;
+    const updatedName = filledInput === 'name' ? value : findPwName;
+    const updatedPhoneNumber = filledInput === 'phoneNumber' ? value : findPwPhoneNumber;
 
     if (focusedBtn === 'findPw') {
       if (updateId !== '' && updatedName !== '' && updatedPhoneNumber !== '') {
@@ -112,85 +138,99 @@ const FindUser = () => {
         setIsCertNoRequestBtnDisabled(true);
       }
     }
-
-    // 인증번호
-    if (filledInput === 'certNo') {
-      setCertNo(value);
-    }
   };
 
   // 인증요청
-  // 인증번호
   const handleClickCertNoRequestBtn = () => {
     let isValid = true;
 
-    if (validateId(userId)) {
-      setIsIdError(true);
-      setIdErrorMessage('아이디는 4~12글자, 영 대/소문자/숫자만 입력해주세요');
-      isValid = false;
-    } else {
+    if (focusedBtn === 'findId') {
+      if (validateName(findIdName)) {
+        setIsNameError(true);
+        setNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
+        isValid = false;
+        return;
+      }
+      setIsNameError(false);
+      setNameErrorMessage('');
+
+      if (validatePhoneNumber(findIdPhoneNumber)) {
+        setIsPhoneNumberError(true);
+        setPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
+        isValid = false;
+        return;
+      }
+      setIsPhoneNumberError(false);
+      setPhoneNumberErrorMessage('');
+
+      const payload = {
+        type: 'FindId',
+        phoneNumber: findIdPhoneNumber,
+      };
+
+      fetchSendCertNo(payload)
+        .then((response) => {
+          if (response.data.code === 3103) {
+            setIsCertNoRequested(true);
+            setAddCertNoInput(true);
+          }
+        })
+        .catch((error) => {
+          setAddCertNoInput(false);
+          console.error('인증요청 실패', error);
+        });
+    }
+
+    if (focusedBtn === 'findPw') {
+      if (validateId(findPwUserId)) {
+        setIsIdError(true);
+        setIdErrorMessage('아이디는 4~12글자, 영 대/소문자/숫자만 입력해주세요');
+        isValid = false;
+        return;
+      }
       setIsIdError(false);
       setIdErrorMessage('');
-    }
 
-    if (validateName(name)) {
-      setIsNameError(true);
-      setNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
-      isValid = false;
-    } else {
+      if (validateName(findPwName)) {
+        setIsNameError(true);
+        setNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
+        isValid = false;
+        return;
+      }
       setIsNameError(false);
-    }
+      setNameErrorMessage('');
 
-    if (validatePhoneNumber(phoneNumber)) {
-      setIsPhoneNumberError(true);
-      setPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
-      isValid = false;
-    } else {
+      if (validatePhoneNumber(findPwPhoneNumber)) {
+        setIsPhoneNumberError(true);
+        setPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
+        isValid = false;
+        return;
+      }
       setIsPhoneNumberError(false);
+      setPhoneNumberErrorMessage('');
 
-      if (focusedBtn === 'findId') {
-        const payload = {
-          type: 'FindId',
-          phoneNumber,
-        };
+      const payload = {
+        type: 'FindPassword',
+        phoneNumber: findPwPhoneNumber,
+      };
 
-        fetchSendCertNo(payload)
-          .then((response) => {
-            if (response.data.code === 3103) {
-              setIsCertNoRequested(true);
-              setAddCertNoInput(true);
-            }
-          })
-          .catch((error) => {
+      console.log('요청 전');
+
+      fetchSendCertNo(payload)
+        .then((response) => {
+          console.log('요청 성공', response);
+          if (response.data.code === 3103) {
+            setIsCertNoRequested(true);
+          }
+          if (isValid) {
+            setAddCertNoInput(true);
+          }
+        })
+        .catch(() => {
+          if (isValid) {
             setAddCertNoInput(false);
-            console.error('인증요청 실패', error);
-          });
-      }
-
-      if (focusedBtn === 'findPw') {
-        const payload = {
-          type: 'FindPassword',
-          phoneNumber,
-        };
-
-        console.log('요청 전');
-
-        fetchSendCertNo(payload)
-          .then((response) => {
-            console.log('요청 성공', response);
-            if (response.data.code === 3103) {
-              setIsCertNoRequested(true);
-            }
-            if (isValid) {
-              setAddCertNoInput(true);
-            }
-          })
-          .catch(() => {
-            if (isValid) {
-              setAddCertNoInput(false);
-            }
-          });
-      }
+          }
+        });
     }
   };
 
@@ -200,7 +240,7 @@ const FindUser = () => {
       setIsTimeUp(false);
     }
 
-    if (validateCertNo(certNo)) {
+    if (validateCertNo(findIdCertNo) || validateCertNo(findPwCertNo)) {
       setIsCertNoError(true);
       setCertNoErrorMessage('유효한 인증번호가 아닙니다');
     } else {
@@ -210,8 +250,8 @@ const FindUser = () => {
       if (focusedBtn === 'findId') {
         const payload = {
           type: 'FindId',
-          phoneNumber,
-          certNo,
+          phoneNumber: findIdPhoneNumber,
+          certNo: findIdCertNo,
         };
 
         fetchCheckCertNo(payload)
@@ -237,8 +277,8 @@ const FindUser = () => {
       if (focusedBtn === 'findPw') {
         const payload = {
           type: 'FindPassword',
-          phoneNumber,
-          certNo,
+          phoneNumber: findPwPhoneNumber,
+          certNo: findPwCertNo,
         };
 
         fetchCheckCertNo(payload)
@@ -273,8 +313,8 @@ const FindUser = () => {
     }
 
     const payload = {
-      name,
-      phoneNumber,
+      name: findIdName,
+      phoneNumber: findIdPhoneNumber,
       certNoCheckToken,
     };
 
@@ -329,9 +369,9 @@ const FindUser = () => {
 
     if (!isSuccessFindPw) {
       const payload = {
-        userId,
-        name,
-        phoneNumber,
+        userId: findPwUserId,
+        name: findPwName,
+        phoneNumber: findPwPhoneNumber,
         certNoCheckToken,
       };
 
@@ -369,8 +409,8 @@ const FindUser = () => {
                 <Input
                   placeholder="이름"
                   name="name"
-                  value={name}
-                  onChange={checkIfInputsFilled}
+                  value={findIdName}
+                  onChange={handleFindIdInputsFilled}
                   isError={isNameError}
                   errorMessage={nameErrorMessage}
                 />
@@ -379,8 +419,8 @@ const FindUser = () => {
                     placeholder="연락처('-'을 제외한 숫자만 입력)"
                     size="small"
                     name="phoneNumber"
-                    value={phoneNumber}
-                    onChange={checkIfInputsFilled}
+                    value={findIdPhoneNumber}
+                    onChange={handleFindIdInputsFilled}
                     isError={isPhoneNumberError}
                     errorMessage={PhoneNumberErrorMessage}
                   />
@@ -401,8 +441,8 @@ const FindUser = () => {
                       placeholder="인증번호"
                       size="small"
                       name="certNo"
-                      value={certNo}
-                      onChange={checkIfInputsFilled}
+                      value={findIdCertNo}
+                      onChange={handleFindIdInputsFilled}
                       isError={isCertNoError}
                       errorMessage={certNoErrorMessage}
                       isSuccess={isCertNoSuccess}
@@ -480,16 +520,16 @@ const FindUser = () => {
                 <Input
                   placeholder="아이디 (한글/특수문자 제외)"
                   name="id"
-                  value={userId}
-                  onChange={checkIfInputsFilled}
+                  value={findPwUserId}
+                  onChange={handleFindPwInputsFilled}
                   isError={isIdError}
                   errorMessage={idErrorMessage}
                 />
                 <Input
                   placeholder="이름"
                   name="name"
-                  value={name}
-                  onChange={checkIfInputsFilled}
+                  value={findPwName}
+                  onChange={handleFindPwInputsFilled}
                   isError={isNameError}
                   errorMessage={nameErrorMessage}
                 />
@@ -498,8 +538,8 @@ const FindUser = () => {
                     placeholder="연락처('-'을 제외한 숫자만 입력)"
                     size="small"
                     name="phoneNumber"
-                    value={phoneNumber}
-                    onChange={checkIfInputsFilled}
+                    value={findPwPhoneNumber}
+                    onChange={handleFindPwInputsFilled}
                     isError={isPhoneNumberError}
                     errorMessage={PhoneNumberErrorMessage}
                   />
@@ -520,8 +560,8 @@ const FindUser = () => {
                       placeholder="인증번호"
                       size="small"
                       name="certNo"
-                      value={certNo}
-                      onChange={checkIfInputsFilled}
+                      value={findPwCertNo}
+                      onChange={handleFindPwInputsFilled}
                       isError={isCertNoError}
                       errorMessage={certNoErrorMessage}
                       isSuccess={isCertNoSuccess}
