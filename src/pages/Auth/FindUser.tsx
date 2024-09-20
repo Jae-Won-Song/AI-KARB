@@ -3,7 +3,7 @@ import Input from '../../components/Common/Input';
 import Button from '../../components/Common/Button';
 import Modal from '../../components/Common/Modal';
 import { validateName, validatePhoneNumber, validateCertNo, validateId } from '../../utils/inputValidationUtils';
-import { fetchCheckCertNo, fetchFindId, fetchSendCertNo } from '../../api/auth/authApi';
+import { fetchCheckCertNo, fetchFindId, fetchFindPw, fetchSendCertNo } from '../../api/auth/authApi';
 import { useNavigate } from 'react-router-dom';
 import bg from '../../assets/background.png';
 
@@ -11,7 +11,7 @@ const FindUser = () => {
   const [focusedBtn, setFocusedBtn] = useState('findId');
 
   // input value 관리
-  const [id, setID] = useState('');
+  const [userId, setUserId] = useState('');
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [certNo, setCertNo] = useState('');
@@ -37,6 +37,7 @@ const FindUser = () => {
   // button state 관리
   const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
   const [isCertNoCheckBtnDisabled, setIsCertNoCheckBtnDisabled] = useState(false);
+  const [isSuccessFindPw, setIsSuccessFindPw] = useState(false);
 
   // 인증번호를 입력하는 input 추가
   const [addCertNoInput, setAddCertNoInput] = useState(false);
@@ -52,8 +53,9 @@ const FindUser = () => {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isFailModalOpen, setIsFailModalOpen] = useState(false);
 
-  // 아이디 찾기 요청 때 필요한 api response에서 받아온 정보
+  // 아이디, 비밀번호 찾기 요청 때 필요한 api response에서 받아온 정보
   const [certNoCheckToken, setCertNoCheckToken] = useState('');
+  const [passwordResetToken, setPasswordResetToken] = useState('');
   const [foundId, setFoundId] = useState('');
 
   const handleBtnClick = (buttonType: string) => {
@@ -67,7 +69,7 @@ const FindUser = () => {
 
     // 아이디, 이름, 연락처
     if (filledInput === 'id') {
-      setID(value);
+      setUserId(value);
     }
     if (filledInput === 'name') {
       setName(value);
@@ -76,7 +78,7 @@ const FindUser = () => {
       setPhoneNumber(value);
     }
 
-    const updateId = filledInput === 'id' ? value : id;
+    const updateId = filledInput === 'id' ? value : userId;
     const updatedName = filledInput === 'name' ? value : name;
     const updatedPhoneNumber = filledInput === 'phoneNumber' ? value : phoneNumber;
 
@@ -103,7 +105,7 @@ const FindUser = () => {
   const handleClickCertNoRequestBtn = () => {
     let isValid = true;
 
-    if (validateId(id)) {
+    if (validateId(userId)) {
       setIsIdError(true);
       setIdErrorMessage('아이디는 4~12글자, 영 대/소문자/숫자만 입력해주세요');
       isValid = false;
@@ -272,6 +274,33 @@ const FindUser = () => {
       });
   };
 
+  const handleClickFindPwBtn = () => {
+    if (!isCertNoRequested) {
+      setIsNameError(true);
+      setNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
+      setIsPhoneNumberError(true);
+      setPhoneNumberErrorMessage('연락처는 11글자, 숫자만 입력해주세요');
+      return;
+    }
+
+    const payload = {
+      userId,
+      name,
+      phoneNumber,
+      certNoCheckToken,
+    };
+
+    fetchFindPw(payload)
+      .then((response) => {
+        setIsSuccessFindPw(true);
+        setPasswordResetToken(response.data.data.passwordResetToken);
+        console.log('요청 성공', response);
+      })
+      .catch((error) => {
+        console.log('비밀번호 찾기 실패', error);
+      });
+  };
+
   return (
     <div className="findId">
       <img className="signIn_bg" src={bg} alt="배경이미지" />
@@ -404,7 +433,7 @@ const FindUser = () => {
                 <Input
                   placeholder="아이디 (한글/특수문자 제외)"
                   name="id"
-                  value={id}
+                  value={userId}
                   onChange={checkIfInputsFilled}
                   isError={isIdError}
                   errorMessage={idErrorMessage}
@@ -467,10 +496,17 @@ const FindUser = () => {
                     </div>
                   </div>
                 )}
+                {isSuccessFindPw && (
+                  <>
+                    <Input placeholder="새 비밀번호 (영문자/숫자/특수문자 사용 가능, 8~16자)" />
+                    <Input placeholder="새 비밀번호 재확인" />
+                  </>
+                )}
               </div>
+
               <div className="findId__wrapper__box_button">
-                <Button type="button" state="default" width="20.833vw" height="5.926vh">
-                  확인
+                <Button type="button" state="default" width="20.833vw" height="5.926vh" onClick={handleClickFindPwBtn}>
+                  {isSuccessFindPw ? '수정하기' : '확인'}
                 </Button>
               </div>
             </>
