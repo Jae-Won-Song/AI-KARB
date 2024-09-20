@@ -42,6 +42,7 @@ const FindUser = () => {
   const [findIdCertNoErrorMessage, setFindIdCertNoErrorMessage] = useState('');
   const [isFindIdCertNoSuccess, setIsFindIdCertNoSuccess] = useState(false);
   const [findIdCertNoSuccessMessage, setFindIdCertNoSuccessMessage] = useState('');
+  const [isFindIdCertNoRequested, setIsFindIdCertNoRequested] = useState(false);
 
   // 비밀번호찾기용
   // 아이디
@@ -58,13 +59,12 @@ const FindUser = () => {
   const [findPwCertNoErrorMessage, setFindPwCertNoErrorMessage] = useState('');
   const [isFindPwCertNoSuccess, setIsFindPwCertNoSuccess] = useState(false);
   const [findPwCertNoSuccessMessage, setFindPwCertNoSuccessMessage] = useState('');
+  const [isFindPwCertNoRequested, setIsFindPwCertNoRequested] = useState(false);
   // 비밀번호
   const [isNewPasswordError, setIsNewPasswordError] = useState(false);
   const [newPasswordErrorMessage, setNewPasswordErrorMessage] = useState('');
   const [isConfirmNewPasswordError, setIsConfirmNewPasswordError] = useState(false);
   const [confirmNewPasswordErrorMessage, setConfirmNewPasswordErrorMessage] = useState('');
-
-  const [isCertNoRequested, setIsCertNoRequested] = useState(false);
 
   // button state 관리
   // 아이디 찾기
@@ -192,7 +192,7 @@ const FindUser = () => {
       fetchSendCertNo(payload)
         .then((response) => {
           if (response.data.code === 3103) {
-            setIsCertNoRequested(true);
+            setIsFindIdCertNoRequested(true);
             setFindIdAddCertNoInput(true);
           }
         })
@@ -241,7 +241,7 @@ const FindUser = () => {
         .then((response) => {
           console.log('요청 성공', response);
           if (response.data.code === 3103) {
-            setIsCertNoRequested(true);
+            setIsFindPwCertNoRequested(true);
           }
           if (isValid) {
             setFindPwAddCertNoInput(true);
@@ -334,7 +334,7 @@ const FindUser = () => {
   };
 
   const handleClickFindIdBtn = () => {
-    if (!isCertNoRequested) {
+    if (!isFindIdCertNoRequested) {
       setIsFindIdNameError(true);
       setFindIdNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
       setIsFindIdPhoneNumberError(true);
@@ -361,7 +361,7 @@ const FindUser = () => {
   };
 
   const handleClickFindPwBtn = () => {
-    if (!isCertNoRequested) {
+    if (!isFindPwCertNoRequested) {
       setIsFindPwNameError(true);
       setFindPwNameErrorMessage('이름은 2~4글자, 한글만 입력해주세요');
       setIsFindPwPhoneNumberError(true);
@@ -461,7 +461,7 @@ const FindUser = () => {
                     height="4.815vh"
                     fontSize="0.781vw"
                     onClick={handleClickCertNoRequestBtn}>
-                    {isCertNoRequested ? '재전송' : '인증요청'}
+                    {isFindIdCertNoRequested ? '재전송' : '인증요청'}
                   </Button>
                 </div>
 
@@ -580,7 +580,7 @@ const FindUser = () => {
                     height="4.815vh"
                     fontSize="0.781vw"
                     onClick={handleClickCertNoRequestBtn}>
-                    {isCertNoRequested ? '재전송' : '인증요청'}
+                    {isFindPwCertNoRequested ? '재전송' : '인증요청'}
                   </Button>
                 </div>
 
