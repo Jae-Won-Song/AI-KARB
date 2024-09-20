@@ -27,6 +27,8 @@
         margin-top: 1.852vh;
         border: 2px solid $secondary-5;
 
+        @include text-style(17, $grayscale-90, 400);
+
         overflow-y: auto;
       }
     }
@@ -59,6 +61,14 @@
         height: 79.259vh;
 
         overflow-y: auto;
+
+        &_empty {
+          height: 6.111vh;
+          padding: 1.111vh 0.625vw 2.593vh;
+          border-bottom: 1px solid $grayscale-20;
+
+          @include text-style(17, $grayscale-90, 700);
+        }
 
         &_addResult {
           padding: 1.852vh 0.625vw;
@@ -235,8 +245,7 @@
     &_reason {
       @include flex(start, center);
 
-      height: 2.963vh;
-      padding: 1.481vh 0.417vw 1.481vh 0.521vw;
+      padding: 0.417vh 0.417vw 0.417vh 0.521vw;
       border-bottom: 1px solid $grayscale-40;
 
       @include text-style(15, $grayscale-50, 400);

@@ -129,11 +129,17 @@ function decisionTypeModal({
         </div>
       </div>
       <div className="decisionType__btn-box">
-        <Button type="button" state="default_gray" width="8.333vh" height="4.444vh" onClick={onClickOne}>
+        <Button
+          type="button"
+          state="default_gray"
+          width="8.333vw"
+          height="4.444vh"
+          fontSize="0.781vw"
+          onClick={onClickOne}>
           {btnContentOne}
         </Button>
         <div style={{ width: '0.625vw' }} />
-        <Button type="button" state="default" width="8.333vh" height="4.444vh" onClick={onClickTwo}>
+        <Button type="button" state="default" width="8.333vw" height="4.444vh" fontSize="0.781vw" onClick={onClickTwo}>
           {btnContentTwo}
         </Button>
       </div>

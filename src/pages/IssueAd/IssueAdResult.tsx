@@ -7,40 +7,38 @@ import IssuedReason from '../../components/IssuedReason';
 import arrowDown from '../../assets/arrow-down.svg';
 import arrowUp from '../../assets/arrow-up.svg';
 import iconPlus from '../../assets/icon-plus.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '../../components/Common/Modal';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { fetchLoadIssueOption } from '../../api/issueAd/issueAdApi';
+
+type IssuedReasonType = {
+  contentNumber: number;
+  articleNumber: number;
+  articleTitle: string;
+  articleContent: string;
+  issuedReason: string;
+};
+
+type AdDetailsType = {
+  provisionArticle: number;
+  provisionContent: string;
+  sentence: string;
+  opinion: string;
+};
+
+type IssueOptionType = {
+  id: number;
+  article: number;
+  content: string;
+};
 
 const IssueAdResult = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActiveSelectReason, setIsActiveSelectReason] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [issuedReasons, setIssuedReasons] = useState([
-    {
-      contentNumber: 1,
-      articleNumber: 10,
-      articleTitle: '소비자 오도 표현',
-      articleContent:
-        '일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵',
-      issuedReason: '없음',
-    },
-    {
-      contentNumber: 2,
-      articleNumber: 11,
-      articleTitle: '주장의 무입증',
-      articleContent:
-        '일품진로 어쩌구 저쩌구 이러쿵 저러쿵 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말',
-      issuedReason: '없음',
-    },
-    {
-      contentNumber: 3,
-      articleNumber: 32,
-      articleTitle: '주류광고의 부당표현',
-      articleContent:
-        '일품진로 어쩌구 저쩌구 이러쿵 저러쿵 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트',
-      issuedReason: '없음',
-    },
-  ]);
+  const [issuedReasons, setIssuedReasons] = useState<IssuedReasonType[]>([]);
+  const [reason, setReason] = useState<IssueOptionType[]>([]);
 
   // 새로운 검토 의견 추가 관리
   const [newReason, setNewReason] = useState({
@@ -55,7 +53,34 @@ const IssueAdResult = () => {
   const location = useLocation();
 
   // 지적광고 목록 페이지에서 요청한 데이터 응답
-  const adDetails = location.state?.adDetails.data;
+  const adDetails = location.state?.adDetails;
+
+  useEffect(() => {
+    if (adDetails && adDetails.reviewList) {
+      setIssuedReasons(
+        adDetails.reviewList.map((review: AdDetailsType, index: number) => ({
+          contentNumber: index + 1,
+          articleNumber: review.provisionArticle,
+          articleTitle: review.provisionContent,
+          articleContent: review.sentence,
+          issuedReason: review.opinion,
+        })),
+      );
+    }
+
+    fetchLoadIssueOption()
+      .then((response) => {
+        setReason(response.data.data.provisionList);
+        console.log('조항리스트', response);
+      })
+      .catch((error) => {
+        console.error('조항 리스트 조회 실패', error);
+      });
+  }, [adDetails]);
+
+  useEffect(() => {
+    console.log('reason', reason);
+  }, [reason]);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -64,15 +89,6 @@ const IssueAdResult = () => {
   const handleActiveSelectReason = () => {
     setIsActiveSelectReason(!isActiveSelectReason);
   };
-
-  const reasons = [
-    '7조 진실성 위반 표현이 길어지면',
-    '8조 광고의 품위상실',
-    '9조 광고주 불표시',
-    '10조 소비자 오도 표현',
-    '11조 주장의 무입증',
-    '12조 추천, 보증',
-  ];
 
   const [selectedIndex, setSelectedIndex] = useState<{ reason: number | null }>({ reason: null });
 
@@ -83,13 +99,13 @@ const IssueAdResult = () => {
       [type]: index,
     }));
 
-    const matchResult = reasons[index].match(/\d+/);
-    const articleNumber = matchResult ? parseInt(matchResult[0], 10) : 0;
+    const selectedArticle = reason[index].article;
+    const selectedContent = reason[index].content;
 
     setNewReason((prev) => ({
       ...prev,
-      articleNumber,
-      articleTitle: reasons[index],
+      articleNumber: selectedArticle,
+      articleTitle: selectedContent,
     }));
   };
 
@@ -101,15 +117,16 @@ const IssueAdResult = () => {
     return reason;
   };
 
-  const renderDropdownList = (items: string[], type: 'reason') => {
-    return items.map((item, index) => (
+  // 조항 드롭다운
+  const renderDropdownList = () => {
+    return reason.map((item, index) => (
       <div
-        key={index}
+        key={item.article}
         className={`IssueAdResult__selectReason_reason ${
-          selectedIndex[type] === index ? 'selected' : ''
-        } ${selectedIndex[type] === index + 1 ? 'previous-selected' : ''}`}
-        onClick={() => handleSelected(type, index)}>
-        {getShortArticleContent(item)}
+          selectedIndex.reason === index ? 'selected' : ''
+        } ${selectedIndex.reason === index + 1 ? 'previous-selected' : ''}`}
+        onClick={() => handleSelected('reason', index)}>
+        {`${item.article}조 ${getShortArticleContent(item.content)} `}
       </div>
     ));
   };
@@ -179,25 +196,35 @@ const IssueAdResult = () => {
           <div className="IssueAdResult__wrapperRight_contents_title">
             <ReviewAdResult reviewNumber={3} detailSpan="광고 수정 판정을 받은 광고입니다." />
             <div className="IssueAdResult__wrapperRight_contents_title_buttons">
-              <Button type="button" state="default_white" width="5.417vw" height="4.815vh">
+              <Button type="button" state="default_white" width="5.417vw" height="4.815vh" fontSize="0.781vw">
                 임시 저장
               </Button>
-              <Button type="button" state="default" width="5.417vw" height="4.815vh" onClick={handleModalOpen}>
+              <Button
+                type="button"
+                state="default"
+                width="5.417vw"
+                height="4.815vh"
+                fontSize="0.781vw"
+                onClick={handleModalOpen}>
                 다음
               </Button>
             </div>
           </div>
           <div className="IssueAdResult__wrapperRight_contents_resultBox">
-            {issuedReasons.map((reason, index) => (
-              <IssuedReason
-                key={index}
-                contentNumber={reason.contentNumber}
-                articleNumber={reason.articleNumber}
-                articleTitle={reason.articleTitle}
-                articleContent={reason.articleContent}
-                issuedReason={reason.issuedReason}
-              />
-            ))}
+            {issuedReasons.length === 0 ? (
+              <div className="IssueAdResult__wrapperRight_contents_resultBox_empty">위반 사항이 없습니다.</div>
+            ) : (
+              issuedReasons.map((reason, index) => (
+                <IssuedReason
+                  key={index}
+                  contentNumber={reason.contentNumber}
+                  articleNumber={reason.articleNumber}
+                  articleTitle={reason.articleTitle}
+                  articleContent={reason.articleContent}
+                  issuedReason={reason.issuedReason}
+                />
+              ))
+            )}
 
             {isOpen ? (
               <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult">
@@ -210,7 +237,7 @@ const IssueAdResult = () => {
                       className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleNum"
                       onClick={handleActiveSelectReason}>
                       {isActiveSelectReason && (
-                        <div className="IssueAdResult__selectReason">{renderDropdownList(reasons, 'reason')}</div>
+                        <div className="IssueAdResult__selectReason">{renderDropdownList()}</div>
                       )}
 
                       <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult_toggleBar_title_articleNum-span">
@@ -250,6 +277,7 @@ const IssueAdResult = () => {
                     state="default"
                     width="5.417vw"
                     height="4.815vh"
+                    fontSize="0.781vw"
                     onClick={clickAddIssuedReasonBtn}>
                     추가
                   </Button>
@@ -285,7 +313,14 @@ const IssueAdResult = () => {
 
       {isModalOpen && (
         <div className="IssueAdResult__modal">
-          <Modal mode="decisionType" btnContentOne="취소" btnContentTwo="확인" />
+          <Modal
+            mode="decisionType"
+            btnContentOne="취소"
+            btnContentTwo="확인"
+            onClickOne={() => {
+              setIsModalOpen(false);
+            }}
+          />
         </div>
       )}
     </main>
