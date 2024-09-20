@@ -22,40 +22,33 @@ interface Advertisement {
   issue: boolean;
 }
 
-interface Advertisement {
-  adId: string;
-  media: string[];
-  category: string[];
-  product: string;
-  advertiser: string;
-  state: boolean;
-  issue: boolean;
-}
-
 const MyTasks = () => {
   const [taskData, setTaskData] = useState<Advertisement[]>([]);
   const [adCount, setAdCount] = useState({ myTotalAd: 0, myDoneAd: 0, myNotDoneAd: 0 });
-  const [cursorId, setCursorId] = useState<string | null>('N00001');
+  const [cursorId, setCursorId] = useState<string | null>('N00000');
+  const [cursorState, setCursorState] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState(true);
 
   const fetchTaskData = useCallback(async () => {
     if (!cursorId) return;
 
     try {
-      const response = await fetchMyTaskData(cursorId, taskData.length);
+      const response = await fetchMyTaskData(cursorId, taskData.length, cursorState);
+      console.log(response);
 
       const newTaskData = response.data.data.taskList.advertisementList;
       const newAdCount = response.data.data.adCount;
-      const newCursorId = response.data.data.taskList.cursorInfo?.cursorId || null;
+      const newCursorInfo = response.data.data.taskList.cursorInfo;
 
       setTaskData((prev) => [...prev, ...newTaskData]);
       setAdCount(newAdCount);
-      setCursorId(newCursorId);
+      setCursorId(newCursorInfo?.cursorId || null);
+      setCursorState(newCursorInfo?.cursorState);
       setHasMore(newTaskData.length > 0);
     } catch (error) {
       console.error('에러', error);
     }
-  }, [cursorId, taskData]);
+  }, [cursorId, taskData, cursorState]);
 
   useEffect(() => {
     fetchTaskData();
