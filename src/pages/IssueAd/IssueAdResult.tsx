@@ -289,7 +289,14 @@ const IssueAdResult = () => {
 
       {isModalOpen && (
         <div className="IssueAdResult__modal">
-          <Modal mode="decisionType" btnContentOne="취소" btnContentTwo="확인" />
+          <Modal
+            mode="decisionType"
+            btnContentOne="취소"
+            btnContentTwo="확인"
+            onClickOne={() => {
+              setIsModalOpen(false);
+            }}
+          />
         </div>
       )}
     </main>
