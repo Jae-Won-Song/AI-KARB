@@ -1,0 +1,94 @@
+.workStatus-wrapper {
+  @include column-flex(center, start);
+  position: relative;
+  width: 40.65vw;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  margin-right: 11px;
+  gap: 24px;
+  border-radius: 12px;
+  border: 1px solid #e6edff;
+  background: $white;
+  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+
+  &__title {
+    @include text-style(25, $grayscale-90, 700);
+    line-height: 150%;
+  }
+
+  &__task {
+    @include flex;
+    gap: var(--24, 24px);
+    width: 100%;
+    align-items: center;
+    &__image-container {
+      @include flex;
+      top: 0;
+      left: 0;
+      position: relative;
+      &-img {
+        width: 11.458vw;
+        height: 16.667vh;
+      }
+    }
+
+    &__info {
+      @include column-flex(between, start);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: white;
+      padding: 20px 132.75px 20.75px 17.25px;
+
+      &__wrapper {
+        @include flex(center, start);
+        flex-direction: column;
+        gap: 38px;
+      }
+
+      &__counts {
+        @include text-style(13, $white, 300);
+        margin-bottom: 7px;
+      }
+
+      &__title {
+        @include text-style(15, $white, 700);
+        line-height: 150%;
+      }
+
+      &__count {
+        @include flex(center, end);
+        @include text-style(40, $white, 700);
+        padding-bottom: 1.5px;
+
+        &__text {
+          @include text-style(13, $white, 400);
+        }
+      }
+      &__admin-count {
+        @include flex;
+      }
+
+      &__admin-counts {
+        @include flex(center, end);
+        padding-bottom: 1.5px;
+        @include text-style(40, $white, 700);
+      }
+
+      &__text {
+        @include text-style(13, $white, 400);
+        line-height: 150%;
+      }
+
+      &__subcount {
+        @include inline-flex;
+        @include text-style(13, $white, 400);
+
+        &__total {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}

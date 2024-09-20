@@ -1,0 +1,27 @@
+.progressBar-wrapper {
+  @include flex(start, center);
+  height: 6.667vh;
+  gap: 1.25rem;
+  padding: 16px;
+
+  &__mainbar {
+    width: 12.805vw;
+    height: 1.042vh;
+    background-color: #c1cfe4;
+    border-radius: 12px;
+
+    &__gauge {
+      @include flex;
+      margin: 2px;
+      height: 6px;
+      background-color: #006597;
+      border-radius: 12px;
+    }
+
+    &__rate {
+      font-size: 1.0625rem;
+      line-height: 150%;
+      color: #2e7d96;
+    }
+  }
+}

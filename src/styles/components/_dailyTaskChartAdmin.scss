@@ -1,0 +1,59 @@
+.dailyChartWrapper {
+  display: inline-flex;
+  width: 19.573vw;
+  height: 44.863vh;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 1.463vw;
+  border-radius: 12px;
+  border: 1px solid #e6edff;
+  background: $white;
+  box-shadow: 4px 4px 10px 0px rgba(220, 220, 220, 0.2);
+
+  &__info {
+    &__title {
+      @include text-style(25, $grayscale-90, 700);
+      line-height: 150%;
+    }
+
+    &__wrapper {
+      @include flex(between, center);
+      width: 13.78vw;
+
+      &__count {
+        @include text-style(32, $grayscale-90, 700);
+        line-height: 150%;
+        letter-spacing: 0.32px;
+      }
+
+      &__eve {
+        @include text-style(15, $grayscale-70, 400);
+        line-height: 150%;
+      }
+
+      &__plusCount {
+        position: relative;
+        @include text-style(15, #83c5c1, 700);
+        line-height: 150%;
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          right: -15px;
+          transform: translateY(-50%);
+          width: 1px;
+          height: 16px;
+          background-color: #ddd;
+        }
+      }
+
+      &__percentage {
+        @include text-style(15, #64aca7, 700);
+        line-height: 150%;
+      }
+    }
+  }
+}

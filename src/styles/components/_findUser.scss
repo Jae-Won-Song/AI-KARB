@@ -1,0 +1,75 @@
+.findId {
+  &_bg {
+    position: absolute;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+  }
+  &__wrapper {
+    @include flex(start, center);
+
+    width: 100%;
+    height: 100vh;
+
+    &__box {
+      @include column-flex(between, start);
+
+      margin-left: 14.063vw;
+
+      &_title {
+        button {
+          width: 10.417vw;
+          height: 5.185vh;
+          padding: 0 0.417vw;
+          border: none;
+
+          @include text-style(19, $grayscale-70, 400);
+
+          background-color: $white;
+          box-shadow: 0 -2px 0 $grayscale-30 inset;
+
+          &.focused {
+            @include text-style(19, $primary-50, 700);
+
+            box-shadow: 0px -4px 0px $primary-50 inset;
+          }
+        }
+      }
+
+      &_input {
+        @include column-flex(between, between);
+        gap: 1.111vh;
+
+        margin: 3.704vh 0;
+
+        &_inner {
+          @include flex(start, start);
+          position: relative;
+
+          gap: 0.625vw;
+
+          button {
+            position: absolute;
+            left: 15.417vw;
+          }
+        }
+      }
+
+      &_button {
+        button {
+          @include text-style(19, white, 400);
+        }
+      }
+    }
+  }
+}
+
+.FindUser__modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}

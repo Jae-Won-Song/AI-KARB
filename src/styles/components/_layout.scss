@@ -1,0 +1,9 @@
+.container {
+  @include flex(start, start);
+  &__column {
+    @include column-flex(start, start);
+    position: relative;
+    flex-grow: 1;
+    height: 100vh;
+  }
+}

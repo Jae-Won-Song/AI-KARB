@@ -1,0 +1,25 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="24" height="24" fill="#none"/>
+<g id="&#236;&#187;&#180;&#237;&#143;&#172;&#235;&#132;&#140;&#237;&#138;&#184;_Side Menu Bar">
+<g clip-path="url(#clip0_657_3663)">
+<rect x="-216" y="-712" width="480" height="1028" rx="20" fill="none"/>
+<g id="&#234;&#181;&#172;&#236;&#161;&#176;">
+<mask id="path-2-inside-1_657_3663" fill="white">
+<path d="M-216 -592H264V316H-216V-592Z"/>
+</mask>
+<path d="M264 315H-216V317H264V315Z" fill="#D8D8D8" mask="url(#path-2-inside-1_657_3663)"/>
+<g id="icon">
+<rect x="-115.5" y="-19.5" width="255" height="63" rx="4.5" stroke="#9747FF" stroke-dasharray="10 5"/>
+<g id="name=my task">
+<path id="Icon" d="M20.4399 7.75H3.56006M14.5 11.5C12.4253 11.5 9.5 11.5 9.5 11.5M20.5 8.25164V18.375C20.5 19.5486 19.5486 20.5 18.375 20.5H5.625C4.4514 20.5 3.5 19.5486 3.5 18.375V8.25164C3.5 7.92175 3.57681 7.59638 3.72434 7.30132L5.1845 4.381C5.45447 3.84107 6.00632 3.5 6.60999 3.5H17.39C17.9937 3.5 18.5455 3.84107 18.8155 4.381L20.2757 7.30132C20.4232 7.59638 20.5 7.92175 20.5 8.25164Z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_657_3663">
+<rect x="-216" y="-712" width="480" height="1028" rx="20" fill="white"/>
+</clipPath>
+</defs>
+</svg>

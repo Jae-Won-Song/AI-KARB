@@ -1,0 +1,49 @@
+.daily-chart {
+  width: 51.537vw;
+  height: 35.417vh;
+  padding: 1.829vw 3.125vh 1.829vw 3.125vh;
+  margin-right: 0.671vw;
+  gap: 10vw;
+  border-radius: 12px;
+  border: 1px solid #e6edff;
+  background: $white;
+  box-shadow: 4px 4px 10px 0 rgba(220, 220, 220, 0.2);
+
+  &__wrapper {
+    @include column-flex(center, start);
+    gap: 0.122vw;
+    flex: 1 0 0;
+  }
+
+  &__title {
+    @include text-style(25, $grayscale-80, 700);
+    line-height: 150%;
+  }
+
+  &__date {
+    @include text-style(15, $grayscale-50, 400);
+    line-height: 150%;
+  }
+}
+
+.customToolTip {
+  position: relative;
+}
+
+.customToolTip .tooltipContent {
+  @include column-flex(start, start);
+  flex-wrap: wrap;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+}
+
+.customToolTip .tooltipDate {
+  @include text-style(13, $grayscale-60, 400);
+  line-height: 150%;
+}
+
+.customToolTip .tooltipValue {
+  @include text-style(19, $grayscale-90, 700);
+  line-height: 150%;
+}

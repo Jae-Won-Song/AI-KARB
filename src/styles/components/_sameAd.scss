@@ -1,0 +1,9 @@
+.SameAd {
+  @include column-flex(start, start);
+
+  width: 100%;
+  height: 100vh;
+  margin-top: 0.926vh;
+
+  background-color: white;
+}
