@@ -93,6 +93,7 @@ const ManageUser = () => {
 
   return (
     <div className="manageUser">
+      {isModalOpen && <div className="manageUser__overlay" />}
       <div className="manageUser__container">
         <SearchBar />
         <Table

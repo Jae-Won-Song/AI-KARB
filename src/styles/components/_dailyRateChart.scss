@@ -22,7 +22,6 @@
 
     &__legend {
       @include flex(evenly, center);
-      // width: 200px;
       @include text-style(15, $grayscale-50, 400);
 
       &__main {

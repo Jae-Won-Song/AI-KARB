@@ -33,7 +33,7 @@
     @include flex;
 
     &__head {
-      padding: 14px 16px 14px 16px;
+      padding: 1.296vh 0.833vw 1.296vh 0.833vw;
       @include text-style(15, $primary-60, 400);
       text-align: left;
       line-height: 150%;
@@ -57,7 +57,7 @@
     &__info {
       &__data {
         @include flex;
-        padding: 16px;
+        padding: 1.481vh 0.833vw 1.481vh 0.833vw;
         @include text-style(15, $grayscale-70, 400);
         border-bottom: 1px solid $grayscale-30;
         &:last-child {

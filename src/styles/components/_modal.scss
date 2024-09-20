@@ -6,9 +6,9 @@
     background: $white;
     transform: translate(-50%, -50%);
     z-index: 1001;
-    width: 420px;
-    height: 216px;
-    padding: 40px;
+    width: 21.875vw;
+    height: 22.5vh;
+    padding: 3.704vh 2.083vw 3.704vh 2.083vw;
     border: 1px solid #c6c6c6;
     border-radius: 12px;
     box-shadow:
@@ -18,15 +18,15 @@
       @include column-flex;
       &-title {
         @include text-style(17, black, 700);
-        margin-bottom: 32px;
+        margin-bottom: 2.963vh;
       }
       &-content {
         @include text-style(17, black, 400);
-        margin-bottom: 32px;
+        margin-bottom: 2.963vh;
       }
       &-btn-area {
         @include flex(between, center);
-        width: 332px;
+        width: 17.292vw;
       }
     }
   }
@@ -92,6 +92,7 @@
 .decisionType {
   @include column-flex;
   position: absolute;
+  top: 35%;
   left: 50%;
   background: $white;
   transform: translate(-50%, -50%);

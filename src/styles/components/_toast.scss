@@ -4,8 +4,8 @@
 
 .toast {
   position: fixed;
-  top: 120px;
-  right: 30px;
+  top: 11.111vh;
+  right: 1.563vw;
   transform: translateX(100%);
   transition:
     transform 0.3s ease-out,
@@ -22,25 +22,25 @@
 
   &__success-container {
     @include flex(start, center);
-    width: 376px;
-    height: 76px;
+    width: 19.583vw;
+    height: 7.037vh;
     border-radius: 12px;
     border: 1px solid $primary-50;
-    padding: 16px;
+    padding: 1.481vh 0.833vw 1.481vh 0.833vw;
     background: $secondary-5;
 
     &__success-box {
       @include column-flex(center, start);
       width: 284px;
       height: 43px;
-      padding: 0 19px;
+      padding: 0 0.99vw;
       &_title {
         @include text-style(15, $primary-50, 700);
-        height: 23px;
+        height: 2.13vh;
       }
       &_content {
         @include text-style(13, $grayscale-90, 400);
-        height: 20px;
+        height: 1.852vh;
       }
     }
   }

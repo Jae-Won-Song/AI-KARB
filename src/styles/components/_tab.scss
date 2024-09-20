@@ -1,8 +1,8 @@
 .tab {
   &__container {
     @include inline-flex;
-    height: 40px;
-    padding: 0 16px;
+    height: 3.704vh;
+    padding: 0 0.833vw 0 0.833vw;
     border-radius: 8px;
     border: 1px solid #c6c6c6;
     cursor: pointer;

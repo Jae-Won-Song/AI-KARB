@@ -29,32 +29,32 @@
 .progressBar {
   &__rate {
     @include text-style(23, #555, 700);
-    margin-left: 14px;
+    margin-left: 0.729vw;
   }
 
   &__mine {
-    margin: 2px;
+    margin: 0.185vh 0.104vw 0.185vh 0.104vw;
     border-radius: 12px;
     background-color: #ddeff8;
   }
 
   &__all {
-    margin: 2px;
+    margin: 0.185vh 0.104vw 0.185vh 0.104vw;
     border-radius: 12px;
     background-color: #deeeed;
   }
 
   &__gauge {
     &__mine {
-      height: 11px !important;
-      margin: 2px;
+      height: 1.019vh !important;
+      margin: 0.185vh 0.104vw 0.185vh 0.104vw;
       border-radius: 12px;
       background-color: #006597;
     }
 
     &__all {
-      height: 11px !important;
-      margin: 2px;
+      height: 1.019vh !important;
+      margin: 0.185vh 0.104vw 0.185vh 0.104vw;
       border-radius: 12px;
       background-color: #64aca7;
     }
