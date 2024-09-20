@@ -7,40 +7,30 @@ import IssuedReason from '../../components/IssuedReason';
 import arrowDown from '../../assets/arrow-down.svg';
 import arrowUp from '../../assets/arrow-up.svg';
 import iconPlus from '../../assets/icon-plus.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '../../components/Common/Modal';
 import { useNavigate, useLocation } from 'react-router-dom';
+
+type IssuedReasonType = {
+  contentNumber: number;
+  articleNumber: number;
+  articleTitle: string;
+  articleContent: string;
+  issuedReason: string;
+};
+
+type AdDetailsType = {
+  provisionArticle: number;
+  provisionContent: string;
+  sentence: string;
+  opinion: string;
+};
 
 const IssueAdResult = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActiveSelectReason, setIsActiveSelectReason] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [issuedReasons, setIssuedReasons] = useState([
-    {
-      contentNumber: 1,
-      articleNumber: 10,
-      articleTitle: '소비자 오도 표현',
-      articleContent:
-        '일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵 일품진로 어쩌구 저쩌구 이러쿵 저러쿵',
-      issuedReason: '없음',
-    },
-    {
-      contentNumber: 2,
-      articleNumber: 11,
-      articleTitle: '주장의 무입증',
-      articleContent:
-        '일품진로 어쩌구 저쩌구 이러쿵 저러쿵 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말 아무말',
-      issuedReason: '없음',
-    },
-    {
-      contentNumber: 3,
-      articleNumber: 32,
-      articleTitle: '주류광고의 부당표현',
-      articleContent:
-        '일품진로 어쩌구 저쩌구 이러쿵 저러쿵 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트',
-      issuedReason: '없음',
-    },
-  ]);
+  const [issuedReasons, setIssuedReasons] = useState<IssuedReasonType[]>([]);
 
   // 새로운 검토 의견 추가 관리
   const [newReason, setNewReason] = useState({
@@ -56,6 +46,20 @@ const IssueAdResult = () => {
 
   // 지적광고 목록 페이지에서 요청한 데이터 응답
   const adDetails = location.state?.adDetails;
+
+  useEffect(() => {
+    if (adDetails && adDetails.reviewList) {
+      setIssuedReasons(
+        adDetails.reviewList.map((review: AdDetailsType, index: number) => ({
+          contentNumber: index + 1,
+          articleNumber: review.provisionArticle,
+          articleTitle: review.provisionContent,
+          articleContent: review.sentence,
+          issuedReason: review.opinion,
+        })),
+      );
+    }
+  }, [adDetails]);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
