@@ -20,14 +20,13 @@ const FindUser = () => {
   // 아이디 찾기
   const [findIdName, setFindIdName] = useState('');
   const [findIdPhoneNumber, setFindIdPhoneNumber] = useState('');
+  const [findIdCertNo, setFindIdCertNo] = useState('');
   // 비밀번호 찾기
   const [findPwUserId, setFindPwUserId] = useState('');
   const [findPwName, setFindPwName] = useState('');
   const [findPwPhoneNumber, setFindPwPhoneNumber] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
-  // 인증번호
-  const [findIdCertNo, setFindIdCertNo] = useState('');
   const [findPwCertNo, setFindPwCertNo] = useState('');
 
   // input state 관리
@@ -54,12 +53,20 @@ const FindUser = () => {
   const [isCertNoRequested, setIsCertNoRequested] = useState(false);
 
   // button state 관리
-  const [isCertNoRequestBtnDisabled, setIsCertNoRequestBtnDisabled] = useState(true);
-  const [isCertNoCheckBtnDisabled, setIsCertNoCheckBtnDisabled] = useState(false);
+  // 아이디 찾기
+  const [isFindIdCertNoRequestBtnDisabled, setIsFindIdCertNoRequestBtnDisabled] = useState(true);
+  const [isFindIdCertNoCheckBtnDisabled, setIsFindIdCertNoCheckBtnDisabled] = useState(false);
+
+  // 비밀번호 찾기
+  const [isFindPwCertNoRequestBtnDisabled, setIsFindPwCertNoRequestBtnDisabled] = useState(true);
+  const [isFindPwCertNoCheckBtnDisabled, setIsFindPwCertNoCheckBtnDisabled] = useState(false);
+
   const [isSuccessFindPw, setIsSuccessFindPw] = useState(false);
 
   // 인증번호를 입력하는 input 추가
-  const [addCertNoInput, setAddCertNoInput] = useState(false);
+  const [findIdAddCertNoInput, setFindIdAddCertNoInput] = useState(false);
+  const [findPwAddCertNoInput, setFindPwAddCertNoInput] = useState(false);
+
   // 타이머 시간 관리
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [resetTimer, setResetTimer] = useState(false);
@@ -104,9 +111,9 @@ const FindUser = () => {
 
     if (focusedBtn === 'findId') {
       if (updatedName !== '' && updatedPhoneNumber !== '') {
-        setIsCertNoRequestBtnDisabled(false);
+        setIsFindIdCertNoRequestBtnDisabled(false);
       } else {
-        setIsCertNoRequestBtnDisabled(true);
+        setIsFindIdCertNoRequestBtnDisabled(true);
       }
     }
   };
@@ -133,9 +140,9 @@ const FindUser = () => {
 
     if (focusedBtn === 'findPw') {
       if (updateId !== '' && updatedName !== '' && updatedPhoneNumber !== '') {
-        setIsCertNoRequestBtnDisabled(false);
+        setIsFindPwCertNoRequestBtnDisabled(false);
       } else {
-        setIsCertNoRequestBtnDisabled(true);
+        setIsFindPwCertNoRequestBtnDisabled(true);
       }
     }
   };
@@ -172,11 +179,11 @@ const FindUser = () => {
         .then((response) => {
           if (response.data.code === 3103) {
             setIsCertNoRequested(true);
-            setAddCertNoInput(true);
+            setFindIdAddCertNoInput(true);
           }
         })
         .catch((error) => {
-          setAddCertNoInput(false);
+          setFindIdAddCertNoInput(false);
           console.error('인증요청 실패', error);
         });
     }
@@ -223,12 +230,12 @@ const FindUser = () => {
             setIsCertNoRequested(true);
           }
           if (isValid) {
-            setAddCertNoInput(true);
+            setFindPwAddCertNoInput(true);
           }
         })
         .catch(() => {
           if (isValid) {
-            setAddCertNoInput(false);
+            setFindPwAddCertNoInput(false);
           }
         });
     }
@@ -261,7 +268,7 @@ const FindUser = () => {
               setCertNoSuccessMessage('인증되었습니다');
               setIsCertNoError(false);
               setCertNoErrorMessage('');
-              setIsCertNoCheckBtnDisabled(true);
+              setIsFindIdCertNoCheckBtnDisabled(true);
               // 토큰 저장
               setCertNoCheckToken(response.data.data.certNoCheckToken);
             }
@@ -288,7 +295,7 @@ const FindUser = () => {
               setCertNoSuccessMessage('인증되었습니다');
               setIsCertNoError(false);
               setCertNoErrorMessage('');
-              setIsCertNoCheckBtnDisabled(true);
+              setIsFindPwCertNoCheckBtnDisabled(true);
               // 토큰 저장
               setCertNoCheckToken(response.data.data.certNoCheckToken);
             }
@@ -426,7 +433,7 @@ const FindUser = () => {
                   />
                   <Button
                     type="button"
-                    state={isCertNoRequestBtnDisabled ? 'disabled' : 'default_deepBlue'}
+                    state={isFindIdCertNoRequestBtnDisabled ? 'disabled' : 'default_deepBlue'}
                     width="5.417vw"
                     height="4.815vh"
                     fontSize="0.781vw"
@@ -435,7 +442,7 @@ const FindUser = () => {
                   </Button>
                 </div>
 
-                {addCertNoInput && (
+                {findIdAddCertNoInput && (
                   <div className="signUp__wrapper__box_input_box">
                     <Input
                       placeholder="인증번호"
@@ -454,7 +461,7 @@ const FindUser = () => {
                     <div className="signUp__wrapper__box_input_box_button">
                       <Button
                         type="button"
-                        state={isCertNoCheckBtnDisabled ? 'disabled' : 'default'}
+                        state={isFindIdCertNoCheckBtnDisabled ? 'disabled' : 'default'}
                         width="5.417vw"
                         height="4.815vh"
                         fontSize="0.781vw"
@@ -545,7 +552,7 @@ const FindUser = () => {
                   />
                   <Button
                     type="button"
-                    state={isCertNoRequestBtnDisabled ? 'disabled' : 'default_deepBlue'}
+                    state={isFindPwCertNoRequestBtnDisabled ? 'disabled' : 'default_deepBlue'}
                     width="5.417vw"
                     height="4.815vh"
                     fontSize="0.781vw"
@@ -554,7 +561,7 @@ const FindUser = () => {
                   </Button>
                 </div>
 
-                {addCertNoInput && (
+                {findPwAddCertNoInput && (
                   <div className="signUp__wrapper__box_input_box">
                     <Input
                       placeholder="인증번호"
@@ -573,7 +580,7 @@ const FindUser = () => {
                     <div className="signUp__wrapper__box_input_box_button">
                       <Button
                         type="button"
-                        state={isCertNoCheckBtnDisabled ? 'disabled' : 'default'}
+                        state={isFindPwCertNoCheckBtnDisabled ? 'disabled' : 'default'}
                         width="5.417vw"
                         height="4.815vh"
                         fontSize="0.781vw"
