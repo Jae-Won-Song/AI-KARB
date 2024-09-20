@@ -206,10 +206,16 @@ const IssueAdResult = () => {
           <div className="IssueAdResult__wrapperRight_contents_title">
             <ReviewAdResult reviewNumber={3} detailSpan="광고 수정 판정을 받은 광고입니다." />
             <div className="IssueAdResult__wrapperRight_contents_title_buttons">
-              <Button type="button" state="default_white" width="5.417vw" height="4.815vh">
+              <Button type="button" state="default_white" width="5.417vw" height="4.815vh" fontSize="0.781vw">
                 임시 저장
               </Button>
-              <Button type="button" state="default" width="5.417vw" height="4.815vh" onClick={handleModalOpen}>
+              <Button
+                type="button"
+                state="default"
+                width="5.417vw"
+                height="4.815vh"
+                fontSize="0.781vw"
+                onClick={handleModalOpen}>
                 다음
               </Button>
             </div>
