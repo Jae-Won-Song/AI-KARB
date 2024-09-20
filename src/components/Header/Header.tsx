@@ -23,7 +23,7 @@ const Header = () => {
         return '동일광고 목록';
       case '/issue-ad':
         return '지적광고 목록';
-      case '/issue-ad/result':
+      case '/issue-ad/result/':
         return '지적광고 검수';
       case '/my-task':
         return '내 작업 관리';

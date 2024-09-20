@@ -1,16 +1,26 @@
-import axiosInstance from '../../api/apiConfig';
+import { useState } from 'react';
 import Button from '../Common/Button';
 import Input from '../Common/Input';
-import { useState } from 'react';
 import Toast, { ToastProps } from '../Common/Toast';
 import { validateEmail, validatePhoneNumber, validateCertNo } from '../../utils/inputValidationUtils';
+import { fetchSendCertNo, fetchCheckCertNo } from '../../api/auth/authApi';
+import { updateUserInfo } from '../../api/user/userApi';
 
-interface Payload {
+interface CertRequestPayload {
+  phoneNumber: string;
+  type: string;
+}
+
+interface CertCheckPayload {
+  phoneNumber: string;
+  certNo: string;
+  type: string;
+}
+
+interface UserInfoUpdatePayload {
   phoneNumber?: string;
   email?: string;
   certNoCheckToken?: string;
-  type?: string;
-  certNo?: string;
 }
 
 const name = localStorage.getItem('name') || 'unknown';
@@ -99,12 +109,12 @@ const EditProfileForm = () => {
 
   const requestCertNo = async () => {
     try {
-      const payload: Payload = {
+      const payload: CertRequestPayload = {
         type: 'UpdateUser',
         phoneNumber: newPhoneNum,
       };
 
-      const response = await axiosInstance.post('/api/v1/auth/cert-no', payload);
+      const response = await fetchSendCertNo(payload);
 
       if (response.status === 200) {
         setCertForm(1);
@@ -126,13 +136,13 @@ const EditProfileForm = () => {
 
   const checkCertBtn = async () => {
     try {
-      const payload: Payload = {
+      const payload: CertCheckPayload = {
         type: 'UpdateUser',
         phoneNumber: newPhoneNum,
         certNo: cert,
       };
 
-      const response = await axiosInstance.post('/api/v1/auth/check-cert-no', payload);
+      const response = await fetchCheckCertNo(payload);
 
       if (response.status === 200) {
         const { certNoCheckToken } = response.data.data;
@@ -163,7 +173,7 @@ const EditProfileForm = () => {
   };
 
   const editInfo = async () => {
-    const payload: Payload = {};
+    const payload: UserInfoUpdatePayload = {};
 
     if (newPhoneNum && cert.trim() !== '') {
       payload.phoneNumber = newPhoneNum;
@@ -184,7 +194,7 @@ const EditProfileForm = () => {
     }
 
     try {
-      const response = await axiosInstance.put('/api/v1/user/info', payload);
+      const response = await updateUserInfo(payload);
 
       if (response.status === 200) {
         setToastMessage({
