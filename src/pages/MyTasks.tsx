@@ -9,8 +9,18 @@ import totalTask from '../assets/icon-totalTask.svg';
 import doneTask from '../assets/icon-doneTask.svg';
 import notDoneTask from '../assets/icon-notDoneTask.svg';
 import ReviewTag from '../components/Common/ReviewTag';
-import instance from '../api/apiConfig';
+import { fetchMyTaskData } from '../api/user/userApi';
 import Spinner from '../components/Common/Spinner';
+
+interface Advertisement {
+  adId: string;
+  media: string[];
+  category: string[];
+  product: string;
+  advertiser: string;
+  state: boolean;
+  issue: boolean;
+}
 
 interface Advertisement {
   adId: string;
@@ -32,14 +42,7 @@ const MyTasks = () => {
     if (!cursorId) return;
 
     try {
-      const requestData = {
-        cursorInfo: {
-          cursorState: taskData.length > 0,
-          cursorId,
-        },
-      };
-
-      const response = await instance.post('/api/v1/user/my-task', requestData);
+      const response = await fetchMyTaskData(cursorId, taskData.length);
       console.log(response);
 
       const newTaskData = response.data.data.taskList.advertisementList;
