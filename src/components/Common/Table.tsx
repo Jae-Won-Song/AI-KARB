@@ -50,18 +50,19 @@ interface EmpInfo {
   rowClassName?: string;
 }
 
-interface RowData {
-  번호: number;
-  사원번호: number;
-  작업자: string;
-  전체작업: string;
-  미완료건: string;
-  완료건: string;
-  작업진척도: string;
-}
-
 const Table = (props: EmpInfo) => {
   const { columns, data, onRowClick, headerClassName = 'table', rowClassName = 'info' } = props;
+
+  const copyClipboard = (text: string) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        alert('복사 완료');
+      })
+      .catch((err) => {
+        console.error('복사 실패:', err);
+      });
+  };
 
   return (
     <div>
@@ -110,8 +111,13 @@ const Table = (props: EmpInfo) => {
                     ) : (
                       cellData
                     )}
-                    {column.name === '연락처' || column.name === '이메일' ? (
-                      <img style={{ marginLeft: '10px' }} src={clipBoard} alt="클립보드" />
+                    {(column.name === '연락처' || column.name === '이메일') && cellData ? (
+                      <button
+                        style={{ marginLeft: '10px', background: 'none', border: 'none', cursor: 'pointer' }}
+                        onClick={() => copyClipboard(cellData as string)}
+                        aria-label="복사하기">
+                        <img src={clipBoard} alt="클립보드" />
+                      </button>
                     ) : null}
                   </td>
                 );
