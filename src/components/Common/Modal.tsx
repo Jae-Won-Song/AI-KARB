@@ -25,7 +25,7 @@ type DecisionTypeModalProps = {
 
 function one({ btnContentOne, onClickOne }: ModalProps) {
   return (
-    <Button type="button" state="default_gray" width="160px" height="48px" onClick={onClickOne}>
+    <Button type="button" state="default_gray" width="8.333vw" height="4.444vh" onClick={onClickOne}>
       {btnContentOne}
     </Button>
   );
@@ -34,11 +34,11 @@ function one({ btnContentOne, onClickOne }: ModalProps) {
 function twoRed({ btnContentOne, btnContentTwo, onClickOne, onClickTwo }: ModalProps) {
   return (
     <>
-      <Button type="button" state="default_gray" width="160px" height="48px" onClick={onClickOne}>
+      <Button type="button" state="default_gray" width="8.333vw" height="4.444vh" onClick={onClickOne}>
         {btnContentOne}
       </Button>
 
-      <Button type="button" state="danger" width="160px" height="48px" onClick={onClickTwo}>
+      <Button type="button" state="danger" width="8.333vw" height="4.444vh" onClick={onClickTwo}>
         {btnContentTwo}
       </Button>
     </>
@@ -48,11 +48,11 @@ function twoRed({ btnContentOne, btnContentTwo, onClickOne, onClickTwo }: ModalP
 function twoBlue({ btnContentOne, btnContentTwo, onClickOne, onClickTwo }: ModalProps) {
   return (
     <>
-      <Button type="button" state="default_gray" width="160px" height="48px" onClick={onClickOne}>
+      <Button type="button" state="default_gray" width="8.333vw" height="4.444vh" onClick={onClickOne}>
         {btnContentOne}
       </Button>
 
-      <Button type="button" state="default" width="160px" height="48px" onClick={onClickTwo}>
+      <Button type="button" state="default" width="8.333vw" height="4.444vh" onClick={onClickTwo}>
         {btnContentTwo}
       </Button>
     </>
@@ -79,11 +79,11 @@ function distributionConfirm({ btnContentOne, btnContentTwo, onClickOne, onClick
         </div>
       </div>
       <div className="distributionConfirm__btn-box">
-        <Button type="button" state="default_gray" width="102px" height="52px" onClick={onClickOne}>
+        <Button type="button" state="default_gray" width="5.313vw" height="4.815vh" onClick={onClickOne}>
           {btnContentOne}
         </Button>
         <div style={{ width: '12px' }} />
-        <Button type="button" state="default" width="102px" height="52px" onClick={onClickTwo}>
+        <Button type="button" state="default" width="5.313vw" height="4.815vh" onClick={onClickTwo}>
           {btnContentTwo}
         </Button>
       </div>
@@ -129,11 +129,11 @@ function decisionTypeModal({
         </div>
       </div>
       <div className="decisionType__btn-box">
-        <Button type="button" state="default_gray" width="160px" height="48px" onClick={onClickOne}>
+        <Button type="button" state="default_gray" width="8.333vh" height="4.444vh" onClick={onClickOne}>
           {btnContentOne}
         </Button>
-        <div style={{ width: '12px' }} />
-        <Button type="button" state="default" width="160px" height="48px" onClick={onClickTwo}>
+        <div style={{ width: '0.625vw' }} />
+        <Button type="button" state="default" width="8.333vh" height="4.444vh" onClick={onClickTwo}>
           {btnContentTwo}
         </Button>
       </div>
@@ -149,11 +149,11 @@ function delUserInfo({ btnContentOne, btnContentTwo, onClickOne, onClickTwo }: M
       <div className="delUserInfo__content">해당 사용자 정보는 삭제되며 복구되지 않습니다.</div>
       <div className="delUserInfo__content"> 해당 사용자를 삭제하시겠습니까?</div>
       <div className="delUserInfo__btn-box">
-        <Button type="button" state="default_gray" width="160px" height="48px" onClick={onClickOne}>
+        <Button type="button" state="default_gray" width="8.333vw" height="4.444vh" onClick={onClickOne}>
           {btnContentOne}
         </Button>
-        <div style={{ width: '12px' }} />
-        <Button type="button" state="danger" width="160px" height="48px" onClick={onClickTwo}>
+        <div style={{ width: '0.625vw' }} />
+        <Button type="button" state="danger" width="8.333vw" height="4.444vh" onClick={onClickTwo}>
           {btnContentTwo}
         </Button>
       </div>
