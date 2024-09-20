@@ -49,16 +49,6 @@ const IssueAdResult = () => {
     issuedReason: '',
   });
 
-  // 위반 조항
-  const reasons = [
-    '7조 진실성 위반 표현이 길어지면',
-    '8조 광고의 품위상실',
-    '9조 광고주 불표시',
-    '10조 소비자 오도 표현',
-    '11조 주장의 무입증',
-    '12조 추천, 보증',
-  ];
-
   const navigate = useNavigate();
   const location = useLocation();
 
