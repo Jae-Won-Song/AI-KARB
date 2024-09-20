@@ -287,6 +287,7 @@ const IssueAdResult = () => {
                     state="default"
                     width="5.417vw"
                     height="4.815vh"
+                    fontSize="0.781vw"
                     onClick={clickAddIssuedReasonBtn}>
                     추가
                   </Button>
