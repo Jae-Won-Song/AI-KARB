@@ -326,7 +326,7 @@ const FindUser = () => {
                 <Input placeholder="이름" />
                 <div className="findId__wrapper__box_input_inner">
                   <Input placeholder="연락처('-'을 제외한 숫자만 입력)" size="small" />
-                  <Button type="button" state="disabled" width="5.417vw" height="4.815vh">
+                  <Button type="button" state="disabled" width="5.417vw" height="4.815vh" fontSize="0.781vw">
                     인증요청
                   </Button>
                 </div>
