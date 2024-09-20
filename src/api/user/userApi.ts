@@ -1,9 +1,9 @@
 import instance from '../apiConfig';
 
-export const fetchMyTaskData = (cursorId: string | null, taskDataLength: number) => {
+export const fetchMyTaskData = (cursorId: string | null, taskDataLength: number, cursorState: boolean) => {
   const requestData = {
     cursorInfo: {
-      cursorState: taskDataLength > 0,
+      cursorState,
       cursorId,
     },
   };
