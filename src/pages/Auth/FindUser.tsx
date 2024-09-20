@@ -2,8 +2,14 @@ import { useState } from 'react';
 import Input from '../../components/Common/Input';
 import Button from '../../components/Common/Button';
 import Modal from '../../components/Common/Modal';
-import { validateName, validatePhoneNumber, validateCertNo, validateId } from '../../utils/inputValidationUtils';
-import { fetchCheckCertNo, fetchFindId, fetchFindPw, fetchSendCertNo } from '../../api/auth/authApi';
+import {
+  validateName,
+  validatePhoneNumber,
+  validateCertNo,
+  validateId,
+  validatePassword,
+} from '../../utils/inputValidationUtils';
+import { fetchCheckCertNo, fetchEditPw, fetchFindId, fetchFindPw, fetchSendCertNo } from '../../api/auth/authApi';
 import { useNavigate } from 'react-router-dom';
 import bg from '../../assets/background.png';
 
@@ -15,6 +21,8 @@ const FindUser = () => {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [certNo, setCertNo] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
   // input state 관리
   // 아이디
@@ -31,6 +39,11 @@ const FindUser = () => {
   const [certNoErrorMessage, setCertNoErrorMessage] = useState('');
   const [isCertNoSuccess, setIsCertNoSuccess] = useState(false);
   const [certNoSuccessMessage, setCertNoSuccessMessage] = useState('');
+  // 비밀번호
+  const [isNewPasswordError, setIsNewPasswordError] = useState(false);
+  const [newPasswordErrorMessage, setNewPasswordErrorMessage] = useState('');
+  const [isConfirmNewPasswordError, setIsConfirmNewPasswordError] = useState(false);
+  const [confirmNewPasswordErrorMessage, setConfirmNewPasswordErrorMessage] = useState('');
 
   const [isCertNoRequested, setIsCertNoRequested] = useState(false);
 
@@ -50,8 +63,10 @@ const FindUser = () => {
   };
 
   // 모달창
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const [isFailModalOpen, setIsFailModalOpen] = useState(false);
+  const [isIdSuccessModalOpen, setIsIdSuccessModalOpen] = useState(false);
+  const [isIdFailModalOpen, setIsIdFailModalOpen] = useState(false);
+  const [isPwSuccessModalOpen, setIsPwSuccessModalOpen] = useState(false);
+  const [isPwFailModalOpen, setIsPwFailModalOpen] = useState(false);
 
   // 아이디, 비밀번호 찾기 요청 때 필요한 api response에서 받아온 정보
   const [certNoCheckToken, setCertNoCheckToken] = useState('');
@@ -266,11 +281,11 @@ const FindUser = () => {
       .then((response) => {
         if (response.data.code === 3106) {
           setFoundId(response.data.data.userId);
-          setIsSuccessModalOpen(true);
+          setIsIdSuccessModalOpen(true);
         }
       })
       .catch((error) => {
-        setIsFailModalOpen(true);
+        setIsIdFailModalOpen(true);
       });
   };
 
@@ -283,22 +298,53 @@ const FindUser = () => {
       return;
     }
 
-    const payload = {
-      userId,
-      name,
-      phoneNumber,
-      certNoCheckToken,
-    };
+    // if (validatePassword(newPassword)) {
+    //   setIsNewPasswordError(true);
+    //   setNewPasswordErrorMessage('비밀번호 형식이 맞지 않습니다');
+    //   return;
+    // }
 
-    fetchFindPw(payload)
-      .then((response) => {
-        setIsSuccessFindPw(true);
-        setPasswordResetToken(response.data.data.passwordResetToken);
-        console.log('요청 성공', response);
-      })
-      .catch((error) => {
-        console.log('비밀번호 찾기 실패', error);
-      });
+    // if (confirmNewPassword !== newPassword) {
+    //   setIsConfirmNewPasswordError(true);
+    //   setConfirmNewPasswordErrorMessage('비밀번호가 일치하지 않습니다');
+    //   return;
+    // }
+
+    if (isSuccessFindPw) {
+      const payload = {
+        password: newPassword,
+        passwordResetToken,
+      };
+
+      fetchEditPw(payload)
+        .then((response) => {
+          console.log('수정 성공', response);
+          setIsPwSuccessModalOpen(true);
+        })
+        .catch((error) => {
+          console.error('비밀번호 수정 실패', error);
+        });
+    }
+
+    if (!isSuccessFindPw) {
+      const payload = {
+        userId,
+        name,
+        phoneNumber,
+        certNoCheckToken,
+      };
+
+      fetchFindPw(payload)
+        .then((response) => {
+          setIsSuccessFindPw(true);
+          setPasswordResetToken(response.data.data.passwordResetToken);
+          console.log('요청 성공', response);
+        })
+        .catch((error) => {
+          console.log('비밀번호 찾기 실패', error);
+          setIsPwFailModalOpen(true);
+        });
+    }
   };
 
   return (
@@ -385,7 +431,7 @@ const FindUser = () => {
                 </Button>
               </div>
 
-              {isSuccessModalOpen && (
+              {isIdSuccessModalOpen && (
                 <div className="FindUser__modal">
                   <Modal
                     mode="default"
@@ -395,7 +441,7 @@ const FindUser = () => {
                     btnContentOne="비밀번호 찾기"
                     btnContentTwo="로그인하기"
                     onClickOne={() => {
-                      setIsSuccessModalOpen(false);
+                      setIsIdSuccessModalOpen(false);
                       setFocusedBtn('findPw');
                     }}
                     onClickTwo={() => {
@@ -405,7 +451,7 @@ const FindUser = () => {
                 </div>
               )}
 
-              {isFailModalOpen && (
+              {isIdFailModalOpen && (
                 <div className="FindUser__modal">
                   <Modal
                     mode="default"
@@ -415,7 +461,7 @@ const FindUser = () => {
                     btnContentOne="취소"
                     btnContentTwo="회원가입하기"
                     onClickOne={() => {
-                      setIsFailModalOpen(false);
+                      setIsIdFailModalOpen(false);
                     }}
                     onClickTwo={() => {
                       navigate('/signup');
@@ -498,8 +544,22 @@ const FindUser = () => {
                 )}
                 {isSuccessFindPw && (
                   <>
-                    <Input placeholder="새 비밀번호 (영문자/숫자/특수문자 사용 가능, 8~16자)" />
-                    <Input placeholder="새 비밀번호 재확인" />
+                    <Input
+                      placeholder="새 비밀번호 (영문자/숫자/특수문자 사용 가능, 8~16자)"
+                      type="password"
+                      value={newPassword}
+                      isError={isNewPasswordError}
+                      errorMessage={newPasswordErrorMessage}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                    <Input
+                      placeholder="새 비밀번호 재확인"
+                      type="password"
+                      value={confirmNewPassword}
+                      isError={isConfirmNewPasswordError}
+                      errorMessage={confirmNewPasswordErrorMessage}
+                      onChange={(e) => setConfirmNewPassword(e.target.value)}
+                    />
                   </>
                 )}
               </div>
@@ -509,6 +569,40 @@ const FindUser = () => {
                   {isSuccessFindPw ? '수정하기' : '확인'}
                 </Button>
               </div>
+
+              {isPwSuccessModalOpen && (
+                <div className="FindUser__modal">
+                  <Modal
+                    mode="default"
+                    add="1"
+                    title="비밀번호 변경"
+                    content="비밀번호가 변경되었습니다"
+                    btnContentOne="확인"
+                    onClickOne={() => {
+                      navigate('/signin');
+                    }}
+                  />
+                </div>
+              )}
+
+              {isPwFailModalOpen && (
+                <div className="FindUser__modal">
+                  <Modal
+                    mode="default"
+                    add="blue"
+                    title="비밀번호 찾기"
+                    content="입력하신 정보와 일치하는 정보가 없습니다."
+                    btnContentOne="취소"
+                    btnContentTwo="회원가입하기"
+                    onClickOne={() => {
+                      setIsPwFailModalOpen(false);
+                    }}
+                    onClickTwo={() => {
+                      navigate('/signup');
+                    }}
+                  />
+                </div>
+              )}
             </>
           )}
         </div>
