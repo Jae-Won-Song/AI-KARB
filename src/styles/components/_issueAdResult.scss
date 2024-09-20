@@ -60,6 +60,14 @@
 
         overflow-y: auto;
 
+        &_empty {
+          height: 6.111vh;
+          padding: 1.111vh 0.625vw 2.593vh;
+          border-bottom: 1px solid $grayscale-20;
+
+          @include text-style(17, $grayscale-90, 700);
+        }
+
         &_addResult {
           padding: 1.852vh 0.625vw;
 

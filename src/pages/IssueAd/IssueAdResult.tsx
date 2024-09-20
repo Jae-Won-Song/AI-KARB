@@ -192,16 +192,20 @@ const IssueAdResult = () => {
             </div>
           </div>
           <div className="IssueAdResult__wrapperRight_contents_resultBox">
-            {issuedReasons.map((reason, index) => (
-              <IssuedReason
-                key={index}
-                contentNumber={reason.contentNumber}
-                articleNumber={reason.articleNumber}
-                articleTitle={reason.articleTitle}
-                articleContent={reason.articleContent}
-                issuedReason={reason.issuedReason}
-              />
-            ))}
+            {issuedReasons.length === 0 ? (
+              <div className="IssueAdResult__wrapperRight_contents_resultBox_empty">위반 사항이 없습니다.</div>
+            ) : (
+              issuedReasons.map((reason, index) => (
+                <IssuedReason
+                  key={index}
+                  contentNumber={reason.contentNumber}
+                  articleNumber={reason.articleNumber}
+                  articleTitle={reason.articleTitle}
+                  articleContent={reason.articleContent}
+                  issuedReason={reason.issuedReason}
+                />
+              ))
+            )}
 
             {isOpen ? (
               <div className="IssueAdResult__wrapperRight_contents_resultBox_addResult">
