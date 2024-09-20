@@ -51,14 +51,18 @@ const SignUpRequest = () => {
   }, []);
 
   const handleApprove = useCallback(() => {
-    setModalMode('approve');
-    setIsModalOpen(true);
-  }, []);
+    if (selectedEmpNos.length > 0) {
+      setModalMode('approve');
+      setIsModalOpen(true);
+    }
+  }, [selectedEmpNos]);
 
   const handleReject = useCallback(() => {
-    setModalMode('reject');
-    setIsModalOpen(true);
-  }, []);
+    if (selectedEmpNos.length > 0) {
+      setModalMode('reject');
+      setIsModalOpen(true);
+    }
+  }, [selectedEmpNos]);
 
   const confirmApprove = useCallback(async () => {
     if (selectedEmpNos.length > 0) {
@@ -67,7 +71,10 @@ const SignUpRequest = () => {
           userList: selectedEmpNos.map((empNo) => ({ empNo })),
         });
         console.log('API 호출 성공', response.data);
+
+        setUserData((prevUserData) => prevUserData.filter((user) => !selectedEmpNos.includes(user.empNo)));
         setIsModalOpen(false);
+        setSelectedEmpNos([]);
         setToast({
           mode: 'success',
           title: '승인 완료',
@@ -91,7 +98,10 @@ const SignUpRequest = () => {
           userList: selectedEmpNos.map((empNo) => ({ empNo })),
         });
         console.log('API 호출 성공', response.data);
+
+        setUserData((prevUserData) => prevUserData.filter((user) => !selectedEmpNos.includes(user.empNo)));
         setIsModalOpen(false);
+        setSelectedEmpNos([]);
         setToast({
           mode: 'success',
           title: '반려 완료',
