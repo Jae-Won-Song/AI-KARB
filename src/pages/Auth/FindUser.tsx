@@ -158,15 +158,12 @@ const FindUser = () => {
           .then((response) => {
             if (response.data.code === 3103) {
               setIsCertNoRequested(true);
-            }
-            if (isValid) {
               setAddCertNoInput(true);
             }
           })
-          .catch(() => {
-            if (isValid) {
-              setAddCertNoInput(false);
-            }
+          .catch((error) => {
+            setAddCertNoInput(false);
+            console.error('인증요청 실패', error);
           });
       }
 
