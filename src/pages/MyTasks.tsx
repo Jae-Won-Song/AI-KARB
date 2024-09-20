@@ -43,7 +43,6 @@ const MyTasks = () => {
 
     try {
       const response = await fetchMyTaskData(cursorId, taskData.length);
-      console.log(response);
 
       const newTaskData = response.data.data.taskList.advertisementList;
       const newAdCount = response.data.data.adCount;
