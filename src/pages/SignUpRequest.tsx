@@ -6,6 +6,7 @@ import Tab from '../components/Tab';
 import Modal from '../components/Common/Modal';
 import Toast from '../components/Common/Toast';
 import check from '../assets/check-signup-request.svg';
+import { fetchSignUpRequests, approveUsers, rejectUsers } from '../api/admin/adminApi';
 
 interface UserData {
   cursorId: number;
@@ -67,9 +68,7 @@ const SignUpRequest = () => {
   const confirmApprove = useCallback(async () => {
     if (selectedEmpNos.length > 0) {
       try {
-        const response = await instance.post('/api/v1/admin/approve-user', {
-          userList: selectedEmpNos.map((empNo) => ({ empNo })),
-        });
+        const response = await approveUsers(selectedEmpNos);
         console.log('API 호출 성공', response.data);
 
         setUserData((prevUserData) => prevUserData.filter((user) => !selectedEmpNos.includes(user.empNo)));
@@ -94,9 +93,7 @@ const SignUpRequest = () => {
   const confirmReject = useCallback(async () => {
     if (selectedEmpNos.length > 0) {
       try {
-        const response = await instance.post('/api/v1/admin/reject-user', {
-          userList: selectedEmpNos.map((empNo) => ({ empNo })),
-        });
+        const response = await rejectUsers(selectedEmpNos);
         console.log('API 호출 성공', response.data);
 
         setUserData((prevUserData) => prevUserData.filter((user) => !selectedEmpNos.includes(user.empNo)));
@@ -119,14 +116,14 @@ const SignUpRequest = () => {
   }, [selectedEmpNos]);
 
   useEffect(() => {
-    const fetchSignUpRequests = async () => {
+    const fetchData = async () => {
       try {
-        const response = await instance.get<ApiResponse>('/api/v1/admin/approve-user');
+        const response = await fetchSignUpRequests();
         const { data } = response.data || {};
         if (data && Array.isArray(data.contents)) {
           setUserData(data.contents);
 
-          const formattedData = data.contents.map((item, index) => ({
+          const formattedData = data.contents.map((item: UserData, index: number) => ({
             번호: index + 1,
             체크박스: (
               <input
@@ -151,7 +148,7 @@ const SignUpRequest = () => {
       }
     };
 
-    fetchSignUpRequests();
+    fetchData();
   }, [handleApprove, handleReject, handleCheckboxChange, selectedEmpNos]);
 
   return (
