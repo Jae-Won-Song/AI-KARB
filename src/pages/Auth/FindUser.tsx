@@ -97,16 +97,20 @@ const FindUser = () => {
     const updatedName = filledInput === 'name' ? value : name;
     const updatedPhoneNumber = filledInput === 'phoneNumber' ? value : phoneNumber;
 
-    if (focusedBtn === 'findId' && updatedName !== '' && updatedPhoneNumber !== '') {
-      setIsCertNoRequestBtnDisabled(false);
-    } else {
-      setIsCertNoRequestBtnDisabled(true);
+    if (focusedBtn === 'findId') {
+      if (updatedName !== '' && updatedPhoneNumber !== '') {
+        setIsCertNoRequestBtnDisabled(false);
+      } else {
+        setIsCertNoRequestBtnDisabled(true);
+      }
     }
 
-    if (focusedBtn === 'findPw' && updateId !== '' && updatedName !== '' && updatedPhoneNumber !== '') {
-      setIsCertNoRequestBtnDisabled(false);
-    } else {
-      setIsCertNoRequestBtnDisabled(true);
+    if (focusedBtn === 'findPw') {
+      if (updateId !== '' && updatedName !== '' && updatedPhoneNumber !== '') {
+        setIsCertNoRequestBtnDisabled(false);
+      } else {
+        setIsCertNoRequestBtnDisabled(true);
+      }
     }
 
     // 인증번호
