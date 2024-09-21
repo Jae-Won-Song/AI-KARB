@@ -90,66 +90,6 @@
   }
 }
 
-.decisionType {
-  @include column-flex;
-  position: absolute;
-  top: 50%;
-  left: 55%;
-  background: $white;
-  transform: translate(-50%, -50%);
-  z-index: 1001;
-  width: 501px;
-  height: 310px;
-  border: 1px solid #c6c6c6;
-  border-radius: 12px;
-  box-shadow:
-    0px 0px 2px 0px rgba(0, 0, 0, 0.12),
-    0px 20px 20px 0px rgba(0, 0, 0, 0.08);
-  &__title {
-    @include text-style(17, black, 700);
-    margin-bottom: 32px;
-  }
-  &__type-box {
-    @include column-flex;
-    width: 418px;
-    height: 92px;
-    margin-bottom: 32px;
-
-    box-sizing: border-box;
-    &__type {
-      @include flex;
-      gap: 12px;
-      &:first-child {
-        margin-bottom: 12px;
-      }
-
-      &-item {
-        @include flex;
-        @include text-style(15, #8e8e8e, 400);
-        height: 45px;
-        padding: 0px 16px;
-        border-radius: 40px;
-        color: #c6c6c6;
-        border: 1px solid #c6c6c6;
-        cursor: pointer;
-      }
-      &-item-selected {
-        @include flex;
-        @include text-style(15, #8e8e8e, 400);
-        height: 45px;
-        padding: 0px 16px;
-        border-radius: 40px;
-        color: #029eeb;
-        border-color: #029eeb;
-        cursor: pointer;
-      }
-    }
-  }
-  &__btn-box {
-    @include flex;
-  }
-}
-
 .delUserInfo {
   @include column-flex;
   position: absolute;

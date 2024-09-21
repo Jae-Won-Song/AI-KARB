@@ -8,9 +8,8 @@ import arrowDown from '../../assets/arrow-down.svg';
 import arrowUp from '../../assets/arrow-up.svg';
 import iconPlus from '../../assets/icon-plus.svg';
 import { useEffect, useState } from 'react';
-import Modal from '../../components/Common/Modal';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { fetchLoadIssueOption } from '../../api/issueAd/issueAdApi';
+import { fetchLoadIssueDecision, fetchLoadIssueProvision } from '../../api/issueAd/issueAdApi';
 
 type IssuedReasonType = {
   contentNumber: number;
@@ -33,12 +32,19 @@ type IssueOptionType = {
   content: string;
 };
 
+type DecisionDataType = {
+  id: number;
+  decision: string;
+};
+
 const IssueAdResult = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActiveSelectReason, setIsActiveSelectReason] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [issuedReasons, setIssuedReasons] = useState<IssuedReasonType[]>([]);
   const [reason, setReason] = useState<IssueOptionType[]>([]);
+  const [issueDecisionData, setIssueDecisionData] = useState<DecisionDataType[]>([]);
+  const [selectedItem, setSelectedItem] = useState<number | null>(null);
 
   // 새로운 검토 의견 추가 관리
   const [newReason, setNewReason] = useState({
@@ -68,13 +74,22 @@ const IssueAdResult = () => {
       );
     }
 
-    fetchLoadIssueOption()
+    fetchLoadIssueProvision()
       .then((response) => {
         setReason(response.data.data.provisionList);
         console.log('조항리스트', response);
       })
       .catch((error) => {
         console.error('조항 리스트 조회 실패', error);
+      });
+
+    fetchLoadIssueDecision()
+      .then((response) => {
+        console.log('심의결정 리스트 조회 성공', response);
+        setIssueDecisionData(response.data.data.decisionList);
+      })
+      .catch((error) => {
+        console.log('심의결정 리스트 조회 실패', error);
       });
   }, [adDetails]);
 
@@ -313,14 +328,74 @@ const IssueAdResult = () => {
 
       {isModalOpen && (
         <div className="IssueAdResult__modal">
-          <Modal
-            mode="decisionType"
-            btnContentOne="취소"
-            btnContentTwo="확인"
-            onClickOne={() => {
-              setIsModalOpen(false);
-            }}
-          />
+          <div className="decisionType">
+            <div className="decisionType__title">심의 결정 구분을 선택해주세요</div>
+            <div className="decisionType__type-box">
+              <div className="decisionType__type-box__type">
+                {issueDecisionData
+                  .sort((a, b) => {
+                    if (a.id === 1) return 1;
+                    if (b.id === 1) return -1;
+                    return a.id - b.id;
+                  })
+                  .slice(0, 3)
+                  .map((item, index) => (
+                    <div
+                      key={item.id}
+                      className={`decisionType__type-box__type-item ${
+                        selectedItem === index ? 'decisionType__type-box__type-item-selected' : ''
+                      }`}
+                      onClick={() => setSelectedItem(index)}>
+                      {item.decision}
+                    </div>
+                  ))}
+              </div>
+              <div className="decisionType__type-box__type">
+                {issueDecisionData
+                  .sort((a, b) => {
+                    if (a.id === 1) return 1;
+                    if (b.id === 1) return -1;
+                    return a.id - b.id;
+                  })
+                  .slice(3, 7)
+                  .map((item, index) => (
+                    <div
+                      key={item.id}
+                      className={`decisionType__type-box__type-item ${
+                        selectedItem === index + 3 ? 'decisionType__type-box__type-item-selected' : ''
+                      }`}
+                      onClick={() => setSelectedItem(index + 3)}>
+                      {item.decision}
+                    </div>
+                  ))}
+              </div>
+            </div>
+            <div className="decisionType__btn-box">
+              <Button
+                type="button"
+                state="default_gray"
+                width="8.333vw"
+                height="4.444vh"
+                fontSize="0.781vw"
+                onClick={() => {
+                  setIsModalOpen(false);
+                  setSelectedItem(null);
+                }}>
+                취소
+              </Button>
+              <Button
+                type="button"
+                state="default"
+                width="8.333vw"
+                height="4.444vh"
+                fontSize="0.781vw"
+                onClick={() => {
+                  setIsModalOpen(false);
+                }}>
+                확인
+              </Button>
+            </div>
+          </div>
         </div>
       )}
     </main>
