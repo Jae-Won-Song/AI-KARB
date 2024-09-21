@@ -56,3 +56,24 @@ export const fetchSignIn = (payload: { id: string; password: string }) => {
 export const fetchFindId = (payload: { name: string; phoneNumber: string; certNoCheckToken: string }) => {
   return instance.post('/api/v1/auth/find-id', payload);
 };
+
+/*
+ * 비밀번호 찾기 - 인증
+ * @param payload {userId, name, phoneNumber, certNoCheckToken}
+ */
+export const fetchFindPw = (payload: {
+  userId: string;
+  name: string;
+  phoneNumber: string;
+  certNoCheckToken: string;
+}) => {
+  return instance.post('/api/v1/auth/find-password', payload);
+};
+
+/*
+ * 비밀번호 수정
+ * @param payload {password, passwordResetToken}
+ */
+export const fetchEditPw = (payload: { password: string; passwordResetToken: string }) => {
+  return instance.post('/api/v1/auth/edit-password', payload);
+};

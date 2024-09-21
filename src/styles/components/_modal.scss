@@ -25,7 +25,8 @@
         margin-bottom: 2.963vh;
       }
       &-btn-area {
-        @include flex(between, center);
+        @include flex;
+        gap: 0.625vw;
         width: 17.292vw;
       }
     }
