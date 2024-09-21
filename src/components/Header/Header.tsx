@@ -1,10 +1,13 @@
-import logout from '../../assets/icon-logout.svg';
+import Logout from '../../assets/icon-logout.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import picture from '../../assets/icon-profileImage-header.svg';
+import { logout } from '../../redux/authSlice';
+import { useDispatch } from 'react-redux';
 
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const name = localStorage.getItem('name') || 'unknown';
   const authority = localStorage.getItem('authority') || 'Lv999';
@@ -40,6 +43,11 @@ const Header = () => {
     }
   }
 
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/signin');
+  };
+
   return (
     <div className="header">
       <div className="header__container">
@@ -56,11 +64,8 @@ const Header = () => {
             <div className="header__container__admin-box__content-box-name">{name}</div>
             <div className="header__container__admin-box__content-box-class">{authority}</div>
           </div>
-          <div
-            onClick={() => {
-              navigate('/signin');
-            }}>
-            <img className="header__container__admin-box-icon" src={logout} alt="로그아웃" />
+          <div onClick={handleLogout}>
+            <img className="header__container__admin-box-icon" src={Logout} alt="로그아웃" />
           </div>
         </div>
       </div>
