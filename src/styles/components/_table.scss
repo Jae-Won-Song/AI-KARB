@@ -1,4 +1,5 @@
 .table {
+  @include text-style(17, $primary-60, 700);
   @include flex;
   margin: 0 1.563vw 0 1.563vw;
   &__data {
@@ -21,10 +22,10 @@
 }
 
 .info {
+  @include text-style(17, $grayscale-70, 400);
   @include flex;
   flex-direction: column;
   margin: 0 1.563vw 0 1.563vw;
-  color: $grayscale-70;
 
   &__data {
     border-bottom: 1px solid $grayscale-30;
