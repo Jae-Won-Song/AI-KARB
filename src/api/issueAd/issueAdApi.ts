@@ -34,6 +34,6 @@ export const fetchLoadIssueDecision = () => {
  * 지적광고 심의결정 리뷰 저장
  * @params {reviewList}
  */
-export const postSaveNewIssueTask = (payload: object) => {
-  return instance.post('/api/v1/issue-ad/save-task', payload);
+export const postSaveNewIssueTask = (reviewList: object) => {
+  return instance.post('/api/v1/issue-ad/save-task', reviewList);
 };
