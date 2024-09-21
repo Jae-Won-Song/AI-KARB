@@ -9,7 +9,7 @@ import arrowUp from '../../assets/arrow-up.svg';
 import iconPlus from '../../assets/icon-plus.svg';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { fetchLoadIssueDecision, fetchLoadIssueProvision } from '../../api/issueAd/issueAdApi';
+import { fetchLoadIssueDecision, fetchLoadIssueProvision, postSaveNewIssueTask } from '../../api/issueAd/issueAdApi';
 
 type IssuedReasonType = {
   contentNumber: number;
@@ -17,6 +17,7 @@ type IssuedReasonType = {
   articleTitle: string;
   articleContent: string;
   issuedReason: string;
+  provisionId?: number;
 };
 
 type AdDetailsType = {
@@ -53,7 +54,10 @@ const IssueAdResult = () => {
     articleTitle: '',
     articleContent: '',
     issuedReason: '',
+    provisionId: 0,
   });
+
+  const [newIssuedReasons, setNewIssuedReasons] = useState<IssuedReasonType[]>([]);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -76,8 +80,8 @@ const IssueAdResult = () => {
 
     fetchLoadIssueProvision()
       .then((response) => {
+        console.log('조항 리스트', response);
         setReason(response.data.data.provisionList);
-        console.log('조항리스트', response);
       })
       .catch((error) => {
         console.error('조항 리스트 조회 실패', error);
@@ -85,17 +89,12 @@ const IssueAdResult = () => {
 
     fetchLoadIssueDecision()
       .then((response) => {
-        console.log('심의결정 리스트 조회 성공', response);
         setIssueDecisionData(response.data.data.decisionList);
       })
       .catch((error) => {
         console.log('심의결정 리스트 조회 실패', error);
       });
   }, [adDetails]);
-
-  useEffect(() => {
-    console.log('reason', reason);
-  }, [reason]);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -116,11 +115,13 @@ const IssueAdResult = () => {
 
     const selectedArticle = reason[index].article;
     const selectedContent = reason[index].content;
+    const selectedProvisionId = reason[index].id;
 
     setNewReason((prev) => ({
       ...prev,
       articleNumber: selectedArticle,
       articleTitle: selectedContent,
+      provisionId: selectedProvisionId,
     }));
   };
 
@@ -164,13 +165,14 @@ const IssueAdResult = () => {
   };
 
   const clickAddIssuedReasonBtn = () => {
-    setIssuedReasons((prevReasons) => [
-      ...prevReasons,
-      {
-        ...newReason,
-        articleNumber: parseInt(newReason.articleNumber.toString(), 10),
-      },
-    ]);
+    const newReasonToAdd = {
+      ...newReason,
+      articleNumber: parseInt(newReason.articleNumber.toString(), 10),
+      provisionId: newReason.provisionId,
+    };
+
+    setIssuedReasons((prevReasons) => [...prevReasons, newReasonToAdd]);
+    setNewIssuedReasons((prevNewReasons) => [...prevNewReasons, newReasonToAdd]);
 
     setNewReason({
       contentNumber: issuedReasons.length + 2,
@@ -178,7 +180,31 @@ const IssueAdResult = () => {
       articleTitle: '',
       articleContent: '',
       issuedReason: '',
+      provisionId: 0,
     });
+  };
+
+  const clickTemporarySaveBtn = () => {
+    console.log('payload로 들어갈 issuedReasons', newIssuedReasons);
+
+    const reviewList = newIssuedReasons.map((reason) => ({
+      operationType: 'Create',
+      reviewId: null,
+      advertisementId: adDetails?.id,
+      provisionId: reason.provisionId,
+      sentence: reason.articleContent,
+      opinion: reason.issuedReason,
+    }));
+
+    console.log('payload', reviewList);
+
+    postSaveNewIssueTask(reviewList)
+      .then((response) => {
+        console.log('새로운 검토 의견 추가', response);
+      })
+      .catch((error) => {
+        console.error('검토 의견 추가 실패', error);
+      });
   };
 
   return (
@@ -211,7 +237,13 @@ const IssueAdResult = () => {
           <div className="IssueAdResult__wrapperRight_contents_title">
             <ReviewAdResult reviewNumber={3} detailSpan="광고 수정 판정을 받은 광고입니다." />
             <div className="IssueAdResult__wrapperRight_contents_title_buttons">
-              <Button type="button" state="default_white" width="5.417vw" height="4.815vh" fontSize="0.781vw">
+              <Button
+                type="button"
+                state="default_white"
+                width="5.417vw"
+                height="4.815vh"
+                fontSize="0.781vw"
+                onClick={clickTemporarySaveBtn}>
                 임시 저장
               </Button>
               <Button
