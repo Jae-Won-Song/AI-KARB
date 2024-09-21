@@ -2,13 +2,19 @@ import { useEffect, useRef, ReactNode } from 'react';
 
 interface InfiniteScrollProps {
   fetchMoreData: () => void;
-  hasMore: boolean;
-  isFetched: boolean;
-  setIsFetched: (state: boolean) => void;
+  hasMore?: boolean;
+  isFetched?: boolean;
+  setIsFetched?: (state: boolean) => void;
   children: ReactNode;
 }
 
-const InfiniteScroll = ({ fetchMoreData, hasMore, isFetched, setIsFetched, children }: InfiniteScrollProps) => {
+const InfiniteScroll = ({
+  fetchMoreData,
+  hasMore = true,
+  isFetched = true,
+  setIsFetched = () => {},
+  children,
+}: InfiniteScrollProps) => {
   const observerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
