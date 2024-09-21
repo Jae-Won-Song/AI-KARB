@@ -184,6 +184,12 @@ const IssueAdResult = () => {
     });
   };
 
+  // 검수 의견 삭제
+  const handleDeleteIssuedReason = (contentNumber: number) => {
+    const updatedReasons = issuedReasons.filter((reason) => reason.contentNumber !== contentNumber);
+    setIssuedReasons(updatedReasons);
+  };
+
   const clickTemporarySaveBtn = () => {
     console.log('payload로 들어갈 issuedReasons', newIssuedReasons);
 
@@ -272,6 +278,7 @@ const IssueAdResult = () => {
                   articleTitle={reason.articleTitle}
                   articleContent={reason.articleContent}
                   issuedReason={reason.issuedReason}
+                  onDelete={handleDeleteIssuedReason}
                 />
               ))
             )}
