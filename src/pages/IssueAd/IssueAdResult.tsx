@@ -10,7 +10,7 @@ import iconPlus from '../../assets/icon-plus.svg';
 import { useEffect, useState } from 'react';
 import Modal from '../../components/Common/Modal';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { fetchLoadIssueOption } from '../../api/issueAd/issueAdApi';
+import { fetchLoadIssueProvision } from '../../api/issueAd/issueAdApi';
 
 type IssuedReasonType = {
   contentNumber: number;
@@ -68,7 +68,7 @@ const IssueAdResult = () => {
       );
     }
 
-    fetchLoadIssueOption()
+    fetchLoadIssueProvision()
       .then((response) => {
         setReason(response.data.data.provisionList);
         console.log('조항리스트', response);

@@ -19,6 +19,6 @@ export const fetchLoadIssueAdDetail = ({ advertisementId }: { advertisementId: s
 /*
  * 위반 조항 리스트 불러오기
  */
-export const fetchLoadIssueOption = () => {
+export const fetchLoadIssueProvision = () => {
   return instance.get('/api/v1/issue-ad/options/provision');
 };
