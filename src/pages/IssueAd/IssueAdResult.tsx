@@ -235,7 +235,10 @@ const IssueAdResult = () => {
       <article className="IssueAdResult__wrapperRight">
         <div className="IssueAdResult__wrapperRight_contents">
           <div className="IssueAdResult__wrapperRight_contents_title">
-            <ReviewAdResult reviewNumber={3} detailSpan="광고 수정 판정을 받은 광고입니다." />
+            <ReviewAdResult
+              reviewNumber={adDetails?.reviewList.length}
+              detailSpan="광고 수정 판정을 받은 광고입니다."
+            />
             <div className="IssueAdResult__wrapperRight_contents_title_buttons">
               <Button
                 type="button"
