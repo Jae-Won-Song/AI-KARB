@@ -22,3 +22,10 @@ export const fetchLoadIssueAdDetail = ({ advertisementId }: { advertisementId: s
 export const fetchLoadIssueProvision = () => {
   return instance.get('/api/v1/issue-ad/options/provision');
 };
+
+/*
+ * 심의결정 리스트 불러오기
+ */
+export const fetchLoadIssueDecision = () => {
+  return instance.get('/api/v1/issue-ad/options/decision');
+};
