@@ -18,6 +18,7 @@ type IssuedReasonType = {
   articleContent: string;
   issuedReason: string;
   provisionId?: number;
+  reviewId?: number;
 };
 
 type AdDetailsType = {
@@ -56,8 +57,10 @@ const IssueAdResult = () => {
     issuedReason: '',
     provisionId: 0,
   });
-
   const [newIssuedReasons, setNewIssuedReasons] = useState<IssuedReasonType[]>([]);
+
+  // 삭제한 검토 의견 관리
+  const [deletedIssueReasons, setDeletedIssueReasons] = useState<IssuedReasonType[]>([]);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -80,7 +83,6 @@ const IssueAdResult = () => {
 
     fetchLoadIssueProvision()
       .then((response) => {
-        console.log('조항 리스트', response);
         setReason(response.data.data.provisionList);
       })
       .catch((error) => {
@@ -186,6 +188,17 @@ const IssueAdResult = () => {
 
   // 검수 의견 삭제
   const handleDeleteIssuedReason = (contentNumber: number) => {
+    const deletedReason = issuedReasons.find((reason) => reason.contentNumber === contentNumber);
+    if (deletedReason) {
+      const reviewId = adDetails?.reviewList.find(
+        (review: { provisionArticle: number }) => review.provisionArticle === deletedReason.articleNumber,
+      )?.reviewId;
+      setDeletedIssueReasons((prevDeletedReasons) => [
+        ...prevDeletedReasons,
+        { ...deletedReason, operationType: 'Delete', reviewId },
+      ]);
+    }
+
     const updatedReasons = issuedReasons.filter((reason) => reason.contentNumber !== contentNumber);
     setIssuedReasons(updatedReasons);
   };
@@ -193,18 +206,28 @@ const IssueAdResult = () => {
   const clickTemporarySaveBtn = () => {
     console.log('payload로 들어갈 issuedReasons', newIssuedReasons);
 
-    const reviewList = newIssuedReasons.map((reason) => ({
-      operationType: 'Create',
-      reviewId: null,
-      advertisementId: adDetails?.id,
-      provisionId: reason.provisionId,
-      sentence: reason.articleContent,
-      opinion: reason.issuedReason,
-    }));
+    const reviewList = [
+      ...newIssuedReasons.map((reason) => ({
+        operationType: 'Create',
+        reviewId: null,
+        advertisementId: adDetails?.id,
+        provisionId: reason.provisionId,
+        sentence: reason.articleContent,
+        opinion: reason.issuedReason,
+      })),
+      ...deletedIssueReasons.map((reason) => ({
+        operationType: 'Delete',
+        reviewId: reason.reviewId,
+      })),
+    ];
 
-    console.log('payload', reviewList);
+    const payload = {
+      reviewList,
+    };
 
-    postSaveNewIssueTask(reviewList)
+    console.log('payload', payload);
+
+    postSaveNewIssueTask(payload)
       .then((response) => {
         console.log('새로운 검토 의견 추가', response);
       })
