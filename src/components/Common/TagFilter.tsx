@@ -1,10 +1,21 @@
 import { useState } from 'react';
 
-const TagFilter = ({ tag1, tag2, tag3 }: { tag1: string; tag2: string; tag3: string }) => {
+interface TagFilterProps {
+  tag1: string;
+  tag2: string;
+  tag3: string;
+  onClickTag?: (tag: string) => void;
+}
+
+const TagFilter = ({ tag1, tag2, tag3, onClickTag }: TagFilterProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleClick = (index: number) => {
     setActiveIndex(index);
+    const selectedTag = [tag1, tag2, tag3][index];
+    if (onClickTag) {
+      onClickTag(selectedTag);
+    }
   };
 
   return (
