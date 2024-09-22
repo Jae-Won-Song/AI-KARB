@@ -179,17 +179,23 @@ const IssueAdResult = () => {
       provisionId: newReason.provisionId,
     };
 
-    setIssuedReasons((prevReasons) => [...prevReasons, newReasonToAdd]);
-    setNewIssuedReasons((prevNewReasons) => [...prevNewReasons, newReasonToAdd]);
+    setIssuedReasons((prevReasons) => {
+      const maxContentNumber = Math.max(...prevReasons.map((reason) => reason.contentNumber), 0);
+      const updatedReasons = [...prevReasons, { ...newReasonToAdd, contentNumber: maxContentNumber + 1 }];
 
-    setNewReason({
-      contentNumber: issuedReasons.length + 2,
-      articleNumber: 0,
-      articleTitle: '',
-      articleContent: '',
-      issuedReason: '',
-      provisionId: 0,
+      setNewReason({
+        contentNumber: maxContentNumber + 2,
+        articleNumber: 0,
+        articleTitle: '',
+        articleContent: '',
+        issuedReason: '',
+        provisionId: 0,
+      });
+
+      return updatedReasons;
     });
+
+    setNewIssuedReasons((prevNewReasons) => [...prevNewReasons, newReasonToAdd]);
   };
 
   // 검수 의견 삭제
