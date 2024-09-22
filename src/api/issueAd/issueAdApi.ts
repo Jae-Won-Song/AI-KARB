@@ -37,3 +37,11 @@ export const fetchLoadIssueDecision = () => {
 export const postSaveNewIssueTask = (reviewList: object) => {
   return instance.post('/api/v1/issue-ad/save-task', reviewList);
 };
+
+/*
+ * 지적광고 심의결정 완료
+ * @params {advertisementId, decisionId}
+ */
+export const postSaveIssueDecision = (payload: { advertisementId: string; decisionId: number }) => {
+  return instance.post('/api/v1/issue-ad/result/decision', payload);
+};
