@@ -36,6 +36,7 @@ const SignUpRequest = () => {
   const [modalMode, setModalMode] = useState<'approve' | 'reject' | null>(null);
   const [toast, setToast] = useState<{ mode: 'success' | 'failed'; title: string; content: string } | null>(null);
   const [count, setCount] = useState(0);
+  const [isAllSelected, setIsAllSelected] = useState(false);
 
   const handleCheckboxChange = useCallback((empNo: string) => {
     setSelectedEmpNos((prevSelectedEmpNos) =>
@@ -44,6 +45,16 @@ const SignUpRequest = () => {
         : [...prevSelectedEmpNos, empNo],
     );
   }, []);
+
+  const handleSelectAll = useCallback(() => {
+    if (isAllSelected) {
+      setSelectedEmpNos([]);
+    } else {
+      const allEmpNos = userData.map((user) => user.empNo);
+      setSelectedEmpNos(allEmpNos);
+    }
+    setIsAllSelected(!isAllSelected);
+  }, [isAllSelected, userData]);
 
   const handleApprove = useCallback(() => {
     if (selectedEmpNos.length > 0) {
@@ -160,11 +171,19 @@ const SignUpRequest = () => {
             {
               name: '체크박스',
               img: (
-                <img
-                  style={{ display: 'flex', justifyContent: 'center', width: '17px', height: '17px' }}
-                  src={check}
-                  alt="체크박스"
-                />
+                <div onClick={handleSelectAll}>
+                  <img
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      width: '17px',
+                      height: '17px',
+                      cursor: 'pointer',
+                    }}
+                    src={check}
+                    alt="체크박스"
+                  />
+                </div>
               ),
               width: '6.25vw',
             },
