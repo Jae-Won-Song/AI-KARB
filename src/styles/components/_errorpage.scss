@@ -1,0 +1,11 @@
+.container {
+  @include flex;
+  height: 100%;
+  &__box {
+    @include text-style(30, $black, 700);
+    @include column-flex;
+    &_title {
+      margin-bottom: 10vh;
+    }
+  }
+}

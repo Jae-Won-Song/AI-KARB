@@ -66,7 +66,7 @@ const SignIn = () => {
             accessToken: response.data.data.tokenInfo.accessToken,
           };
           dispatch(login(userInfo));
-          navigate('/');
+          navigate('/dashboard');
         }
       })
       .catch((error) => {

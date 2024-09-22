@@ -39,7 +39,7 @@ const Header = () => {
       case '/admin/manage-task':
         return '작업 배분 관리';
       default:
-        return '헤더타이틀명';
+        return '404Page...';
     }
   }
 
@@ -47,7 +47,7 @@ const Header = () => {
     dispatch(logout());
     localStorage.removeItem('selectedItem');
     localStorage.removeItem('selectedSubItem');
-    navigate('/signin');
+    navigate('/');
   };
 
   return (
