@@ -9,6 +9,9 @@
   &__slash {
     padding: 0 0.26vw 0 0.26vw;
   }
+  &__reset {
+    cursor: pointer;
+  }
   &__selectPeople {
     @include text-style(15, $primary-70, 700);
   }
