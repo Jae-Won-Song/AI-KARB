@@ -22,6 +22,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserFromLocalStorage } from './redux/authSlice';
 import { RootState } from './redux/authStore';
+import ErrorPages from './pages/ErrorPages';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const App = () => {
     <Routes>
       <Route path="/find-user" element={<FindUser />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/signin" element={<SignIn />} />
+      <Route path="/" element={<SignIn />} />
 
       <Route
         path="/*"
@@ -49,7 +50,6 @@ const App = () => {
           <PrivateRoute>
             <Layout>
               <Routes>
-                <Route path="/" element={<HomeDashBoard />} />
                 <Route path="/dashboard" element={<HomeDashBoard />} />
                 <Route path="/dashboard/admin" element={<AdminDashBoard />} />
                 <Route path="admin/manage-emp" element={<ManageEmp />} />
@@ -63,6 +63,7 @@ const App = () => {
                 <Route path="/same-ad/result" element={<SameAdResult />} />
                 <Route path="/issue-ad" element={<IssueAd />} />
                 <Route path="/issue-ad/result" element={<IssueAdResult />} />
+                <Route path="*" element={<ErrorPages />} />
               </Routes>
             </Layout>
           </PrivateRoute>
