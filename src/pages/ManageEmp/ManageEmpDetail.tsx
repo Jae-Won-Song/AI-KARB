@@ -9,7 +9,7 @@ const ManageEmpDetail = () => {
 
   return (
     <div className="empDetail-wrapper">
-      <SearchBar>
+      <SearchBar totalCount={0}>
         <Filter />
       </SearchBar>
       <Table

@@ -5,9 +5,11 @@ import searchIconBlack from '../../assets/icon-search-b.svg';
 type SearchInputProps = {
   placeholder: string;
   size?: string;
+  onChange: (value: string) => void;
+  onClick?: React.MouseEventHandler<HTMLImageElement>;
 };
 
-const SearchInput = ({ placeholder, size }: SearchInputProps) => {
+const SearchInput = ({ placeholder, size, onChange, onClick }: SearchInputProps) => {
   const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
 
@@ -22,7 +24,9 @@ const SearchInput = ({ placeholder, size }: SearchInputProps) => {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+    const { value } = event.target;
+    setInputValue(value);
+    onChange(value);
   };
 
   return (
@@ -35,7 +39,9 @@ const SearchInput = ({ placeholder, size }: SearchInputProps) => {
         onBlur={handleBlur}
         onChange={handleChange}
       />
-      <img className="SearchInput_img" src={searchIcon} alt="검색 아이콘" />
+      <div onClick={onClick}>
+        <img className="SearchInput_img" src={searchIcon} alt="검색 아이콘" />
+      </div>
     </div>
   );
 };

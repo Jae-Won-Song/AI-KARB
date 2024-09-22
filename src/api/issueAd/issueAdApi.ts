@@ -5,7 +5,7 @@ import instance from '../apiConfig';
  * @params {cursorInfo, keyword, period, state, issue, media, category}
  */
 export const fetchLoadIssueAdList = (payload: object) => {
-  return instance.post('/api/v1/issue-ad', { payload });
+  return instance.post('/api/v1/issue-ad', payload);
 };
 
 /*
@@ -28,4 +28,12 @@ export const fetchLoadIssueProvision = () => {
  */
 export const fetchLoadIssueDecision = () => {
   return instance.get('/api/v1/issue-ad/options/decision');
+};
+
+/*
+ * 지적광고 심의결정 리뷰 저장
+ * @params {reviewList}
+ */
+export const postSaveNewIssueTask = (reviewList: object) => {
+  return instance.post('/api/v1/issue-ad/save-task', reviewList);
 };

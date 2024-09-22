@@ -10,6 +10,7 @@ type IssuedReasonProps = {
   articleTitle: string;
   articleContent: string;
   issuedReason: string;
+  onDelete: (contentNumber: number) => void;
 };
 
 const IssuedReason = ({
@@ -18,6 +19,7 @@ const IssuedReason = ({
   articleTitle,
   articleContent,
   issuedReason,
+  onDelete,
 }: IssuedReasonProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -30,6 +32,10 @@ const IssuedReason = ({
       return `${content.substring(0, 55)}...`;
     }
     return content;
+  };
+
+  const deleteIssuedReason = () => {
+    onDelete(contentNumber);
   };
 
   return (
@@ -53,8 +59,12 @@ const IssuedReason = ({
           </div>
           <div className="IssuedReason__widthBar"> </div>
           <div className="IssuedReason__icons">
-            <img className="IssuedReason__icons_trash" src={iconTrash} alt="쓰레기통" />
-            <img className="IssuedReason__icons_pencil" src={iconPencil} alt="연필" />
+            <div className="IssuedReason__icons_trash" onClick={deleteIssuedReason}>
+              <img className="IssuedReason__icons_trash" src={iconTrash} alt="쓰레기통" />
+            </div>
+            <div className="IssuedReason__icons_pencil">
+              <img className="IssuedReason__icons_pencil" src={iconPencil} alt="연필" />
+            </div>
           </div>
         </>
       )}
