@@ -8,5 +8,10 @@ export const fetchLoadSameAdList = (payload: object) => {
   return instance.post('/api/v1/same-ad', payload);
 };
 
-// 개별 export 막으려고 넣은 임시
-export const example = () => {};
+/*
+ * 동일광고 유사율 리스트 조회
+ * @params {advertisementId}
+ */
+export const fetchLoadSameAdResult = ({ inspectionAdvertisementId }: { inspectionAdvertisementId: string }) => {
+  return instance.get(`/api/v1/same-ad/result/${inspectionAdvertisementId}`);
+};
