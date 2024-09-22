@@ -67,7 +67,7 @@ const SameAd = () => {
 
   return (
     <main className="SameAd">
-      <SearchBar totalCount={7}>
+      <SearchBar totalCount={sameAdData?.totalElements || 0}>
         <SearchInput placeholder="검색어를 2글자 이상 입력해주세요" onChange={() => {}} />
         <TagFilter tag1="전체" tag2="동일" tag3="비동일" />
         <Filter />
