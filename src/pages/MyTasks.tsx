@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SearchBar from '../components/Common/SearchBar';
 import SearchInput from '../components/Common/SearchInput';
 import Filter from '../components/Common/Filter';
@@ -12,6 +13,7 @@ import ReviewTag from '../components/Common/ReviewTag';
 import { fetchMyTaskData } from '../api/user/userApi';
 import InfinityScroll from '../components/Common/InfinityScroll';
 import ProgressBar from '../components/ProgressBar';
+import { fetchLoadIssueAdDetail } from '../api/issueAd/issueAdApi';
 
 interface Advertisement {
   adId: string;
@@ -33,12 +35,13 @@ const MyTasks = () => {
   const [count, setCount] = useState(0);
   const [pValue, setPValue] = useState(0);
 
+  const navigate = useNavigate();
+
   const fetchTaskData = useCallback(async () => {
     if (!cursorId || isFetched) return;
 
     try {
       const response = await fetchMyTaskData(cursorId, taskData.length, cursorState);
-      console.log(response);
       const newTaskData = response.data.data.taskList.advertisementList;
       const newAdCount = response.data.data.adCount;
       const newCursorInfo = response.data.data.taskList.cursorInfo;
@@ -48,7 +51,6 @@ const MyTasks = () => {
       setPValue(newGauageValue);
 
       setCount(newAdCount.myTotalAd);
-      console.log('새로 불러온 데이터:', newTaskData);
 
       setTaskData((prev) => [...prev, ...newTaskData]);
       setAdCount(newAdCount);
@@ -64,6 +66,19 @@ const MyTasks = () => {
   useEffect(() => {
     fetchTaskData();
   }, [fetchTaskData]);
+
+  const handleRowClick = (advertisementId: string) => {
+    fetchLoadIssueAdDetail({ advertisementId })
+      .then((response) => {
+        const adDetails = response.data.data;
+        if (response.data.code === 3400) {
+          navigate('/issue-ad/result/', { state: { adDetails } });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <div className="myTasks">
@@ -148,6 +163,7 @@ const MyTasks = () => {
                   }))
                 : []
             }
+            onRowClick={(row) => handleRowClick(row.고유번호)}
           />
         </InfinityScroll>
       </div>
