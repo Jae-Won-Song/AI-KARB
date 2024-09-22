@@ -67,7 +67,7 @@ const DailyrateChart = () => {
               strokeLinecap: 'round',
               textSize: '20px',
               pathTransitionDuration: 0.5,
-              pathColor: `rgba(0, 101, 151, ${percentage / 100})`,
+              pathColor: ' #006597',
               textColor: '#006597',
               trailColor: '#DDEFF8',
             })}
