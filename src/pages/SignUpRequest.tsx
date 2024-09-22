@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from 'react';
-import instance from '../api/apiConfig';
 import SearchBar from '../components/Common/SearchBar';
 import Table from '../components/Common/Table';
 import Tab from '../components/Tab';
@@ -15,12 +14,6 @@ interface UserData {
   phoneNumber: string;
   email: string;
   signUpRequestDateTime: string;
-}
-
-interface ApiResponse {
-  data: {
-    contents: UserData[];
-  };
 }
 
 interface TableData {
@@ -42,6 +35,7 @@ const SignUpRequest = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMode, setModalMode] = useState<'approve' | 'reject' | null>(null);
   const [toast, setToast] = useState<{ mode: 'success' | 'failed'; title: string; content: string } | null>(null);
+  const [count, setCount] = useState(0);
 
   const handleCheckboxChange = useCallback((empNo: string) => {
     setSelectedEmpNos((prevSelectedEmpNos) =>
@@ -69,6 +63,7 @@ const SignUpRequest = () => {
     if (selectedEmpNos.length > 0) {
       try {
         const response = await approveUsers(selectedEmpNos);
+
         console.log('API 호출 성공', response.data);
 
         setUserData((prevUserData) => prevUserData.filter((user) => !selectedEmpNos.includes(user.empNo)));
@@ -119,6 +114,7 @@ const SignUpRequest = () => {
     const fetchData = async () => {
       try {
         const response = await fetchSignUpRequests();
+        setCount(response.data.data.totalElements);
         const { data } = response.data || {};
         if (data && Array.isArray(data.contents)) {
           setUserData(data.contents);
@@ -154,7 +150,7 @@ const SignUpRequest = () => {
   return (
     <div className="sign-up-request">
       <div className="sign-up-request__container">
-        <SearchBar>
+        <SearchBar totalCount={count}>
           <Tab styleName="hover" content="반려" onClick={handleReject} />
           <Tab styleName="active" content="승인" onClick={handleApprove} />
         </SearchBar>

@@ -28,11 +28,13 @@ const ManageUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await getUserList();
+        setCount(response.data.data.totalElements);
         const { contents } = response.data?.data || {};
         if (contents && Array.isArray(contents)) {
           setUserData(contents);
@@ -95,7 +97,7 @@ const ManageUser = () => {
     <div className="manageUser">
       {isModalOpen && <div className="manageUser__overlay" />}
       <div className="manageUser__container">
-        <SearchBar />
+        <SearchBar totalCount={count} />
         <Table
           columns={[
             { name: '번호', width: '4.167vw', columnHeight: '5.556vh', rowHeight: '5.926vh' },
