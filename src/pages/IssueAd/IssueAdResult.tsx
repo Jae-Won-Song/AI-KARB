@@ -7,6 +7,7 @@ import IssuedReason from '../../components/IssuedReason';
 import arrowDown from '../../assets/arrow-down.svg';
 import arrowUp from '../../assets/arrow-up.svg';
 import iconPlus from '../../assets/icon-plus.svg';
+import fileSearch from '../../assets/icon-file-search.svg';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
@@ -279,7 +280,7 @@ const IssueAdResult = () => {
           <img src={arrowLeft} alt="뒤로가기 화살표" />
         </button>
         <div className="IssueAdResult__wrapperLeft_contents">
-          <ReviewAdNumber adNumber={adDetails?.id} />
+          <ReviewAdNumber adNumber={adDetails?.id} adTitle="검수 광고" imgSrc={fileSearch} />
           <AdInfoTable title1="상품명" title2="광고주" content1={adDetails?.product} content2={adDetails?.advertiser} />
           <AdInfoTable
             title1="업종구분"
