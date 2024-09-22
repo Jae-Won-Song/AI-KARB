@@ -9,7 +9,7 @@ interface PrivateRouteProps {
 const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const user = useSelector((state: RootState) => state.auth.user);
 
-  return user ? children : <Navigate to="/signin" />;
+  return user ? children : <Navigate to="/" />;
 };
 
 export default PrivateRoute;
