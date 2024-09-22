@@ -10,7 +10,7 @@ import fileCheck from '../../assets/icon-file-check.svg';
 import fileSearch from '../../assets/icon-file-search.svg';
 
 const SameAdResult = () => {
-  const [isOpenDetail, setIsOpenDetail] = useState(true);
+  const [isOpenDetail, setIsOpenDetail] = useState(false);
 
   const navigate = useNavigate();
 
