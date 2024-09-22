@@ -51,18 +51,20 @@ const SameAd = () => {
       });
   }, []);
 
-  const handleRowClick = (inspectionAdvertisementId: string) => {
-    fetchLoadSameAdResult({ inspectionAdvertisementId })
-      .then((response) => {
-        const adDetails = response.data.data;
-        if (response.data.code === 3701) {
-          console.log('동일광고 유사율 조회', response);
-          navigate('/same-ad/result/', { state: { adDetails } });
-        }
-      })
-      .catch((error) => {
-        console.error('동일광고 유사율 조회 실패', error);
-      });
+  const handleRowClick = (inspectionAdvertisementId: string | number | undefined) => {
+    if (typeof inspectionAdvertisementId === 'string') {
+      fetchLoadSameAdResult({ inspectionAdvertisementId })
+        .then((response) => {
+          const adDetails = response.data.data;
+          if (response.data.code === 3701) {
+            console.log('동일광고 유사율 조회', response);
+            navigate('/same-ad/result/', { state: { adDetails } });
+          }
+        })
+        .catch((error) => {
+          console.error('동일광고 유사율 조회 실패', error);
+        });
+    }
   };
 
   return (

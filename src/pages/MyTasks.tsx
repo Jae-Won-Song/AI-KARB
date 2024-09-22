@@ -67,17 +67,19 @@ const MyTasks = () => {
     fetchTaskData();
   }, [fetchTaskData]);
 
-  const handleRowClick = (advertisementId: string) => {
-    fetchLoadIssueAdDetail({ advertisementId })
-      .then((response) => {
-        const adDetails = response.data.data;
-        if (response.data.code === 3400) {
-          navigate('/issue-ad/result/', { state: { adDetails } });
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const handleRowClick = (advertisementId: string | number | undefined) => {
+    if (typeof advertisementId === 'string') {
+      fetchLoadIssueAdDetail({ advertisementId })
+        .then((response) => {
+          const adDetails = response.data.data;
+          if (response.data.code === 3400) {
+            navigate('/issue-ad/result/', { state: { adDetails } });
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   return (
@@ -113,7 +115,7 @@ const MyTasks = () => {
           </div>
         </div>
         <SearchBar totalCount={count}>
-          <SearchInput onChange={() => {}} placeholder="검색할거임" />
+          <SearchInput onChange={() => {}} placeholder="검색어를 2글자 이상 입력해주세요" />
           <TagFilter tag1="전체" tag2="지적" tag3="비지적" />
           <TagFilter tag1="전체" tag2="검수" tag3="검수완료" />
           <Filter />
