@@ -26,6 +26,7 @@
 
     &__arrow {
       @include flex(center, start);
+      cursor: pointer;
     }
   }
 
