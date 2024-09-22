@@ -6,9 +6,11 @@ import ReviewAdNumber from '../../components/ReviewAdNumber';
 import ReviewAdResult from '../../components/ReviewAdResult';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import fileCheck from '../../assets/icon-file-check.svg';
+import fileSearch from '../../assets/icon-file-search.svg';
 
 const SameAdResult = () => {
-  const [isOpenDetail, setIsOpenDetail] = useState(false);
+  const [isOpenDetail, setIsOpenDetail] = useState(true);
 
   const navigate = useNavigate();
 
@@ -27,7 +29,7 @@ const SameAdResult = () => {
           <img src={arrowLeft} alt="뒤로가기 화살표" />
         </button>
         <div className="sameAdResult__wrapperLeft_contents">
-          <ReviewAdNumber adTitle="검수 광고" adNumber="A12345" />
+          <ReviewAdNumber adTitle="검수 광고" adNumber="A12345" imgSrc={fileSearch} />
           <AdInfoTable title1="상품명" title2="광고주" content1="명작수" content2="아모레퍼시픽 코리아" />
           <AdInfoTable title1="업종구분" title2="게재일" content1="식품/음료" content2="2024-07-26" />
           <div className="sameAdResult__wrapperLeft_contents_article">기사내용 (스크롤 테스트 완료)</div>
@@ -43,7 +45,7 @@ const SameAdResult = () => {
             </button>
             <div className="sameAdResult__wrapperRight-isOpenDetail_contents">
               <div className="sameAdResult__wrapperRight-isOpenDetail_contents_box">
-                <ReviewAdNumber adTitle="비교 광고" adNumber="A12345" />
+                <ReviewAdNumber adTitle="비교 광고" adNumber="A12345" imgSrc={fileCheck} />
                 <div className="sameAdResult__wrapperRight-isOpenDetail_contents_box_comparison">
                   <div className="sameAdResult__wrapperRight-isOpenDetail_contents_box_comparison_ratio">
                     <span className="sameAdResult__wrapperRight-isOpenDetail_contents_box_comparison_ratio_span">
