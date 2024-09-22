@@ -103,9 +103,9 @@ const IssueAd = () => {
                 진행상황: (
                   <ReviewTag
                     size="large"
-                    containerBg={ad.state ? '#FFEDDA' : '#DEEEED'}
-                    circleBg={ad.state ? '#FFB566' : '#64ACA7'}
-                    content={ad.state ? '검수전' : '검수완료'}
+                    containerBg={ad.state ? '#DEEEED' : '#FFEDDA'}
+                    circleBg={ad.state ? '#64ACA7' : '#FFB566'}
+                    content={ad.state ? '검수완료' : '검수전'}
                   />
                 ),
                 지적비지적: (

@@ -265,6 +265,7 @@ const IssueAdResult = () => {
     postSaveIssueDecision(payload)
       .then((response) => {
         console.log('심의 결정 완료', response);
+        navigate('/issue-ad');
       })
       .catch((error) => {
         console.log('심의 결정 완료 실패', error);
