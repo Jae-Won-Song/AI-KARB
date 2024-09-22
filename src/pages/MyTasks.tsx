@@ -10,8 +10,8 @@ import doneTask from '../assets/icon-doneTask.svg';
 import notDoneTask from '../assets/icon-notDoneTask.svg';
 import ReviewTag from '../components/Common/ReviewTag';
 import { fetchMyTaskData } from '../api/user/userApi';
-import Spinner from '../components/Common/Spinner';
 import InfinityScroll from '../components/Common/InfinityScroll';
+import ProgressBar from '../components/ProgressBar';
 
 interface Advertisement {
   adId: string;
@@ -31,6 +31,7 @@ const MyTasks = () => {
   const [hasMore, setHasMore] = useState(true);
   const [isFetched, setIsFetched] = useState(false);
   const [count, setCount] = useState(0);
+  const [pValue, setPValue] = useState(0);
 
   const fetchTaskData = useCallback(async () => {
     if (!cursorId || isFetched) return;
@@ -41,6 +42,11 @@ const MyTasks = () => {
       const newTaskData = response.data.data.taskList.advertisementList;
       const newAdCount = response.data.data.adCount;
       const newCursorInfo = response.data.data.taskList.cursorInfo;
+      const myTotal = newAdCount.myTotalAd;
+      const myDone = newAdCount.myDoneAd;
+      const newGauageValue = Math.floor((myDone / myTotal) * 100);
+      setPValue(newGauageValue);
+
       setCount(newAdCount.myTotalAd);
       console.log('새로 불러온 데이터:', newTaskData);
 
@@ -84,6 +90,10 @@ const MyTasks = () => {
                 <div className="myTasks__container__tasksBox__tasks__task__area_content">{adCount.myNotDoneAd}건</div>
               </div>
               <img src={notDoneTask} alt="미완료 작업 수" />
+            </div>
+            <div style={{ marginLeft: '36px' }}>
+              <div style={{ marginBottom: '11.5px' }}>진행률</div>
+              <ProgressBar width={16.667} height={15} progressGauge={pValue} className="mine" />
             </div>
           </div>
         </div>
