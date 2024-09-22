@@ -1,0 +1,24 @@
+.doneTaskContainer {
+  margin-top: 1.5625vh;
+  height: 87vh;
+  background-color: $white;
+}
+
+.doneTaskWrapper {
+  @include column-flex(center, center);
+  height: 700px;
+  &__image {
+    width: 5.583vw;
+    height: 9.148vh;
+    padding-bottom: 31px;
+  }
+  &__title {
+    padding-bottom: 11px;
+    @include text-style(32, $grayscale-70, 700);
+    line-height: 150%;
+  }
+  &__article {
+    @include text-style(24, $grayscale-70, 400);
+    line-height: 150%;
+  }
+}
