@@ -56,19 +56,20 @@ const IssueAd = () => {
       });
   }, []);
 
-  const handleRowClick = (advertisementId: string) => {
-    fetchLoadIssueAdDetail({ advertisementId })
-      .then((response) => {
-        const adDetails = response.data.data;
-        if (response.data.code === 3400) {
-          navigate('/issue-ad/result/', { state: { adDetails } });
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const handleRowClick = (advertisementId: string | undefined | number) => {
+    if (typeof advertisementId === 'string') {
+      fetchLoadIssueAdDetail({ advertisementId })
+        .then((response) => {
+          const adDetails = response.data.data;
+          if (response.data.code === 3400) {
+            navigate('/issue-ad/result/', { state: { adDetails } });
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
-
   return (
     <main className="issueAd">
       <SearchBar totalCount={issueAdData?.totalElements || 0}>
