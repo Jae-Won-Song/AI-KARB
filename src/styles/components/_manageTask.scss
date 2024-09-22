@@ -17,6 +17,7 @@
 .manageTask-wrapper {
   @include flex(center, start);
 }
+
 .manageTask-container {
   background-color: $white;
   height: 87.5vh;
@@ -51,8 +52,10 @@
   transform: rotate(45deg);
 }
 .ad-wrapper {
-  overflow-y: auto;
+  max-height: 70.975vh;
+  overflow-y: scroll;
 }
 .divide-wrapper {
-  overflow-y: auto;
+  max-height: 70.975vh;
+  overflow-y: scroll;
 }

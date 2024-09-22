@@ -36,7 +36,7 @@ const DailyChart = ({ data }: ChartProps) => {
     <section className="daily-chart">
       <div className="daily-chart__wrapper">
         <div className="daily-chart__title">일별 작업량</div>
-        <div className="daily-chart__date">8월 1차 (2024-08-01 ~ 2024-08-15)</div>
+        <div className="daily-chart__date">9월 2차 (2024-09-15 ~ 2024-09-30)</div>
       </div>
       <ResponsiveLine
         data={data}

@@ -42,3 +42,27 @@ export const fetchmytaskData = () => {
     // category: [],
   });
 };
+
+// 작업자 목록 조회
+export const fetchEmpList = () => {
+  return instance.get('/api/v1/admin/manage-task/emp');
+};
+
+// 광고 목록 조회
+export const fetchAdList = (currentCursorId: string | null = null) => {
+  return instance.get('/api/v1/admin/manage-task/advertisement', {
+    params: {
+      cursorId: currentCursorId,
+    },
+  });
+};
+
+// 작업자 배분
+export const fetchManageEmp = (data: { cursorId: number | null; sorted: string; period: string }) => {
+  return instance.post('/api/v1/admin/manage-emp', data);
+};
+
+// 작업 배분 완료
+export const fetchManageTask = (requestBody: any) => {
+  return instance.post('/api/v1/admin/manage-task', requestBody);
+};
