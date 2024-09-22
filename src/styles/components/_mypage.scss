@@ -105,13 +105,16 @@
           }
 
           &-title {
+            @include text-style(15, $grayscale-90, 400);
             width: 6.146vw;
           }
           &-title_call {
+            @include text-style(15, $grayscale-90, 400);
             width: 6.146vw;
           }
           &-content {
             @include flex;
+            @include text-style(15, $grayscale-90, 400);
             &-box {
               @include flex(start, start);
               position: relative;
