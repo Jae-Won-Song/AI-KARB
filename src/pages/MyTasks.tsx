@@ -10,7 +10,6 @@ import doneTask from '../assets/icon-doneTask.svg';
 import notDoneTask from '../assets/icon-notDoneTask.svg';
 import ReviewTag from '../components/Common/ReviewTag';
 import { fetchMyTaskData } from '../api/user/userApi';
-import Spinner from '../components/Common/Spinner';
 
 interface Advertisement {
   adId: string;
@@ -28,6 +27,7 @@ const MyTasks = () => {
   const [cursorId, setCursorId] = useState<string | null>('N00000');
   const [cursorState, setCursorState] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState(true);
+  const [totalCount, setTotalCount] = useState('');
 
   const fetchTaskData = useCallback(async () => {
     if (!cursorId) return;
@@ -38,6 +38,7 @@ const MyTasks = () => {
 
       const newTaskData = response.data.data.taskList.advertisementList;
       const newAdCount = response.data.data.adCount;
+      setTotalCount(newAdCount.myTotalAd);
       const newCursorInfo = response.data.data.taskList.cursorInfo;
 
       setTaskData((prev) => [...prev, ...newTaskData]);
@@ -54,9 +55,9 @@ const MyTasks = () => {
     fetchTaskData();
   }, [fetchTaskData]);
 
-  if (!taskData || taskData.length === 0) {
-    return <Spinner />;
-  }
+  // if (!taskData || taskData.length === 0) {
+  //   return <Spinner />;
+  // }
 
   return (
     <div className="myTasks">
@@ -86,8 +87,8 @@ const MyTasks = () => {
             </div>
           </div>
         </div>
-        <SearchBar>
-          <SearchInput placeholder="검색할거임" />
+        <SearchBar totalCount={totalCount}>
+          <SearchInput onChange={() => {}} placeholder="검색할거임" />
           <TagFilter tag1="전체" tag2="지적" tag3="비지적" />
           <TagFilter tag1="전체" tag2="검수" tag3="검수완료" />
           <Filter />
@@ -135,7 +136,7 @@ const MyTasks = () => {
           }
         />
       </div>
-      {hasMore && <Spinner />}
+      {/* {hasMore && <Spinner />} */}
     </div>
   );
 };
