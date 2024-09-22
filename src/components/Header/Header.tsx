@@ -24,6 +24,8 @@ const Header = () => {
         return '대시보드';
       case '/same-ad':
         return '동일광고 목록';
+      case '/same-ad/result/':
+        return '동일광고 검수';
       case '/issue-ad':
         return '지적광고 목록';
       case '/issue-ad/result/':
