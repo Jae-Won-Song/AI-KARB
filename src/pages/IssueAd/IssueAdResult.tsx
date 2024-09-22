@@ -8,6 +8,7 @@ import arrowDown from '../../assets/arrow-down.svg';
 import arrowUp from '../../assets/arrow-up.svg';
 import iconPlus from '../../assets/icon-plus.svg';
 import fileSearch from '../../assets/icon-file-search.svg';
+import Toast from '../../components/Common/Toast';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
@@ -53,6 +54,13 @@ const IssueAdResult = () => {
   const [reason, setReason] = useState<IssueOptionType[]>([]);
   const [issueDecisionData, setIssueDecisionData] = useState<DecisionDataType[]>([]);
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
+  // const [toast, setToast] = useState<{ mode: 'success' | 'failed'; title: string; content: string } | null>(null);
+  const [toast, setToast] = useState({
+    mode: '',
+    title: '',
+    content: '',
+    isVisible: false,
+  });
 
   // 새로운 검토 의견 추가 관리
   const [newReason, setNewReason] = useState({
@@ -266,10 +274,30 @@ const IssueAdResult = () => {
     postSaveIssueDecision(payload)
       .then((response) => {
         console.log('심의 결정 완료', response);
-        navigate('/issue-ad');
+
+        setIsModalOpen(false);
+
+        setToast({
+          mode: 'success',
+          title: '심의 결정 완료',
+          content: '심의 결정 저장이 완료되었습니다.',
+          isVisible: true,
+        });
+
+        setTimeout(() => {
+          navigate('/issue-ad');
+        }, 2000);
       })
       .catch((error) => {
         console.log('심의 결정 완료 실패', error);
+        setIsModalOpen(false);
+
+        setToast({
+          mode: 'failed',
+          title: '심의 결정 실패',
+          content: '심의 결정 저장에 실패하였습니다.',
+          isVisible: true,
+        });
       });
   };
 
@@ -497,6 +525,15 @@ const IssueAdResult = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {toast.isVisible && (
+        <Toast
+          mode={toast.mode === 'success' ? 'blue' : 'red'}
+          title={toast.title}
+          content={toast.content}
+          onClose={() => setToast({ ...toast, isVisible: false })}
+        />
       )}
     </main>
   );
