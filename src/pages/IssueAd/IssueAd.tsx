@@ -17,6 +17,7 @@ type Advertisement = {
   advertiser: string;
   state: boolean;
   issue: boolean;
+  assigneeName: string;
 };
 
 type IssueAdList = {
@@ -46,6 +47,7 @@ const IssueAd = () => {
     fetchLoadIssueAdList(payload)
       .then((response) => {
         if (response.data.code === 3405) {
+          console.log('지적광고 리스트', response);
           setIssueAdData(response.data.data);
         }
       })
@@ -97,7 +99,7 @@ const IssueAd = () => {
                 업종구분: Array.isArray(ad.category) ? ad.category.join(', ') : ad.category,
                 상품명: ad.product,
                 광고주: ad.advertiser,
-                담당자: '담당자',
+                담당자: ad.assigneeName,
                 진행상황: (
                   <ReviewTag
                     size="large"
