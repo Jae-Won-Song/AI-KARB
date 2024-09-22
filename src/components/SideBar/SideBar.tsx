@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import IconWithText from './IconWithText';
 import SubMenu from './SubMenu';
@@ -33,18 +33,27 @@ const SideBar = () => {
 
   useEffect(() => {
     const authorityValue = localStorage.getItem('authority');
+    const savedItem = localStorage.getItem('selectedItem') as MenuItem | null;
+    const savedSubItem = localStorage.getItem('selectedSubItem') as SubMenuItem | null;
+
     setAuthority(authorityValue);
+    if (savedItem) setSelectedItem(savedItem);
+    if (savedSubItem) setSelectedSubItem(savedSubItem);
   }, []);
 
   const handleItemClick = (item: MenuItem, path: string) => {
     setSelectedItem(item);
     setSelectedSubItem('');
+    localStorage.setItem('selectedItem', item);
+    localStorage.removeItem('selectedSubItem');
     navigate(path);
   };
 
   const handleSubItemClick = (parentItem: MenuItem, subItem: SubMenuItem, path: string) => {
     setSelectedItem(parentItem);
     setSelectedSubItem(subItem);
+    localStorage.setItem('selectedItem', parentItem);
+    localStorage.setItem('selectedSubItem', subItem);
     navigate(path);
   };
 

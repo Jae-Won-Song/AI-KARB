@@ -45,6 +45,8 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    localStorage.removeItem('selectedItem');
+    localStorage.removeItem('selectedSubItem');
     navigate('/signin');
   };
 
