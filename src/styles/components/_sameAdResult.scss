@@ -10,7 +10,11 @@
   &__wrapperLeft {
     width: 50%;
     height: 100vh;
-    padding: 18px 0 0 27px;
+    padding: 1.667vh 0 0 1.406vw;
+
+    &_arrow {
+      background-color: white;
+    }
 
     &_contents {
       width: 39.583vw;
@@ -23,6 +27,8 @@
         margin-top: 2.778vh;
         border: 2px solid $secondary-5;
 
+        @include text-style(17, $grayscale-90, 400);
+
         overflow-y: auto;
       }
     }
@@ -31,6 +37,86 @@
   &__wrapperRight {
     width: 50%;
     height: 100vh;
+
+    &-isOpenDetail {
+      padding: 2.1vh 0 0 1.406vw;
+
+      &_arrow {
+        @include flex;
+        gap: 0.208vw;
+        height: 2.13vh;
+
+        background-color: white;
+
+        span {
+          @include text-style(15, $grayscale-60, 400);
+        }
+      }
+
+      &_contents {
+        width: 39.583vw;
+        height: 79.259vh;
+        margin: 2.5vh 0 0 0.156vw;
+
+        &_box {
+          @include flex(start, start);
+
+          &_comparison {
+            @include flex;
+            height: 3.333vh;
+            margin-left: auto;
+            border-radius: 8px;
+
+            background-color: $secondary-5;
+
+            &_ratio {
+              @include flex;
+              gap: 0.208vw;
+              width: 5.729vw;
+
+              &_span {
+                @include text-style(17, $primary-60, 400);
+              }
+
+              &_num {
+                @include text-style(17, $primary-60, 700);
+              }
+            }
+
+            &_border {
+              width: 1px;
+              height: 1.204vh;
+              background-color: $grayscale-20;
+            }
+
+            &_sameSentence {
+              @include flex;
+              gap: 0.208vw;
+              width: 5.729vw;
+
+              &_span {
+                @include text-style(17, $grayscale-70, 400);
+              }
+
+              &_num {
+                @include text-style(17, $grayscale-70, 700);
+              }
+            }
+          }
+        }
+
+        &_article {
+          height: 60.185vh;
+          padding: 1.852vh 1.042vw;
+          margin-top: 2.778vh;
+          border: 2px solid $secondary-5;
+
+          @include text-style(17, $grayscale-90, 400);
+
+          overflow-y: auto;
+        }
+      }
+    }
 
     &_contents {
       @include column-flex(start, start);

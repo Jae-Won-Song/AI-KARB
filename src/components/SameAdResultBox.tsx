@@ -1,13 +1,17 @@
 import chevronRight from '../assets/chevron-right.svg';
 
-const SameAdResultBox = () => {
+type SameAdResultBoxProps = {
+  onClick: React.MouseEventHandler<HTMLDivElement>;
+};
+
+const SameAdResultBox = ({ onClick }: SameAdResultBoxProps) => {
   return (
     <div className="SameAdResultBox">
       <div className="SameAdResultBox__container">
         <div className="SameAdResultBox__container_top">
           <span className="SameAdResultBox__container_top_number">No. 01</span>
           <span className="SameAdResultBox__container_top_id">A00058</span>
-          <div className="SameAdResultBox__container_top_detail">
+          <div className="SameAdResultBox__container_top_detail" onClick={onClick}>
             자세히 보기
             <img
               src={chevronRight}
