@@ -3,12 +3,21 @@ import SameAdResultBox from '../../components/SameAdResultBox';
 import AdInfoTable from '../../components/AdInfoTable';
 import ReviewAdNumber from '../../components/ReviewAdNumber';
 import ReviewAdResult from '../../components/ReviewAdResult';
+import { useNavigate } from 'react-router-dom';
 
 const SameAdResult = () => {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <main className="sameAdResult">
       <article className="sameAdResult__wrapperLeft">
-        <img src={arrowLeft} alt="뒤로가기 화살표" className="sameAdResult__wrapperLeft_arrow" />
+        <button className="sameAdResult__wrapperLeft_arrow" onClick={goBack}>
+          <img src={arrowLeft} alt="뒤로가기 화살표" />
+        </button>
         <div className="sameAdResult__wrapperLeft_contents">
           <ReviewAdNumber adNumber="A12345" />
           <AdInfoTable title1="상품명" title2="광고주" content1="명작수" content2="아모레퍼시픽 코리아" />
