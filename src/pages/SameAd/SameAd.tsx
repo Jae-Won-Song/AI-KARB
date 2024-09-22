@@ -33,7 +33,7 @@ const SameAd = () => {
       cursorId: '202409N00001',
       keyword: null,
       period: '2024-09-2',
-      same: true,
+      same: null,
       media: [],
       category: [],
     };
@@ -51,8 +51,7 @@ const SameAd = () => {
       });
   }, []);
 
-  const handleRowClick = () => {
-    const inspectionAdvertisementId = '202409N01370';
+  const handleRowClick = (inspectionAdvertisementId: string) => {
     fetchLoadSameAdResult({ inspectionAdvertisementId })
       .then((response) => {
         const adDetails = response.data.data;
