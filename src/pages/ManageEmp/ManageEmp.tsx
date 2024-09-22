@@ -24,7 +24,6 @@ const ManageEmp = () => {
       const response = await fetchManageEmp(requestData);
       if (response && response.data && response.data.data) {
         const { totalElements, currentCursorId, contents } = response.data.data;
-
         setEmpList(
           contents.map((emp: any, index: number) => ({
             번호: index + 1,

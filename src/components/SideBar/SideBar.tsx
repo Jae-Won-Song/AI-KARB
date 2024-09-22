@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import IconWithText from './IconWithText';
 import SubMenu from './SubMenu';
 import dashboard from '../../assets/icon-dashboard-w.svg';
@@ -30,16 +30,46 @@ const SideBar = () => {
   const [selectedSubItem, setSelectedSubItem] = useState<SubMenuItem | ''>('홈 대시보드');
   const [authority, setAuthority] = useState<string | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const authorityValue = localStorage.getItem('authority');
-    const savedItem = localStorage.getItem('selectedItem') as MenuItem | null;
-    const savedSubItem = localStorage.getItem('selectedSubItem') as SubMenuItem | null;
-
     setAuthority(authorityValue);
-    if (savedItem) setSelectedItem(savedItem);
-    if (savedSubItem) setSelectedSubItem(savedSubItem);
-  }, []);
+
+    const currentPath = location.pathname;
+
+    if (currentPath.includes('/dashboard')) {
+      setSelectedItem('대시보드');
+      if (currentPath === '/dashboard/admin') {
+        setSelectedSubItem('관리자 대시보드');
+      } else {
+        setSelectedSubItem('홈 대시보드');
+      }
+    } else if (currentPath.includes('/same-ad')) {
+      setSelectedItem('동일광고');
+      setSelectedSubItem('');
+    } else if (currentPath.includes('/issue-ad')) {
+      setSelectedItem('지적광고');
+      setSelectedSubItem('');
+    } else if (currentPath.includes('/my-task')) {
+      setSelectedItem('나의 작업');
+      setSelectedSubItem('');
+    } else if (currentPath.includes('/mypage')) {
+      setSelectedItem('마이페이지');
+      setSelectedSubItem('');
+    } else if (currentPath.includes('/admin')) {
+      setSelectedItem('관리자메뉴');
+      if (currentPath === '/admin/approve-user') {
+        setSelectedSubItem('가입 요청 관리');
+      } else if (currentPath === '/admin/manage-user') {
+        setSelectedSubItem('회원 정보 관리');
+      } else if (currentPath === '/admin/manage-emp') {
+        setSelectedSubItem('작업자 관리');
+      } else if (currentPath === '/admin/manage-task') {
+        setSelectedSubItem('작업배분 관리');
+      }
+    }
+  }, [location]);
 
   const handleItemClick = (item: MenuItem, path: string) => {
     setSelectedItem(item);
