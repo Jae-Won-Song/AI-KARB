@@ -8,6 +8,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import fileCheck from '../../assets/icon-file-check.svg';
 import fileSearch from '../../assets/icon-file-search.svg';
+import { fetchLoadSameAdResultDetail } from '../../api/sameAd/sameAdApi';
 
 type SameAdType = {
   advertiser: string;
@@ -19,9 +20,18 @@ type SameAdType = {
   similarityPercent: number;
 };
 
+type SameAdDetailType = {
+  similarityPercent: number;
+  sameSentenceCount: number;
+  content: string;
+  sameSentence: string;
+};
+
 const SameAdResult = () => {
   const [isOpenDetail, setIsOpenDetail] = useState(false);
   const [sameAd, setSameAd] = useState<SameAdType[]>([]);
+  const [selectedAdDetail, setSelectedAdDetail] = useState<SameAdDetailType | null>(null);
+  const [selectedSameAd, setSelectedSameAd] = useState<SameAdType | null>(null);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -53,9 +63,30 @@ const SameAdResult = () => {
 
   const closeDetail = () => {
     setIsOpenDetail(false);
+    setSelectedAdDetail(null);
   };
 
-  const openDetail: React.MouseEventHandler<HTMLDivElement> = () => {
+  const openDetail = (selectedAd: SameAdType) => {
+    setSelectedSameAd(selectedAd);
+
+    console.log('selectedAd', selectedAd);
+
+    const payload = {
+      inspectionAdvertisementId: adDetails?.inspectionAdInfo.id,
+      comparisonAdvertisementId: selectedAd.id,
+    };
+
+    console.log('payload', payload);
+
+    fetchLoadSameAdResultDetail(payload)
+      .then((response) => {
+        console.log('유사율 상세보기 조회', response);
+        setSelectedAdDetail(response.data.data);
+      })
+      .catch((error) => {
+        console.error('유사율 상세보기 조회 실패', error);
+      });
+
     setIsOpenDetail(true);
   };
 
@@ -91,7 +122,7 @@ const SameAdResult = () => {
       </article>
       <div className="middleBar"> </div>
       <article className="sameAdResult__wrapperRight">
-        {isOpenDetail ? (
+        {isOpenDetail && selectedSameAd && selectedAdDetail ? (
           <div className="sameAdResult__wrapperRight-isOpenDetail">
             <button className="sameAdResult__wrapperRight-isOpenDetail_arrow" onClick={closeDetail}>
               <img src={chevronLeft} alt="뒤로가기 화살표" />
@@ -105,7 +136,9 @@ const SameAdResult = () => {
                     <span className="sameAdResult__wrapperRight-isOpenDetail_contents_box_comparison_ratio_span">
                       유사도
                     </span>
-                    <div className="sameAdResult__wrapperRight-isOpenDetail_contents_box_comparison_ratio_num">94%</div>
+                    <div className="sameAdResult__wrapperRight-isOpenDetail_contents_box_comparison_ratio_num">
+                      {selectedSameAd.similarityPercent}%
+                    </div>
                   </div>
                   <div className="sameAdResult__wrapperRight-isOpenDetail_contents_box_comparison_border" />
                   <div className="sameAdResult__wrapperRight-isOpenDetail_contents_box_comparison_sameSentence">
@@ -113,17 +146,25 @@ const SameAdResult = () => {
                       동일문장
                     </span>
                     <div className="sameAdResult__wrapperRight-isOpenDetail_contents_box_comparison_sameSentence_num">
-                      7
+                      {selectedSameAd.sameSentenceCount}
                     </div>
                   </div>
                 </div>
               </div>
 
-              <AdInfoTable title1="상품명" title2="광고주" content1="명작수" content2="아모레퍼시픽 코리아" />
-              <AdInfoTable title1="업종구분" title2="게재일" content1="식품/음료" content2="2024-07-26" />
-              <div className="sameAdResult__wrapperRight-isOpenDetail_contents_article">
-                기사내용 (스크롤 테스트 완료)
-              </div>
+              <AdInfoTable
+                title1="상품명"
+                title2="광고주"
+                content1={selectedSameAd.product}
+                content2={selectedSameAd.advertiser}
+              />
+              <AdInfoTable
+                title1="업종구분"
+                title2="게재일"
+                content1={selectedSameAd.category}
+                content2={selectedSameAd.postDate}
+              />
+              <div className="sameAdResult__wrapperRight-isOpenDetail_contents_article">{selectedAdDetail.content}</div>
             </div>
           </div>
         ) : (
@@ -143,7 +184,7 @@ const SameAdResult = () => {
                   postDate={ad.postDate}
                   similarityPercent={ad.similarityPercent}
                   sameSentenceCount={ad.sameSentenceCount}
-                  onClick={openDetail}
+                  onClick={() => openDetail(ad)}
                 />
               ))}
             </div>
