@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-const SearchBar = ({ children, totalCount }: { children?: ReactNode; totalCount: string }) => {
+const SearchBar = ({ children, totalCount }: { children?: ReactNode; totalCount: string | number }) => {
   return (
     <div className="searchBar">
       <section className="searchBar__topBar">
