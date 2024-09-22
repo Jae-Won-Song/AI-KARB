@@ -22,6 +22,10 @@ const SameAdResult = () => {
     setIsOpenDetail(false);
   };
 
+  const openDetail: React.MouseEventHandler<HTMLDivElement> = () => {
+    setIsOpenDetail(true);
+  };
+
   return (
     <main className="sameAdResult">
       <article className="sameAdResult__wrapperLeft">
@@ -76,9 +80,9 @@ const SameAdResult = () => {
           <div className="sameAdResult__wrapperRight_contents">
             <ReviewAdResult reviewNumber={4} detailSpan="동일 광고는 유사도 80% 이상의 광고만 간주합니다." />
             <div className="sameAdResult__wrapperRight_contents_resultBox">
-              <SameAdResultBox />
-              <SameAdResultBox />
-              <SameAdResultBox />
+              <SameAdResultBox onClick={openDetail} />
+              <SameAdResultBox onClick={openDetail} />
+              <SameAdResultBox onClick={openDetail} />
             </div>
           </div>
         )}
