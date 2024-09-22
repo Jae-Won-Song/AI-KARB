@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
-import SearchBar from '../../components/Common/SearchBar';
+import { useNavigate } from 'react-router-dom';
 import { fetchEmpList, fetchAdList, fetchManageTask } from '../../api/admin/adminApi';
+import SearchBar from '../../components/Common/SearchBar';
 import check from '../../assets/check-signup-request.svg';
 import Table from '../../components/Common/Table';
 import Button from '../../components/Common/Button';
 import Modal from '../../components/Common/Modal';
 import Spinner from '../../components/Common/Spinner';
+import Toast from '../../components/Common/Toast';
 
 interface AdList {
   adId: string;
@@ -19,6 +21,7 @@ interface EmpList {
   empNo: string;
   name: string;
   additionalTaskCount: number;
+  taskDistribution: number;
 }
 
 const ManageTask = () => {
@@ -29,7 +32,13 @@ const ManageTask = () => {
   const [currentCursorId, setCurrentCursorId] = useState<string | null>(null);
   const [adList, setAdList] = useState<AdList[]>([]);
   const [empList, setEmpList] = useState<EmpList[]>([]);
+  const [totalAd, setTotalAd] = useState(0);
+  const [totalFetchedAds, setTotalFetchedAds] = useState(0);
   const adWrapperRef = useRef<HTMLDivElement>(null);
+  const isFetchingRef = useRef(false);
+  const [allSelected, setAllSelected] = useState(false);
+  const navigate = useNavigate();
+  const [toast, setToast] = useState<{ mode: 'success' | 'failed'; title: string; content: string } | null>(null); // toast 상태 추가
 
   useEffect(() => {
     const getEmpList = async () => {
@@ -47,29 +56,47 @@ const ManageTask = () => {
     getEmpList();
   }, []);
 
-  const getAdList = async (cursorId: string | null) => {
+  const getAdList = async (currentCursorId: string | null) => {
+    if (isFetchingRef.current) return;
+    isFetchingRef.current = true;
+
     try {
-      const response = await fetchAdList(cursorId);
+      const response = await fetchAdList(currentCursorId);
+      const totalAdCount = response.data.data.totalElements;
+      setTotalAd(totalAdCount);
+
       if (response && response.data && response.data.data) {
         const { contents, currentCursorId: newCursorId } = response.data.data;
 
         const existingAdIds = new Set(adList.map((ad) => ad.adId));
-
         const newAds = contents.filter((ad: AdList) => !existingAdIds.has(ad.adId));
+
         if (newAds.length > 0) {
           setAdList((prevAdList) => [...prevAdList, ...newAds]);
+          setTotalFetchedAds((prevCount) => prevCount + newAds.length);
         }
 
         setCurrentCursorId(newCursorId);
       }
     } catch (error) {
       console.error('광고 조회 실패:', error);
+    } finally {
+      isFetchingRef.current = false;
     }
   };
 
   useEffect(() => {
     getAdList(null);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // useEffect(() => {
+  //   setToast({
+  //     mode: 'failed',
+  //     title: '작업 배분 실패',
+  //     content: '작업 배분 과정 중에 오류가 발생했습니다.',
+  //   });
+  // }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,7 +106,13 @@ const ManageTask = () => {
 
         const isScrolledToBottom = scrollHeight - scrollTop <= clientHeight + 50;
 
-        if (isScrolledToBottom && currentCursorId) {
+        const twelfthAdElement = adWrapper.children[11];
+        const twelfthAdRect = twelfthAdElement?.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+
+        const isTwelfthAdVisible = twelfthAdRect ? twelfthAdRect.top < viewportHeight * 0.6 : true;
+
+        if (isScrolledToBottom && currentCursorId && totalFetchedAds < totalAd && isTwelfthAdVisible) {
           getAdList(currentCursorId);
         }
       }
@@ -95,7 +128,17 @@ const ManageTask = () => {
         adWrapperElement.removeEventListener('scroll', handleScroll);
       }
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentCursorId, totalFetchedAds, totalAd]);
+
+  const handleSelectAll = () => {
+    if (allSelected) {
+      setSelectedWorkers([]);
+    } else {
+      setSelectedWorkers(empList.map((worker) => worker.empNo));
+    }
+    setAllSelected(!allSelected);
+  };
 
   const handleWorkerSelection = (workerId: string) => {
     setSelectedWorkers((prevSelectedWorkers) => {
@@ -104,23 +147,26 @@ const ManageTask = () => {
       }
       return [...prevSelectedWorkers, workerId];
     });
+    setAllSelected((prev) => prev && selectedWorkers.length === empList.length - 1);
   };
 
   const distributeTasks = () => {
-    if (selectedWorkers.length === 0) return;
+    if (selectedWorkers.length === 0 || adList.length === 0) return;
 
     setIsLoading(true);
 
     setTimeout(() => {
-      const tasksPerWorker = Math.floor(adList.length / selectedWorkers.length);
+      const totalTasks = adList.length;
+      const tasksPerWorker = Math.ceil(totalAd / selectedWorkers.length);
+      const remainingTasks = totalTasks % selectedWorkers.length;
+
       const taskDistribution = selectedWorkers.reduce(
-        (acc, workerId) => {
-          acc[workerId] = tasksPerWorker;
+        (acc, workerId, index) => {
+          acc[workerId] = tasksPerWorker + (index < remainingTasks ? 1 : 0);
           return acc;
         },
         {} as { [key: string]: number },
       );
-
       setDistributedTasks(taskDistribution);
       setIsLoading(false);
     }, 1000);
@@ -129,6 +175,7 @@ const ManageTask = () => {
   const resetSelection = () => {
     setSelectedWorkers([]);
     setDistributedTasks({});
+    setAllSelected(false);
   };
 
   const handleApply = () => {
@@ -148,17 +195,23 @@ const ManageTask = () => {
 
     try {
       await fetchManageTask(requestBody);
-      console.log('배분이 적용되었습니다:', requestBody);
+      console.log('배분 성공:', requestBody);
+      navigate('/admin/manage-task-done');
     } catch (error) {
-      console.error('배분 적용 실패:', error);
+      console.error('배분 실패:', error);
+      setToast({
+        mode: 'failed',
+        title: '작업 배분 실패',
+        content: '작업 배분 과정 중에 오류가 발생했습니다.',
+      });
+    } finally {
+      setIsModalOpen(false);
     }
-
-    setIsModalOpen(false);
   };
 
   return (
     <div className="manageTask-container">
-      <SearchBar totalCount={adList.length}>
+      <SearchBar totalCount={totalAd}>
         <div className="manageTask-select-wrapper">
           총 {empList.length}명<div className="manageTask-select-wrapper__slash">/</div>
           <div className="manageTask-select-wrapper__selectPeople">{selectedWorkers.length}명 선택</div>
@@ -198,7 +251,11 @@ const ManageTask = () => {
             columns={[
               {
                 name: '체크박스',
-                img: <img src={check} alt="체크박스" />,
+                img: (
+                  <div onClick={handleSelectAll}>
+                    <img src={check} alt="체크박스" style={{ cursor: 'pointer' }} />
+                  </div>
+                ),
                 width: '60px',
                 columnHeight: '60px',
                 rowHeight: '64px',
@@ -222,19 +279,27 @@ const ManageTask = () => {
             }))}
           />
         </div>
-        {isModalOpen && (
-          <Modal
-            title="배분 적용"
-            content="이대로 작업 배분을 진행하시겠습니까?"
-            btnContentOne="취소"
-            btnContentTwo="확인"
-            add="blue"
-            mode="default"
-            onClickOne={() => setIsModalOpen(false)}
-            onClickTwo={applyDistribution}
-          />
-        )}
       </div>
+      {isModalOpen && (
+        <Modal
+          title="배분 적용"
+          content="이대로 작업 배분을 진행하시겠습니까?"
+          btnContentOne="취소"
+          btnContentTwo="확인"
+          add="blue"
+          mode="default"
+          onClickOne={() => setIsModalOpen(false)}
+          onClickTwo={applyDistribution}
+        />
+      )}
+      {toast && (
+        <Toast
+          mode={toast.mode === 'success' ? 'blue' : 'red'}
+          title={toast.title}
+          content={toast.content}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 };

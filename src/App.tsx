@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadUserFromLocalStorage } from './redux/authSlice';
 import { RootState } from './redux/authStore';
 import ErrorPages from './pages/ErrorPages';
+import ManageTaskDone from './pages/ManageEmp/ManageTaskDone';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -54,8 +55,8 @@ const App = () => {
                 <Route path="/dashboard/admin" element={<AdminDashBoard />} />
                 <Route path="admin/manage-emp" element={<ManageEmp />} />
                 <Route path="/employee/:employeeId" element={<ManageEmpDetail />} />
-                <Route path="admin/manage-task" element={<ManageTask />} />
-                <Route path="/admin/manage-user" element={<ManageUser />} />
+                <Route path="/admin/manage-task" element={<ManageTask />} />
+                <Route path="/admin/manage-task-done" element={<ManageTaskDone />} />
                 <Route path="/mypage" element={<Mypage />} />
                 <Route path="/admin/approve-user" element={<SignUpRequest />} />
                 <Route path="/my-task" element={<MyTasks />} />
