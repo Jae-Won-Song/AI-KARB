@@ -6,7 +6,7 @@ import Filter from '../../components/Common/Filter';
 import Calendar from '../../components/Common/Calendar';
 import ReviewTag from '../../components/Common/ReviewTag';
 import { useEffect, useState } from 'react';
-import { fetchLoadSameAdList } from '../../api/sameAd/sameAdApi';
+import { fetchLoadSameAdList, fetchLoadSameAdResult } from '../../api/sameAd/sameAdApi';
 import { useNavigate } from 'react-router-dom';
 
 type Advertisement = {
@@ -30,9 +30,9 @@ const SameAd = () => {
 
   useEffect(() => {
     const payload = {
-      cursorId: '202409A00001',
+      cursorId: '202409N00001',
       keyword: null,
-      period: '2024-09-1',
+      period: '2024-09-2',
       same: true,
       media: [],
       category: [],
@@ -51,8 +51,19 @@ const SameAd = () => {
       });
   }, []);
 
-  const handleRowClick = (advertisementId: string) => {
-    navigate('/same-ad/result');
+  const handleRowClick = () => {
+    const inspectionAdvertisementId = '202409N01370';
+    fetchLoadSameAdResult({ inspectionAdvertisementId })
+      .then((response) => {
+        const adDetails = response.data.data;
+        if (response.data.code === 3701) {
+          console.log('동일광고 유사율 조회', response);
+          navigate('/same-ad/result/', { state: { adDetails } });
+        }
+      })
+      .catch((error) => {
+        console.error('동일광고 유사율 조회 실패', error);
+      });
   };
 
   return (
