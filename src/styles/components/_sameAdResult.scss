@@ -10,7 +10,11 @@
   &__wrapperLeft {
     width: 50%;
     height: 100vh;
-    padding: 18px 0 0 27px;
+    padding: 1.667vh 0 0 1.406vw;
+
+    &_arrow {
+      background-color: white;
+    }
 
     &_contents {
       width: 39.583vw;
@@ -22,6 +26,8 @@
         padding: 1.852vh 1.042vw;
         margin-top: 2.778vh;
         border: 2px solid $secondary-5;
+
+        @include text-style(17, $grayscale-90, 400);
 
         overflow-y: auto;
       }
