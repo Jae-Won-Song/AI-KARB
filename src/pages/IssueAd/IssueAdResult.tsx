@@ -9,7 +9,12 @@ import arrowUp from '../../assets/arrow-up.svg';
 import iconPlus from '../../assets/icon-plus.svg';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { fetchLoadIssueDecision, fetchLoadIssueProvision, postSaveNewIssueTask } from '../../api/issueAd/issueAdApi';
+import {
+  fetchLoadIssueDecision,
+  fetchLoadIssueProvision,
+  postSaveIssueDecision,
+  postSaveNewIssueTask,
+} from '../../api/issueAd/issueAdApi';
 
 type IssuedReasonType = {
   contentNumber: number;
@@ -91,6 +96,7 @@ const IssueAdResult = () => {
 
     fetchLoadIssueDecision()
       .then((response) => {
+        console.log('심의결정 리스트', response);
         setIssueDecisionData(response.data.data.decisionList);
       })
       .catch((error) => {
@@ -203,6 +209,7 @@ const IssueAdResult = () => {
     setIssuedReasons(updatedReasons);
   };
 
+  // 임시저장
   const clickTemporarySaveBtn = () => {
     console.log('payload로 들어갈 issuedReasons', newIssuedReasons);
 
@@ -233,6 +240,28 @@ const IssueAdResult = () => {
       })
       .catch((error) => {
         console.error('검토 의견 추가 실패', error);
+      });
+  };
+
+  // 심의 결정 완료
+  const saveIssueDecision = () => {
+    if (selectedItem === null) {
+      return;
+    }
+
+    const payload = {
+      advertisementId: adDetails?.id,
+      decisionId: issueDecisionData[selectedItem].id,
+    };
+
+    console.log('payload', payload);
+
+    postSaveIssueDecision(payload)
+      .then((response) => {
+        console.log('심의 결정 완료', response);
+      })
+      .catch((error) => {
+        console.log('심의 결정 완료 실패', error);
       });
   };
 
@@ -454,9 +483,7 @@ const IssueAdResult = () => {
                 width="8.333vw"
                 height="4.444vh"
                 fontSize="0.781vw"
-                onClick={() => {
-                  setIsModalOpen(false);
-                }}>
+                onClick={saveIssueDecision}>
                 확인
               </Button>
             </div>
