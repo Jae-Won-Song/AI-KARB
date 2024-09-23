@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import fetchDashBoardData from '../../api/dashboard/dashboardApi';
+import { fetchDashBoardData, fetchAdminDashBoardData } from '../../api/dashboard/dashboardApi';
 import targetIcon from '../../assets/icon-target.svg';
 import caseIcon from '../../assets/icon-case.svg';
 import adminCase from '../../assets/case-admin.svg';
@@ -10,17 +10,18 @@ import rightArrow from '../../assets/chevron-right.svg';
 import { getCurrentCycleDays, getDeadline } from './DashBoardDate';
 
 const TaskSummary = () => {
+  // 전체 대시보드
   const [adCount, setAdCount] = useState({});
-  const [myAdData, setMyAdData] = useState(0); // 내 작업 건수
-  const [myDoneAdData, setMyDoneAdData] = useState(0); // 내 완료된 작업
-  const [myNotDoneAdData, setMyNotDoneAdData] = useState(0); // 내 완료되지 않은 작업
-  const [totalAdData, setTotalAdData] = useState(0); // 회사가 보유한 총 광고수
-  const [totalDoneAdData, setTotalDoneAdData] = useState(0); // 전체 광고 중 완료건
-  const [totalNotDoneAdData, setTotalNotDoneAdData] = useState(0); // 전체 광고 중 미완료건
-  const [dailyDoneListData, setDailyDoneListData] = useState([]); // 오늘 검수 완료한 건
-  const [recentDoneListData, setRecentDoneListData] = useState([]); // 최근 완료 건
-  const [averageTaskCount, setAverageTaskCount] = useState(0); // 일일 평균 작업량
-  const [recommendedTaskCount, setRecommendedTaskCount] = useState(0); // 하루 권장 작업량
+  const [myAdData, setMyAdData] = useState(0);
+  const [myDoneAdData, setMyDoneAdData] = useState(0);
+  const [myNotDoneAdData, setMyNotDoneAdData] = useState(0);
+  const [totalAdData, setTotalAdData] = useState(0);
+  const [totalDoneAdData, setTotalDoneAdData] = useState(0);
+  const [totalNotDoneAdData, setTotalNotDoneAdData] = useState(0);
+  const [dailyDoneListData, setDailyDoneListData] = useState([]);
+  const [recentDoneListData, setRecentDoneListData] = useState([]);
+  const [averageTaskCount, setAverageTaskCount] = useState(0);
+  const [recommendedTaskCount, setRecommendedTaskCount] = useState(0);
 
   const location = useLocation();
   const isAdminRoute = location.pathname === '/dashboard/admin';
@@ -60,6 +61,26 @@ const TaskSummary = () => {
       });
   }, []);
 
+  // 관리자 대시보드
+  const [notApprovedUser, setNotApprovedUser] = useState();
+  const [remainingAd, setRemainingAd] = useState();
+
+  useEffect(() => {
+    fetchAdminDashBoardData()
+      .then((response) => {
+        const adminData = response.data.data;
+        // 관리자 전체 데이터 콘솔
+        console.log(adminData);
+        const notApproveUser = adminData.adminTimeline.notApprovedUser;
+        const remainingAdData = adminData.adminTimeline.remainingAd;
+        setRemainingAd(remainingAdData);
+        setNotApprovedUser(notApproveUser);
+      })
+      .catch((error) => {
+        console.error('관리자 데이터 조회 실패:', error);
+      });
+  }, []);
+
   const movemanageTask = () => {
     navigate('/admin/manage-task');
   };
@@ -85,7 +106,7 @@ const TaskSummary = () => {
                 작업 미배분량
                 <img src={rightArrow} alt="작업배분관리 바로가기" />
               </div>
-              <div className="task-wrapper__info__subtitle">{totalNotDoneAdData}건</div>
+              <div className="task-wrapper__info__subtitle">{remainingAd}건</div>
             </div>
             <img src={adminCase} alt="adminCaseIcon" />
           </div>
@@ -95,7 +116,7 @@ const TaskSummary = () => {
                 가입 미승인 회원
                 <img src={rightArrow} alt="가입 요청 관리 바로가기" />
               </div>
-              <div className="task-wrapper__info__subtitle">5명</div>
+              <div className="task-wrapper__info__subtitle">{notApprovedUser}건</div>
             </div>
             <img src={userIcon} alt="userIcon" />
           </div>

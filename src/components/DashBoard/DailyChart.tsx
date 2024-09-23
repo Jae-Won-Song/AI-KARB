@@ -16,6 +16,26 @@ const formatDate = (dateString: string) => {
   return `${month}.${day}`;
 };
 
+const getCurrentCycle = (): { cycle: string; startDate: string; endDate: string } => {
+  const date = new Date();
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  if (day <= 15) {
+    return {
+      cycle: `${month}월 1차`,
+      startDate: `${year}-${month}-01`,
+      endDate: `${year}-${month}-15`,
+    };
+  }
+  return {
+    cycle: `${month}월 2차`,
+    startDate: `${year}-${month}-16`,
+    endDate: `${year}-${month}-${new Date(year, month, 0).getDate()}`,
+  };
+};
+
 const CustomTooltip = ({ point }: ToolTipProps) => {
   const formattedDate =
     typeof point.data.xFormatted === 'string' ? point.data.xFormatted : point.data.xFormatted.toString();
@@ -32,11 +52,14 @@ const CustomTooltip = ({ point }: ToolTipProps) => {
 };
 
 const DailyChart = ({ data }: ChartProps) => {
+  // 현재 차수 및 날짜 가져오기
+  const { cycle, startDate, endDate } = getCurrentCycle();
+
   return (
     <section className="daily-chart">
       <div className="daily-chart__wrapper">
         <div className="daily-chart__title">일별 작업량</div>
-        <div className="daily-chart__date">9월 2차 (2024-09-15 ~ 2024-09-30)</div>
+        <div className="daily-chart__date">{`${cycle} (${startDate} ~ ${endDate})`}</div>
       </div>
       <ResponsiveLine
         data={data}

@@ -40,6 +40,8 @@ const Header = () => {
         return '작업자 관리';
       case '/admin/manage-task':
         return '작업 배분 관리';
+      case `/employee/'작업자아이디'`:
+        return `'작업자명'`;
       default:
         return '404Page...';
     }

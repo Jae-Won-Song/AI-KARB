@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import Table from '../../components/Common/Table';
 import SearchBar from '../../components/Common/SearchBar';
 import Filter from '../../components/Common/Filter';

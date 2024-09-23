@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import fetchDashBoardData from '../../api/dashboard/dashboardApi';
+import { fetchDashBoardData } from '../../api/dashboard/dashboardApi';
 import { getDeadline } from './DashBoardDate';
 import rateDone from '../../assets/rate-done.svg';
 import rateNotDone from '../../assets/rate-notdone.svg';

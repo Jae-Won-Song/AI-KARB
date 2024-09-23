@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import fetchDashBoardData from '../../api/dashboard/dashboardApi';
+import { fetchDashBoardData } from '../../api/dashboard/dashboardApi';
 import ProgressBar from '../ProgressBar';
 import myrate from '../../assets/icon-my-rate.svg';
 import allrate from '../../assets/icon-all-rate.svg';
@@ -12,7 +12,7 @@ const TaskRate = () => {
 
   useEffect(() => {
     fetchDashBoardData()
-      .then((response) => {
+      .then((response: { data: { data: { adCount: any } } }) => {
         const adCountData = response.data.data.adCount;
         setMyAdData(adCountData.myAd);
         setMyDoneAdData(adCountData.myDoneAd);

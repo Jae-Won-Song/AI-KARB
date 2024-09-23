@@ -38,7 +38,7 @@ const ManageTask = () => {
   const isFetchingRef = useRef(false);
   const [allSelected, setAllSelected] = useState(false);
   const navigate = useNavigate();
-  const [toast, setToast] = useState<{ mode: 'success' | 'failed'; title: string; content: string } | null>(null); // toast 상태 추가
+  const [toast, setToast] = useState<{ mode: 'success' | 'failed'; title: string; content: string } | null>(null);
 
   useEffect(() => {
     const getEmpList = async () => {
@@ -89,14 +89,6 @@ const ManageTask = () => {
     getAdList(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // useEffect(() => {
-  //   setToast({
-  //     mode: 'failed',
-  //     title: '작업 배분 실패',
-  //     content: '작업 배분 과정 중에 오류가 발생했습니다.',
-  //   });
-  // }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -151,18 +143,23 @@ const ManageTask = () => {
   };
 
   const distributeTasks = () => {
-    if (selectedWorkers.length === 0 || adList.length === 0) return;
+    if (selectedWorkers.length === 0 || totalAd === 0) return;
 
     setIsLoading(true);
 
     setTimeout(() => {
-      const totalTasks = adList.length;
-      const tasksPerWorker = Math.ceil(totalAd / selectedWorkers.length);
-      const remainingTasks = totalTasks % selectedWorkers.length;
+      const totalTasks = totalAd;
+      const tasksPerWorker = Math.floor(totalTasks / selectedWorkers.length);
+      let remainingTasks = totalTasks % selectedWorkers.length;
 
       const taskDistribution = selectedWorkers.reduce(
         (acc, workerId, index) => {
-          acc[workerId] = tasksPerWorker + (index < remainingTasks ? 1 : 0);
+          acc[workerId] = tasksPerWorker;
+
+          if (remainingTasks > 0) {
+            acc[workerId] += 1;
+            remainingTasks -= 1;
+          }
           return acc;
         },
         {} as { [key: string]: number },
@@ -171,7 +168,6 @@ const ManageTask = () => {
       setIsLoading(false);
     }, 1000);
   };
-
   const resetSelection = () => {
     setSelectedWorkers([]);
     setDistributedTasks({});

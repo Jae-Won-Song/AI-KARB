@@ -3,9 +3,7 @@ import DashBoardDate from '../../components/DashBoard/DashBoardDate';
 import TaskSummary from '../../components/DashBoard/TaskSummary';
 import TaskRateAdmin from '../../components/DashBoard/TaskRateAdmin';
 import DailyTaskChartAdmin from '../../components/DashBoard/DailyTaskChartAdmin';
-import admindata from '../../../admindata.json';
 import data from '../../../comparedata.json';
-import workerRateData from '../../../workerRateData.json';
 import DailyChartAdmin from '../../components/DashBoard/DailyChartAdmin';
 import WorkRateAdmin from '../../components/DashBoard/WorkerRateAdmin';
 
@@ -32,14 +30,14 @@ const AdminDashBoard = () => {
           </div>
         </div>
         <div>
-          <DailyTaskChartAdmin data={admindata} />
+          <DailyTaskChartAdmin />
         </div>
       </div>
       <div style={{ display: 'flex', marginLeft: '29px' }}>
         <div>
-          <DailyChartAdmin data={data} />
+          <DailyChartAdmin />
         </div>
-        <WorkRateAdmin data={workerRateData} />
+        <WorkRateAdmin />
       </div>
     </div>
   );

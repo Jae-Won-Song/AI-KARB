@@ -24,11 +24,9 @@ export const getCurrentCycleDays = () => {
 
   const lastDay = getLastDay(year, month);
   if (currentDate <= 14) {
-    // 1차
-    return currentDate;
+    return currentDate; // 1차
   }
-  // 2차
-  return currentDate - 14;
+  return currentDate - 14; // 2차
 };
 
 export const getDeadline = (day = getDate()) => {
