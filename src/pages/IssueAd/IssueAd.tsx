@@ -56,22 +56,23 @@ const IssueAd = () => {
       });
   }, []);
 
-  const handleRowClick = (advertisementId: string) => {
-    fetchLoadIssueAdDetail({ advertisementId })
-      .then((response) => {
-        const adDetails = response.data.data;
-        if (response.data.code === 3400) {
-          navigate('/issue-ad/result/', { state: { adDetails } });
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const handleRowClick = (advertisementId: string | undefined | number) => {
+    if (typeof advertisementId === 'string') {
+      fetchLoadIssueAdDetail({ advertisementId })
+        .then((response) => {
+          const adDetails = response.data.data;
+          if (response.data.code === 3400) {
+            navigate('/issue-ad/result/', { state: { adDetails } });
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
-
   return (
     <main className="issueAd">
-      <SearchBar totalCount={1079}>
+      <SearchBar totalCount={issueAdData?.totalElements || 0}>
         <SearchInput placeholder="검색어를 2글자 이상 입력해주세요" onChange={() => {}} />
         <TagFilter tag1="전체" tag2="지적" tag3="비지적" />
         <TagFilter tag1="전체" tag2="검수전" tag3="검수완료" />

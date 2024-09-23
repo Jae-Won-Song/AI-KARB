@@ -59,6 +59,7 @@ const App = () => {
                 <Route path="/admin/manage-task-done" element={<ManageTaskDone />} />
                 <Route path="/mypage" element={<Mypage />} />
                 <Route path="/admin/approve-user" element={<SignUpRequest />} />
+                <Route path="/admin/manage-user" element={<ManageUser />} />
                 <Route path="/my-task" element={<MyTasks />} />
                 <Route path="/same-ad" element={<SameAd />} />
                 <Route path="/same-ad/result" element={<SameAdResult />} />

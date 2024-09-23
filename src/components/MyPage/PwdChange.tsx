@@ -163,7 +163,13 @@ const PwdChange = () => {
           </div>
         </div>
         <div className="mypage__container__form__btn">
-          <Button onClick={submitEditPwd} type="button" state="default" width="91px" height="41px">
+          <Button
+            onClick={submitEditPwd}
+            type="button"
+            state="default"
+            width="4.74vw"
+            height="3.796vh"
+            fontSize="0.781vw">
             수정하기
           </Button>
           {toastMessage && (

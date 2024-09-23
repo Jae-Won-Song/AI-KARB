@@ -225,13 +225,14 @@ const EditProfileForm = () => {
               <Input
                 isError={checkNewPhoneNum}
                 errorMessage={phoneNumberErrorMessage}
-                placeholder="연락처임"
+                placeholder="연락처 ('-'을 제외한 숫자만 입력) "
                 size="small"
                 value={newPhoneNum}
                 onChange={updatePhoneNum}
               />
               <div className="mypage__container__form__info-box-content-box__gap" />
               <Button
+                fontSize="0.781vw"
                 onClick={() => {
                   requestCertNo();
                   handleResendCert();
@@ -263,6 +264,9 @@ const EditProfileForm = () => {
                 />
                 <div className="mypage__container__form__info-box-content-box__gap" />
                 <Button
+                  fontSize="0.781vw"
+                  width="4.74vw"
+                  height="3.704vh"
                   onClick={() => {
                     checkCertBtn();
                   }}
@@ -289,13 +293,13 @@ const EditProfileForm = () => {
               value={newEmail}
               isError={checkErrorEmail}
               errorMessage={emailErrorMessage}
-              placeholder="이메일임"
+              placeholder="이메일"
               onChange={updateEmail}
             />
           </div>
         </div>
         <div className="mypage__container__form__btn">
-          <Button onClick={editInfo} type="button" state="default" width="91px" height="41px">
+          <Button onClick={editInfo} type="button" state="default" width="4.74vw" height="3.796vh" fontSize="0.781vw">
             수정하기
           </Button>
           {toastMessage && (
