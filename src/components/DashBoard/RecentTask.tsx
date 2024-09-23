@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import fetchDashBoardData from '../../api/dashboard/dashboardApi';
+import { fetchDashBoardData } from '../../api/dashboard/dashboardApi';
 import Table from '../Common/Table';
 import rightArrow from '../../assets/chevron-right.svg';
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import fetchDashBoardData from '../../api/dashboard/dashboardApi';
+import { fetchDashBoardData } from '../../api/dashboard/dashboardApi';
 import allTask from '../../assets/all-task.png';
 import notDone from '../../assets/not-done-task.png';
 import doneTask from '../../assets/done-task.png';

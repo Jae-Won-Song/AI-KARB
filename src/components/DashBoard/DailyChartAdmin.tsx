@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ResponsiveLine } from '@nivo/line';
+import { fetchAdminDashBoardData } from '../../api/dashboard/dashboardApi';
 import worker from '../../assets/Rectangle 34624667.svg';
 import compare from '../../assets/Rectangle 34624668.svg';
 import arrowDown from '../../assets/arrow-down.svg';
@@ -9,15 +10,50 @@ interface DataSet {
   data: Array<{ x: string | number | Date; y: number }>;
 }
 
-interface ChartProps {
-  data: DataSet[];
-}
+const getCurrentCycle = (): { cycle: string; startDate: string; endDate: string } => {
+  const date = new Date();
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
 
-const DailyChartAdmin = ({ data }: ChartProps) => {
-  const baselineData = data.find((d) => d.id === 'baseline');
+  if (day <= 15) {
+    return {
+      cycle: `${month}월 1차`,
+      startDate: `${year}-${month}-01`,
+      endDate: `${year}-${month}-15`,
+    };
+  }
+  return {
+    cycle: `${month}월 2차`,
+    startDate: `${year}-${month}-16`,
+    endDate: `${year}-${month}-${new Date(year, month, 0).getDate()}`,
+  };
+};
+
+const DailyChartAdmin = () => {
+  const [data, setData] = useState<DataSet[]>([]);
   const [selectedPerson, setSelectedPerson] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const { cycle, startDate, endDate } = getCurrentCycle();
+
+  useEffect(() => {
+    fetchAdminDashBoardData().then((response) => {
+      const avgData = response.data.data.dailyAvgDoneList;
+      const formattedData = [
+        {
+          id: 'baseline',
+          data: avgData.map((item: { date: string; avgDoneAd: number }) => ({
+            x: item.date,
+            y: item.avgDoneAd,
+          })),
+        },
+      ];
+      setData(formattedData);
+    });
+  }, []);
+
+  const baselineData = data.find((d) => d.id === 'baseline');
   const personData = data.find((d) => d.id === selectedPerson);
 
   const handlePersonChange = (id: string | null) => {
@@ -30,14 +66,13 @@ const DailyChartAdmin = ({ data }: ChartProps) => {
   };
 
   const chartData = [baselineData, personData].filter((d): d is DataSet => d !== undefined);
-  const colors = selectedPerson ? ['#83C5C1', '#006597'] : ['#83C5C1'];
 
   return (
     <section className="daily-chartAdmin">
       <div className="daily-chartAdmin__wrapper">
         <div className="daily-chartAdmin__title">일별 작업량</div>
         <div className="daily-chartAdmin__date">
-          8월 1차 (2024-08-01 ~ 2024-08-15)
+          {`${cycle} (${startDate} ~ ${endDate})`}
           <div className="daily-chartAdmin__date__legend">
             <div className="dropdown-wrapper">
               <img src={worker} alt="비교 할 작업자" />
@@ -81,38 +116,31 @@ const DailyChartAdmin = ({ data }: ChartProps) => {
         margin={{ top: 70, right: 30, bottom: 70, left: 30 }}
         gridXValues={[]}
         pointLabel="data.yFormatted"
-        enableArea
-        areaOpacity={0.1}
-        colors={colors}
+        enableArea={selectedPerson !== null}
+        areaOpacity={0.05}
+        colors={({ id }) => (id === selectedPerson ? '#006597' : '#83C5C1')}
         pointSize={0}
         axisLeft={{
           tickValues: [50, 100, 200],
         }}
-        defs={
-          selectedPerson
-            ? [
-                {
-                  id: 'gradient',
-                  type: 'linearGradient',
-                  colors: [
-                    { offset: 0, color: '#37bffd' },
-                    { offset: 100, color: '#b5d5e4' },
-                  ],
-                },
-              ]
-            : []
-        }
-        fill={
-          selectedPerson
-            ? [
-                {
-                  match: '*',
-                  id: 'gradient',
-                },
-              ]
-            : []
-        }
         useMesh
+        tooltip={({ point }) => {
+          const date = new Date(point.data.x as string);
+          const formattedDate = `${date.getMonth() + 1}. ${date.getDate()}`;
+
+          return (
+            <div
+              style={{
+                background: 'white',
+                padding: '9px 12px',
+                border: '1px solid #ccc',
+              }}>
+              <strong>{formattedDate}</strong> <br />
+              {Math.round(point.data.y as number)}건
+            </div>
+          );
+        }}
+        fill={selectedPerson ? [{ match: { id: selectedPerson }, id: 'gradientA' }] : []}
       />
     </section>
   );

@@ -1,8 +1,9 @@
 import { ResponsiveBar, BarDatum, ComputedDatum } from '@nivo/bar';
-import { useState, createElement, MouseEvent, useCallback, useMemo } from 'react';
+import { useState, useEffect, createElement, MouseEvent, useCallback, useMemo } from 'react';
 import { animated, to } from '@react-spring/web';
 import { useTheme } from '@nivo/core';
 import { useTooltip } from '@nivo/tooltip';
+import { fetchAdminDashBoardData } from '../../api/dashboard/dashboardApi';
 
 interface CustomBarDatum extends BarDatum {
   name: string;
@@ -11,9 +12,8 @@ interface CustomBarDatum extends BarDatum {
   totalWork: number;
 }
 
-const BarItem = <RawDatum extends BarDatum>({
+const BarItem = ({
   bar: { data, ...bar },
-
   style: { borderColor, height, labelColor, labelOpacity, labelX, labelY, transform, width },
 
   borderRadius,
@@ -120,24 +120,45 @@ const BarItem = <RawDatum extends BarDatum>({
   );
 };
 
-interface ChartProps {
-  data: CustomBarDatum[];
-}
+const WorkRateAdmin = () => {
+  const [workerList, setWorkerList] = useState<CustomBarDatum[]>([]);
 
-const WorkRateAdmin = ({ data }: ChartProps) => {
-  const [selectedBar, setSelectedBar] = useState<{ name: string; progress: number } | null>(null);
+  useEffect(() => {
+    fetchAdminDashBoardData()
+      .then((response) => {
+        const { data } = response.data;
 
-  const CustomTooltip = ({ id, value, data }: ComputedDatum<CustomBarDatum>) => (
+        if (data && data.personalTaskList) {
+          const workerData = data.personalTaskList;
+
+          if (Array.isArray(workerData)) {
+            const formattedData = workerData.map((worker) => ({
+              name: worker.userName,
+              progress: worker.doneAd,
+              totalWork: worker.totalAd,
+              color: worker.userName === '-' ? '#ccc' : '#006597',
+            }));
+            setWorkerList(formattedData);
+          }
+        }
+      })
+      .catch((error) => {
+        console.error('데이터 조회 에러:', error);
+      });
+  }, []);
+  console.log('workerList:', workerList);
+
+  const CustomTooltip = ({ data }: ComputedDatum<CustomBarDatum>) => (
     <div
       style={{
         padding: 12,
         color: data.color ?? '#ccc',
-        background: '#fff',
+        background: '$white',
         border: '1px solid #ccc',
         borderRadius: '8px',
       }}>
       <strong>
-        {value} / {data.totalWork ?? '0'}건
+        {data.progress} / {data.totalWork ?? '0'}건
       </strong>
     </div>
   );
@@ -147,13 +168,13 @@ const WorkRateAdmin = ({ data }: ChartProps) => {
       <div className="workRateWrapper__title">작업자별 진행률</div>
       <div style={{ width: '23.229vw', height: '39.815vh' }}>
         <ResponsiveBar
-          data={data}
+          data={workerList}
           keys={['progress']}
           indexBy="name"
           margin={{ top: 10, right: 22, bottom: 30, left: 60 }}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
-          padding={0.7}
+          padding={0.85}
           layout="horizontal"
           borderColor={{
             from: 'color',
