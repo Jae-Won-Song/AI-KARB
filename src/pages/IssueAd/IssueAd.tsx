@@ -7,7 +7,7 @@ import Calendar from '../../components/Common/Calendar';
 import ReviewTag from '../../components/Common/ReviewTag';
 import { useNavigate } from 'react-router-dom';
 import { fetchLoadIssueAdDetail, fetchLoadIssueAdList } from '../../api/issueAd/issueAdApi';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 type Advertisement = {
   adId: string;
@@ -27,34 +27,100 @@ type IssueAdList = {
 
 const IssueAd = () => {
   const [issueAdData, setIssueAdData] = useState<IssueAdList | null>(null);
+  const [cursorState, setCursorState] = useState(false);
+  const [cursorId, setCursorId] = useState<string | null>('N00000');
+  const [isFetching, setIsFetching] = useState(false);
+  const [isMoreData, setIsMoreData] = useState(true);
+  const observerRef = useRef<HTMLDivElement | null>(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (cursorId && !isFetching && isMoreData) {
+      loadMoreData(cursorId);
+    }
+
+    console.log(isMoreData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cursorId]);
+
+  const loadMoreData = (currentCursorId: string) => {
+    setIsFetching(true);
+
     const payload = {
       cursorInfo: {
-        cursorState: true,
-        cursorId: 'A00001',
+        // eslint-disable-next-line object-shorthand
+        cursorState: cursorState,
+        cursorId: currentCursorId,
       },
-      keyword: null,
-      period: '2024-09-1',
-      state: null,
-      issue: null,
-      media: [],
-      category: [],
     };
 
     fetchLoadIssueAdList(payload)
       .then((response) => {
         if (response.data.code === 3405) {
-          console.log('지적광고 리스트', response);
-          setIssueAdData(response.data.data);
+          console.log('지적', response);
+
+          const newAds = response.data.data.advertisementList;
+
+          console.log('newAds', newAds);
+
+          setIssueAdData((prevData) => ({
+            totalElements: response.data.data.totalElements,
+            advertisementList: [
+              ...(prevData?.advertisementList || []),
+              ...newAds.filter((ad) => !prevData?.advertisementList.some((prevAd) => prevAd.adId === ad.adId)),
+            ],
+          }));
+
+          const newCursorId = response.data.data.cursorInfo.cursorId;
+          setCursorState(response.data.data.cursorInfo.cursorState);
+          setCursorId(newCursorId);
+
+          if (newAds.length < 12) {
+            setIsMoreData(false);
+          }
         }
       })
+      .finally(() => {
+        setIsFetching(false);
+      })
       .catch((error) => {
-        console.error('지적광로 리스트 조회 요청 실패', error);
+        console.error('지적광고 리스트 조회 요청 실패', error);
+        setIsFetching(false);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    console.log('cursorId', cursorId);
+  });
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting && !isFetching && isMoreData) {
+          loadMoreData(cursorId);
+        }
+      },
+      {
+        root: null,
+        // rootMargin: '0px',
+        threshold: 0.1,
+      },
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        observer.unobserve(observerRef.current);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFetching, isMoreData, cursorId]);
 
   const handleRowClick = (advertisementId: string | undefined | number) => {
     if (typeof advertisementId === 'string') {
@@ -122,6 +188,7 @@ const IssueAd = () => {
         }
         onRowClick={(row) => handleRowClick(row.고유번호)}
       />
+      <div ref={observerRef} style={{ height: '1px', marginTop: '150vh' }} />
     </main>
   );
 };
