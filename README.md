@@ -7,6 +7,9 @@
 <br>
 
 <div align=center>
+  <div>test계정</div>
+  <div>ID : admin</div>
+  <div>PW : aaaaaaa1</div>
   <a href="https://ai-kars.netlify.app" target="_blank">
     <img src="https://img.shields.io/badge/Try It!-006597?style=for-the-badge&logoColor=white" alt="example"/>
   </a>
